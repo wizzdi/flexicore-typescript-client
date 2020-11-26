@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wizzdi/flexicore-typescript-client"
+    "url": "https://github.com/wizzdi/flexicore-typescript-client.git"
   },
   "keywords": [
     "FlexiCore",
