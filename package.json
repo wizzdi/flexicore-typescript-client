@@ -11,11 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Heniland/typescript-boilerplate.git"
+    "url": "https://github.com/wizzdi/flexicore-typescript-client"
   },
   "keywords": [
-    "typescript",
-    "FC"
+    "FlexiCore",
+    "wizzdi"
   ],
   "author": "Asaf Ben Natan",
   "license": "MIT",
@@ -31,9 +31,6 @@
     "ts-node": "^3.3.0",
     "typescript": "^2.5.3",
     "zone.js": "^0.8.18"
-  },
-  "publishConfig": {
-    "registry": "http://138.201.191.203:4873"
   },
   "dependencies": {
     "spark-md5": "^3.0.1"
