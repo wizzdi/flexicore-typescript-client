@@ -19,7 +19,6 @@ import { RoleToUser } from './roleToUser';
 import { SecurityLink } from './securityLink';
 import { Tenant } from './tenant';
 import { TenantToUser } from './tenantToUser';
-import { UserClass } from './userClass';
 import { UserToBaseClass } from './userToBaseClass';
 import { Baseclass } from './baseclass';
 

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { StackTraceElement } from './stackTraceElement';
-import { Throwable } from './throwable';
 export interface Throwable {
     cause?: Throwable;
     stackTrace?: Array<StackTraceElement>;

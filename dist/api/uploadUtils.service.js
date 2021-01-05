@@ -63,7 +63,9 @@ let UploadUtilsService = class UploadUtilsService {
                 const response = yield this.uploadService.uploadFileWithChunkMd5(authenticationKey, md5, name, chunkMD5String, lastChunk, chunk, extraHttpRequestParams).toPromise();
                 // sending progress via callback
                 const progress = Math.round((response.offset / file.size) * 100);
-                onProgress(progress + '%');
+                if (onProgress) {
+                    onProgress(progress + '%');
+                }
                 if (lastChunk) {
                     // if file is uploaded completely, return the complete fileResource
                     return response;

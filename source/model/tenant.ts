@@ -11,7 +11,6 @@
  */
 
 import { Baseclass } from './baseclass';
-import { Tenant } from './tenant';
 import { TenantToBaseClassPremission } from './tenantToBaseClassPremission';
 import { FileResource } from './fileResource';
 

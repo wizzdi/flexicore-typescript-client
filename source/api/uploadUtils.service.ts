@@ -16,7 +16,7 @@ export class UploadUtilsService {
     constructor(private uploadService: UploadService) {
     }
 
-    public upload(authenticationKey: string, body: Upload, onProgress: (progress: any) => void, extraHttpRequestParams?: any): Observable<FileResource> {
+    public upload(authenticationKey: string, body: Upload, onProgress?: (progress: any) => void, extraHttpRequestParams?: any): Observable<FileResource> {
         return Observable.defer(async () => {
             let {file, name, chunkSize, chunkMd5} = body;
             let chunkMD5String;
@@ -71,7 +71,10 @@ export class UploadUtilsService {
                 // sending progress via callback
 
                 const progress = Math.round((response.offset / file.size) * 100);
-                onProgress(progress + '%');
+                
+                if (onProgress) {
+                    onProgress(progress + '%');
+                }
 
                 if (lastChunk) {
                     // if file is uploaded completely, return the complete fileResource

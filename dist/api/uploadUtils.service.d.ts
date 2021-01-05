@@ -10,6 +10,6 @@ export declare class UploadUtilsService {
     defaultHeaders: Headers;
     configuration: Configuration;
     constructor(uploadService: UploadService);
-    upload(authenticationKey: string, body: Upload, onProgress: (progress: any) => void, extraHttpRequestParams?: any): Observable<FileResource>;
+    upload(authenticationKey: string, body: Upload, onProgress?: (progress: any) => void, extraHttpRequestParams?: any): Observable<FileResource>;
     computeChecksumMd5(file: File): Promise<string>;
 }

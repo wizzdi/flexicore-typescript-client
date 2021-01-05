@@ -11,7 +11,6 @@
  */
 
 import { StackTraceElement } from './stackTraceElement';
-import { Throwable } from './throwable';
 
 
 export interface Throwable {
