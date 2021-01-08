@@ -11,6 +11,7 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Patient = void 0;
 var Patient;
 (function (Patient) {
     let GenderEnum;

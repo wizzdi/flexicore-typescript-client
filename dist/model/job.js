@@ -11,6 +11,7 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Job = void 0;
 var Job;
 (function (Job) {
     let BatchStatusEnum;

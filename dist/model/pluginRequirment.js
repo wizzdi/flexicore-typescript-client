@@ -11,6 +11,7 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PluginRequirment = void 0;
 var PluginRequirment;
 (function (PluginRequirment) {
     let RestrictionEnum;
