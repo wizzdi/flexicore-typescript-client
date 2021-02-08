@@ -20,7 +20,7 @@ const core_1 = require("@angular/core");
 const http_1 = require("@angular/http");
 const SparkMD5 = require("spark-md5");
 const configuration_1 = require("../configuration");
-const rxjs_1 = require("rxjs");
+const defer_1 = require("rxjs/observable/defer");
 let UploadUtilsService = class UploadUtilsService {
     constructor(uploadService) {
         this.uploadService = uploadService;
@@ -29,7 +29,7 @@ let UploadUtilsService = class UploadUtilsService {
         this.configuration = new configuration_1.Configuration();
     }
     upload(authenticationKey, body, onProgress, extraHttpRequestParams) {
-        return rxjs_1.Observable.defer(() => __awaiter(this, void 0, void 0, function* () {
+        return defer_1.defer(() => __awaiter(this, void 0, void 0, function* () {
             let { file, name, chunkSize, chunkMd5 } = body;
             let chunkMD5String;
             let lastChunk = false;
