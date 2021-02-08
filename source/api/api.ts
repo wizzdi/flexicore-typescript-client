@@ -88,7 +88,7 @@ import {TenantToUsersService} from './tenantToUser.service'
 export * from './tenantToUser.service';
 import {UploadUtilsService} from './uploadUtils.service';
 export * from './uploadUtils.service';
-export { AuthenticationService, BaseclassesService, CategoriesService, ClazzService, CoreService,UIComponentService, UploadUtilsService,
+export { AuthenticationService, BaseclassesService, CategoriesService, ClazzService, CoreService,UIComponentService,
     DebugService, DevicesService, DocumnetationService, DownloadService, DynamicPropertiesService, LicenseRequestService,LicenseRequestToFeatureService,LicenseRequestToProductService,LicensingFeatureService,LicensingProductService,
     MediaService, PluginsService, RolesService, SettingsService, SoftwareUpdateService, TenantsService, TestService,PermissionGroupService,ResetPasswordService,
-    UploadService, UsersService, ViewsService,FlexiCoreDecycle,TokenBasedService,DynamicInvokersService,HealthService,FlexiCoreServerService,HealthReportService,BaseLinkService,SecurityService,LicenseRequestToQuantityFeatureService,LogService,AuditService,OperationService,TenantToUsersService };
+    UploadService, UploadUtilsService, UsersService, ViewsService,FlexiCoreDecycle,TokenBasedService,DynamicInvokersService,HealthService,FlexiCoreServerService,HealthReportService,BaseLinkService,SecurityService,LicenseRequestToQuantityFeatureService,LogService,AuditService,OperationService,TenantToUsersService };

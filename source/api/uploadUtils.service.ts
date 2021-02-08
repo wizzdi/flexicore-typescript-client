@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Headers, RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
+import { Headers } from '@angular/http';
 import * as SparkMD5 from 'spark-md5';
 import { Configuration } from '../configuration';
 import { Upload } from '../model/upload';
 import { UploadService } from './upload.service';
-import { FileResource } from '..';
+import { FileResource } from '../model/fileResource';
 import { Observable } from 'rxjs';
+import { defer } from 'rxjs/observable/defer';
 
 @Injectable()
 export class UploadUtilsService {
@@ -17,7 +18,7 @@ export class UploadUtilsService {
     }
 
     public upload(authenticationKey: string, body: Upload, onProgress?: (progress: any) => void, extraHttpRequestParams?: any): Observable<FileResource> {
-        return Observable.defer(async () => {
+        return defer(async () => {
             let {file, name, chunkSize, chunkMd5} = body;
             let chunkMD5String;
             let lastChunk = false;

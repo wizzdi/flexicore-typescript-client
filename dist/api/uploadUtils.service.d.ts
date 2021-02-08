@@ -2,7 +2,7 @@ import { Headers } from '@angular/http';
 import { Configuration } from '../configuration';
 import { Upload } from '../model/upload';
 import { UploadService } from './upload.service';
-import { FileResource } from '..';
+import { FileResource } from '../model/fileResource';
 import { Observable } from 'rxjs';
 export declare class UploadUtilsService {
     private uploadService;
