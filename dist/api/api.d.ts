@@ -1,5 +1,7 @@
 export * from './authentication.service';
 import { AuthenticationService } from './authentication.service';
+export * from './authenticationNew.service';
+import { AuthenticationNewService } from './authenticationNew.service';
 export * from './baseclasses.service';
 import { BaseclassesService } from './baseclasses.service';
 export * from './categories.service';
@@ -82,4 +84,6 @@ import { TenantToUsersService } from './tenantToUser.service';
 export * from './tenantToUser.service';
 import { UploadUtilsService } from './uploadUtils.service';
 export * from './uploadUtils.service';
-export { AuthenticationService, BaseclassesService, CategoriesService, ClazzService, CoreService, UIComponentService, DebugService, DevicesService, DocumnetationService, DownloadService, DynamicPropertiesService, LicenseRequestService, LicenseRequestToFeatureService, LicenseRequestToProductService, LicensingFeatureService, LicensingProductService, MediaService, PluginsService, RolesService, SettingsService, SoftwareUpdateService, TenantsService, TestService, PermissionGroupService, ResetPasswordService, UploadService, UploadUtilsService, UsersService, ViewsService, FlexiCoreDecycle, TokenBasedService, DynamicInvokersService, HealthService, FlexiCoreServerService, HealthReportService, BaseLinkService, SecurityService, LicenseRequestToQuantityFeatureService, LogService, AuditService, OperationService, TenantToUsersService };
+import { TotpService } from './totp.service';
+export * from './totp.service';
+export { AuthenticationService, AuthenticationNewService, BaseclassesService, CategoriesService, ClazzService, CoreService, UIComponentService, DebugService, DevicesService, DocumnetationService, DownloadService, DynamicPropertiesService, LicenseRequestService, LicenseRequestToFeatureService, LicenseRequestToProductService, LicensingFeatureService, LicensingProductService, MediaService, PluginsService, RolesService, SettingsService, SoftwareUpdateService, TenantsService, TestService, PermissionGroupService, ResetPasswordService, UploadService, UploadUtilsService, UsersService, ViewsService, FlexiCoreDecycle, TokenBasedService, DynamicInvokersService, HealthService, FlexiCoreServerService, HealthReportService, BaseLinkService, SecurityService, LicenseRequestToQuantityFeatureService, LogService, AuditService, OperationService, TenantToUsersService, TotpService };

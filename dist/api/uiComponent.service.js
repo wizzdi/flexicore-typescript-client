@@ -20,7 +20,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UIComponentService = void 0;
 const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
 const http_1 = require("@angular/http");

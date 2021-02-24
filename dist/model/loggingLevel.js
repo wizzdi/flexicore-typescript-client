@@ -11,7 +11,6 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoggingLevel = void 0;
 var LoggingLevel;
 (function (LoggingLevel) {
     LoggingLevel["FINEST"] = "FINEST";
