@@ -11,7 +11,6 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UIComponentRegistrationContainer = void 0;
 class UIComponentRegistrationContainer {
     constructor() {
         this.type = 'com.flexicore.data.jsoncontainers.UIComponentRegistrationContainer';

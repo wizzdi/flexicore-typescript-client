@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FlexiCoreDecycle = void 0;
 class FlexiCoreDecycle {
     static findReferences(obj, catalog) {
         // The catalogObject function walks recursively through an object graph

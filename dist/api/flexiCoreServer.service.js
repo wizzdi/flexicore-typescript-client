@@ -20,7 +20,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FlexiCoreServerService = void 0;
 const core_1 = require("@angular/core");
 const http_1 = require("@angular/common/http");
 const api_1 = require("./api");

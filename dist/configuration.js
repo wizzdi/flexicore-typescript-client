@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Configuration = exports.ConfigurationParameters = void 0;
 class ConfigurationParameters {
 }
 exports.ConfigurationParameters = ConfigurationParameters;

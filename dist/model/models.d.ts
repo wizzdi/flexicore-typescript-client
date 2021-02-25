@@ -1,6 +1,8 @@
 export * from './authenticationBundle';
 export * from './authenticationKey';
 export * from './authenticationRequestHolder';
+export * from './authenticationNewRequestHolder';
+export * from './authenticationNewResponse';
 export * from './baseclass';
 export * from './baseclassCreationContainer';
 export * from './baseclassUpdateContainer';
@@ -232,3 +234,4 @@ export * from './tenantToUserCreate';
 export * from './tenantToUserUpdate';
 export * from './tenantToUserFilter';
 export * from './upload';
+export * from './totp';

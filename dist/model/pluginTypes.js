@@ -11,7 +11,6 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PluginTypeEnum = void 0;
 var PluginTypeEnum;
 (function (PluginTypeEnum) {
     PluginTypeEnum["Service"] = "Service";

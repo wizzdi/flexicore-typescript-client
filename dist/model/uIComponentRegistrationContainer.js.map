@@ -1,1 +1,1 @@
-{"version":3,"file":"uIComponentRegistrationContainer.js","sourceRoot":"","sources":["../../source/model/uIComponentRegistrationContainer.ts"],"names":[],"mappings":";AAAA;;;;;;;;;;GAUG;;;AAIH,MAAa,gCAAgC;IAA7C;QAKI,SAAI,GAAU,oEAAoE,CAAA;IAEtF,CAAC;CAAA;AAPD,4EAOC"}
+{"version":3,"file":"uIComponentRegistrationContainer.js","sourceRoot":"","sources":["../../source/model/uIComponentRegistrationContainer.ts"],"names":[],"mappings":";AAAA;;;;;;;;;;GAUG;;AAIH;IAAA;QAKI,SAAI,GAAU,oEAAoE,CAAA;IAEtF,CAAC;CAAA;AAPD,4EAOC"}

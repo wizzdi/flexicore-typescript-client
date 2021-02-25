@@ -11,7 +11,6 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PluginUpdate = void 0;
 var PluginUpdate;
 (function (PluginUpdate) {
     let TypeEnum;
