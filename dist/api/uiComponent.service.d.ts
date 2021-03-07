@@ -9,18 +9,17 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Http, Headers } from '@angular/http';
-import { Response } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { UIComponent } from '../model/uIComponent';
 import { UIComponentsRegistrationContainer } from '../model/uIComponentsRegistrationContainer';
 import { Configuration } from '../configuration';
 export declare class UIComponentService {
-    protected http: Http;
+    protected httpClient: HttpClient;
     protected basePath: string;
-    defaultHeaders: Headers;
+    defaultHeaders: HttpHeaders;
     configuration: Configuration;
-    constructor(http: Http, basePath: string, configuration: Configuration);
+    constructor(httpClient: HttpClient, basePath: string, configuration: Configuration);
     /**
      *
      * Extends object by coping non-existing properties.
@@ -39,12 +38,7 @@ export declare class UIComponentService {
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      * @param body
      */
-    registerAndGetAllowedUIComponents(authenticationkey?: string, body?: UIComponentsRegistrationContainer, extraHttpRequestParams?: any): Observable<Array<UIComponent>>;
-    /**
-     * registerAndGetAllowedUIComponents
-     * registers components if not exists and returns allowed
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body
-     */
-    registerAndGetAllowedUIComponentsWithHttpInfo(authenticationkey?: string, body?: UIComponentsRegistrationContainer, extraHttpRequestParams?: any): Observable<Response>;
+    registerAndGetAllowedUIComponents(body?: UIComponentsRegistrationContainer, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<UIComponent>>;
+    registerAndGetAllowedUIComponents(body?: UIComponentsRegistrationContainer, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<UIComponent>>>;
+    registerAndGetAllowedUIComponents(body?: UIComponentsRegistrationContainer, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<UIComponent>>>;
 }
