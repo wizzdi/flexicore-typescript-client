@@ -22,15 +22,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
-const http_1 = require("@angular/http");
-const http_2 = require("@angular/http");
+const http_1 = require("@angular/common/http");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let UIComponentService = class UIComponentService {
-    constructor(http, basePath, configuration) {
-        this.http = http;
+    constructor(httpClient, basePath, configuration) {
+        this.httpClient = httpClient;
         this.basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-        this.defaultHeaders = new http_1.Headers();
+        this.defaultHeaders = new http_1.HttpHeaders();
         this.configuration = new configuration_1.Configuration();
         if (basePath) {
             this.basePath = basePath;
@@ -67,53 +66,33 @@ let UIComponentService = class UIComponentService {
         }
         return false;
     }
-    /**
-     * registers components if not exists and returns allowed
-     * @summary registerAndGetAllowedUIComponents
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body
-     */
-    registerAndGetAllowedUIComponents(authenticationkey, body, extraHttpRequestParams) {
-        return this.registerAndGetAllowedUIComponentsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
-            if (response.status === 204) {
-                return undefined;
-            }
-            else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
-            }
-        });
-    }
-    /**
-     * registerAndGetAllowedUIComponents
-     * registers components if not exists and returns allowed
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body
-     */
-    registerAndGetAllowedUIComponentsWithHttpInfo(authenticationkey, body, extraHttpRequestParams) {
-        const path = this.basePath + '/uiPlugin/registerAndGetAllowedUIComponents';
-        let queryParameters = new http_1.URLSearchParams();
-        let headers = new http_1.Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+    registerAndGetAllowedUIComponents(body, authenticationkey, observe = 'body', reportProgress = false) {
+        let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers.set('authenticationkey', String(authenticationkey));
         }
         // to determine the Accept header
-        let produces = [
+        let httpHeaderAccepts = [
             'application/json'
         ];
-        headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_2.RequestOptions({
-            method: http_2.RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body),
-            search: queryParameters,
-            withCredentials: this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
+        const httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
-        return this.http.request(path, requestOptions);
+        // to determine the Content-Type header
+        const consumes = [
+            'application/json'
+        ];
+        const httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+        return this.httpClient.post(`${this.basePath}/uiPlugin/registerAndGetAllowedUIComponents`, body, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        }).map(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o));
     }
 };
 UIComponentService = __decorate([
