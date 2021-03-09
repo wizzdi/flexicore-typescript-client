@@ -41,59 +41,66 @@ export * from './users.service';
 import { UsersService } from './users.service';
 export * from './views.service';
 import { ViewsService } from './views.service';
-import {FlexiCoreDecycle} from './flexiCoreDecycle'
+import { FlexiCoreDecycle } from './flexiCoreDecycle'
 export * from './flexiCoreDecycle';
-import {TokenBasedService} from './tokenBased.service'
+import { TokenBasedService } from './tokenBased.service'
 export * from './tokenBased.service';
-import {DynamicInvokersService} from './dynamicInvokers.service'
+import { DynamicInvokersService } from './dynamicInvokers.service'
 export * from './dynamicInvokers.service';
 
-import {PermissionGroupService} from './permissionGroup.service'
+import { PermissionGroupService } from './permissionGroup.service'
 export * from './permissionGroup.service';
-import {HealthService} from './health.service'
+import { HealthService } from './health.service'
 export * from './health.service';
-import {HealthReportService} from './healthReport.service'
+import { HealthReportService } from './healthReport.service'
 export * from './healthReport.service';
-import {FlexiCoreServerService} from './flexiCoreServer.service'
+import { FlexiCoreServerService } from './flexiCoreServer.service'
 export * from './flexiCoreServer.service';
 
-import {BaseLinkService} from './baseLink.service'
+import { BaseLinkService } from './baseLink.service'
 export * from './baseLink.service';
 
-import {SecurityService} from './security.service'
+import { SecurityService } from './security.service'
 export * from './security.service';
 
-import {LicenseRequestService} from './licenseRequest.service'
+import { LicenseRequestService } from './licenseRequest.service'
 export * from './licenseRequest.service';
-import {LicenseRequestToFeatureService} from './licenseRequestToFeature.service'
+import { LicenseRequestToFeatureService } from './licenseRequestToFeature.service'
 export * from './licenseRequestToFeature.service';
-import {LicenseRequestToProductService} from './licenseRequestToProduct.service'
+import { LicenseRequestToProductService } from './licenseRequestToProduct.service'
 
 export * from './licenseRequestToQuantityFeature.service';
-import {LicenseRequestToQuantityFeatureService} from './licenseRequestToQuantityFeature.service'
+import { LicenseRequestToQuantityFeatureService } from './licenseRequestToQuantityFeature.service'
 export * from './licenseRequestToProduct.service';
-import {LicensingFeatureService} from './licensingFeature.service'
+import { LicensingFeatureService } from './licensingFeature.service'
 export * from './licensingFeature.service';
-import {LicensingProductService} from './licensingProduct.service'
+import { LicensingProductService } from './licensingProduct.service'
 export * from './licensingProduct.service';
-import {LogService} from './log.service'
+import { LogService } from './log.service'
 export * from './licensingProduct.service';
-import {AuditService} from './audit.service'
+import { AuditService } from './audit.service'
 export * from './audit.service';
-import {ResetPasswordService} from './resetPassword.service'
+import { ResetPasswordService } from './resetPassword.service'
 export * from './resetPassword.service';
-import {UIComponentService} from './uiComponent.service'
+import { UIComponentService } from './uiComponent.service'
 export * from './uiComponent.service';
-import {OperationService} from './operation.service'
+import { OperationService } from './operation.service'
 export * from './operation.service';
-import {TenantToUsersService} from './tenantToUser.service'
+import { TenantToUsersService } from './tenantToUser.service'
 export * from './tenantToUser.service';
-import {UploadUtilsService} from './uploadUtils.service';
+import { UploadUtilsService } from './uploadUtils.service';
 export * from './uploadUtils.service';
-import {TotpService} from './totp.service';
+import { TotpService } from './totp.service';
 export * from './totp.service';
+import { PasswordSecurityPolicyService } from './passwordSecurityPolicy.service';
+export * from './passwordSecurityPolicy.service';
+import { TotpSecurityPolicyService } from './totpSecurityPolicy.service';
+export * from './totpSecurityPolicy.service';
 
-export { AuthenticationService,AuthenticationNewService, BaseclassesService, CategoriesService, ClazzService, CoreService,UIComponentService,
-    DebugService, DevicesService, DocumnetationService, DownloadService, DynamicPropertiesService, LicenseRequestService,LicenseRequestToFeatureService,LicenseRequestToProductService,LicensingFeatureService,LicensingProductService,
-    MediaService, PluginsService, RolesService, SettingsService, SoftwareUpdateService, TenantsService, TestService,PermissionGroupService,ResetPasswordService,
-    UploadService, UploadUtilsService, UsersService, ViewsService,FlexiCoreDecycle,TokenBasedService,DynamicInvokersService,HealthService,FlexiCoreServerService,HealthReportService,BaseLinkService,SecurityService,LicenseRequestToQuantityFeatureService,LogService,AuditService,OperationService,TenantToUsersService, TotpService };
+export {
+    AuthenticationService, AuthenticationNewService, BaseclassesService, CategoriesService, ClazzService, CoreService, UIComponentService,
+    DebugService, DevicesService, DocumnetationService, DownloadService, DynamicPropertiesService, LicenseRequestService, LicenseRequestToFeatureService, LicenseRequestToProductService, LicensingFeatureService, LicensingProductService,
+    MediaService, PluginsService, RolesService, SettingsService, SoftwareUpdateService, TenantsService, TestService, PermissionGroupService, ResetPasswordService,
+    UploadService, UploadUtilsService, UsersService, ViewsService, FlexiCoreDecycle, TokenBasedService, DynamicInvokersService, HealthService, FlexiCoreServerService, HealthReportService, BaseLinkService, SecurityService, LicenseRequestToQuantityFeatureService, LogService, AuditService, OperationService, TenantToUsersService, TotpService,
+    PasswordSecurityPolicyService, TotpSecurityPolicyService
+};
