@@ -13,12 +13,11 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/commo
 import { Observable } from 'rxjs/Observable';
 import { CreatePermissionGroupLinkRequest } from '../model/createPermissionGroupLinkRequest';
 import { CreatePermissionGroupRequest } from '../model/createPermissionGroupRequest';
-import { FilteringInformationHolder } from '../model/filteringInformationHolder';
 import { PermissionGroup } from '../model/permissionGroup';
 import { PermissionGroupToBaseclass } from '../model/permissionGroupToBaseclass';
 import { Configuration } from '../configuration';
 import { UpdatePermissionGroup } from '../model/updatePermissionGroup';
-import { PermissionGroupCopy } from '../model/models';
+import { PaginationResponse, PermissionGroupCopy, PermissionGroupsFilter } from '../model/models';
 export declare class PermissionGroupService {
     protected httpClient: HttpClient;
     protected basePath: string;
@@ -75,14 +74,14 @@ export declare class PermissionGroupService {
     updatePermissionGroup(body?: UpdatePermissionGroup, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PermissionGroup>>;
     updatePermissionGroup(body?: UpdatePermissionGroup, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PermissionGroup>>;
     /**
-     * listPermissionGroups
+     * getAllPermissionGroups
      * lists permission groups
      * @param body
      * @param authenticationkey
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<PermissionGroup>>;
-    listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PermissionGroup>>>;
-    listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PermissionGroup>>>;
+    getAllPermissionGroups(body?: PermissionGroupsFilter, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<PermissionGroup>>;
+    getAllPermissionGroups(body?: PermissionGroupsFilter, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<PermissionGroup>>>;
+    getAllPermissionGroups(body?: PermissionGroupsFilter, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<PermissionGroup>>>;
 }

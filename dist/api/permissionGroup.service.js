@@ -166,7 +166,7 @@ let PermissionGroupService = class PermissionGroupService {
             reportProgress: reportProgress
         }).map(o => api_1.FlexiCoreDecycle.retrocycle(o));
     }
-    listPermissionGroups(body, authenticationkey, observe = 'body', reportProgress = false) {
+    getAllPermissionGroups(body, authenticationkey, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers = headers.set('authenticationkey', String(authenticationkey));
@@ -187,7 +187,7 @@ let PermissionGroupService = class PermissionGroupService {
         if (httpContentTypeSelected != undefined) {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
-        return this.httpClient.post(`${this.basePath}/permissionGroup/listPermissionGroups`, body, {
+        return this.httpClient.post(`${this.basePath}/permissionGroup/getAllPermissionGroups`, body, {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
             observe: observe,
