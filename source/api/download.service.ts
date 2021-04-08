@@ -11,20 +11,15 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 
-
-import { BASE_PATH }                     from '../variables';
-import { Configuration }                                     from '../configuration';
-
-import { FlexiCoreDecycle } from './api';
 import { ZipAndDownloadRequest } from '../model/zipAndDownloadRequest';
-import { Body } from '@angular/http/src/body';
 
 
 @Injectable()
@@ -34,7 +29,7 @@ export class DownloadService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -70,13 +65,13 @@ export class DownloadService {
     public download(authenticationKey?: string, fileResourceId?: string, observe?: 'body', reportProgress?: boolean): Observable<Blob>;
     public download(authenticationKey?: string, fileResourceId?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Blob>>;
     public download(authenticationKey?: string, fileResourceId?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Blob>>;
-    public download(authenticationKey?: string, fileResourceId?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public download(authenticationKey?: string, fileResourceId?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         const path = this.basePath + `/download/${authenticationKey}/${fileResourceId}`
-       
+
 
         let headers = this.defaultHeaders;
-       
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
         ];
@@ -95,7 +90,7 @@ export class DownloadService {
 
         return this.httpClient.get<Blob>(path,
             {
-                responseType:'blob' as 'json',
+                responseType: 'blob' as 'json',
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -104,24 +99,24 @@ export class DownloadService {
         );
     }
 
-      /**
-     * zipAndDownload
-     * zipAndDownload
-     * @param authenticationKey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
+    /**
+   * zipAndDownload
+   * zipAndDownload
+   * @param authenticationKey The AuthenticationKey retrieved when sign-in into the system
+   * @param body 
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
     public zipAndDownload(authenticationKey?: string, body?: ZipAndDownloadRequest, observe?: 'body', reportProgress?: boolean): Observable<Blob>;
     public zipAndDownload(authenticationKey?: string, body?: ZipAndDownloadRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Blob>>;
     public zipAndDownload(authenticationKey?: string, body?: ZipAndDownloadRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Blob>>;
-    public zipAndDownload(authenticationKey?: string, body?: ZipAndDownloadRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public zipAndDownload(authenticationKey?: string, body?: ZipAndDownloadRequest, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
             headers = headers.set('authenticationKey', String(authenticationKey));
         }
-       
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
         ];
@@ -138,10 +133,10 @@ export class DownloadService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<Blob>(this.basePath +`/download/zipAndDownload` ,
-        body,
+        return this.httpClient.post<Blob>(this.basePath + `/download/zipAndDownload`,
+            body,
             {
-                responseType:'blob' as 'json',
+                responseType: 'blob' as 'json',
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -151,5 +146,5 @@ export class DownloadService {
     }
 
 
-    
+
 }

@@ -11,11 +11,11 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { CreatePermissionGroupLinkRequest } from '../model/createPermissionGroupLinkRequest';
 import { CreatePermissionGroupRequest } from '../model/createPermissionGroupRequest';
@@ -23,8 +23,8 @@ import { FilteringInformationHolder } from '../model/filteringInformationHolder'
 import { PermissionGroup } from '../model/permissionGroup';
 import { PermissionGroupToBaseclass } from '../model/permissionGroupToBaseclass';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 import { UpdatePermissionGroup } from '../model/updatePermissionGroup';
 import { FlexiCoreDecycle } from './api';
 import { PermissionGroupCopy } from '../model/models';
@@ -37,7 +37,7 @@ export class PermissionGroupService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -73,7 +73,7 @@ export class PermissionGroupService {
     public connectPermissionGroupToBaseclass(body?: CreatePermissionGroupLinkRequest, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<PermissionGroupToBaseclass>>;
     public connectPermissionGroupToBaseclass(body?: CreatePermissionGroupLinkRequest, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PermissionGroupToBaseclass>>>;
     public connectPermissionGroupToBaseclass(body?: CreatePermissionGroupLinkRequest, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PermissionGroupToBaseclass>>>;
-    public connectPermissionGroupToBaseclass(body?: CreatePermissionGroupLinkRequest, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public connectPermissionGroupToBaseclass(body?: CreatePermissionGroupLinkRequest, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
@@ -99,14 +99,14 @@ export class PermissionGroupService {
         }
 
         return this.httpClient.put(`${this.basePath}/permissionGroup/connectPermissionGroupToBaseclass`,
-        body,
+            body,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -120,7 +120,7 @@ export class PermissionGroupService {
     public createPermissionGroup(body?: CreatePermissionGroupRequest, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<PermissionGroup>;
     public createPermissionGroup(body?: CreatePermissionGroupRequest, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PermissionGroup>>;
     public createPermissionGroup(body?: CreatePermissionGroupRequest, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PermissionGroup>>;
-    public createPermissionGroup(body?: CreatePermissionGroupRequest, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createPermissionGroup(body?: CreatePermissionGroupRequest, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
@@ -146,28 +146,28 @@ export class PermissionGroupService {
         }
 
         return this.httpClient.post(`${this.basePath}/permissionGroup/createPermissionGroup`,
-        body,
+            body,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
-     /**
-     * createPermissionGroup
-     * creates Permission Group
-     * @param body 
-     * @param authenticationkey 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
+    /**
+    * createPermissionGroup
+    * creates Permission Group
+    * @param body 
+    * @param authenticationkey 
+    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+    * @param reportProgress flag to report request and response progress.
+    */
     public copyPermissionGroup(body?: PermissionGroupCopy, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<PermissionGroup>;
     public copyPermissionGroup(body?: PermissionGroupCopy, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PermissionGroup>>;
     public copyPermissionGroup(body?: PermissionGroupCopy, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PermissionGroup>>;
-    public copyPermissionGroup(body?: PermissionGroupCopy, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public copyPermissionGroup(body?: PermissionGroupCopy, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
@@ -193,28 +193,28 @@ export class PermissionGroupService {
         }
 
         return this.httpClient.post(`${this.basePath}/permissionGroup/copyPermissionGroup`,
-        body,
+            body,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
-      /**
-     * createPermissionGroup
-     * creates Permission Group
-     * @param body 
-     * @param authenticationkey 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
+    /**
+   * createPermissionGroup
+   * creates Permission Group
+   * @param body 
+   * @param authenticationkey 
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
     public updatePermissionGroup(body?: UpdatePermissionGroup, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<PermissionGroup>;
     public updatePermissionGroup(body?: UpdatePermissionGroup, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PermissionGroup>>;
     public updatePermissionGroup(body?: UpdatePermissionGroup, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PermissionGroup>>;
-    public updatePermissionGroup(body?: UpdatePermissionGroup, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updatePermissionGroup(body?: UpdatePermissionGroup, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
@@ -240,14 +240,14 @@ export class PermissionGroupService {
         }
 
         return this.httpClient.post(`${this.basePath}/permissionGroup/updatePermissionGroup`,
-        body,
+            body,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -261,7 +261,7 @@ export class PermissionGroupService {
     public listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<PermissionGroup>>;
     public listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PermissionGroup>>>;
     public listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PermissionGroup>>>;
-    public listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
@@ -287,14 +287,14 @@ export class PermissionGroupService {
         }
 
         return this.httpClient.post(`${this.basePath}/permissionGroup/listPermissionGroups`,
-        body,
+            body,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 }
 

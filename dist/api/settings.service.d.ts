@@ -11,7 +11,7 @@
  */
 import { Http, Headers } from '@angular/http';
 import { Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { DeviceSettingsContainer } from '../model/deviceSettingsContainer';
 import { FileResource } from '../model/fileResource';
 import { FilteringInformationHolder } from '../model/filteringInformationHolder';

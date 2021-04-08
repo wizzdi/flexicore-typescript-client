@@ -25,6 +25,7 @@ const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
 const http_1 = require("@angular/http");
 const http_2 = require("@angular/http");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let SettingsService = class SettingsService {
@@ -78,14 +79,14 @@ let SettingsService = class SettingsService {
      */
     attachPropertyToMetadata(settingsMetaId, propertyId, authenticationkey, value, extraHttpRequestParams) {
         return this.attachPropertyToMetadataWithHttpInfo(settingsMetaId, propertyId, authenticationkey, value, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * create Settings
@@ -96,14 +97,14 @@ let SettingsService = class SettingsService {
      */
     createSettings(settingsMetadataId, authenticationkey, body, extraHttpRequestParams) {
         return this.createSettingsWithHttpInfo(settingsMetadataId, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * creates a settings metadata
@@ -113,14 +114,14 @@ let SettingsService = class SettingsService {
      */
     createSettingsMetadata(authenticationkey, body, extraHttpRequestParams) {
         return this.createSettingsMetadataWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * create Settings
@@ -130,14 +131,14 @@ let SettingsService = class SettingsService {
      */
     deviceGetSettings(settingsId, authenticationkey, extraHttpRequestParams) {
         return this.deviceGetSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * duplicate Settings
@@ -148,14 +149,14 @@ let SettingsService = class SettingsService {
      */
     duplicateSettings(originalSettingsId, authenticationkey, body, extraHttpRequestParams) {
         return this.duplicateSettingsWithHttpInfo(originalSettingsId, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * export Settings
@@ -165,14 +166,14 @@ let SettingsService = class SettingsService {
      */
     exportSettings(settingsId, authenticationkey, extraHttpRequestParams) {
         return this.exportSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * create Settings
@@ -182,14 +183,14 @@ let SettingsService = class SettingsService {
      */
     getSettings(settingsId, authenticationkey, extraHttpRequestParams) {
         return this.getSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * import Settings
@@ -201,14 +202,14 @@ let SettingsService = class SettingsService {
      */
     importSettings(authenticationkey, body, byName, dontUpdate, extraHttpRequestParams) {
         return this.importSettingsWithHttpInfo(authenticationkey, body, byName, dontUpdate, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * lists all settings
@@ -220,14 +221,14 @@ let SettingsService = class SettingsService {
      */
     listAllSettings(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.listAllSettingsWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * lists all settings metadata
@@ -239,14 +240,14 @@ let SettingsService = class SettingsService {
      */
     listAllSettingsMetadata(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.listAllSettingsMetadataWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * list device Settings
@@ -256,14 +257,14 @@ let SettingsService = class SettingsService {
      */
     listDeviceSettings(deviceId, authenticationkey, extraHttpRequestParams) {
         return this.listDeviceSettingsWithHttpInfo(deviceId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * list device Settings containers
@@ -273,14 +274,14 @@ let SettingsService = class SettingsService {
      */
     listDeviceSettingsContainers(mac, authenticationkey, extraHttpRequestParams) {
         return this.listDeviceSettingsContainersWithHttpInfo(mac, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * lists settings
@@ -293,14 +294,14 @@ let SettingsService = class SettingsService {
      */
     listSettings(settingsMetadataId, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.listSettingsWithHttpInfo(settingsMetadataId, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * sets active settings for settingsMetadata
@@ -311,14 +312,14 @@ let SettingsService = class SettingsService {
      */
     setActiveSettings(settingsMetaId, settingId, authenticationkey, extraHttpRequestParams) {
         return this.setActiveSettingsWithHttpInfo(settingsMetaId, settingId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * sets active settings for settingsMetadata as null(using default values)
@@ -328,14 +329,14 @@ let SettingsService = class SettingsService {
      */
     setActiveSettingsAsDefault(settingsMetaId, authenticationkey, extraHttpRequestParams) {
         return this.setActiveSettingsAsDefaultWithHttpInfo(settingsMetaId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * update metadata property
@@ -346,14 +347,14 @@ let SettingsService = class SettingsService {
      */
     updateMetadataSimple(linkId, authenticationkey, simpleValue, extraHttpRequestParams) {
         return this.updateMetadataSimpleWithHttpInfo(linkId, authenticationkey, simpleValue, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * attach Property to metadata

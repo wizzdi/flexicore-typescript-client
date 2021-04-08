@@ -23,6 +23,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const http_1 = require("@angular/common/http");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 const api_1 = require("./api");
@@ -77,7 +78,7 @@ let OperationService = class OperationService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).map(o => api_1.FlexiCoreDecycle.retrocycle(o));
+        }).pipe(operators_1.map(o => api_1.FlexiCoreDecycle.retrocycle(o)));
     }
     setOperationAuditable(authenticationKey, id, auditable, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -106,7 +107,7 @@ let OperationService = class OperationService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).map(o => api_1.FlexiCoreDecycle.retrocycle(o));
+        }).pipe(operators_1.map(o => api_1.FlexiCoreDecycle.retrocycle(o)));
     }
 };
 OperationService = __decorate([

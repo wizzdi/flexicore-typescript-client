@@ -25,6 +25,7 @@ const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
 const http_1 = require("@angular/http");
 const http_2 = require("@angular/http");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let MediaService = class MediaService {
@@ -78,14 +79,14 @@ let MediaService = class MediaService {
      */
     attachFileResource(mediaId, fileResourceId, authenticationkey, group, extraHttpRequestParams) {
         return this.attachFileResourceWithHttpInfo(mediaId, fileResourceId, authenticationkey, group, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -95,14 +96,14 @@ let MediaService = class MediaService {
      */
     changeMediaPrimaryFileResourceBundle(id, fileResourceId, authenticationkey, extraHttpRequestParams) {
         return this.changeMediaPrimaryFileResourceBundleWithHttpInfo(id, fileResourceId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -113,14 +114,14 @@ let MediaService = class MediaService {
      */
     countAllofType(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.countAllofTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -129,14 +130,14 @@ let MediaService = class MediaService {
      */
     create(authenticationkey, body, extraHttpRequestParams) {
         return this.createWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -145,14 +146,14 @@ let MediaService = class MediaService {
      */
     deleteMedia(id, authenticationkey, extraHttpRequestParams) {
         return this.deleteMediaWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -163,14 +164,14 @@ let MediaService = class MediaService {
      */
     fileResourcesOfType(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.fileResourcesOfTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -180,14 +181,14 @@ let MediaService = class MediaService {
      */
     get(id, authenticationkey, targetDevice, extraHttpRequestParams) {
         return this.getWithHttpInfo(id, authenticationkey, targetDevice, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -195,14 +196,14 @@ let MediaService = class MediaService {
      */
     getAllFileTypes(authenticationkey, extraHttpRequestParams) {
         return this.getAllFileTypesWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -211,14 +212,14 @@ let MediaService = class MediaService {
      */
     getFields(className, authenticationkey, extraHttpRequestParams) {
         return this.getFieldsWithHttpInfo(className, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -227,14 +228,14 @@ let MediaService = class MediaService {
      */
     getPreview(id, authenticationkey, extraHttpRequestParams) {
         return this.getPreviewWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -247,14 +248,14 @@ let MediaService = class MediaService {
      */
     getRenderingBundles(grouping, id, authenticationkey, pagesize, currentpage, sortby, extraHttpRequestParams) {
         return this.getRenderingBundlesWithHttpInfo(grouping, id, authenticationkey, pagesize, currentpage, sortby, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -265,14 +266,14 @@ let MediaService = class MediaService {
      */
     listAll(authenticationkey, pagesize, currentpage, sortby, extraHttpRequestParams) {
         return this.listAllWithHttpInfo(authenticationkey, pagesize, currentpage, sortby, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * lists all media that suites Filtering information holder
@@ -286,14 +287,14 @@ let MediaService = class MediaService {
      */
     listAllFileResourcesOfGroupInMedia(id, authenticationkey, group, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.listAllFileResourcesOfGroupInMediaWithHttpInfo(id, authenticationkey, group, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * returns all the file resources of the given types that are connected to the given Media
@@ -306,14 +307,14 @@ let MediaService = class MediaService {
      */
     listAllFileResourcesOfType(mediaId, authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.listAllFileResourcesOfTypeWithHttpInfo(mediaId, authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * lists all media that suites Filtering information holder
@@ -325,14 +326,14 @@ let MediaService = class MediaService {
      */
     listAllofType(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.listAllofTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -341,14 +342,14 @@ let MediaService = class MediaService {
      */
     update(authenticationkey, body, extraHttpRequestParams) {
         return this.updateWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -358,14 +359,14 @@ let MediaService = class MediaService {
      */
     updateVersion(id, updateTo, authenticationkey, extraHttpRequestParams) {
         return this.updateVersionWithHttpInfo(id, updateTo, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * attach file resource

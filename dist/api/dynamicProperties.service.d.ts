@@ -11,7 +11,7 @@
  */
 import { Http, Headers } from '@angular/http';
 import { Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { FilteringInformationHolder } from '../model/filteringInformationHolder';
 import { Property } from '../model/property';
 import { PropertyContainerSerializable } from '../model/propertyContainerSerializable';

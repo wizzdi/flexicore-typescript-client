@@ -12,12 +12,13 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';  import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
+import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
+import { Response } from '@angular/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { FileResource } from '../model/fileResource';
 import { FileResourceBundleHolder } from '../model/fileResourceBundleHolder';
@@ -25,8 +26,8 @@ import { FileType } from '../model/fileType';
 import { FilteringInformationHolder } from '../model/filteringInformationHolder';
 import { Media } from '../model/media';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 
 
 @Injectable()
@@ -36,13 +37,13 @@ export class MediaService {
     public defaultHeaders: Headers = new Headers();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected http: Http, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
+            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -52,13 +53,13 @@ export class MediaService {
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
                 (objA as any)[key] = (objB as any)[key];
             }
         }
-        return <T1&T2>objA;
+        return <T1 & T2>objA;
     }
 
     /**
@@ -85,13 +86,13 @@ export class MediaService {
      */
     public attachFileResource(mediaId: string, fileResourceId: string, authenticationkey?: string, group?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.attachFileResourceWithHttpInfo(mediaId, fileResourceId, authenticationkey, group, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -102,13 +103,13 @@ export class MediaService {
      */
     public changeMediaPrimaryFileResourceBundle(id: string, fileResourceId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.changeMediaPrimaryFileResourceBundleWithHttpInfo(id, fileResourceId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -120,13 +121,13 @@ export class MediaService {
      */
     public countAllofType(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<number> {
         return this.countAllofTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -136,13 +137,13 @@ export class MediaService {
      */
     public create(authenticationkey?: string, body?: Media, extraHttpRequestParams?: any): Observable<{}> {
         return this.createWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -152,13 +153,13 @@ export class MediaService {
      */
     public deleteMedia(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.deleteMediaWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -170,13 +171,13 @@ export class MediaService {
      */
     public fileResourcesOfType(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
         return this.fileResourcesOfTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -187,13 +188,13 @@ export class MediaService {
      */
     public get(id: string, authenticationkey?: string, targetDevice?: string, extraHttpRequestParams?: any): Observable<Media> {
         return this.getWithHttpInfo(id, authenticationkey, targetDevice, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -202,13 +203,13 @@ export class MediaService {
      */
     public getAllFileTypes(authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<FileType>> {
         return this.getAllFileTypesWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -218,13 +219,13 @@ export class MediaService {
      */
     public getFields(className: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<string>> {
         return this.getFieldsWithHttpInfo(className, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -234,13 +235,13 @@ export class MediaService {
      */
     public getPreview(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.getPreviewWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -254,13 +255,13 @@ export class MediaService {
      */
     public getRenderingBundles(grouping: string, id: string, authenticationkey?: string, pagesize?: number, currentpage?: number, sortby?: string, extraHttpRequestParams?: any): Observable<Array<FileResourceBundleHolder>> {
         return this.getRenderingBundlesWithHttpInfo(grouping, id, authenticationkey, pagesize, currentpage, sortby, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -272,13 +273,13 @@ export class MediaService {
      */
     public listAll(authenticationkey?: string, pagesize?: number, currentpage?: number, sortby?: string, extraHttpRequestParams?: any): Observable<Array<Media>> {
         return this.listAllWithHttpInfo(authenticationkey, pagesize, currentpage, sortby, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -293,13 +294,13 @@ export class MediaService {
      */
     public listAllFileResourcesOfGroupInMedia(id: string, authenticationkey?: string, group?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
         return this.listAllFileResourcesOfGroupInMediaWithHttpInfo(id, authenticationkey, group, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -313,13 +314,13 @@ export class MediaService {
      */
     public listAllFileResourcesOfType(mediaId: string, authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
         return this.listAllFileResourcesOfTypeWithHttpInfo(mediaId, authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -332,13 +333,13 @@ export class MediaService {
      */
     public listAllofType(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<Media>> {
         return this.listAllofTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -348,13 +349,13 @@ export class MediaService {
      */
     public update(authenticationkey?: string, body?: Media, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -365,13 +366,13 @@ export class MediaService {
      */
     public updateVersion(id: string, updateTo: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateVersionWithHttpInfo(id, updateTo, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -385,8 +386,8 @@ export class MediaService {
      */
     public attachFileResourceWithHttpInfo(mediaId: string, fileResourceId: string, authenticationkey?: string, group?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/attachFileResource/${media_id}/${fileResource_id}'
-                    .replace('${' + 'media_id' + '}', String(mediaId))
-                    .replace('${' + 'fileResource_id' + '}', String(fileResourceId));
+            .replace('${' + 'media_id' + '}', String(mediaId))
+            .replace('${' + 'fileResource_id' + '}', String(fileResourceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -413,12 +414,12 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -437,8 +438,8 @@ export class MediaService {
      */
     public changeMediaPrimaryFileResourceBundleWithHttpInfo(id: string, fileResourceId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/${id}/${fileResourceId}'
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'fileResourceId' + '}', String(fileResourceId));
+            .replace('${' + 'id' + '}', String(id))
+            .replace('${' + 'fileResourceId' + '}', String(fileResourceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -461,12 +462,12 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -508,7 +509,7 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -516,7 +517,7 @@ export class MediaService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -548,7 +549,7 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -556,7 +557,7 @@ export class MediaService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -574,7 +575,7 @@ export class MediaService {
      */
     public deleteMediaWithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -593,12 +594,12 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -640,7 +641,7 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -648,7 +649,7 @@ export class MediaService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -667,7 +668,7 @@ export class MediaService {
      */
     public getWithHttpInfo(id: string, authenticationkey?: string, targetDevice?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -690,12 +691,12 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -726,12 +727,12 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -749,7 +750,7 @@ export class MediaService {
      */
     public getFieldsWithHttpInfo(className: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/${class_name}/fields'
-                    .replace('${' + 'class_name' + '}', String(className));
+            .replace('${' + 'class_name' + '}', String(className));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -768,12 +769,12 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -791,7 +792,7 @@ export class MediaService {
      */
     public getPreviewWithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/${id}/preview'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -810,12 +811,12 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -837,8 +838,8 @@ export class MediaService {
      */
     public getRenderingBundlesWithHttpInfo(grouping: string, id: string, authenticationkey?: string, pagesize?: number, currentpage?: number, sortby?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/bundles/${grouping}/${id}'
-                    .replace('${' + 'grouping' + '}', String(grouping))
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'grouping' + '}', String(grouping))
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -873,12 +874,12 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -924,12 +925,12 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -951,7 +952,7 @@ export class MediaService {
      */
     public listAllFileResourcesOfGroupInMediaWithHttpInfo(id: string, authenticationkey?: string, group?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/list/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -982,7 +983,7 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -990,7 +991,7 @@ export class MediaService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1011,7 +1012,7 @@ export class MediaService {
      */
     public listAllFileResourcesOfTypeWithHttpInfo(mediaId: string, authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/fileResources/${media_id}'
-                    .replace('${' + 'media_id' + '}', String(mediaId));
+            .replace('${' + 'media_id' + '}', String(mediaId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1038,7 +1039,7 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -1046,7 +1047,7 @@ export class MediaService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1088,7 +1089,7 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -1096,7 +1097,7 @@ export class MediaService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1128,7 +1129,7 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -1136,7 +1137,7 @@ export class MediaService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1155,8 +1156,8 @@ export class MediaService {
      */
     public updateVersionWithHttpInfo(id: string, updateTo: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/updateVersion/${id}/${updateTo}'
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'updateTo' + '}', String(updateTo));
+            .replace('${' + 'id' + '}', String(id))
+            .replace('${' + 'updateTo' + '}', String(updateTo));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1179,12 +1180,12 @@ export class MediaService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {

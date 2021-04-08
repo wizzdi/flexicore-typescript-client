@@ -25,6 +25,7 @@ const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
 const http_1 = require("@angular/http");
 const http_2 = require("@angular/http");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let DevicesService = class DevicesService {
@@ -77,14 +78,14 @@ let DevicesService = class DevicesService {
      */
     activateLink(baseId, mac, authenticationkey, extraHttpRequestParams) {
         return this.activateLinkWithHttpInfo(baseId, mac, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Connect a Device to an instance of any entity in the system
@@ -96,14 +97,14 @@ let DevicesService = class DevicesService {
      */
     connectDeviceToBaseclass(baseId, mac, authenticationkey, someHeader, extraHttpRequestParams) {
         return this.connectDeviceToBaseclassWithHttpInfo(baseId, mac, authenticationkey, someHeader, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * creates a device
@@ -117,14 +118,14 @@ let DevicesService = class DevicesService {
      */
     createDevice(mac, serialNumber, authenticationkey, name, lat, lon, extraHttpRequestParams) {
         return this.createDeviceWithHttpInfo(mac, serialNumber, authenticationkey, name, lat, lon, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * deactivate all links between a device and baseclass
@@ -135,14 +136,14 @@ let DevicesService = class DevicesService {
      */
     deactivateAllLinks(baseId, mac, authenticationkey, extraHttpRequestParams) {
         return this.deactivateAllLinksWithHttpInfo(baseId, mac, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * deactivate link
@@ -152,14 +153,14 @@ let DevicesService = class DevicesService {
      */
     deactivateLink(linkId, authenticationkey, extraHttpRequestParams) {
         return this.deactivateLinkWithHttpInfo(linkId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * update device used properties
@@ -172,14 +173,14 @@ let DevicesService = class DevicesService {
      */
     getDeviceUsedProperties(mac, authenticationkey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.getDeviceUsedPropertiesWithHttpInfo(mac, authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -190,14 +191,14 @@ let DevicesService = class DevicesService {
      */
     listDevices(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.listDevicesWithHttpInfo(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * update device used properties
@@ -208,14 +209,14 @@ let DevicesService = class DevicesService {
      */
     setDeviceUsedProperties(mac, authenticationkey, body, extraHttpRequestParams) {
         return this.setDeviceUsedPropertiesWithHttpInfo(mac, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Sets Link as Updated
@@ -226,14 +227,14 @@ let DevicesService = class DevicesService {
      */
     setLinkUpdateDate(linkId, authenticationkey, date, extraHttpRequestParams) {
         return this.setLinkUpdateDateWithHttpInfo(linkId, authenticationkey, date, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * activateLink

@@ -11,17 +11,16 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { FilteringInformationHolder } from '../model/filteringInformationHolder';
 import { TenantToUser } from '../model/tenantToUser';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 import { FlexiCoreDecycle } from './api';
 
 import { TenantToUserCreate, TenantToUserUpdate, TenantToUserFilter, PaginationResponse } from '../model/models';
@@ -34,7 +33,7 @@ export class TenantToUsersService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -59,28 +58,28 @@ export class TenantToUsersService {
     }
 
 
-    
 
-     /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     * @param body 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
+
+    /**
+    * 
+    * 
+    * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+    * @param pagesize Number of entries to be retrieved per page or -1 for full list
+    * @param currentpage The current page or -1 for full list
+    * @param body 
+    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+    * @param reportProgress flag to report request and response progress.
+    */
     public getAllTenantToUsers(authenticationkey?: string, body?: TenantToUserFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<TenantToUser>>;
     public getAllTenantToUsers(authenticationkey?: string, body?: TenantToUserFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<TenantToUser>>>;
     public getAllTenantToUsers(authenticationkey?: string, body?: TenantToUserFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<TenantToUser>>>;
-    public getAllTenantToUsers(authenticationkey?: string, body?: TenantToUserFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllTenantToUsers(authenticationkey?: string, body?: TenantToUserFilter, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers = headers.set('authenticationkey', String(authenticationkey));
         }
-       
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -107,27 +106,27 @@ export class TenantToUsersService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
-     /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public updateTenantToUser(authenticationkey?: string,body?: TenantToUserUpdate, observe?: 'body', reportProgress?: boolean): Observable<TenantToUser>;
-    public updateTenantToUser(authenticationkey?: string,body?: TenantToUserUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TenantToUser>>;
-    public updateTenantToUser(authenticationkey?: string,body?: TenantToUserUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TenantToUser>>;
-    public updateTenantToUser(authenticationkey?: string,body?: TenantToUserUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    /**
+    * 
+    * 
+    * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+    * @param body 
+    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+    * @param reportProgress flag to report request and response progress.
+    */
+    public updateTenantToUser(authenticationkey?: string, body?: TenantToUserUpdate, observe?: 'body', reportProgress?: boolean): Observable<TenantToUser>;
+    public updateTenantToUser(authenticationkey?: string, body?: TenantToUserUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TenantToUser>>;
+    public updateTenantToUser(authenticationkey?: string, body?: TenantToUserUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TenantToUser>>;
+    public updateTenantToUser(authenticationkey?: string, body?: TenantToUserUpdate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers = headers.set('authenticationkey', String(authenticationkey));
         }
-      
+
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -155,28 +154,28 @@ export class TenantToUsersService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
-     /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createTenantToUser(authenticationkey?: string,body?: TenantToUserCreate, observe?: 'body', reportProgress?: boolean): Observable<TenantToUser>;
-    public createTenantToUser(authenticationkey?: string,body?: TenantToUserCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TenantToUser>>;
-    public createTenantToUser(authenticationkey?: string,body?: TenantToUserCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TenantToUser>>;
-    public createTenantToUser(authenticationkey?: string,body?: TenantToUserCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    /**
+    * 
+    * 
+    * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+    * @param body 
+    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+    * @param reportProgress flag to report request and response progress.
+    */
+    public createTenantToUser(authenticationkey?: string, body?: TenantToUserCreate, observe?: 'body', reportProgress?: boolean): Observable<TenantToUser>;
+    public createTenantToUser(authenticationkey?: string, body?: TenantToUserCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TenantToUser>>;
+    public createTenantToUser(authenticationkey?: string, body?: TenantToUserCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TenantToUser>>;
+    public createTenantToUser(authenticationkey?: string, body?: TenantToUserCreate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers = headers.set('authenticationkey', String(authenticationkey));
         }
-      
+
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -204,7 +203,7 @@ export class TenantToUsersService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 

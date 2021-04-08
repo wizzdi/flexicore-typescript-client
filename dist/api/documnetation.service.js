@@ -25,6 +25,7 @@ const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
 const http_1 = require("@angular/http");
 const http_2 = require("@angular/http");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let DocumnetationService = class DocumnetationService {
@@ -76,14 +77,14 @@ let DocumnetationService = class DocumnetationService {
      */
     generateClient(clientType, authenticationkey, view, extraHttpRequestParams) {
         return this.generateClientWithHttpInfo(clientType, authenticationkey, view, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -91,14 +92,14 @@ let DocumnetationService = class DocumnetationService {
      */
     getClients(authenticationkey, extraHttpRequestParams) {
         return this.getClientsWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -107,14 +108,14 @@ let DocumnetationService = class DocumnetationService {
      */
     getDocs(authenticationkey, view, extraHttpRequestParams) {
         return this.getDocsWithHttpInfo(authenticationkey, view, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -123,14 +124,14 @@ let DocumnetationService = class DocumnetationService {
      */
     getSwaggerJSON(authenticationkey, view, extraHttpRequestParams) {
         return this.getSwaggerJSONWithHttpInfo(authenticationkey, view, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -138,14 +139,14 @@ let DocumnetationService = class DocumnetationService {
      */
     invalidateCache(authenticationkey, extraHttpRequestParams) {
         return this.invalidateCacheWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *

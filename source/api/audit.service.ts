@@ -11,19 +11,17 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 import { FlexiCoreDecycle } from './api';
-import { UserProfileRequest } from '../model/userProfileRequest';
-import { UserProfile } from '../model/userProfile';
-import { UserCreate, UserUpdate, UserFiltering, PaginationResponse, HealthStatusResponse, AuditingEvent } from '../model/models';
+import { PaginationResponse, AuditingEvent } from '../model/models';
 import { AuditingFilter } from '../model/auditingFilter';
 
 
@@ -34,7 +32,7 @@ export class AuditService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -69,7 +67,7 @@ export class AuditService {
     public getAllAuditingEvents(body?: AuditingFilter, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<AuditingEvent>>;
     public getAllAuditingEvents(body?: AuditingFilter, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<AuditingEvent>>>;
     public getAllAuditingEvents(body?: AuditingFilter, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<AuditingEvent>>>;
-    public getAllAuditingEvents(body?: AuditingFilter, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllAuditingEvents(body?: AuditingFilter, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
@@ -95,14 +93,14 @@ export class AuditService {
         }
 
         return this.httpClient.post<PaginationResponse<AuditingEvent>>(`${this.basePath}/audit/getAllAuditingEvents`,
-        body,
+            body,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 }

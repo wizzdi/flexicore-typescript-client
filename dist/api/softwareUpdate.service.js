@@ -25,6 +25,7 @@ const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
 const http_1 = require("@angular/http");
 const http_2 = require("@angular/http");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let SoftwareUpdateService = class SoftwareUpdateService {
@@ -75,14 +76,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     activateDevice(id, authenticationKey, extraHttpRequestParams) {
         return this.activateDeviceWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -92,14 +93,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     addDeviceInitiatedLog(deviceId, fileResourceId, authenticationKey, extraHttpRequestParams) {
         return this.addDeviceInitiatedLogWithHttpInfo(deviceId, fileResourceId, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -116,14 +117,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     attachDeviceToFileUpdate(deviceId, updateFileId, authenticationKey, locationOnDevice, keepOriginal, name, shouldExtract, deleteAfterExtract, interval, startMilis, extraHttpRequestParams) {
         return this.attachDeviceToFileUpdateWithHttpInfo(deviceId, updateFileId, authenticationKey, locationOnDevice, keepOriginal, name, shouldExtract, deleteAfterExtract, interval, startMilis, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -135,14 +136,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     checkDeviceActivatedAndUpdateLocation(id, authenticationKey, lat, lon, serialNumber, extraHttpRequestParams) {
         return this.checkDeviceActivatedAndUpdateLocationWithHttpInfo(id, authenticationKey, lat, lon, serialNumber, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -151,14 +152,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     checkFoLogRequests(deviceId, authenticationKey, extraHttpRequestParams) {
         return this.checkFoLogRequestsWithHttpInfo(deviceId, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -167,14 +168,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     clearDeviceUpdateLinks(deviceId, authenticationKey, extraHttpRequestParams) {
         return this.clearDeviceUpdateLinksWithHttpInfo(deviceId, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -183,14 +184,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     clearFileUpdates(id, authenticationKey, extraHttpRequestParams) {
         return this.clearFileUpdatesWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -199,14 +200,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     clearLogs(id, authenticationKey, extraHttpRequestParams) {
         return this.clearLogsWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -215,14 +216,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     clearUpdateLink(linkId, authenticationKey, extraHttpRequestParams) {
         return this.clearUpdateLinkWithHttpInfo(linkId, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -233,14 +234,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     closeFetchRequest(fileUpdateId, linkId, authenticationKey, dateCompleted, extraHttpRequestParams) {
         return this.closeFetchRequestWithHttpInfo(fileUpdateId, linkId, authenticationKey, dateCompleted, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -250,14 +251,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     closeRequest(linkId, authenticationKey, dateCompleted, extraHttpRequestParams) {
         return this.closeRequestWithHttpInfo(linkId, authenticationKey, dateCompleted, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -266,14 +267,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     confirmRestart(linkId, authenticationKey, extraHttpRequestParams) {
         return this.confirmRestartWithHttpInfo(linkId, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -283,14 +284,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     createUpdateBundle(authenticationKey, body, bundleName, extraHttpRequestParams) {
         return this.createUpdateBundleWithHttpInfo(authenticationKey, body, bundleName, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -299,14 +300,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     deactivateDevice(id, authenticationKey, extraHttpRequestParams) {
         return this.deactivateDeviceWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -315,14 +316,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     exportUpdates(authenticationKey, body, extraHttpRequestParams) {
         return this.exportUpdatesWithHttpInfo(authenticationKey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -330,14 +331,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     fixDevicesDevices(authenticationKey, extraHttpRequestParams) {
         return this.fixDevicesDevicesWithHttpInfo(authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -345,14 +346,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     fixDevicesName(authenticationKey, extraHttpRequestParams) {
         return this.fixDevicesNameWithHttpInfo(authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -360,14 +361,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     fixDuplicateMacs(authenticationKey, extraHttpRequestParams) {
         return this.fixDuplicateMacsWithHttpInfo(authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -375,14 +376,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     getDuplicatedMacs(authenticationKey, extraHttpRequestParams) {
         return this.getDuplicatedMacsWithHttpInfo(authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -397,14 +398,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     getFileFromDeviceRequest(deviceId, authenticationKey, locationOnDevice, keepOriginal, name, generationRequest, interval, startMilis, extraHttpRequestParams) {
         return this.getFileFromDeviceRequestWithHttpInfo(deviceId, authenticationKey, locationOnDevice, keepOriginal, name, generationRequest, interval, startMilis, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -414,14 +415,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     getMinimumCheckInterval(mac, authenticationKey, dateCompleted, extraHttpRequestParams) {
         return this.getMinimumCheckIntervalWithHttpInfo(mac, authenticationKey, dateCompleted, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -430,14 +431,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     getPendingFileUpdates(mac, authenticationKey, extraHttpRequestParams) {
         return this.getPendingFileUpdatesWithHttpInfo(mac, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -447,14 +448,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     getPeriodicFilesForFileUpdate(id, authenticationKey, startingDate, extraHttpRequestParams) {
         return this.getPeriodicFilesForFileUpdateWithHttpInfo(id, authenticationKey, startingDate, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -464,14 +465,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     getPeriodicFilesForLogRequests(id, authenticationKey, startingDate, extraHttpRequestParams) {
         return this.getPeriodicFilesForLogRequestsWithHttpInfo(id, authenticationKey, startingDate, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -480,14 +481,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     getRequiredUpdates(mac, authenticationKey, extraHttpRequestParams) {
         return this.getRequiredUpdatesWithHttpInfo(mac, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -496,14 +497,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     getSoftwareToRestart(deviceId, authenticationKey, extraHttpRequestParams) {
         return this.getSoftwareToRestartWithHttpInfo(deviceId, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -515,14 +516,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     listDeviceFileUpdates(deviceId, authenticationKey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.listDeviceFileUpdatesWithHttpInfo(deviceId, authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -534,14 +535,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     listDeviceInstalledSoftwares(deviceId, authenticationKey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.listDeviceInstalledSoftwaresWithHttpInfo(deviceId, authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -553,14 +554,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     listDevicePendingInstallSoftwares(deviceId, authenticationKey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.listDevicePendingInstallSoftwaresWithHttpInfo(deviceId, authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -572,14 +573,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     listDevicePendingLogRequests(deviceId, authenticationKey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.listDevicePendingLogRequestsWithHttpInfo(deviceId, authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -588,14 +589,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     listDeviceSettings(id, authenticationKey, extraHttpRequestParams) {
         return this.listDeviceSettingsWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -608,14 +609,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     listDevices(authenticationKey, body, serial, mac, pagesize, currentPage, extraHttpRequestParams) {
         return this.listDevicesWithHttpInfo(authenticationKey, body, serial, mac, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -626,14 +627,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     listFileUpdates(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.listFileUpdatesWithHttpInfo(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -644,14 +645,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     listSoftwares(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.listSoftwaresWithHttpInfo(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -662,14 +663,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     listUpdateBundle(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.listUpdateBundleWithHttpInfo(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -680,14 +681,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     listUpdateFiles(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.listUpdateFilesWithHttpInfo(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -696,14 +697,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     massDownload(authenticationKey, body, extraHttpRequestParams) {
         return this.massDownloadWithHttpInfo(authenticationKey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -712,14 +713,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     prepareFileResourceBundle(authenticationKey, body, extraHttpRequestParams) {
         return this.prepareFileResourceBundleWithHttpInfo(authenticationKey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -730,14 +731,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     register(mac, authenticationKey, serialNumber, body, extraHttpRequestParams) {
         return this.registerWithHttpInfo(mac, authenticationKey, serialNumber, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -750,14 +751,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     requestLog(deviceId, authenticationKey, filter, level, interval, startMilis, extraHttpRequestParams) {
         return this.requestLogWithHttpInfo(deviceId, authenticationKey, filter, level, interval, startMilis, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -767,14 +768,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     setSoftwareToRestart(deviceId, softwareId, authenticationKey, extraHttpRequestParams) {
         return this.setSoftwareToRestartWithHttpInfo(deviceId, softwareId, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -785,14 +786,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     updateDeviceStatusAndGetIsActivate(id, authenticationKey, body, serialNumber, extraHttpRequestParams) {
         return this.updateDeviceStatusAndGetIsActivateWithHttpInfo(id, authenticationKey, body, serialNumber, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -802,14 +803,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     updateFileUpdateStarted(requestId, authenticationKey, dateCompleted, extraHttpRequestParams) {
         return this.updateFileUpdateStartedWithHttpInfo(requestId, authenticationKey, dateCompleted, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -819,14 +820,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     updateMultipleSoftware(deviceId, authenticationKey, body, extraHttpRequestParams) {
         return this.updateMultipleSoftwareWithHttpInfo(deviceId, authenticationKey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -837,14 +838,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     updateRequestLogAsCompleted(requestId, fileResourceId, authenticationKey, logDate, extraHttpRequestParams) {
         return this.updateRequestLogAsCompletedWithHttpInfo(requestId, fileResourceId, authenticationKey, logDate, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -854,14 +855,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     updateRequestLogAsGathered(requestId, authenticationKey, dateCompleted, extraHttpRequestParams) {
         return this.updateRequestLogAsGatheredWithHttpInfo(requestId, authenticationKey, dateCompleted, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -871,14 +872,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     updateSoftware(softwareId, deviceId, authenticationKey, extraHttpRequestParams) {
         return this.updateSoftwareWithHttpInfo(softwareId, deviceId, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -888,14 +889,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     updateSoftwareBundle(bundleId, deviceId, authenticationKey, extraHttpRequestParams) {
         return this.updateSoftwareBundleWithHttpInfo(bundleId, deviceId, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -904,14 +905,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     updateUpdateCompleted(id, authenticationKey, extraHttpRequestParams) {
         return this.updateUpdateCompletedWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -920,14 +921,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     updateUpdateStarted(id, authenticationKey, extraHttpRequestParams) {
         return this.updateUpdateStartedWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -936,14 +937,14 @@ let SoftwareUpdateService = class SoftwareUpdateService {
      */
     updateUpdateVerified(id, authenticationKey, extraHttpRequestParams) {
         return this.updateUpdateVerifiedWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *

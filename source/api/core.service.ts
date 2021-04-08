@@ -12,12 +12,13 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';  import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
+import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
+import { Response } from '@angular/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Baseclass } from '../model/baseclass';
 import { BaseclassCreationContainer } from '../model/baseclassCreationContainer';
@@ -70,8 +71,8 @@ import { UpdateBundle } from '../model/updateBundle';
 import { UserClass } from '../model/userClass';
 import { View } from '../model/view';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 
 
 @Injectable()
@@ -81,13 +82,13 @@ export class CoreService {
     public defaultHeaders: Headers = new Headers();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected http: Http, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
+            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -97,13 +98,13 @@ export class CoreService {
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
                 (objA as any)[key] = (objB as any)[key];
             }
         }
-        return <T1&T2>objA;
+        return <T1 & T2>objA;
     }
 
     /**
@@ -129,13 +130,13 @@ export class CoreService {
      */
     public activateLink(baseId: string, mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.activateLinkWithHttpInfo(baseId, mac, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -146,13 +147,13 @@ export class CoreService {
      */
     public addUserToRole(roleId: string, userId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.addUserToRoleWithHttpInfo(roleId, userId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -163,13 +164,13 @@ export class CoreService {
      */
     public attachCertificate(id: string, crtId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.attachCertificateWithHttpInfo(id, crtId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -182,13 +183,13 @@ export class CoreService {
      */
     public attachFileResource(mediaId: string, fileResourceId: string, authenticationkey?: string, group?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.attachFileResourceWithHttpInfo(mediaId, fileResourceId, authenticationkey, group, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -201,13 +202,13 @@ export class CoreService {
      */
     public attachPropertyToMetadata(settingsMetaId: string, propertyId: string, authenticationkey?: string, value?: string, extraHttpRequestParams?: any): Observable<PropertyToSettingsMetadata> {
         return this.attachPropertyToMetadataWithHttpInfo(settingsMetaId, propertyId, authenticationkey, value, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -217,13 +218,13 @@ export class CoreService {
      */
     public attachTenant(authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.attachTenantWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -234,13 +235,13 @@ export class CoreService {
      */
     public changeMediaPrimaryFileResourceBundle(id: string, fileResourceId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.changeMediaPrimaryFileResourceBundleWithHttpInfo(id, fileResourceId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -248,13 +249,13 @@ export class CoreService {
      */
     public checkDBAvailable(extraHttpRequestParams?: any): Observable<boolean> {
         return this.checkDBAvailableWithHttpInfo(extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -266,13 +267,13 @@ export class CoreService {
      */
     public connectCategory(baseId: string, authenticationkey?: string, catId?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.connectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -285,13 +286,13 @@ export class CoreService {
      */
     public connectDeviceToBaseclass(baseId: string, mac: string, authenticationkey?: string, someHeader?: string, extraHttpRequestParams?: any): Observable<DeviceToBaseclass> {
         return this.connectDeviceToBaseclassWithHttpInfo(baseId, mac, authenticationkey, someHeader, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -304,13 +305,13 @@ export class CoreService {
      */
     public connectPropertyComplex(propertyId: string, baseclassId: string, valueId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<PropertyToBaseclass> {
         return this.connectPropertyComplexWithHttpInfo(propertyId, baseclassId, valueId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -323,13 +324,13 @@ export class CoreService {
      */
     public connectPropertySimple(propertyId: string, baseclassId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<PropertyToBaseclass> {
         return this.connectPropertySimpleWithHttpInfo(propertyId, baseclassId, authenticationkey, simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -339,13 +340,13 @@ export class CoreService {
      */
     public connectToTenant(authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.connectToTenantWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -356,13 +357,13 @@ export class CoreService {
      */
     public count(type: string, authenticationkey?: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<number> {
         return this.countWithHttpInfo(type, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -374,13 +375,13 @@ export class CoreService {
      */
     public countAllofType(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<number> {
         return this.countAllofTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -393,15 +394,15 @@ export class CoreService {
      * @param pagesize Number of entries to be retrieved per page or -1 for full list
      * @param currentpage The current page or -1 for full list
      */
-    public countConnected(wantedClazzName: string, id: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number,valueId?:string,simpleValue?:string, extraHttpRequestParams?: any): Observable<number> {
-        return this.countConnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage,valueId,simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
+    public countConnected(wantedClazzName: string, id: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, valueId?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<number> {
+        return this.countConnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -414,15 +415,15 @@ export class CoreService {
      * @param pagesize Number of entries to be retrieved per page or -1 for full list
      * @param currentpage The current page or -1 for full list
      */
-    public countDisconnected(wantedClazzName: string, id: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, valueId?:string,simpleValue?:string,extraHttpRequestParams?: any): Observable<number> {
-        return this.countDisconnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId,simpleValue,extraHttpRequestParams)
-            .map((response: Response) => {
+    public countDisconnected(wantedClazzName: string, id: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, valueId?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<number> {
+        return this.countDisconnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -433,13 +434,13 @@ export class CoreService {
      */
     public create(authenticationkey?: string, body?: BaseclassCreationContainer, extraHttpRequestParams?: any): Observable<string> {
         return this.createWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -455,13 +456,13 @@ export class CoreService {
      */
     public createBaselink(leftId: string, rightId: string, linkClazzName: string, authenticationkey?: string, value?: string, simpleValue?: string, check?: boolean, extraHttpRequestParams?: any): Observable<Baselink> {
         return this.createBaselinkWithHttpInfo(leftId, rightId, linkClazzName, authenticationkey, value, simpleValue, check, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -472,13 +473,13 @@ export class CoreService {
      */
     public createCategory(categoryName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Category> {
         return this.createCategoryWithHttpInfo(categoryName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -493,13 +494,13 @@ export class CoreService {
      */
     public createDevice(mac: string, serialNumber: string, authenticationkey?: string, name?: string, lat?: number, lon?: number, extraHttpRequestParams?: any): Observable<Device> {
         return this.createDeviceWithHttpInfo(mac, serialNumber, authenticationkey, name, lat, lon, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -510,13 +511,13 @@ export class CoreService {
      */
     public createHeapDump(authenticationkey?: string, path?: string, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.createHeapDumpWithHttpInfo(authenticationkey, path, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -530,13 +531,13 @@ export class CoreService {
      */
     public createProperty(authenticationkey?: string, propertyName?: string, propertyType?: string, extraHttpRequestParams?: any): Observable<Property> {
         return this.createPropertyWithHttpInfo(authenticationkey, propertyName, propertyType, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -547,13 +548,13 @@ export class CoreService {
      */
     public createPropertyType(authenticationkey?: string, propertyTypeName?: string, extraHttpRequestParams?: any): Observable<PropertyType> {
         return this.createPropertyTypeWithHttpInfo(authenticationkey, propertyTypeName, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -563,13 +564,13 @@ export class CoreService {
      */
     public createRole(authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<Role> {
         return this.createRoleWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -581,13 +582,13 @@ export class CoreService {
      */
     public createSettings(settingsMetadataId: string, authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<Settings> {
         return this.createSettingsWithHttpInfo(settingsMetadataId, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -598,13 +599,13 @@ export class CoreService {
      */
     public createSettingsMetadata(authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<SettingsMetadata> {
         return this.createSettingsMetadataWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -616,13 +617,13 @@ export class CoreService {
      */
     public createTenant(tenantName: string, apiKey: string, authenticationkey?: string, body?: NewUser, extraHttpRequestParams?: any): Observable<Tenant> {
         return this.createTenantWithHttpInfo(tenantName, apiKey, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -633,13 +634,13 @@ export class CoreService {
      */
     public createTenantNoUser(tenantName: string, apiKey: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Tenant> {
         return this.createTenantNoUserWithHttpInfo(tenantName, apiKey, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -651,13 +652,13 @@ export class CoreService {
      */
     public createUser(authenticationkey?: string, loginuponsuccess?: boolean, body?: NewUserUserClass, extraHttpRequestParams?: any): Observable<RunningUser> {
         return this.createUserWithHttpInfo(authenticationkey, loginuponsuccess, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -667,13 +668,13 @@ export class CoreService {
      */
     public create_1(authenticationkey?: string, body?: Media, extraHttpRequestParams?: any): Observable<{}> {
         return this.create_1WithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -685,13 +686,13 @@ export class CoreService {
      */
     public deactivateAllLinks(baseId: string, mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<number> {
         return this.deactivateAllLinksWithHttpInfo(baseId, mac, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -702,13 +703,13 @@ export class CoreService {
      */
     public deactivateLink(linkId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.deactivateLinkWithHttpInfo(linkId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -719,13 +720,13 @@ export class CoreService {
      */
     public deleteById(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.deleteByIdWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -737,13 +738,13 @@ export class CoreService {
      */
     public deleteById_2(id: string, className: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.deleteById_2WithHttpInfo(id, className, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -753,13 +754,13 @@ export class CoreService {
      */
     public deleteFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.deleteFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -770,13 +771,13 @@ export class CoreService {
      */
     public deleteHeapDump(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.deleteHeapDumpWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -786,13 +787,13 @@ export class CoreService {
      */
     public deleteMedia(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.deleteMediaWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -805,13 +806,13 @@ export class CoreService {
      */
     public detachEntities(leftId: string, rightId: string, linkClazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.detachEntitiesWithHttpInfo(leftId, rightId, linkClazzName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -822,13 +823,13 @@ export class CoreService {
      */
     public deviceGetSettings(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<SettingsContainer> {
         return this.deviceGetSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -840,13 +841,13 @@ export class CoreService {
      */
     public disableCategory(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.disableCategoryWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -858,13 +859,13 @@ export class CoreService {
      */
     public disconnectCategory(baseId: string, authenticationkey?: string, catId?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.disconnectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -874,13 +875,13 @@ export class CoreService {
      */
     public download(authenticationkey: string, id: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.downloadWithHttpInfo(authenticationkey, id, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -891,13 +892,13 @@ export class CoreService {
      */
     public duplicate(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Baseclass> {
         return this.duplicateWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -909,13 +910,13 @@ export class CoreService {
      */
     public duplicateSettings(originalSettingsId: string, authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<Settings> {
         return this.duplicateSettingsWithHttpInfo(originalSettingsId, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -927,13 +928,13 @@ export class CoreService {
      */
     public enableCategory(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.enableCategoryWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -944,13 +945,13 @@ export class CoreService {
      */
     public exportBaseclass(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.exportBaseclassWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -961,13 +962,13 @@ export class CoreService {
      */
     public exportSettings(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.exportSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -979,13 +980,13 @@ export class CoreService {
      */
     public fileResourcesOfType(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
         return this.fileResourcesOfTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -999,13 +1000,13 @@ export class CoreService {
      */
     public finalizeUpload(md5: string, authenticationkey?: string, hint?: string, fileType?: string, dontProcess?: boolean, extraHttpRequestParams?: any): Observable<Job> {
         return this.finalizeUploadWithHttpInfo(md5, authenticationkey, hint, fileType, dontProcess, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1017,13 +1018,13 @@ export class CoreService {
      */
     public findById(id: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Baseclass> {
         return this.findByIdWithHttpInfo(id, classname, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1034,13 +1035,13 @@ export class CoreService {
      */
     public findById_3(ID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Baseclass> {
         return this.findById_3WithHttpInfo(ID, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1050,13 +1051,13 @@ export class CoreService {
      */
     public findById_4(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Role> {
         return this.findById_4WithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1068,13 +1069,13 @@ export class CoreService {
      */
     public findByName(name: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
         return this.findByNameWithHttpInfo(name, classname, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1088,13 +1089,13 @@ export class CoreService {
      */
     public findBySidesId(left: string, right: string, classname: string, authenticationkey?: string, value?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.findBySidesIdWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1111,13 +1112,13 @@ export class CoreService {
      */
     public findLinks(left: string, right: string, classname: string, authenticationkey?: string, value?: string, simpleValue?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Baselink>> {
         return this.findLinksWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1134,13 +1135,13 @@ export class CoreService {
      */
     public findLinksContainers(left: string, right: string, classname: string, authenticationkey?: string, value?: string, simpleValue?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<LinkContainer>> {
         return this.findLinksContainersWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1157,13 +1158,13 @@ export class CoreService {
      */
     public findLinksValues(left: string, right: string, classname: string, authenticationkey?: string, value?: string, simpleValue?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
         return this.findLinksValuesWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1174,13 +1175,13 @@ export class CoreService {
      */
     public generateClient(clientType: string, authenticationkey?: string, view?: string, extraHttpRequestParams?: any): Observable<Job> {
         return this.generateClientWithHttpInfo(clientType, authenticationkey, view, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1191,13 +1192,13 @@ export class CoreService {
      */
     public get(id: string, authenticationkey?: string, targetDevice?: string, extraHttpRequestParams?: any): Observable<Media> {
         return this.getWithHttpInfo(id, authenticationkey, targetDevice, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1209,13 +1210,13 @@ export class CoreService {
      */
     public getAllCategories(authenticationkey?: string, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Category>> {
         return this.getAllCategoriesWithHttpInfo(authenticationkey, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1226,13 +1227,13 @@ export class CoreService {
      */
     public getAllCategoriesConnected(baseId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
         return this.getAllCategoriesConnectedWithHttpInfo(baseId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1241,13 +1242,13 @@ export class CoreService {
      */
     public getAllFileTypes(authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<FileType>> {
         return this.getAllFileTypesWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1258,13 +1259,13 @@ export class CoreService {
      */
     public getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Operation>> {
         return this.getAllOperationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1274,13 +1275,13 @@ export class CoreService {
      */
     public getAllViews(authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<View>> {
         return this.getAllViewsWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1291,13 +1292,13 @@ export class CoreService {
      */
     public getAssociations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<ClazzLinkContainer>> {
         return this.getAssociationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1308,13 +1309,13 @@ export class CoreService {
      */
     public getCategory(className: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Category>> {
         return this.getCategoryWithHttpInfo(className, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1325,13 +1326,13 @@ export class CoreService {
      */
     public getCategoryByName(name: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Category>> {
         return this.getCategoryByNameWithHttpInfo(name, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1342,13 +1343,13 @@ export class CoreService {
      */
     public getClazz(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Clazz> {
         return this.getClazzWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1357,13 +1358,13 @@ export class CoreService {
      */
     public getClients(authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<string>> {
         return this.getClientsWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1376,15 +1377,15 @@ export class CoreService {
      * @param pagesize Number of entries to be retrieved per page or -1 for full list
      * @param currentpage The current page or -1 for full list
      */
-    public getConnected(wantedClazzName: string, id: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number,valueId?:string,simpleValue?:string, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
-        return this.getConnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage,valueId,simpleValue,extraHttpRequestParams)
-            .map((response: Response) => {
+    public getConnected(wantedClazzName: string, id: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, valueId?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
+        return this.getConnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1398,13 +1399,13 @@ export class CoreService {
      */
     public getDeviceUsedProperties(mac: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<DevicePropertyContainerObject>> {
         return this.getDeviceUsedPropertiesWithHttpInfo(mac, authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1417,15 +1418,15 @@ export class CoreService {
      * @param pagesize Number of entries to be retrieved per page or -1 for full list
      * @param currentpage The current page or -1 for full list
      */
-    public getDisconnected(id: string, wantedClazzName: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number,valueId?:string,simpleValue?:string, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
-        return this.getDisconnectedWithHttpInfo(id, wantedClazzName, linkClazzName, authenticationkey, body, pagesize, currentpage,valueId,simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
+    public getDisconnected(id: string, wantedClazzName: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, valueId?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
+        return this.getDisconnectedWithHttpInfo(id, wantedClazzName, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1435,13 +1436,13 @@ export class CoreService {
      */
     public getDocs(authenticationkey: string, view?: string, extraHttpRequestParams?: any): Observable<string> {
         return this.getDocsWithHttpInfo(authenticationkey, view, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1454,13 +1455,13 @@ export class CoreService {
      */
     public getDynamicProperties(id: string, authenticationkey?: string, propertyClazz?: string, plainView?: boolean, extraHttpRequestParams?: any): Observable<Array<PropertyContainerSerializable>> {
         return this.getDynamicPropertiesWithHttpInfo(id, authenticationkey, propertyClazz, plainView, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1473,13 +1474,13 @@ export class CoreService {
      */
     public getDynamicPropertiesWithCategories(id: string, authenticationkey?: string, propertyClazz?: string, plainView?: boolean, extraHttpRequestParams?: any): Observable<Array<PropertyContainerSerializable>> {
         return this.getDynamicPropertiesWithCategoriesWithHttpInfo(id, authenticationkey, propertyClazz, plainView, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1491,13 +1492,13 @@ export class CoreService {
      */
     public getFeatures(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<LicensingFeature>> {
         return this.getFeaturesWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1508,13 +1509,13 @@ export class CoreService {
      */
     public getFields(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<FieldContainer>> {
         return this.getFieldsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1524,13 +1525,13 @@ export class CoreService {
      */
     public getFields_5(className: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<string>> {
         return this.getFields_5WithHttpInfo(className, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1540,13 +1541,13 @@ export class CoreService {
      */
     public getFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.getFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1556,13 +1557,13 @@ export class CoreService {
      */
     public getJob(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Job> {
         return this.getJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1572,13 +1573,13 @@ export class CoreService {
      */
     public getOffsetInfo(authenticationkey?: string, body?: UpdateBundle, extraHttpRequestParams?: any): Observable<UpdateBundle> {
         return this.getOffsetInfoWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1588,13 +1589,13 @@ export class CoreService {
      */
     public getPreview(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.getPreviewWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1606,13 +1607,13 @@ export class CoreService {
      */
     public getProducts(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<LicensingProduct>> {
         return this.getProductsWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1626,13 +1627,13 @@ export class CoreService {
      */
     public getRenderingBundles(grouping: string, id: string, authenticationkey?: string, pagesize?: number, currentpage?: number, sortby?: string, extraHttpRequestParams?: any): Observable<Array<FileResourceBundleHolder>> {
         return this.getRenderingBundlesWithHttpInfo(grouping, id, authenticationkey, pagesize, currentpage, sortby, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1643,13 +1644,13 @@ export class CoreService {
      */
     public getSettings(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<SettingsContainer> {
         return this.getSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1659,13 +1660,13 @@ export class CoreService {
      */
     public getSwaggerJSON(authenticationkey: string, view?: string, extraHttpRequestParams?: any): Observable<string> {
         return this.getSwaggerJSONWithHttpInfo(authenticationkey, view, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1675,13 +1676,13 @@ export class CoreService {
      */
     public getTenant(apiKey: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Tenant> {
         return this.getTenantWithHttpInfo(apiKey, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1693,13 +1694,13 @@ export class CoreService {
      */
     public getTenants(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Tenant>> {
         return this.getTenantsWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1709,13 +1710,13 @@ export class CoreService {
      */
     public getViewClazzes(viewId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Clazz>> {
         return this.getViewClazzesWithHttpInfo(viewId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1727,13 +1728,13 @@ export class CoreService {
      */
     public importBaseclass(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.importBaseclassWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1746,13 +1747,13 @@ export class CoreService {
      */
     public importSettings(authenticationkey?: string, body?: SettingsContainer, byName?: boolean, dontUpdate?: boolean, extraHttpRequestParams?: any): Observable<boolean> {
         return this.importSettingsWithHttpInfo(authenticationkey, body, byName, dontUpdate, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1761,13 +1762,13 @@ export class CoreService {
      */
     public invalidateCache(authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.invalidateCacheWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1779,13 +1780,13 @@ export class CoreService {
      */
     public linkBaseclassTouser(leftId: string, rightId: string, operationId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.linkBaseclassTouserWithHttpInfo(leftId, rightId, operationId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1796,13 +1797,13 @@ export class CoreService {
      */
     public linkroleuser(authenticationkey?: string, body?: RoleUserContainer, extraHttpRequestParams?: any): Observable<RoleToUser> {
         return this.linkroleuserWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1814,13 +1815,13 @@ export class CoreService {
      */
     public listAll(authenticationkey?: string, pagesize?: number, currentpage?: number, sortby?: string, extraHttpRequestParams?: any): Observable<Array<Media>> {
         return this.listAllWithHttpInfo(authenticationkey, pagesize, currentpage, sortby, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1835,13 +1836,13 @@ export class CoreService {
      */
     public listAllFileResourcesOfGroupInMedia(id: string, authenticationkey?: string, group?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
         return this.listAllFileResourcesOfGroupInMediaWithHttpInfo(id, authenticationkey, group, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1855,13 +1856,13 @@ export class CoreService {
      */
     public listAllFileResourcesOfType(mediaId: string, authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
         return this.listAllFileResourcesOfTypeWithHttpInfo(mediaId, authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1870,13 +1871,13 @@ export class CoreService {
      */
     public listAllLoadedPlugins(authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<PluginInformationHolder>> {
         return this.listAllLoadedPluginsWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1888,13 +1889,13 @@ export class CoreService {
      */
     public listAllRoles(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Role>> {
         return this.listAllRolesWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1907,13 +1908,13 @@ export class CoreService {
      */
     public listAllSettings(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Settings>> {
         return this.listAllSettingsWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1926,13 +1927,13 @@ export class CoreService {
      */
     public listAllSettingsMetadata(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<SettingsMetadata>> {
         return this.listAllSettingsMetadataWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1942,13 +1943,13 @@ export class CoreService {
      */
     public listAllUserRoles(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Role>> {
         return this.listAllUserRolesWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1960,13 +1961,13 @@ export class CoreService {
      */
     public listAllUsers(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<UserClass>> {
         return this.listAllUsersWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1979,13 +1980,13 @@ export class CoreService {
      */
     public listAllofType(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<Media>> {
         return this.listAllofTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1996,13 +1997,13 @@ export class CoreService {
      */
     public listDeviceSettings(deviceId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<DeviceSettingsContainer>> {
         return this.listDeviceSettingsWithHttpInfo(deviceId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2013,13 +2014,13 @@ export class CoreService {
      */
     public listDeviceSettingsContainers(mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<SettingsContainer>> {
         return this.listDeviceSettingsContainersWithHttpInfo(mac, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2031,13 +2032,13 @@ export class CoreService {
      */
     public listDevices(authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<Device>> {
         return this.listDevicesWithHttpInfo(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2051,13 +2052,13 @@ export class CoreService {
      */
     public listHeapDumps(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, start?: number, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
         return this.listHeapDumpsWithHttpInfo(authenticationkey, body, pagesize, currentpage, start, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2070,13 +2071,13 @@ export class CoreService {
      */
     public listLicenseRequest(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<LicenseRequest>> {
         return this.listLicenseRequestWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2089,13 +2090,13 @@ export class CoreService {
      */
     public listProperties(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<Property>> {
         return this.listPropertiesWithHttpInfo(authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2108,13 +2109,13 @@ export class CoreService {
      */
     public listPropertyTypes(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<PropertyType>> {
         return this.listPropertyTypesWithHttpInfo(authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2128,13 +2129,13 @@ export class CoreService {
      */
     public listSettings(settingsMetadataId: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Settings>> {
         return this.listSettingsWithHttpInfo(settingsMetadataId, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2144,13 +2145,13 @@ export class CoreService {
      */
     public lookupUserByEmail(email: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<UserClass> {
         return this.lookupUserByEmailWithHttpInfo(email, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2160,13 +2161,13 @@ export class CoreService {
      */
     public lookupUserById(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<UserClass> {
         return this.lookupUserByIdWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2176,13 +2177,13 @@ export class CoreService {
      */
     public multipleCreate(authenticationkey?: string, number?: number, extraHttpRequestParams?: any): Observable<number> {
         return this.multipleCreateWithHttpInfo(authenticationkey, number, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2196,13 +2197,13 @@ export class CoreService {
      */
     public nameLike(classname: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
         return this.nameLikeWithHttpInfo(classname, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2210,13 +2211,13 @@ export class CoreService {
      */
     public ping(extraHttpRequestParams?: any): Observable<boolean> {
         return this.pingWithHttpInfo(extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2227,13 +2228,13 @@ export class CoreService {
      */
     public registerAndGetAllowedUIComponents(authenticationkey?: string, body?: UIComponentsRegistrationContainer, extraHttpRequestParams?: any): Observable<Array<UIComponent>> {
         return this.registerAndGetAllowedUIComponentsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2244,13 +2245,13 @@ export class CoreService {
      */
     public registerFile(authenticationkey?: string, path?: string, calcMd5?: boolean, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.registerFileWithHttpInfo(authenticationkey, path, calcMd5, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2264,16 +2265,16 @@ export class CoreService {
      */
     public registerFileAndFinlize(authenticationkey?: string, path?: string, hint?: string, fileType?: string, dontProcess?: boolean, calcMd5?: boolean, extraHttpRequestParams?: any): Observable<Job> {
         return this.registerFileAndFinlizeWithHttpInfo(authenticationkey, path, hint, fileType, dontProcess, calcMd5, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
-   
+
 
     /**
      * 
@@ -2281,13 +2282,13 @@ export class CoreService {
      */
     public restart(authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.restartWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2299,13 +2300,13 @@ export class CoreService {
      */
     public setActiveSettings(settingsMetaId: string, settingId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.setActiveSettingsWithHttpInfo(settingsMetaId, settingId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2316,13 +2317,13 @@ export class CoreService {
      */
     public setActiveSettingsAsDefault(settingsMetaId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.setActiveSettingsAsDefaultWithHttpInfo(settingsMetaId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2334,13 +2335,13 @@ export class CoreService {
      */
     public setDeviceUsedProperties(mac: string, authenticationkey?: string, body?: DeviceUsedPropertiesContainer, extraHttpRequestParams?: any): Observable<{}> {
         return this.setDeviceUsedPropertiesWithHttpInfo(mac, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2352,13 +2353,13 @@ export class CoreService {
      */
     public setLinkUpdateDate(linkId: string, authenticationkey?: string, date?: Date, extraHttpRequestParams?: any): Observable<{}> {
         return this.setLinkUpdateDateWithHttpInfo(linkId, authenticationkey, date, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2369,13 +2370,13 @@ export class CoreService {
      */
     public setProperty(authenticationkey?: string, body?: PropertySetContainerBaseclass, extraHttpRequestParams?: any): Observable<PropertyToClazz> {
         return this.setPropertyWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2386,13 +2387,13 @@ export class CoreService {
      */
     public softDelete(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.softDeleteWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2402,13 +2403,13 @@ export class CoreService {
      */
     public stopJob(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.stopJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2417,13 +2418,13 @@ export class CoreService {
      */
     public testUpdate(authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.testUpdateWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2436,13 +2437,13 @@ export class CoreService {
      */
     public update(id: string, clazzName: string, authenticationkey?: string, body?: BaseclassUpdateContainer, extraHttpRequestParams?: any): Observable<boolean> {
         return this.updateWithHttpInfo(id, clazzName, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2453,13 +2454,13 @@ export class CoreService {
      */
     public updateBasicDetails(authenticationkey?: string, body?: BasicContainer, extraHttpRequestParams?: any): Observable<boolean> {
         return this.updateBasicDetailsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2470,13 +2471,13 @@ export class CoreService {
      */
     public updateJobPhase(jobID: string, phaseName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateJobPhaseWithHttpInfo(jobID, phaseName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2488,13 +2489,13 @@ export class CoreService {
      */
     public updateJobProperty(jobID: string, key: string, value: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateJobPropertyWithHttpInfo(jobID, key, value, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2506,13 +2507,13 @@ export class CoreService {
      */
     public updateMetadataSimple(linkId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<PropertyToSettingsMetadata> {
         return this.updateMetadataSimpleWithHttpInfo(linkId, authenticationkey, simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2524,13 +2525,13 @@ export class CoreService {
      */
     public updateSimple(linkId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<PropertyToBaseclass> {
         return this.updateSimpleWithHttpInfo(linkId, authenticationkey, simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2541,13 +2542,13 @@ export class CoreService {
      */
     public updateVersion(id: string, updateTo: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateVersionWithHttpInfo(id, updateTo, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2557,13 +2558,13 @@ export class CoreService {
      */
     public update_6(authenticationkey?: string, body?: Media, extraHttpRequestParams?: any): Observable<{}> {
         return this.update_6WithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2573,13 +2574,13 @@ export class CoreService {
      */
     public uploadFileMulti(authenticationkey?: string, body?: MultipartFormDataInput, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
         return this.uploadFileMultiWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -2588,13 +2589,13 @@ export class CoreService {
      */
     public validate(authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.validateWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -2607,8 +2608,8 @@ export class CoreService {
      */
     public activateLinkWithHttpInfo(baseId: string, mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/activateLink/${mac}/${baseId}'
-                    .replace('${' + 'baseId' + '}', String(baseId))
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'baseId' + '}', String(baseId))
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2631,12 +2632,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2655,8 +2656,8 @@ export class CoreService {
      */
     public addUserToRoleWithHttpInfo(roleId: string, userId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/users/addToRole/${roleId}/${userId}'
-                    .replace('${' + 'roleId' + '}', String(roleId))
-                    .replace('${' + 'userId' + '}', String(userId));
+            .replace('${' + 'roleId' + '}', String(roleId))
+            .replace('${' + 'userId' + '}', String(userId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2679,12 +2680,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2703,8 +2704,8 @@ export class CoreService {
      */
     public attachCertificateWithHttpInfo(id: string, crtId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/license/attachCertificate/${id}/${crtId}'
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'crtId' + '}', String(crtId));
+            .replace('${' + 'id' + '}', String(id))
+            .replace('${' + 'crtId' + '}', String(crtId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2727,12 +2728,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2752,8 +2753,8 @@ export class CoreService {
      */
     public attachFileResourceWithHttpInfo(mediaId: string, fileResourceId: string, authenticationkey?: string, group?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/attachFileResource/${media_id}/${fileResource_id}'
-                    .replace('${' + 'media_id' + '}', String(mediaId))
-                    .replace('${' + 'fileResource_id' + '}', String(fileResourceId));
+            .replace('${' + 'media_id' + '}', String(mediaId))
+            .replace('${' + 'fileResource_id' + '}', String(fileResourceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2780,12 +2781,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2805,8 +2806,8 @@ export class CoreService {
      */
     public attachPropertyToMetadataWithHttpInfo(settingsMetaId: string, propertyId: string, authenticationkey?: string, value?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/attachPropertyToMetadata/${settingsMetaId}/${propertyId}'
-                    .replace('${' + 'settingsMetaId' + '}', String(settingsMetaId))
-                    .replace('${' + 'propertyId' + '}', String(propertyId));
+            .replace('${' + 'settingsMetaId' + '}', String(settingsMetaId))
+            .replace('${' + 'propertyId' + '}', String(propertyId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2833,12 +2834,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2870,7 +2871,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -2878,7 +2879,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2897,8 +2898,8 @@ export class CoreService {
      */
     public changeMediaPrimaryFileResourceBundleWithHttpInfo(id: string, fileResourceId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/${id}/${fileResourceId}'
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'fileResourceId' + '}', String(fileResourceId));
+            .replace('${' + 'id' + '}', String(id))
+            .replace('${' + 'fileResourceId' + '}', String(fileResourceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2921,12 +2922,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2952,12 +2953,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2976,7 +2977,7 @@ export class CoreService {
      */
     public connectCategoryWithHttpInfo(baseId: string, authenticationkey?: string, catId?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category/${baseId}'
-                    .replace('${' + 'baseId' + '}', String(baseId));
+            .replace('${' + 'baseId' + '}', String(baseId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2999,12 +3000,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3024,8 +3025,8 @@ export class CoreService {
      */
     public connectDeviceToBaseclassWithHttpInfo(baseId: string, mac: string, authenticationkey?: string, someHeader?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/connectDeviceToBaseclass/${mac}/${baseId}'
-                    .replace('${' + 'baseId' + '}', String(baseId))
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'baseId' + '}', String(baseId))
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3052,12 +3053,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3077,9 +3078,9 @@ export class CoreService {
      */
     public connectPropertyComplexWithHttpInfo(propertyId: string, baseclassId: string, valueId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/property/connectComplex/${propertyId}/${baseclass_id}/${value_id}'
-                    .replace('${' + 'propertyId' + '}', String(propertyId))
-                    .replace('${' + 'baseclass_id' + '}', String(baseclassId))
-                    .replace('${' + 'value_id' + '}', String(valueId));
+            .replace('${' + 'propertyId' + '}', String(propertyId))
+            .replace('${' + 'baseclass_id' + '}', String(baseclassId))
+            .replace('${' + 'value_id' + '}', String(valueId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3106,12 +3107,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3131,8 +3132,8 @@ export class CoreService {
      */
     public connectPropertySimpleWithHttpInfo(propertyId: string, baseclassId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/property/connectSimple/${propertyId}/${baseclass_id}'
-                    .replace('${' + 'propertyId' + '}', String(propertyId))
-                    .replace('${' + 'baseclass_id' + '}', String(baseclassId));
+            .replace('${' + 'propertyId' + '}', String(propertyId))
+            .replace('${' + 'baseclass_id' + '}', String(baseclassId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3159,12 +3160,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3196,7 +3197,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -3204,7 +3205,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3223,7 +3224,7 @@ export class CoreService {
      */
     public countWithHttpInfo(type: string, authenticationkey?: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/count/${type}'
-                    .replace('${' + 'type' + '}', String(type));
+            .replace('${' + 'type' + '}', String(type));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3242,7 +3243,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -3250,7 +3251,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3292,7 +3293,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -3300,7 +3301,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3321,11 +3322,11 @@ export class CoreService {
      * @param pagesize Number of entries to be retrieved per page or -1 for full list
      * @param currentpage The current page or -1 for full list
      */
-    public countConnectedWithHttpInfo(wantedClazzName: string, id: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number,valueId?:string,simpleValue?:string, extraHttpRequestParams?: any): Observable<Response> {
+    public countConnectedWithHttpInfo(wantedClazzName: string, id: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, valueId?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/countConnected/${wantedClazzName}/${id}/${linkClazzName}'
-                    .replace('${' + 'wantedClazzName' + '}', String(wantedClazzName))
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'linkClazzName' + '}', String(linkClazzName));
+            .replace('${' + 'wantedClazzName' + '}', String(wantedClazzName))
+            .replace('${' + 'id' + '}', String(id))
+            .replace('${' + 'linkClazzName' + '}', String(linkClazzName));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3366,7 +3367,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -3374,7 +3375,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3396,11 +3397,11 @@ export class CoreService {
      * @param currentpage The current page or -1 for full list
      */
     public countDisconnectedWithHttpInfo(wantedClazzName: string, id: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder,
-         pagesize?: number, currentpage?: number,valueId?:string,simpleValue?:string ,extraHttpRequestParams?: any): Observable<Response> {
+        pagesize?: number, currentpage?: number, valueId?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/countDisconnected/${wantedClazzName}/${id}/${linkClazzName}'
-                    .replace('${' + 'wantedClazzName' + '}', String(wantedClazzName))
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'linkClazzName' + '}', String(linkClazzName));
+            .replace('${' + 'wantedClazzName' + '}', String(wantedClazzName))
+            .replace('${' + 'id' + '}', String(id))
+            .replace('${' + 'linkClazzName' + '}', String(linkClazzName));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3441,7 +3442,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -3449,7 +3450,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3480,7 +3481,7 @@ export class CoreService {
         let produces: string[] = [
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -3488,7 +3489,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3511,9 +3512,9 @@ export class CoreService {
      */
     public createBaselinkWithHttpInfo(leftId: string, rightId: string, linkClazzName: string, authenticationkey?: string, value?: string, simpleValue?: string, check?: boolean, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baselinks/${leftId}/${linkClazzName}/${rightId}'
-                    .replace('${' + 'leftId' + '}', String(leftId))
-                    .replace('${' + 'rightId' + '}', String(rightId))
-                    .replace('${' + 'linkClazzName' + '}', String(linkClazzName));
+            .replace('${' + 'leftId' + '}', String(leftId))
+            .replace('${' + 'rightId' + '}', String(rightId))
+            .replace('${' + 'linkClazzName' + '}', String(linkClazzName));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3552,12 +3553,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3597,12 +3598,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3623,10 +3624,10 @@ export class CoreService {
      * @param lon 
      */
     public createDeviceWithHttpInfo(mac: string, serialNumber: string, authenticationkey?: string, name?: string, lat?: number,
-         lon?: number, extraHttpRequestParams?: any): Observable<Response> {
+        lon?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/createDevice/${mac}/${serialNumber}'
-                    .replace('${' + 'mac' + '}', String(mac))
-                    .replace('${' + 'serialNumber' + '}', String(serialNumber));
+            .replace('${' + 'mac' + '}', String(mac))
+            .replace('${' + 'serialNumber' + '}', String(serialNumber));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3661,12 +3662,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3702,12 +3703,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3717,7 +3718,7 @@ export class CoreService {
         return this.http.request(path, requestOptions);
     }
 
-    
+
 
     /**
      * creates Property
@@ -3750,12 +3751,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3791,12 +3792,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3828,7 +3829,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -3836,7 +3837,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3855,7 +3856,7 @@ export class CoreService {
      */
     public createSettingsWithHttpInfo(settingsMetadataId: string, authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/createSettings/${settingsMetadataId}'
-                    .replace('${' + 'settingsMetadataId' + '}', String(settingsMetadataId));
+            .replace('${' + 'settingsMetadataId' + '}', String(settingsMetadataId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3874,7 +3875,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -3882,7 +3883,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3914,7 +3915,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -3922,7 +3923,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3942,8 +3943,8 @@ export class CoreService {
      */
     public createTenantWithHttpInfo(tenantName: string, apiKey: string, authenticationkey?: string, body?: NewUser, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/tenant/${tenant_name}/${apiKey}'
-                    .replace('${' + 'tenant_name' + '}', String(tenantName))
-                    .replace('${' + 'apiKey' + '}', String(apiKey));
+            .replace('${' + 'tenant_name' + '}', String(tenantName))
+            .replace('${' + 'apiKey' + '}', String(apiKey));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3966,7 +3967,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -3974,7 +3975,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3993,8 +3994,8 @@ export class CoreService {
      */
     public createTenantNoUserWithHttpInfo(tenantName: string, apiKey: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/tenant/createTenantNoUser/${tenant_name}/${apiKey}'
-                    .replace('${' + 'tenant_name' + '}', String(tenantName))
-                    .replace('${' + 'apiKey' + '}', String(apiKey));
+            .replace('${' + 'tenant_name' + '}', String(tenantName))
+            .replace('${' + 'apiKey' + '}', String(apiKey));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4017,12 +4018,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4040,7 +4041,7 @@ export class CoreService {
      */
     public createUIInterfaceWithHttpInfo(name: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/uiPlugin/createUIInterface/${name}'
-                    .replace('${' + 'name' + '}', String(name));
+            .replace('${' + 'name' + '}', String(name));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4059,12 +4060,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4101,7 +4102,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -4109,7 +4110,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4141,7 +4142,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -4149,7 +4150,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4168,8 +4169,8 @@ export class CoreService {
      */
     public deactivateAllLinksWithHttpInfo(baseId: string, mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/deactivateAllLinks/${mac}/${baseId}'
-                    .replace('${' + 'baseId' + '}', String(baseId))
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'baseId' + '}', String(baseId))
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4192,12 +4193,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4215,7 +4216,7 @@ export class CoreService {
      */
     public deactivateLinkWithHttpInfo(linkId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/deactivateLink/${linkId}'
-                    .replace('${' + 'linkId' + '}', String(linkId));
+            .replace('${' + 'linkId' + '}', String(linkId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4234,12 +4235,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4257,7 +4258,7 @@ export class CoreService {
      */
     public deleteByIdWithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4275,12 +4276,12 @@ export class CoreService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4299,8 +4300,8 @@ export class CoreService {
      */
     public deleteById_2WithHttpInfo(id: string, className: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/${class_name}/${id}'
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'class_name' + '}', String(className));
+            .replace('${' + 'id' + '}', String(id))
+            .replace('${' + 'class_name' + '}', String(className));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4322,12 +4323,12 @@ export class CoreService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4345,7 +4346,7 @@ export class CoreService {
      */
     public deleteFileResourceWithHttpInfo(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/resources/${md5}'
-                    .replace('${' + 'md5' + '}', String(md5));
+            .replace('${' + 'md5' + '}', String(md5));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4363,12 +4364,12 @@ export class CoreService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4386,7 +4387,7 @@ export class CoreService {
      */
     public deleteHeapDumpWithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/debug/deleteHeapDump/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4405,12 +4406,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4428,7 +4429,7 @@ export class CoreService {
      */
     public deleteMediaWithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4447,12 +4448,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4472,9 +4473,9 @@ export class CoreService {
      */
     public detachEntitiesWithHttpInfo(leftId: string, rightId: string, linkClazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baselinks/${leftId}/${linkClazzName}/${rightId}'
-                    .replace('${' + 'leftId' + '}', String(leftId))
-                    .replace('${' + 'rightId' + '}', String(rightId))
-                    .replace('${' + 'linkClazzName' + '}', String(linkClazzName));
+            .replace('${' + 'leftId' + '}', String(leftId))
+            .replace('${' + 'rightId' + '}', String(rightId))
+            .replace('${' + 'linkClazzName' + '}', String(linkClazzName));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4501,12 +4502,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4524,7 +4525,7 @@ export class CoreService {
      */
     public deviceGetSettingsWithHttpInfo(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/deviceGetSettings/${settingsId}'
-                    .replace('${' + 'settingsId' + '}', String(settingsId));
+            .replace('${' + 'settingsId' + '}', String(settingsId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4543,12 +4544,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4567,7 +4568,7 @@ export class CoreService {
      */
     public disableCategoryWithHttpInfo(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category/${class_name}/disable'
-                    .replace('${' + 'class_name' + '}', String(className));
+            .replace('${' + 'class_name' + '}', String(className));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4586,7 +4587,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -4594,7 +4595,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4613,7 +4614,7 @@ export class CoreService {
      */
     public disconnectCategoryWithHttpInfo(baseId: string, authenticationkey?: string, catId?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category/${baseId}'
-                    .replace('${' + 'baseId' + '}', String(baseId));
+            .replace('${' + 'baseId' + '}', String(baseId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4636,12 +4637,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4659,8 +4660,8 @@ export class CoreService {
      */
     public downloadWithHttpInfo(authenticationkey: string, id: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/download/${authenticationkey}/${id}'
-                    .replace('${' + 'authenticationkey' + '}', String(authenticationkey))
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'authenticationkey' + '}', String(authenticationkey))
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4678,12 +4679,12 @@ export class CoreService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4701,7 +4702,7 @@ export class CoreService {
      */
     public duplicateWithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/clone/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4720,12 +4721,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4744,7 +4745,7 @@ export class CoreService {
      */
     public duplicateSettingsWithHttpInfo(originalSettingsId: string, authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/duplicateSettings/${originalSettingsId}'
-                    .replace('${' + 'originalSettingsId' + '}', String(originalSettingsId));
+            .replace('${' + 'originalSettingsId' + '}', String(originalSettingsId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4763,7 +4764,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -4771,7 +4772,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4790,7 +4791,7 @@ export class CoreService {
      */
     public enableCategoryWithHttpInfo(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category/enable/${class_name}'
-                    .replace('${' + 'class_name' + '}', String(className));
+            .replace('${' + 'class_name' + '}', String(className));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4809,7 +4810,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -4817,7 +4818,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4835,7 +4836,7 @@ export class CoreService {
      */
     public exportBaseclassWithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/exportBaseclass/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4854,12 +4855,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4877,7 +4878,7 @@ export class CoreService {
      */
     public exportSettingsWithHttpInfo(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/exportSettings/${settingsId}'
-                    .replace('${' + 'settingsId' + '}', String(settingsId));
+            .replace('${' + 'settingsId' + '}', String(settingsId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -4896,12 +4897,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4943,7 +4944,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -4951,7 +4952,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -4972,7 +4973,7 @@ export class CoreService {
      */
     public finalizeUploadWithHttpInfo(md5: string, authenticationkey?: string, hint?: string, fileType?: string, dontProcess?: boolean, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/resources/finalize/${md5}'
-                    .replace('${' + 'md5' + '}', String(md5));
+            .replace('${' + 'md5' + '}', String(md5));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5003,12 +5004,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5027,8 +5028,8 @@ export class CoreService {
      */
     public findByIdWithHttpInfo(id: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/getbyid/${id}/${classname}'
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'classname' + '}', String(classname));
+            .replace('${' + 'id' + '}', String(id))
+            .replace('${' + 'classname' + '}', String(classname));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5051,12 +5052,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5074,7 +5075,7 @@ export class CoreService {
      */
     public findById_3WithHttpInfo(ID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/${id}'
-                    .replace('${' + 'ID' + '}', String(ID));
+            .replace('${' + 'ID' + '}', String(ID));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5093,12 +5094,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5116,7 +5117,7 @@ export class CoreService {
      */
     public findById_4WithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/roles/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5135,12 +5136,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5159,8 +5160,8 @@ export class CoreService {
      */
     public findByNameWithHttpInfo(name: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/${name}/${classname}'
-                    .replace('${' + 'Name' + '}', String(name))
-                    .replace('${' + 'classname' + '}', String(classname));
+            .replace('${' + 'Name' + '}', String(name))
+            .replace('${' + 'classname' + '}', String(classname));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5183,12 +5184,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5210,9 +5211,9 @@ export class CoreService {
      */
     public findBySidesIdWithHttpInfo(left: string, right: string, classname: string, authenticationkey?: string, value?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baselinks/${left}/${right}/${classname}'
-                    .replace('${' + 'left' + '}', String(left))
-                    .replace('${' + 'right' + '}', String(right))
-                    .replace('${' + 'classname' + '}', String(classname));
+            .replace('${' + 'left' + '}', String(left))
+            .replace('${' + 'right' + '}', String(right))
+            .replace('${' + 'classname' + '}', String(classname));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5247,12 +5248,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5277,9 +5278,9 @@ export class CoreService {
      */
     public findLinksWithHttpInfo(left: string, right: string, classname: string, authenticationkey?: string, value?: string, simpleValue?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baselinks/findLinks/${left}/${right}/${classname}'
-                    .replace('${' + 'left' + '}', String(left))
-                    .replace('${' + 'right' + '}', String(right))
-                    .replace('${' + 'classname' + '}', String(classname));
+            .replace('${' + 'left' + '}', String(left))
+            .replace('${' + 'right' + '}', String(right))
+            .replace('${' + 'classname' + '}', String(classname));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5322,7 +5323,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -5330,7 +5331,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5355,9 +5356,9 @@ export class CoreService {
      */
     public findLinksContainersWithHttpInfo(left: string, right: string, classname: string, authenticationkey?: string, value?: string, simpleValue?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baselinks/findLinksContainers/${left}/${right}/${classname}'
-                    .replace('${' + 'left' + '}', String(left))
-                    .replace('${' + 'right' + '}', String(right))
-                    .replace('${' + 'classname' + '}', String(classname));
+            .replace('${' + 'left' + '}', String(left))
+            .replace('${' + 'right' + '}', String(right))
+            .replace('${' + 'classname' + '}', String(classname));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5400,7 +5401,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -5408,7 +5409,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5433,9 +5434,9 @@ export class CoreService {
      */
     public findLinksValuesWithHttpInfo(left: string, right: string, classname: string, authenticationkey?: string, value?: string, simpleValue?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baselinks/findLinksValues/${left}/${right}/${classname}'
-                    .replace('${' + 'left' + '}', String(left))
-                    .replace('${' + 'right' + '}', String(right))
-                    .replace('${' + 'classname' + '}', String(classname));
+            .replace('${' + 'left' + '}', String(left))
+            .replace('${' + 'right' + '}', String(right))
+            .replace('${' + 'classname' + '}', String(classname));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5478,7 +5479,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -5486,7 +5487,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5505,7 +5506,7 @@ export class CoreService {
      */
     public generateClientWithHttpInfo(clientType: string, authenticationkey?: string, view?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/swagger/extended/generateClient/${client_type}'
-                    .replace('${' + 'client_type' + '}', String(clientType));
+            .replace('${' + 'client_type' + '}', String(clientType));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5528,12 +5529,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5552,7 +5553,7 @@ export class CoreService {
      */
     public getWithHttpInfo(id: string, authenticationkey?: string, targetDevice?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5575,12 +5576,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5621,12 +5622,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5644,7 +5645,7 @@ export class CoreService {
      */
     public getAllCategoriesConnectedWithHttpInfo(baseId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category/connected/${baseId}'
-                    .replace('${' + 'baseId' + '}', String(baseId));
+            .replace('${' + 'baseId' + '}', String(baseId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5663,12 +5664,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5699,12 +5700,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5722,7 +5723,7 @@ export class CoreService {
      */
     public getAllOperationsWithHttpInfo(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/clazz/operations/${clazzName}'
-                    .replace('${' + 'clazzName' + '}', String(clazzName));
+            .replace('${' + 'clazzName' + '}', String(clazzName));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5741,12 +5742,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5777,12 +5778,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5800,7 +5801,7 @@ export class CoreService {
      */
     public getAssociationsWithHttpInfo(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/clazz/associations/${clazzName}'
-                    .replace('${' + 'clazzName' + '}', String(clazzName));
+            .replace('${' + 'clazzName' + '}', String(clazzName));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5819,12 +5820,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5842,7 +5843,7 @@ export class CoreService {
      */
     public getCategoryWithHttpInfo(className: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category/${class_name}'
-                    .replace('${' + 'class_name' + '}', String(className));
+            .replace('${' + 'class_name' + '}', String(className));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5861,12 +5862,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5884,7 +5885,7 @@ export class CoreService {
      */
     public getCategoryByNameWithHttpInfo(name: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category/byname/${name}'
-                    .replace('${' + 'name' + '}', String(name));
+            .replace('${' + 'name' + '}', String(name));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5903,12 +5904,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5926,7 +5927,7 @@ export class CoreService {
      */
     public getClazzWithHttpInfo(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/clazz/${clazzName}'
-                    .replace('${' + 'clazzName' + '}', String(clazzName));
+            .replace('${' + 'clazzName' + '}', String(clazzName));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -5945,12 +5946,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -5981,12 +5982,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6007,11 +6008,11 @@ export class CoreService {
      * @param pagesize Number of entries to be retrieved per page or -1 for full list
      * @param currentpage The current page or -1 for full list
      */
-    public getConnectedWithHttpInfo(wantedClazzName: string, id: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number,valueId?:string,simpleValue?:string, extraHttpRequestParams?: any): Observable<Response> {
+    public getConnectedWithHttpInfo(wantedClazzName: string, id: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, valueId?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/connected/${wantedClazzName}/${id}/${linkClazzName}'
-                    .replace('${' + 'wantedClazzName' + '}', String(wantedClazzName))
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'linkClazzName' + '}', String(linkClazzName));
+            .replace('${' + 'wantedClazzName' + '}', String(wantedClazzName))
+            .replace('${' + 'id' + '}', String(id))
+            .replace('${' + 'linkClazzName' + '}', String(linkClazzName));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6052,7 +6053,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -6060,7 +6061,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6081,7 +6082,7 @@ export class CoreService {
      */
     public getDeviceUsedPropertiesWithHttpInfo(mac: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/getDeviceUsedProperties/${mac}'
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6108,7 +6109,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -6116,7 +6117,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6137,11 +6138,11 @@ export class CoreService {
      * @param pagesize Number of entries to be retrieved per page or -1 for full list
      * @param currentpage The current page or -1 for full list
      */
-    public getDisconnectedWithHttpInfo(id: string, wantedClazzName: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number,valueId?:string,simpleValue?:string, extraHttpRequestParams?: any): Observable<Response> {
+    public getDisconnectedWithHttpInfo(id: string, wantedClazzName: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, valueId?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/disconnected/${wantedClazzName}/${id}/${linkClazzName}'
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'wantedClazzName' + '}', String(wantedClazzName))
-                    .replace('${' + 'linkClazzName' + '}', String(linkClazzName));
+            .replace('${' + 'id' + '}', String(id))
+            .replace('${' + 'wantedClazzName' + '}', String(wantedClazzName))
+            .replace('${' + 'linkClazzName' + '}', String(linkClazzName));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6182,7 +6183,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -6190,7 +6191,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6208,7 +6209,7 @@ export class CoreService {
      */
     public getDocsWithHttpInfo(authenticationkey: string, view?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/swagger/extended/docs/${authenticationkey}'
-                    .replace('${' + 'authenticationkey' + '}', String(authenticationkey));
+            .replace('${' + 'authenticationkey' + '}', String(authenticationkey));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6227,12 +6228,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6252,7 +6253,7 @@ export class CoreService {
      */
     public getDynamicPropertiesWithHttpInfo(id: string, authenticationkey?: string, propertyClazz?: string, plainView?: boolean, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/property/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6279,12 +6280,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6304,7 +6305,7 @@ export class CoreService {
      */
     public getDynamicPropertiesWithCategoriesWithHttpInfo(id: string, authenticationkey?: string, propertyClazz?: string, plainView?: boolean, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/property/getDynamicPropertiesWithCategories/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6331,12 +6332,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6378,7 +6379,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -6386,7 +6387,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6404,7 +6405,7 @@ export class CoreService {
      */
     public getFieldsWithHttpInfo(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/clazz/fields/${clazzName}'
-                    .replace('${' + 'clazzName' + '}', String(clazzName));
+            .replace('${' + 'clazzName' + '}', String(clazzName));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6423,12 +6424,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6446,7 +6447,7 @@ export class CoreService {
      */
     public getFields_5WithHttpInfo(className: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/${class_name}/fields'
-                    .replace('${' + 'class_name' + '}', String(className));
+            .replace('${' + 'class_name' + '}', String(className));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6465,12 +6466,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6488,7 +6489,7 @@ export class CoreService {
      */
     public getFileResourceWithHttpInfo(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/resources/${md5}'
-                    .replace('${' + 'md5' + '}', String(md5));
+            .replace('${' + 'md5' + '}', String(md5));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6507,12 +6508,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6530,7 +6531,7 @@ export class CoreService {
      */
     public getJobWithHttpInfo(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/${jobID}'
-                    .replace('${' + 'jobID' + '}', String(jobID));
+            .replace('${' + 'jobID' + '}', String(jobID));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6549,12 +6550,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6586,7 +6587,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -6594,7 +6595,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6612,7 +6613,7 @@ export class CoreService {
      */
     public getPreviewWithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/${id}/preview'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6631,12 +6632,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6678,7 +6679,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -6686,7 +6687,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6708,8 +6709,8 @@ export class CoreService {
      */
     public getRenderingBundlesWithHttpInfo(grouping: string, id: string, authenticationkey?: string, pagesize?: number, currentpage?: number, sortby?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/bundles/${grouping}/${id}'
-                    .replace('${' + 'grouping' + '}', String(grouping))
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'grouping' + '}', String(grouping))
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6744,12 +6745,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6767,7 +6768,7 @@ export class CoreService {
      */
     public getSettingsWithHttpInfo(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/${settingsId}'
-                    .replace('${' + 'settingsId' + '}', String(settingsId));
+            .replace('${' + 'settingsId' + '}', String(settingsId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6786,12 +6787,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6809,7 +6810,7 @@ export class CoreService {
      */
     public getSwaggerJSONWithHttpInfo(authenticationkey: string, view?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/swagger/extended/swagger.json/${authenticationkey}'
-                    .replace('${' + 'authenticationkey' + '}', String(authenticationkey));
+            .replace('${' + 'authenticationkey' + '}', String(authenticationkey));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6828,12 +6829,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6851,7 +6852,7 @@ export class CoreService {
      */
     public getTenantWithHttpInfo(apiKey: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/tenant/${apiKey}'
-                    .replace('${' + 'apiKey' + '}', String(apiKey));
+            .replace('${' + 'apiKey' + '}', String(apiKey));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6870,12 +6871,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6917,7 +6918,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -6925,7 +6926,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6943,7 +6944,7 @@ export class CoreService {
      */
     public getViewClazzesWithHttpInfo(viewId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/view/clazzes/${viewId}'
-                    .replace('${' + 'viewId' + '}', String(viewId));
+            .replace('${' + 'viewId' + '}', String(viewId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -6962,12 +6963,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -6986,7 +6987,7 @@ export class CoreService {
      */
     public importBaseclassWithHttpInfo(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/importBaseclass/${className}'
-                    .replace('${' + 'className' + '}', String(className));
+            .replace('${' + 'className' + '}', String(className));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -7004,7 +7005,7 @@ export class CoreService {
         let produces: string[] = [
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -7012,7 +7013,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7054,7 +7055,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -7062,7 +7063,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7093,12 +7094,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7118,9 +7119,9 @@ export class CoreService {
      */
     public linkBaseclassTouserWithHttpInfo(leftId: string, rightId: string, operationId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baselinks/linkUserToBaseclass/${left_id}/${right_id}/${operation_id}'
-                    .replace('${' + 'left_id' + '}', String(leftId))
-                    .replace('${' + 'right_id' + '}', String(rightId))
-                    .replace('${' + 'operation_id' + '}', String(operationId));
+            .replace('${' + 'left_id' + '}', String(leftId))
+            .replace('${' + 'right_id' + '}', String(rightId))
+            .replace('${' + 'operation_id' + '}', String(operationId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -7147,12 +7148,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7184,7 +7185,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -7192,7 +7193,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7238,12 +7239,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7265,7 +7266,7 @@ export class CoreService {
      */
     public listAllFileResourcesOfGroupInMediaWithHttpInfo(id: string, authenticationkey?: string, group?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/list/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -7296,7 +7297,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -7304,7 +7305,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7325,7 +7326,7 @@ export class CoreService {
      */
     public listAllFileResourcesOfTypeWithHttpInfo(mediaId: string, authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/fileResources/${media_id}'
-                    .replace('${' + 'media_id' + '}', String(mediaId));
+            .replace('${' + 'media_id' + '}', String(mediaId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -7352,7 +7353,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -7360,7 +7361,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7391,12 +7392,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7438,7 +7439,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -7446,7 +7447,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7488,7 +7489,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -7496,7 +7497,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7538,7 +7539,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -7546,7 +7547,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7564,7 +7565,7 @@ export class CoreService {
      */
     public listAllUserRolesWithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/roles/userRoles/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -7583,12 +7584,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7630,7 +7631,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -7638,7 +7639,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7680,7 +7681,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -7688,7 +7689,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7706,7 +7707,7 @@ export class CoreService {
      */
     public listDeviceSettingsWithHttpInfo(deviceId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/listDeviceSettings/${deviceId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId));
+            .replace('${' + 'deviceId' + '}', String(deviceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -7725,12 +7726,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7748,7 +7749,7 @@ export class CoreService {
      */
     public listDeviceSettingsContainersWithHttpInfo(mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/listDeviceSettingsContainers/${mac}'
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -7767,12 +7768,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7814,7 +7815,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -7822,7 +7823,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7869,7 +7870,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -7877,7 +7878,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7919,7 +7920,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -7927,7 +7928,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -7969,7 +7970,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -7977,7 +7978,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8019,7 +8020,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -8027,7 +8028,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8048,7 +8049,7 @@ export class CoreService {
      */
     public listSettingsWithHttpInfo(settingsMetadataId: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/listSettings/${settingsMetadataId}'
-                    .replace('${' + 'settingsMetadataId' + '}', String(settingsMetadataId));
+            .replace('${' + 'settingsMetadataId' + '}', String(settingsMetadataId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -8075,7 +8076,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -8083,7 +8084,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8125,7 +8126,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -8133,7 +8134,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8180,7 +8181,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -8188,7 +8189,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8206,7 +8207,7 @@ export class CoreService {
      */
     public lookupUserByEmailWithHttpInfo(email: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/users/byEmail/${email}'
-                    .replace('${' + 'email' + '}', String(email));
+            .replace('${' + 'email' + '}', String(email));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -8225,12 +8226,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8248,7 +8249,7 @@ export class CoreService {
      */
     public lookupUserByIdWithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/users/byId/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -8267,12 +8268,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8308,12 +8309,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8334,7 +8335,7 @@ export class CoreService {
      */
     public nameLikeWithHttpInfo(classname: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/like/name/${classname}'
-                    .replace('${' + 'classname' + '}', String(classname));
+            .replace('${' + 'classname' + '}', String(classname));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -8361,7 +8362,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -8369,7 +8370,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8395,12 +8396,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8432,7 +8433,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -8440,7 +8441,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8481,12 +8482,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8542,12 +8543,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8578,12 +8579,12 @@ export class CoreService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8602,8 +8603,8 @@ export class CoreService {
      */
     public setActiveSettingsWithHttpInfo(settingsMetaId: string, settingId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/setActiveSettings/${settingsMetaId}/${settingId}'
-                    .replace('${' + 'settingsMetaId' + '}', String(settingsMetaId))
-                    .replace('${' + 'settingId' + '}', String(settingId));
+            .replace('${' + 'settingsMetaId' + '}', String(settingsMetaId))
+            .replace('${' + 'settingId' + '}', String(settingId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -8626,12 +8627,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8649,7 +8650,7 @@ export class CoreService {
      */
     public setActiveSettingsAsDefaultWithHttpInfo(settingsMetaId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/setActiveSettingsAsDefault/${settingsMetaId}'
-                    .replace('${' + 'settingsMetaId' + '}', String(settingsMetaId));
+            .replace('${' + 'settingsMetaId' + '}', String(settingsMetaId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -8668,12 +8669,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8692,7 +8693,7 @@ export class CoreService {
      */
     public setDeviceUsedPropertiesWithHttpInfo(mac: string, authenticationkey?: string, body?: DeviceUsedPropertiesContainer, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/setDeviceUsedProperties/${mac}'
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -8711,7 +8712,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -8719,7 +8720,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8738,7 +8739,7 @@ export class CoreService {
      */
     public setLinkUpdateDateWithHttpInfo(linkId: string, authenticationkey?: string, date?: Date, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/setLinkUpdateDate/${linkId}'
-                    .replace('${' + 'linkId' + '}', String(linkId));
+            .replace('${' + 'linkId' + '}', String(linkId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -8761,12 +8762,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8798,7 +8799,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -8806,7 +8807,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8824,7 +8825,7 @@ export class CoreService {
      */
     public softDeleteWithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/softDelete/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -8843,12 +8844,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8866,7 +8867,7 @@ export class CoreService {
      */
     public stopJobWithHttpInfo(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/${jobID}'
-                    .replace('${' + 'jobID' + '}', String(jobID));
+            .replace('${' + 'jobID' + '}', String(jobID));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -8885,12 +8886,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8920,12 +8921,12 @@ export class CoreService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -8945,8 +8946,8 @@ export class CoreService {
      */
     public updateWithHttpInfo(id: string, clazzName: string, authenticationkey?: string, body?: BaseclassUpdateContainer, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/baseclass/update/${clazz_name}/${id}'
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'clazz_name' + '}', String(clazzName));
+            .replace('${' + 'id' + '}', String(id))
+            .replace('${' + 'clazz_name' + '}', String(clazzName));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -8968,7 +8969,7 @@ export class CoreService {
         let produces: string[] = [
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -8976,7 +8977,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -9007,7 +9008,7 @@ export class CoreService {
         let produces: string[] = [
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -9015,7 +9016,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -9034,8 +9035,8 @@ export class CoreService {
      */
     public updateJobPhaseWithHttpInfo(jobID: string, phaseName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/updateJobPhase/${jobID}/${phaseName}'
-                    .replace('${' + 'jobID' + '}', String(jobID))
-                    .replace('${' + 'phaseName' + '}', String(phaseName));
+            .replace('${' + 'jobID' + '}', String(jobID))
+            .replace('${' + 'phaseName' + '}', String(phaseName));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -9058,12 +9059,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -9083,9 +9084,9 @@ export class CoreService {
      */
     public updateJobPropertyWithHttpInfo(jobID: string, key: string, value: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/updateJobProperty/${jobID}/${key}/${value}'
-                    .replace('${' + 'jobID' + '}', String(jobID))
-                    .replace('${' + 'key' + '}', String(key))
-                    .replace('${' + 'value' + '}', String(value));
+            .replace('${' + 'jobID' + '}', String(jobID))
+            .replace('${' + 'key' + '}', String(key))
+            .replace('${' + 'value' + '}', String(value));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -9112,12 +9113,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -9136,7 +9137,7 @@ export class CoreService {
      */
     public updateMetadataSimpleWithHttpInfo(linkId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/updateMetadataSimple/${linkId}'
-                    .replace('${' + 'linkId' + '}', String(linkId));
+            .replace('${' + 'linkId' + '}', String(linkId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -9159,12 +9160,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -9183,7 +9184,7 @@ export class CoreService {
      */
     public updateSimpleWithHttpInfo(linkId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/property/updateSimple/${linkId}'
-                    .replace('${' + 'linkId' + '}', String(linkId));
+            .replace('${' + 'linkId' + '}', String(linkId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -9206,12 +9207,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -9230,8 +9231,8 @@ export class CoreService {
      */
     public updateVersionWithHttpInfo(id: string, updateTo: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/media/updateVersion/${id}/${updateTo}'
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'updateTo' + '}', String(updateTo));
+            .replace('${' + 'id' + '}', String(id))
+            .replace('${' + 'updateTo' + '}', String(updateTo));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -9254,12 +9255,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -9291,7 +9292,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -9299,7 +9300,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -9331,7 +9332,7 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -9339,7 +9340,7 @@ export class CoreService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -9370,12 +9371,12 @@ export class CoreService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {

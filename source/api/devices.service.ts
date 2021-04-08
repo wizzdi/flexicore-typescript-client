@@ -12,12 +12,13 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';  import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
+import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
+import { Response } from '@angular/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Device } from '../model/device';
 import { DevicePropertyContainerObject } from '../model/devicePropertyContainerObject';
@@ -25,8 +26,8 @@ import { DeviceToBaseclass } from '../model/deviceToBaseclass';
 import { DeviceUsedPropertiesContainer } from '../model/deviceUsedPropertiesContainer';
 import { FilteringInformationHolder } from '../model/filteringInformationHolder';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 
 
 @Injectable()
@@ -36,13 +37,13 @@ export class DevicesService {
     public defaultHeaders: Headers = new Headers();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected http: Http, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
+            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -52,13 +53,13 @@ export class DevicesService {
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
                 (objA as any)[key] = (objB as any)[key];
             }
         }
-        return <T1&T2>objA;
+        return <T1 & T2>objA;
     }
 
     /**
@@ -84,13 +85,13 @@ export class DevicesService {
      */
     public activateLink(baseId: string, mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.activateLinkWithHttpInfo(baseId, mac, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -103,13 +104,13 @@ export class DevicesService {
      */
     public connectDeviceToBaseclass(baseId: string, mac: string, authenticationkey?: string, someHeader?: string, extraHttpRequestParams?: any): Observable<DeviceToBaseclass> {
         return this.connectDeviceToBaseclassWithHttpInfo(baseId, mac, authenticationkey, someHeader, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -124,13 +125,13 @@ export class DevicesService {
      */
     public createDevice(mac: string, serialNumber: string, authenticationkey?: string, name?: string, lat?: number, lon?: number, extraHttpRequestParams?: any): Observable<Device> {
         return this.createDeviceWithHttpInfo(mac, serialNumber, authenticationkey, name, lat, lon, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -142,13 +143,13 @@ export class DevicesService {
      */
     public deactivateAllLinks(baseId: string, mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<number> {
         return this.deactivateAllLinksWithHttpInfo(baseId, mac, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -159,13 +160,13 @@ export class DevicesService {
      */
     public deactivateLink(linkId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.deactivateLinkWithHttpInfo(linkId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -179,13 +180,13 @@ export class DevicesService {
      */
     public getDeviceUsedProperties(mac: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<DevicePropertyContainerObject>> {
         return this.getDeviceUsedPropertiesWithHttpInfo(mac, authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -197,13 +198,13 @@ export class DevicesService {
      */
     public listDevices(authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<Device>> {
         return this.listDevicesWithHttpInfo(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -215,13 +216,13 @@ export class DevicesService {
      */
     public setDeviceUsedProperties(mac: string, authenticationkey?: string, body?: DeviceUsedPropertiesContainer, extraHttpRequestParams?: any): Observable<{}> {
         return this.setDeviceUsedPropertiesWithHttpInfo(mac, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -233,13 +234,13 @@ export class DevicesService {
      */
     public setLinkUpdateDate(linkId: string, authenticationkey?: string, date?: Date, extraHttpRequestParams?: any): Observable<{}> {
         return this.setLinkUpdateDateWithHttpInfo(linkId, authenticationkey, date, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -252,8 +253,8 @@ export class DevicesService {
      */
     public activateLinkWithHttpInfo(baseId: string, mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/activateLink/${mac}/${baseId}'
-                    .replace('${' + 'baseId' + '}', String(baseId))
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'baseId' + '}', String(baseId))
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -276,12 +277,12 @@ export class DevicesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -301,8 +302,8 @@ export class DevicesService {
      */
     public connectDeviceToBaseclassWithHttpInfo(baseId: string, mac: string, authenticationkey?: string, someHeader?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/connectDeviceToBaseclass/${mac}/${baseId}'
-                    .replace('${' + 'baseId' + '}', String(baseId))
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'baseId' + '}', String(baseId))
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -329,12 +330,12 @@ export class DevicesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -356,8 +357,8 @@ export class DevicesService {
      */
     public createDeviceWithHttpInfo(mac: string, serialNumber: string, authenticationkey?: string, name?: string, lat?: number, lon?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/createDevice/${mac}/${serialNumber}'
-                    .replace('${' + 'mac' + '}', String(mac))
-                    .replace('${' + 'serialNumber' + '}', String(serialNumber));
+            .replace('${' + 'mac' + '}', String(mac))
+            .replace('${' + 'serialNumber' + '}', String(serialNumber));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -392,12 +393,12 @@ export class DevicesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -416,8 +417,8 @@ export class DevicesService {
      */
     public deactivateAllLinksWithHttpInfo(baseId: string, mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/deactivateAllLinks/${mac}/${baseId}'
-                    .replace('${' + 'baseId' + '}', String(baseId))
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'baseId' + '}', String(baseId))
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -440,12 +441,12 @@ export class DevicesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -463,7 +464,7 @@ export class DevicesService {
      */
     public deactivateLinkWithHttpInfo(linkId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/deactivateLink/${linkId}'
-                    .replace('${' + 'linkId' + '}', String(linkId));
+            .replace('${' + 'linkId' + '}', String(linkId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -482,12 +483,12 @@ export class DevicesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -508,7 +509,7 @@ export class DevicesService {
      */
     public getDeviceUsedPropertiesWithHttpInfo(mac: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/getDeviceUsedProperties/${mac}'
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -535,7 +536,7 @@ export class DevicesService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -543,7 +544,7 @@ export class DevicesService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -585,7 +586,7 @@ export class DevicesService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -593,7 +594,7 @@ export class DevicesService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -612,7 +613,7 @@ export class DevicesService {
      */
     public setDeviceUsedPropertiesWithHttpInfo(mac: string, authenticationkey?: string, body?: DeviceUsedPropertiesContainer, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/setDeviceUsedProperties/${mac}'
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -631,7 +632,7 @@ export class DevicesService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -639,7 +640,7 @@ export class DevicesService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -658,7 +659,7 @@ export class DevicesService {
      */
     public setLinkUpdateDateWithHttpInfo(linkId: string, authenticationkey?: string, date?: Date, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/device/setLinkUpdateDate/${linkId}'
-                    .replace('${' + 'linkId' + '}', String(linkId));
+            .replace('${' + 'linkId' + '}', String(linkId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -681,12 +682,12 @@ export class DevicesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {

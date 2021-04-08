@@ -12,12 +12,13 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';  import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
+import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
+import { Response } from '@angular/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { FilteringInformationHolder } from '../model/filteringInformationHolder';
 import { Property } from '../model/property';
 import { PropertyContainerSerializable } from '../model/propertyContainerSerializable';
@@ -26,8 +27,8 @@ import { PropertyToBaseclass } from '../model/propertyToBaseclass';
 import { PropertyToClazz } from '../model/propertyToClazz';
 import { PropertyType } from '../model/propertyType';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 
 
 @Injectable()
@@ -37,13 +38,13 @@ export class DynamicPropertiesService {
     public defaultHeaders: Headers = new Headers();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected http: Http, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
+            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -53,13 +54,13 @@ export class DynamicPropertiesService {
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
                 (objA as any)[key] = (objB as any)[key];
             }
         }
-        return <T1&T2>objA;
+        return <T1 & T2>objA;
     }
 
     /**
@@ -86,13 +87,13 @@ export class DynamicPropertiesService {
      */
     public connectPropertyComplex(propertyId: string, baseclassId: string, valueId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<PropertyToBaseclass> {
         return this.connectPropertyComplexWithHttpInfo(propertyId, baseclassId, valueId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -105,13 +106,13 @@ export class DynamicPropertiesService {
      */
     public connectPropertySimple(propertyId: string, baseclassId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<PropertyToBaseclass> {
         return this.connectPropertySimpleWithHttpInfo(propertyId, baseclassId, authenticationkey, simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -123,13 +124,13 @@ export class DynamicPropertiesService {
      */
     public createProperty(authenticationkey?: string, propertyName?: string, propertyType?: string, extraHttpRequestParams?: any): Observable<Property> {
         return this.createPropertyWithHttpInfo(authenticationkey, propertyName, propertyType, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -140,13 +141,13 @@ export class DynamicPropertiesService {
      */
     public createPropertyType(authenticationkey?: string, propertyTypeName?: string, extraHttpRequestParams?: any): Observable<PropertyType> {
         return this.createPropertyTypeWithHttpInfo(authenticationkey, propertyTypeName, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -159,13 +160,13 @@ export class DynamicPropertiesService {
      */
     public getDynamicProperties(id: string, authenticationkey?: string, propertyClazz?: string, plainView?: boolean, extraHttpRequestParams?: any): Observable<Array<PropertyContainerSerializable>> {
         return this.getDynamicPropertiesWithHttpInfo(id, authenticationkey, propertyClazz, plainView, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -178,13 +179,13 @@ export class DynamicPropertiesService {
      */
     public getDynamicPropertiesWithCategories(id: string, authenticationkey?: string, propertyClazz?: string, plainView?: boolean, extraHttpRequestParams?: any): Observable<Array<PropertyContainerSerializable>> {
         return this.getDynamicPropertiesWithCategoriesWithHttpInfo(id, authenticationkey, propertyClazz, plainView, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -197,13 +198,13 @@ export class DynamicPropertiesService {
      */
     public listProperties(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<Property>> {
         return this.listPropertiesWithHttpInfo(authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -216,13 +217,13 @@ export class DynamicPropertiesService {
      */
     public listPropertyTypes(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<PropertyType>> {
         return this.listPropertyTypesWithHttpInfo(authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -233,13 +234,13 @@ export class DynamicPropertiesService {
      */
     public setProperty(authenticationkey?: string, body?: PropertySetContainerBaseclass, extraHttpRequestParams?: any): Observable<PropertyToClazz> {
         return this.setPropertyWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -251,13 +252,13 @@ export class DynamicPropertiesService {
      */
     public updateSimple(linkId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<PropertyToBaseclass> {
         return this.updateSimpleWithHttpInfo(linkId, authenticationkey, simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -271,9 +272,9 @@ export class DynamicPropertiesService {
      */
     public connectPropertyComplexWithHttpInfo(propertyId: string, baseclassId: string, valueId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/property/connectComplex/${propertyId}/${baseclass_id}/${value_id}'
-                    .replace('${' + 'propertyId' + '}', String(propertyId))
-                    .replace('${' + 'baseclass_id' + '}', String(baseclassId))
-                    .replace('${' + 'value_id' + '}', String(valueId));
+            .replace('${' + 'propertyId' + '}', String(propertyId))
+            .replace('${' + 'baseclass_id' + '}', String(baseclassId))
+            .replace('${' + 'value_id' + '}', String(valueId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -300,12 +301,12 @@ export class DynamicPropertiesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -325,8 +326,8 @@ export class DynamicPropertiesService {
      */
     public connectPropertySimpleWithHttpInfo(propertyId: string, baseclassId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/property/connectSimple/${propertyId}/${baseclass_id}'
-                    .replace('${' + 'propertyId' + '}', String(propertyId))
-                    .replace('${' + 'baseclass_id' + '}', String(baseclassId));
+            .replace('${' + 'propertyId' + '}', String(propertyId))
+            .replace('${' + 'baseclass_id' + '}', String(baseclassId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -353,12 +354,12 @@ export class DynamicPropertiesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -399,12 +400,12 @@ export class DynamicPropertiesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -440,12 +441,12 @@ export class DynamicPropertiesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -465,7 +466,7 @@ export class DynamicPropertiesService {
      */
     public getDynamicPropertiesWithHttpInfo(id: string, authenticationkey?: string, propertyClazz?: string, plainView?: boolean, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/property/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -492,12 +493,12 @@ export class DynamicPropertiesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -517,7 +518,7 @@ export class DynamicPropertiesService {
      */
     public getDynamicPropertiesWithCategoriesWithHttpInfo(id: string, authenticationkey?: string, propertyClazz?: string, plainView?: boolean, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/property/getDynamicPropertiesWithCategories/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -544,12 +545,12 @@ export class DynamicPropertiesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -591,7 +592,7 @@ export class DynamicPropertiesService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -599,7 +600,7 @@ export class DynamicPropertiesService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -641,7 +642,7 @@ export class DynamicPropertiesService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -649,7 +650,7 @@ export class DynamicPropertiesService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -681,7 +682,7 @@ export class DynamicPropertiesService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -689,7 +690,7 @@ export class DynamicPropertiesService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -708,7 +709,7 @@ export class DynamicPropertiesService {
      */
     public updateSimpleWithHttpInfo(linkId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/property/updateSimple/${linkId}'
-                    .replace('${' + 'linkId' + '}', String(linkId));
+            .replace('${' + 'linkId' + '}', String(linkId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -731,12 +732,12 @@ export class DynamicPropertiesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {

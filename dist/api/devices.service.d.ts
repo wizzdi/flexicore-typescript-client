@@ -11,7 +11,7 @@
  */
 import { Http, Headers } from '@angular/http';
 import { Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Device } from '../model/device';
 import { DevicePropertyContainerObject } from '../model/devicePropertyContainerObject';
 import { DeviceToBaseclass } from '../model/deviceToBaseclass';

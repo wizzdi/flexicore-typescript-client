@@ -10,8 +10,7 @@
  * Do not edit the class manually.
  */
 import { Headers, Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import "rxjs/add/operator/map";
+import { Observable } from 'rxjs';
 import { AuthenticationBundle } from '../model/authenticationBundle';
 import { AuthenticationRequestHolder } from '../model/authenticationRequestHolder';
 import { NewUserUserClass } from '../model/newUserUserClass';

@@ -4,9 +4,8 @@ import * as SparkMD5 from 'spark-md5';
 import { Configuration } from '../configuration';
 import { Upload } from '../model/upload';
 import { UploadService } from './upload.service';
-import { FileResource } from '../model/fileResource';
-import { Observable } from 'rxjs';
-import { defer } from 'rxjs/observable/defer';
+import { FileResource } from '..';
+import { Observable, defer } from 'rxjs';
 
 @Injectable()
 export class UploadUtilsService {
@@ -19,7 +18,7 @@ export class UploadUtilsService {
 
     public upload(authenticationKey: string, body: Upload, onProgress?: (progress: any) => void, extraHttpRequestParams?: any): Observable<FileResource> {
         return defer(async () => {
-            let {file, name, chunkSize, chunkMd5} = body;
+            let { file, name, chunkSize, chunkMd5 } = body;
             let chunkMD5String;
             let lastChunk = false;
 
@@ -72,7 +71,7 @@ export class UploadUtilsService {
                 // sending progress via callback
 
                 const progress = Math.round((response.offset / file.size) * 100);
-                
+
                 if (onProgress) {
                     onProgress(progress + '%');
                 }

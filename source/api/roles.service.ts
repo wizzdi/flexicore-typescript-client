@@ -12,18 +12,19 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';  import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
+import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
+import { Response } from '@angular/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { FilteringInformationHolder } from '../model/filteringInformationHolder';
 import { Role } from '../model/role';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 import { RoleCreate } from '../model/roleCreate';
 import { RoleUpdate } from '../model/roleUpdate';
 import { RoleFilter } from '../model/roleFilter';
@@ -36,13 +37,13 @@ export class RolesService {
     public defaultHeaders: Headers = new Headers();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected http: Http, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
+            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -52,13 +53,13 @@ export class RolesService {
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
                 (objA as any)[key] = (objB as any)[key];
             }
         }
-        return <T1&T2>objA;
+        return <T1 & T2>objA;
     }
 
     /**
@@ -82,47 +83,47 @@ export class RolesService {
      */
     public createRole(authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<Role> {
         return this.createRoleWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
-     /**
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
+    /**
+    * 
+    * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+    * @param body 
+    */
     public createRoleNew(authenticationkey?: string, body?: RoleCreate, extraHttpRequestParams?: any): Observable<Role> {
         return this.createRoleNewWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
-    
-     /**
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
+
+    /**
+    * 
+    * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+    * @param body 
+    */
     public updateRole(authenticationkey?: string, body?: RoleCreate, extraHttpRequestParams?: any): Observable<Role> {
         return this.updateRoleWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -133,13 +134,13 @@ export class RolesService {
      */
     public findById(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Role> {
         return this.findByIdWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -151,31 +152,31 @@ export class RolesService {
      */
     public listAllRoles(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Role>> {
         return this.listAllRolesWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
-        /**
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     */
-    public getAllRoles(authenticationkey?: string, body?: RoleFilter,extraHttpRequestParams?: any): Observable<Array<Role>> {
-        return this.getAllRolesWithHttpInfo(authenticationkey, body,  extraHttpRequestParams)
-            .map((response: Response) => {
+    /**
+ * 
+ * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+ * @param body 
+ * @param pagesize Number of entries to be retrieved per page or -1 for full list
+ * @param currentpage The current page or -1 for full list
+ */
+    public getAllRoles(authenticationkey?: string, body?: RoleFilter, extraHttpRequestParams?: any): Observable<Array<Role>> {
+        return this.getAllRolesWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -185,13 +186,13 @@ export class RolesService {
      */
     public listAllUserRoles(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Role>> {
         return this.listAllUserRolesWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -217,7 +218,7 @@ export class RolesService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -225,7 +226,7 @@ export class RolesService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -258,7 +259,7 @@ export class RolesService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -266,7 +267,7 @@ export class RolesService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -298,7 +299,7 @@ export class RolesService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -306,7 +307,7 @@ export class RolesService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -324,7 +325,7 @@ export class RolesService {
      */
     public findByIdWithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/roles/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -343,12 +344,12 @@ export class RolesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -390,7 +391,7 @@ export class RolesService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -398,7 +399,7 @@ export class RolesService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -408,15 +409,15 @@ export class RolesService {
         return this.http.request(path, requestOptions);
     }
 
-     /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     */
-    public getAllRolesWithHttpInfo(authenticationkey?: string, body?:RoleFilter, extraHttpRequestParams?: any): Observable<Response> {
+    /**
+    * 
+    * 
+    * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+    * @param body 
+    * @param pagesize Number of entries to be retrieved per page or -1 for full list
+    * @param currentpage The current page or -1 for full list
+    */
+    public getAllRolesWithHttpInfo(authenticationkey?: string, body?: RoleFilter, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/roles/getAllRoles';
 
         let queryParameters = new URLSearchParams();
@@ -432,7 +433,7 @@ export class RolesService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -440,7 +441,7 @@ export class RolesService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -458,7 +459,7 @@ export class RolesService {
      */
     public listAllUserRolesWithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/roles/userRoles/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -477,12 +478,12 @@ export class RolesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {

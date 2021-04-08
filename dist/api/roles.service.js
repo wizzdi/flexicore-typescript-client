@@ -25,6 +25,7 @@ const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
 const http_1 = require("@angular/http");
 const http_2 = require("@angular/http");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let RolesService = class RolesService {
@@ -75,14 +76,14 @@ let RolesService = class RolesService {
      */
     createRole(authenticationkey, body, extraHttpRequestParams) {
         return this.createRoleWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
     *
@@ -91,14 +92,14 @@ let RolesService = class RolesService {
     */
     createRoleNew(authenticationkey, body, extraHttpRequestParams) {
         return this.createRoleNewWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
     *
@@ -107,14 +108,14 @@ let RolesService = class RolesService {
     */
     updateRole(authenticationkey, body, extraHttpRequestParams) {
         return this.updateRoleWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -123,14 +124,14 @@ let RolesService = class RolesService {
      */
     findById(id, authenticationkey, extraHttpRequestParams) {
         return this.findByIdWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -141,14 +142,14 @@ let RolesService = class RolesService {
      */
     listAllRoles(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.listAllRolesWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
  *
@@ -159,14 +160,14 @@ let RolesService = class RolesService {
  */
     getAllRoles(authenticationkey, body, extraHttpRequestParams) {
         return this.getAllRolesWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -175,14 +176,14 @@ let RolesService = class RolesService {
      */
     listAllUserRoles(id, authenticationkey, extraHttpRequestParams) {
         return this.listAllUserRolesWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *

@@ -25,6 +25,7 @@ const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
 const http_1 = require("@angular/http");
 const http_2 = require("@angular/http");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let UploadService = class UploadService {
@@ -75,14 +76,14 @@ let UploadService = class UploadService {
      */
     deleteFileResource(md5, authenticationkey, extraHttpRequestParams) {
         return this.deleteFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * finalize FileResource , sending it for processing
@@ -95,14 +96,14 @@ let UploadService = class UploadService {
      */
     finalizeUpload(md5, authenticationkey, hint, fileType, dontProcess, extraHeaders, extraHttpRequestParams) {
         return this.finalizeUploadWithHttpInfo(md5, authenticationkey, hint, fileType, dontProcess, extraHeaders, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -111,14 +112,14 @@ let UploadService = class UploadService {
      */
     getFileResource(md5, authenticationkey, extraHttpRequestParams) {
         return this.getFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -127,14 +128,14 @@ let UploadService = class UploadService {
      */
     getJob(jobID, authenticationkey, extraHttpRequestParams) {
         return this.getJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -144,14 +145,14 @@ let UploadService = class UploadService {
      */
     registerFile(authenticationkey, path, calcMd5, extraHttpRequestParams) {
         return this.registerFileWithHttpInfo(authenticationkey, path, calcMd5, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -164,14 +165,14 @@ let UploadService = class UploadService {
      */
     registerFileAndFinlize(authenticationkey, path, hint, fileType, dontProcess, calcMd5, extraHttpRequestParams) {
         return this.registerFileAndFinlizeWithHttpInfo(authenticationkey, path, hint, fileType, dontProcess, calcMd5, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -180,14 +181,14 @@ let UploadService = class UploadService {
      */
     stopJob(jobID, authenticationkey, extraHttpRequestParams) {
         return this.stopJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -197,14 +198,14 @@ let UploadService = class UploadService {
      */
     updateJobPhase(jobID, phaseName, authenticationkey, extraHttpRequestParams) {
         return this.updateJobPhaseWithHttpInfo(jobID, phaseName, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -215,36 +216,36 @@ let UploadService = class UploadService {
      */
     updateJobProperty(jobID, key, value, authenticationkey, extraHttpRequestParams) {
         return this.updateJobPropertyWithHttpInfo(jobID, key, value, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     uploadFile(authenticationkey, md5, name, blob, extraHttpRequestParams) {
         return this.uploadFileWithHttpInfo(authenticationkey, md5, name, null, false, blob, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     uploadFileWithChunkMd5(authenticationkey, md5, name, chunkMd5, lastChunk, blob, extraHttpRequestParams) {
         return this.uploadFileWithHttpInfo(authenticationkey, md5, name, chunkMd5, lastChunk, blob, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -253,14 +254,14 @@ let UploadService = class UploadService {
      */
     uploadFileMulti(authenticationkey, body, extraHttpRequestParams) {
         return this.uploadFileMultiWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -268,14 +269,14 @@ let UploadService = class UploadService {
      */
     validate(authenticationkey, extraHttpRequestParams) {
         return this.validateWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *

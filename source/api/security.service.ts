@@ -11,30 +11,16 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { FilteringInformationHolder } from '../model/filteringInformationHolder';
-import { NewUserUserClass } from '../model/newUserUserClass';
-import { ResetUserPasswordRequest } from '../model/resetUserPasswordRequest';
-import { RunningUser } from '../model/runningUser';
-import { UserClass } from '../model/userClass';
-
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 import { FlexiCoreDecycle } from './api';
-import { UserProfileRequest } from '../model/userProfileRequest';
-import { UserProfile } from '../model/userProfile';
-import { UserCreate, UserUpdate, UserFiltering, PaginationResponse, ImpersonateRequest, ImpersonateResponse, Baselink, Baseclass, PermissionSummaryRequest, PermissionSummaryResponse } from '../model/models';
-import { BaselinkFilter } from '../model/baselinkFilter';
-import { GetConnected } from '../model/getConnected';
-import { GetDisconnected } from '../model/getDisconnected';
-import { BaselinkUpdate } from '../model/baselinkUpdate';
-import {  BaselinkMassCreate } from '../model/baselinkMassCreate';
-import { BaselinkCreate } from '../model/baselinkCreate';
+import { PermissionSummaryRequest, PermissionSummaryResponse } from '../model/models';
 
 
 @Injectable()
@@ -44,7 +30,7 @@ export class SecurityService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -72,13 +58,13 @@ export class SecurityService {
     public getPermissionsSummary(authenticationkey?: string, body?: PermissionSummaryRequest, observe?: 'body', reportProgress?: boolean): Observable<PermissionSummaryResponse>;
     public getPermissionsSummary(authenticationkey?: string, body?: PermissionSummaryRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PermissionSummaryResponse>>;
     public getPermissionsSummary(authenticationkey?: string, body?: PermissionSummaryRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PermissionSummaryResponse>>;
-    public getPermissionsSummary(authenticationkey?: string, body?: PermissionSummaryRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getPermissionsSummary(authenticationkey?: string, body?: PermissionSummaryRequest, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers = headers.set('authenticationkey', String(authenticationkey));
         }
-       
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -105,10 +91,10 @@ export class SecurityService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
-    
+
 
 }

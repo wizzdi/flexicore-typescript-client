@@ -11,19 +11,15 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { ResetPasswordStartResponse } from '../model/resetPasswordStartResponse';
-import { ResetPasswordWithVerification } from '../model/resetPasswordWithVerification';
-import { VerifyMail } from '../model/verifyMail';
-import { VerifyMailResponse } from '../model/verifyMailResponse';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 import { ResetUserPasswordRequest } from '..';
 
 
@@ -34,7 +30,7 @@ export class ResetPasswordService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -59,17 +55,17 @@ export class ResetPasswordService {
     }
 
 
-   /**
-     * 
-     * 
-     * @param body 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
+    /**
+      * 
+      * 
+      * @param body 
+      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+      * @param reportProgress flag to report request and response progress.
+      */
     public resetPasswordStart(body?: ResetUserPasswordRequest, observe?: 'body', reportProgress?: boolean): Observable<ResetPasswordStartResponse>;
     public resetPasswordStart(body?: ResetUserPasswordRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ResetPasswordStartResponse>>;
     public resetPasswordStart(body?: ResetUserPasswordRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ResetPasswordStartResponse>>;
-    public resetPasswordStart(body?: ResetUserPasswordRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public resetPasswordStart(body?: ResetUserPasswordRequest, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 

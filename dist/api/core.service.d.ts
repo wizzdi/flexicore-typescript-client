@@ -11,7 +11,7 @@
  */
 import { Http, Headers } from '@angular/http';
 import { Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Baseclass } from '../model/baseclass';
 import { BaseclassCreationContainer } from '../model/baseclassCreationContainer';
 import { BaseclassUpdateContainer } from '../model/baseclassUpdateContainer';

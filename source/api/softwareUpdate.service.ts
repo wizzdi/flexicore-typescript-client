@@ -12,12 +12,13 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';  import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
+import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
+import { Response } from '@angular/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { BasicContainer } from '../model/basicContainer';
 import { DeviceContainer } from '../model/deviceContainer';
@@ -39,8 +40,8 @@ import { UpdateableDevice } from '../model/updateableDevice';
 import { UpdateableDeviceCompatiableContainer } from '../model/updateableDeviceCompatiableContainer';
 import { UpdatesDownloadRequestContainer } from '../model/updatesDownloadRequestContainer';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 
 
 @Injectable()
@@ -50,13 +51,13 @@ export class SoftwareUpdateService {
     public defaultHeaders: Headers = new Headers();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected http: Http, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
+            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -66,13 +67,13 @@ export class SoftwareUpdateService {
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
                 (objA as any)[key] = (objB as any)[key];
             }
         }
-        return <T1&T2>objA;
+        return <T1 & T2>objA;
     }
 
     /**
@@ -96,13 +97,13 @@ export class SoftwareUpdateService {
      */
     public activateDevice(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.activateDeviceWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -113,13 +114,13 @@ export class SoftwareUpdateService {
      */
     public addDeviceInitiatedLog(deviceId: string, fileResourceId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.addDeviceInitiatedLogWithHttpInfo(deviceId, fileResourceId, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -137,13 +138,13 @@ export class SoftwareUpdateService {
      */
     public attachDeviceToFileUpdate(deviceId: string, updateFileId: string, authenticationKey?: string, locationOnDevice?: string, keepOriginal?: boolean, name?: string, shouldExtract?: boolean, deleteAfterExtract?: boolean, interval?: number, startMilis?: number, extraHttpRequestParams?: any): Observable<DeviceToFileUpdate> {
         return this.attachDeviceToFileUpdateWithHttpInfo(deviceId, updateFileId, authenticationKey, locationOnDevice, keepOriginal, name, shouldExtract, deleteAfterExtract, interval, startMilis, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -156,13 +157,13 @@ export class SoftwareUpdateService {
      */
     public checkDeviceActivatedAndUpdateLocation(id: string, authenticationKey?: string, lat?: number, lon?: number, serialNumber?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.checkDeviceActivatedAndUpdateLocationWithHttpInfo(id, authenticationKey, lat, lon, serialNumber, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -172,13 +173,13 @@ export class SoftwareUpdateService {
      */
     public checkFoLogRequests(deviceId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Array<LogRequest>> {
         return this.checkFoLogRequestsWithHttpInfo(deviceId, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -188,13 +189,13 @@ export class SoftwareUpdateService {
      */
     public clearDeviceUpdateLinks(deviceId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.clearDeviceUpdateLinksWithHttpInfo(deviceId, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -204,13 +205,13 @@ export class SoftwareUpdateService {
      */
     public clearFileUpdates(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.clearFileUpdatesWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -220,13 +221,13 @@ export class SoftwareUpdateService {
      */
     public clearLogs(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.clearLogsWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -236,13 +237,13 @@ export class SoftwareUpdateService {
      */
     public clearUpdateLink(linkId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.clearUpdateLinkWithHttpInfo(linkId, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -254,13 +255,13 @@ export class SoftwareUpdateService {
      */
     public closeFetchRequest(fileUpdateId: string, linkId: string, authenticationKey?: string, dateCompleted?: number, extraHttpRequestParams?: any): Observable<{}> {
         return this.closeFetchRequestWithHttpInfo(fileUpdateId, linkId, authenticationKey, dateCompleted, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -271,13 +272,13 @@ export class SoftwareUpdateService {
      */
     public closeRequest(linkId: string, authenticationKey?: string, dateCompleted?: number, extraHttpRequestParams?: any): Observable<{}> {
         return this.closeRequestWithHttpInfo(linkId, authenticationKey, dateCompleted, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -287,13 +288,13 @@ export class SoftwareUpdateService {
      */
     public confirmRestart(linkId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.confirmRestartWithHttpInfo(linkId, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -304,13 +305,13 @@ export class SoftwareUpdateService {
      */
     public createUpdateBundle(authenticationKey?: string, body?: Array<string>, bundleName?: string, extraHttpRequestParams?: any): Observable<UpdateBundle> {
         return this.createUpdateBundleWithHttpInfo(authenticationKey, body, bundleName, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -320,13 +321,13 @@ export class SoftwareUpdateService {
      */
     public deactivateDevice(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.deactivateDeviceWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -336,13 +337,13 @@ export class SoftwareUpdateService {
      */
     public exportUpdates(authenticationKey?: string, body?: ExportRequestContainer, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.exportUpdatesWithHttpInfo(authenticationKey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -351,13 +352,13 @@ export class SoftwareUpdateService {
      */
     public fixDevicesDevices(authenticationKey?: string, extraHttpRequestParams?: any): Observable<Job> {
         return this.fixDevicesDevicesWithHttpInfo(authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -366,13 +367,13 @@ export class SoftwareUpdateService {
      */
     public fixDevicesName(authenticationKey?: string, extraHttpRequestParams?: any): Observable<Job> {
         return this.fixDevicesNameWithHttpInfo(authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -381,13 +382,13 @@ export class SoftwareUpdateService {
      */
     public fixDuplicateMacs(authenticationKey?: string, extraHttpRequestParams?: any): Observable<Job> {
         return this.fixDuplicateMacsWithHttpInfo(authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -396,13 +397,13 @@ export class SoftwareUpdateService {
      */
     public getDuplicatedMacs(authenticationKey?: string, extraHttpRequestParams?: any): Observable<Array<string>> {
         return this.getDuplicatedMacsWithHttpInfo(authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -418,13 +419,13 @@ export class SoftwareUpdateService {
      */
     public getFileFromDeviceRequest(deviceId: string, authenticationKey?: string, locationOnDevice?: string, keepOriginal?: boolean, name?: string, generationRequest?: string, interval?: number, startMilis?: number, extraHttpRequestParams?: any): Observable<DeviceToFileUpdate> {
         return this.getFileFromDeviceRequestWithHttpInfo(deviceId, authenticationKey, locationOnDevice, keepOriginal, name, generationRequest, interval, startMilis, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -435,13 +436,13 @@ export class SoftwareUpdateService {
      */
     public getMinimumCheckInterval(mac: string, authenticationKey?: string, dateCompleted?: number, extraHttpRequestParams?: any): Observable<number> {
         return this.getMinimumCheckIntervalWithHttpInfo(mac, authenticationKey, dateCompleted, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -451,13 +452,13 @@ export class SoftwareUpdateService {
      */
     public getPendingFileUpdates(mac: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Array<FileUpdateContainer>> {
         return this.getPendingFileUpdatesWithHttpInfo(mac, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -468,13 +469,13 @@ export class SoftwareUpdateService {
      */
     public getPeriodicFilesForFileUpdate(id: string, authenticationKey?: string, startingDate?: Date, extraHttpRequestParams?: any): Observable<Array<BasicContainer>> {
         return this.getPeriodicFilesForFileUpdateWithHttpInfo(id, authenticationKey, startingDate, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -485,13 +486,13 @@ export class SoftwareUpdateService {
      */
     public getPeriodicFilesForLogRequests(id: string, authenticationKey?: string, startingDate?: Date, extraHttpRequestParams?: any): Observable<Array<BasicContainer>> {
         return this.getPeriodicFilesForLogRequestsWithHttpInfo(id, authenticationKey, startingDate, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -501,13 +502,13 @@ export class SoftwareUpdateService {
      */
     public getRequiredUpdates(mac: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Array<SoftwareUpdateContainer>> {
         return this.getRequiredUpdatesWithHttpInfo(mac, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -517,13 +518,13 @@ export class SoftwareUpdateService {
      */
     public getSoftwareToRestart(deviceId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Array<LinkContainer>> {
         return this.getSoftwareToRestartWithHttpInfo(deviceId, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -536,13 +537,13 @@ export class SoftwareUpdateService {
      */
     public listDeviceFileUpdates(deviceId: string, authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<FileUpdateContainer>> {
         return this.listDeviceFileUpdatesWithHttpInfo(deviceId, authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -555,13 +556,13 @@ export class SoftwareUpdateService {
      */
     public listDeviceInstalledSoftwares(deviceId: string, authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<Software>> {
         return this.listDeviceInstalledSoftwaresWithHttpInfo(deviceId, authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -574,13 +575,13 @@ export class SoftwareUpdateService {
      */
     public listDevicePendingInstallSoftwares(deviceId: string, authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<SoftwareUpdateContainer>> {
         return this.listDevicePendingInstallSoftwaresWithHttpInfo(deviceId, authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -593,13 +594,13 @@ export class SoftwareUpdateService {
      */
     public listDevicePendingLogRequests(deviceId: string, authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<LogRequest>> {
         return this.listDevicePendingLogRequestsWithHttpInfo(deviceId, authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -609,13 +610,13 @@ export class SoftwareUpdateService {
      */
     public listDeviceSettings(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Array<SettingsContainer>> {
         return this.listDeviceSettingsWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -629,13 +630,13 @@ export class SoftwareUpdateService {
      */
     public listDevices(authenticationKey?: string, body?: FilteringInformationHolder, serial?: string, mac?: string, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<UpdateableDevice>> {
         return this.listDevicesWithHttpInfo(authenticationKey, body, serial, mac, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -647,13 +648,13 @@ export class SoftwareUpdateService {
      */
     public listFileUpdates(authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<FileUpdate>> {
         return this.listFileUpdatesWithHttpInfo(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -665,13 +666,13 @@ export class SoftwareUpdateService {
      */
     public listSoftwares(authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<Software>> {
         return this.listSoftwaresWithHttpInfo(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -683,13 +684,13 @@ export class SoftwareUpdateService {
      */
     public listUpdateBundle(authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<UpdateBundle>> {
         return this.listUpdateBundleWithHttpInfo(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -701,13 +702,13 @@ export class SoftwareUpdateService {
      */
     public listUpdateFiles(authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<FileUpdate>> {
         return this.listUpdateFilesWithHttpInfo(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -717,13 +718,13 @@ export class SoftwareUpdateService {
      */
     public massDownload(authenticationKey?: string, body?: UpdatesDownloadRequestContainer, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.massDownloadWithHttpInfo(authenticationKey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -733,13 +734,13 @@ export class SoftwareUpdateService {
      */
     public prepareFileResourceBundle(authenticationKey?: string, body?: Array<string>, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.prepareFileResourceBundleWithHttpInfo(authenticationKey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -751,13 +752,13 @@ export class SoftwareUpdateService {
      */
     public register(mac: string, authenticationKey?: string, serialNumber?: string, body?: DeviceContainer, extraHttpRequestParams?: any): Observable<UpdateableDeviceCompatiableContainer> {
         return this.registerWithHttpInfo(mac, authenticationKey, serialNumber, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -771,13 +772,13 @@ export class SoftwareUpdateService {
      */
     public requestLog(deviceId: string, authenticationKey?: string, filter?: string, level?: string, interval?: number, startMilis?: number, extraHttpRequestParams?: any): Observable<LogRequest> {
         return this.requestLogWithHttpInfo(deviceId, authenticationKey, filter, level, interval, startMilis, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -788,13 +789,13 @@ export class SoftwareUpdateService {
      */
     public setSoftwareToRestart(deviceId: string, softwareId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.setSoftwareToRestartWithHttpInfo(deviceId, softwareId, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -806,13 +807,13 @@ export class SoftwareUpdateService {
      */
     public updateDeviceStatusAndGetIsActivate(id: string, authenticationKey?: string, body?: DeviceContainer, serialNumber?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.updateDeviceStatusAndGetIsActivateWithHttpInfo(id, authenticationKey, body, serialNumber, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -823,13 +824,13 @@ export class SoftwareUpdateService {
      */
     public updateFileUpdateStarted(requestId: string, authenticationKey?: string, dateCompleted?: number, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateFileUpdateStartedWithHttpInfo(requestId, authenticationKey, dateCompleted, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -840,13 +841,13 @@ export class SoftwareUpdateService {
      */
     public updateMultipleSoftware(deviceId: string, authenticationKey?: string, body?: Array<string>, extraHttpRequestParams?: any): Observable<Array<DeviceToSoftwareUpdate>> {
         return this.updateMultipleSoftwareWithHttpInfo(deviceId, authenticationKey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -858,13 +859,13 @@ export class SoftwareUpdateService {
      */
     public updateRequestLogAsCompleted(requestId: string, fileResourceId: string, authenticationKey?: string, logDate?: number, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateRequestLogAsCompletedWithHttpInfo(requestId, fileResourceId, authenticationKey, logDate, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -875,13 +876,13 @@ export class SoftwareUpdateService {
      */
     public updateRequestLogAsGathered(requestId: string, authenticationKey?: string, dateCompleted?: number, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateRequestLogAsGatheredWithHttpInfo(requestId, authenticationKey, dateCompleted, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -892,13 +893,13 @@ export class SoftwareUpdateService {
      */
     public updateSoftware(softwareId: string, deviceId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<DeviceToSoftwareUpdate> {
         return this.updateSoftwareWithHttpInfo(softwareId, deviceId, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -909,13 +910,13 @@ export class SoftwareUpdateService {
      */
     public updateSoftwareBundle(bundleId: string, deviceId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Array<DeviceToSoftwareUpdate>> {
         return this.updateSoftwareBundleWithHttpInfo(bundleId, deviceId, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -925,13 +926,13 @@ export class SoftwareUpdateService {
      */
     public updateUpdateCompleted(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateUpdateCompletedWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -941,13 +942,13 @@ export class SoftwareUpdateService {
      */
     public updateUpdateStarted(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateUpdateStartedWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -957,13 +958,13 @@ export class SoftwareUpdateService {
      */
     public updateUpdateVerified(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateUpdateVerifiedWithHttpInfo(id, authenticationKey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -975,7 +976,7 @@ export class SoftwareUpdateService {
      */
     public activateDeviceWithHttpInfo(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/activate/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -994,12 +995,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1018,8 +1019,8 @@ export class SoftwareUpdateService {
      */
     public addDeviceInitiatedLogWithHttpInfo(deviceId: string, fileResourceId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/addDeviceInitiatedLog/${deviceId}/${fileResourceId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId))
-                    .replace('${' + 'fileResourceId' + '}', String(fileResourceId));
+            .replace('${' + 'deviceId' + '}', String(deviceId))
+            .replace('${' + 'fileResourceId' + '}', String(fileResourceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1041,12 +1042,12 @@ export class SoftwareUpdateService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1072,8 +1073,8 @@ export class SoftwareUpdateService {
      */
     public attachDeviceToFileUpdateWithHttpInfo(deviceId: string, updateFileId: string, authenticationKey?: string, locationOnDevice?: string, keepOriginal?: boolean, name?: string, shouldExtract?: boolean, deleteAfterExtract?: boolean, interval?: number, startMilis?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/attachDeviceToFileUpdate/${deviceId}/${updateFileId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId))
-                    .replace('${' + 'updateFileId' + '}', String(updateFileId));
+            .replace('${' + 'deviceId' + '}', String(deviceId))
+            .replace('${' + 'updateFileId' + '}', String(updateFileId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1124,12 +1125,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1150,7 +1151,7 @@ export class SoftwareUpdateService {
      */
     public checkDeviceActivatedAndUpdateLocationWithHttpInfo(id: string, authenticationKey?: string, lat?: number, lon?: number, serialNumber?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/checkDeviceActivated/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1181,12 +1182,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1204,7 +1205,7 @@ export class SoftwareUpdateService {
      */
     public checkFoLogRequestsWithHttpInfo(deviceId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/checkFoLogRequests/${deviceId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId));
+            .replace('${' + 'deviceId' + '}', String(deviceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1223,12 +1224,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1246,7 +1247,7 @@ export class SoftwareUpdateService {
      */
     public clearDeviceUpdateLinksWithHttpInfo(deviceId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/clearDeviceUpdateLinks/${deviceId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId));
+            .replace('${' + 'deviceId' + '}', String(deviceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1264,12 +1265,12 @@ export class SoftwareUpdateService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1287,7 +1288,7 @@ export class SoftwareUpdateService {
      */
     public clearFileUpdatesWithHttpInfo(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/clearFileUpdates/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1306,12 +1307,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1329,7 +1330,7 @@ export class SoftwareUpdateService {
      */
     public clearLogsWithHttpInfo(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/clearLogs/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1348,12 +1349,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1371,7 +1372,7 @@ export class SoftwareUpdateService {
      */
     public clearUpdateLinkWithHttpInfo(linkId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/clearUpdateLink/${linkId}'
-                    .replace('${' + 'linkId' + '}', String(linkId));
+            .replace('${' + 'linkId' + '}', String(linkId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1389,12 +1390,12 @@ export class SoftwareUpdateService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1414,8 +1415,8 @@ export class SoftwareUpdateService {
      */
     public closeFetchRequestWithHttpInfo(fileUpdateId: string, linkId: string, authenticationKey?: string, dateCompleted?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/closeFetchRequest/${linkId}/${fileUpdateId}'
-                    .replace('${' + 'fileUpdateId' + '}', String(fileUpdateId))
-                    .replace('${' + 'linkId' + '}', String(linkId));
+            .replace('${' + 'fileUpdateId' + '}', String(fileUpdateId))
+            .replace('${' + 'linkId' + '}', String(linkId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1442,12 +1443,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1466,7 +1467,7 @@ export class SoftwareUpdateService {
      */
     public closeRequestWithHttpInfo(linkId: string, authenticationKey?: string, dateCompleted?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/closeRequest/${linkId}'
-                    .replace('${' + 'linkId' + '}', String(linkId));
+            .replace('${' + 'linkId' + '}', String(linkId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1489,12 +1490,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1512,7 +1513,7 @@ export class SoftwareUpdateService {
      */
     public confirmRestartWithHttpInfo(linkId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/confirmRestart/${linkId}'
-                    .replace('${' + 'linkId' + '}', String(linkId));
+            .replace('${' + 'linkId' + '}', String(linkId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1530,12 +1531,12 @@ export class SoftwareUpdateService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1572,7 +1573,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -1580,7 +1581,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1598,7 +1599,7 @@ export class SoftwareUpdateService {
      */
     public deactivateDeviceWithHttpInfo(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/deactivate/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1617,12 +1618,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1654,7 +1655,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -1662,7 +1663,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1693,12 +1694,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1729,12 +1730,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1765,12 +1766,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1801,12 +1802,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1830,7 +1831,7 @@ export class SoftwareUpdateService {
      */
     public getFileFromDeviceRequestWithHttpInfo(deviceId: string, authenticationKey?: string, locationOnDevice?: string, keepOriginal?: boolean, name?: string, generationRequest?: string, interval?: number, startMilis?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/getFileFromDeviceRequest/${deviceId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId));
+            .replace('${' + 'deviceId' + '}', String(deviceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1873,12 +1874,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1897,7 +1898,7 @@ export class SoftwareUpdateService {
      */
     public getMinimumCheckIntervalWithHttpInfo(mac: string, authenticationKey?: string, dateCompleted?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/getMinimumCheckInterval/${mac}'
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1920,12 +1921,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1943,7 +1944,7 @@ export class SoftwareUpdateService {
      */
     public getPendingFileUpdatesWithHttpInfo(mac: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/getPendingFileUpdates/${mac}'
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1962,12 +1963,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1986,7 +1987,7 @@ export class SoftwareUpdateService {
      */
     public getPeriodicFilesForFileUpdateWithHttpInfo(id: string, authenticationKey?: string, startingDate?: Date, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/getPeriodicFilesForFileUpdate/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2009,12 +2010,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2033,7 +2034,7 @@ export class SoftwareUpdateService {
      */
     public getPeriodicFilesForLogRequestsWithHttpInfo(id: string, authenticationKey?: string, startingDate?: Date, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/getPeriodicFilesForLogRequests/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2056,12 +2057,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2079,7 +2080,7 @@ export class SoftwareUpdateService {
      */
     public getRequiredUpdatesWithHttpInfo(mac: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/getRequiredUpdates/${mac}'
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2098,12 +2099,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2121,7 +2122,7 @@ export class SoftwareUpdateService {
      */
     public getSoftwareToRestartWithHttpInfo(deviceId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/getSoftwareToRestart/${deviceId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId));
+            .replace('${' + 'deviceId' + '}', String(deviceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2140,12 +2141,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2166,7 +2167,7 @@ export class SoftwareUpdateService {
      */
     public listDeviceFileUpdatesWithHttpInfo(deviceId: string, authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/listDeviceFileUpdates/${deviceId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId));
+            .replace('${' + 'deviceId' + '}', String(deviceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2193,7 +2194,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -2201,7 +2202,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2222,7 +2223,7 @@ export class SoftwareUpdateService {
      */
     public listDeviceInstalledSoftwaresWithHttpInfo(deviceId: string, authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/listDeviceInstalledSoftwares/${deviceId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId));
+            .replace('${' + 'deviceId' + '}', String(deviceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2249,7 +2250,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -2257,7 +2258,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2278,7 +2279,7 @@ export class SoftwareUpdateService {
      */
     public listDevicePendingInstallSoftwaresWithHttpInfo(deviceId: string, authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/listDevicePendingInstallSoftwares/${deviceId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId));
+            .replace('${' + 'deviceId' + '}', String(deviceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2305,7 +2306,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -2313,7 +2314,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2334,7 +2335,7 @@ export class SoftwareUpdateService {
      */
     public listDevicePendingLogRequestsWithHttpInfo(deviceId: string, authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/listDevicePendingLogRequests/${deviceId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId));
+            .replace('${' + 'deviceId' + '}', String(deviceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2361,7 +2362,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -2369,7 +2370,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2387,7 +2388,7 @@ export class SoftwareUpdateService {
      */
     public listDeviceSettingsWithHttpInfo(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/listDeviceSettings/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2406,12 +2407,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2463,7 +2464,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -2471,7 +2472,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2513,7 +2514,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -2521,7 +2522,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2563,7 +2564,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -2571,7 +2572,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2613,7 +2614,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -2621,7 +2622,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2663,7 +2664,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -2671,7 +2672,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2703,7 +2704,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -2711,7 +2712,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2743,7 +2744,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -2751,7 +2752,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2771,7 +2772,7 @@ export class SoftwareUpdateService {
      */
     public registerWithHttpInfo(mac: string, authenticationKey?: string, serialNumber?: string, body?: DeviceContainer, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/register/${mac}'
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2794,7 +2795,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -2802,7 +2803,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2824,7 +2825,7 @@ export class SoftwareUpdateService {
      */
     public requestLogWithHttpInfo(deviceId: string, authenticationKey?: string, filter?: string, level?: string, interval?: number, startMilis?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/requestLog/${deviceId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId));
+            .replace('${' + 'deviceId' + '}', String(deviceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2859,12 +2860,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2883,8 +2884,8 @@ export class SoftwareUpdateService {
      */
     public setSoftwareToRestartWithHttpInfo(deviceId: string, softwareId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/setSoftwareToRestart/${deviceId}/${softwareId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId))
-                    .replace('${' + 'softwareId' + '}', String(softwareId));
+            .replace('${' + 'deviceId' + '}', String(deviceId))
+            .replace('${' + 'softwareId' + '}', String(softwareId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2906,12 +2907,12 @@ export class SoftwareUpdateService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2931,7 +2932,7 @@ export class SoftwareUpdateService {
      */
     public updateDeviceStatusAndGetIsActivateWithHttpInfo(id: string, authenticationKey?: string, body?: DeviceContainer, serialNumber?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/updateDeviceStatusAndGetIsActivate/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -2954,7 +2955,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -2962,7 +2963,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -2981,7 +2982,7 @@ export class SoftwareUpdateService {
      */
     public updateFileUpdateStartedWithHttpInfo(requestId: string, authenticationKey?: string, dateCompleted?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/updateFileUpdateStarted/${requestId}'
-                    .replace('${' + 'requestId' + '}', String(requestId));
+            .replace('${' + 'requestId' + '}', String(requestId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3004,12 +3005,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3028,7 +3029,7 @@ export class SoftwareUpdateService {
      */
     public updateMultipleSoftwareWithHttpInfo(deviceId: string, authenticationKey?: string, body?: Array<string>, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/updateMultipleSoftware/${deviceId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId));
+            .replace('${' + 'deviceId' + '}', String(deviceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3047,7 +3048,7 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -3055,7 +3056,7 @@ export class SoftwareUpdateService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3075,8 +3076,8 @@ export class SoftwareUpdateService {
      */
     public updateRequestLogAsCompletedWithHttpInfo(requestId: string, fileResourceId: string, authenticationKey?: string, logDate?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/updateRequestLogAsCompleted/${requestId}/${fileResourceId}'
-                    .replace('${' + 'requestId' + '}', String(requestId))
-                    .replace('${' + 'fileResourceId' + '}', String(fileResourceId));
+            .replace('${' + 'requestId' + '}', String(requestId))
+            .replace('${' + 'fileResourceId' + '}', String(fileResourceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3103,12 +3104,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3127,7 +3128,7 @@ export class SoftwareUpdateService {
      */
     public updateRequestLogAsGatheredWithHttpInfo(requestId: string, authenticationKey?: string, dateCompleted?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/updateRequestLogAsStarted/${requestId}'
-                    .replace('${' + 'requestId' + '}', String(requestId));
+            .replace('${' + 'requestId' + '}', String(requestId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3150,12 +3151,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3174,8 +3175,8 @@ export class SoftwareUpdateService {
      */
     public updateSoftwareWithHttpInfo(softwareId: string, deviceId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/updateSoftware/${softwareId}/${deviceId}'
-                    .replace('${' + 'softwareId' + '}', String(softwareId))
-                    .replace('${' + 'deviceId' + '}', String(deviceId));
+            .replace('${' + 'softwareId' + '}', String(softwareId))
+            .replace('${' + 'deviceId' + '}', String(deviceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3198,12 +3199,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3222,8 +3223,8 @@ export class SoftwareUpdateService {
      */
     public updateSoftwareBundleWithHttpInfo(bundleId: string, deviceId: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/updateSoftwareBundle/${bundleId}/${deviceId}'
-                    .replace('${' + 'bundleId' + '}', String(bundleId))
-                    .replace('${' + 'deviceId' + '}', String(deviceId));
+            .replace('${' + 'bundleId' + '}', String(bundleId))
+            .replace('${' + 'deviceId' + '}', String(deviceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3246,12 +3247,12 @@ export class SoftwareUpdateService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3269,7 +3270,7 @@ export class SoftwareUpdateService {
      */
     public updateUpdateCompletedWithHttpInfo(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/updateUpdateCompleted/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3287,12 +3288,12 @@ export class SoftwareUpdateService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3310,7 +3311,7 @@ export class SoftwareUpdateService {
      */
     public updateUpdateStartedWithHttpInfo(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/updateUpdateStarted/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3328,12 +3329,12 @@ export class SoftwareUpdateService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -3351,7 +3352,7 @@ export class SoftwareUpdateService {
      */
     public updateUpdateVerifiedWithHttpInfo(id: string, authenticationKey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/plugins/softwareUpdate/updateUpdateVerified/${id}'
-                    .replace('${' + 'id' + '}', String(id));
+            .replace('${' + 'id' + '}', String(id));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -3369,12 +3370,12 @@ export class SoftwareUpdateService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {

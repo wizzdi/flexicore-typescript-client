@@ -12,12 +12,13 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';  import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
+import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
+import { Response } from '@angular/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DeviceSettingsContainer } from '../model/deviceSettingsContainer';
 import { FileResource } from '../model/fileResource';
@@ -28,8 +29,8 @@ import { SettingsContainer } from '../model/settingsContainer';
 import { SettingsMetadata } from '../model/settingsMetadata';
 import { SettingsMetadataCreationContainer } from '../model/settingsMetadataCreationContainer';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 
 
 @Injectable()
@@ -39,13 +40,13 @@ export class SettingsService {
     public defaultHeaders: Headers = new Headers();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected http: Http, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
+            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -55,13 +56,13 @@ export class SettingsService {
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
                 (objA as any)[key] = (objB as any)[key];
             }
         }
-        return <T1&T2>objA;
+        return <T1 & T2>objA;
     }
 
     /**
@@ -88,13 +89,13 @@ export class SettingsService {
      */
     public attachPropertyToMetadata(settingsMetaId: string, propertyId: string, authenticationkey?: string, value?: string, extraHttpRequestParams?: any): Observable<PropertyToSettingsMetadata> {
         return this.attachPropertyToMetadataWithHttpInfo(settingsMetaId, propertyId, authenticationkey, value, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -106,13 +107,13 @@ export class SettingsService {
      */
     public createSettings(settingsMetadataId: string, authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<Settings> {
         return this.createSettingsWithHttpInfo(settingsMetadataId, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -123,13 +124,13 @@ export class SettingsService {
      */
     public createSettingsMetadata(authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<SettingsMetadata> {
         return this.createSettingsMetadataWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -140,13 +141,13 @@ export class SettingsService {
      */
     public deviceGetSettings(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<SettingsContainer> {
         return this.deviceGetSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -158,13 +159,13 @@ export class SettingsService {
      */
     public duplicateSettings(originalSettingsId: string, authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<Settings> {
         return this.duplicateSettingsWithHttpInfo(originalSettingsId, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -175,13 +176,13 @@ export class SettingsService {
      */
     public exportSettings(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.exportSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -192,13 +193,13 @@ export class SettingsService {
      */
     public getSettings(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<SettingsContainer> {
         return this.getSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -211,13 +212,13 @@ export class SettingsService {
      */
     public importSettings(authenticationkey?: string, body?: SettingsContainer, byName?: boolean, dontUpdate?: boolean, extraHttpRequestParams?: any): Observable<boolean> {
         return this.importSettingsWithHttpInfo(authenticationkey, body, byName, dontUpdate, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -230,13 +231,13 @@ export class SettingsService {
      */
     public listAllSettings(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Settings>> {
         return this.listAllSettingsWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -249,13 +250,13 @@ export class SettingsService {
      */
     public listAllSettingsMetadata(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<SettingsMetadata>> {
         return this.listAllSettingsMetadataWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -266,13 +267,13 @@ export class SettingsService {
      */
     public listDeviceSettings(deviceId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<DeviceSettingsContainer>> {
         return this.listDeviceSettingsWithHttpInfo(deviceId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -283,13 +284,13 @@ export class SettingsService {
      */
     public listDeviceSettingsContainers(mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<SettingsContainer>> {
         return this.listDeviceSettingsContainersWithHttpInfo(mac, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -303,13 +304,13 @@ export class SettingsService {
      */
     public listSettings(settingsMetadataId: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Settings>> {
         return this.listSettingsWithHttpInfo(settingsMetadataId, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -321,13 +322,13 @@ export class SettingsService {
      */
     public setActiveSettings(settingsMetaId: string, settingId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.setActiveSettingsWithHttpInfo(settingsMetaId, settingId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -338,13 +339,13 @@ export class SettingsService {
      */
     public setActiveSettingsAsDefault(settingsMetaId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.setActiveSettingsAsDefaultWithHttpInfo(settingsMetaId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -356,13 +357,13 @@ export class SettingsService {
      */
     public updateMetadataSimple(linkId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<PropertyToSettingsMetadata> {
         return this.updateMetadataSimpleWithHttpInfo(linkId, authenticationkey, simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -376,8 +377,8 @@ export class SettingsService {
      */
     public attachPropertyToMetadataWithHttpInfo(settingsMetaId: string, propertyId: string, authenticationkey?: string, value?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/attachPropertyToMetadata/${settingsMetaId}/${propertyId}'
-                    .replace('${' + 'settingsMetaId' + '}', String(settingsMetaId))
-                    .replace('${' + 'propertyId' + '}', String(propertyId));
+            .replace('${' + 'settingsMetaId' + '}', String(settingsMetaId))
+            .replace('${' + 'propertyId' + '}', String(propertyId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -404,12 +405,12 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -428,7 +429,7 @@ export class SettingsService {
      */
     public createSettingsWithHttpInfo(settingsMetadataId: string, authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/createSettings/${settingsMetadataId}'
-                    .replace('${' + 'settingsMetadataId' + '}', String(settingsMetadataId));
+            .replace('${' + 'settingsMetadataId' + '}', String(settingsMetadataId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -447,7 +448,7 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -455,7 +456,7 @@ export class SettingsService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -487,7 +488,7 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -495,7 +496,7 @@ export class SettingsService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -513,7 +514,7 @@ export class SettingsService {
      */
     public deviceGetSettingsWithHttpInfo(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/deviceGetSettings/${settingsId}'
-                    .replace('${' + 'settingsId' + '}', String(settingsId));
+            .replace('${' + 'settingsId' + '}', String(settingsId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -532,12 +533,12 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -556,7 +557,7 @@ export class SettingsService {
      */
     public duplicateSettingsWithHttpInfo(originalSettingsId: string, authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/duplicateSettings/${originalSettingsId}'
-                    .replace('${' + 'originalSettingsId' + '}', String(originalSettingsId));
+            .replace('${' + 'originalSettingsId' + '}', String(originalSettingsId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -575,7 +576,7 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -583,7 +584,7 @@ export class SettingsService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -601,7 +602,7 @@ export class SettingsService {
      */
     public exportSettingsWithHttpInfo(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/exportSettings/${settingsId}'
-                    .replace('${' + 'settingsId' + '}', String(settingsId));
+            .replace('${' + 'settingsId' + '}', String(settingsId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -620,12 +621,12 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -643,7 +644,7 @@ export class SettingsService {
      */
     public getSettingsWithHttpInfo(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/${settingsId}'
-                    .replace('${' + 'settingsId' + '}', String(settingsId));
+            .replace('${' + 'settingsId' + '}', String(settingsId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -662,12 +663,12 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -709,7 +710,7 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -717,7 +718,7 @@ export class SettingsService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -759,7 +760,7 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -767,7 +768,7 @@ export class SettingsService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -809,7 +810,7 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -817,7 +818,7 @@ export class SettingsService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -835,7 +836,7 @@ export class SettingsService {
      */
     public listDeviceSettingsWithHttpInfo(deviceId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/listDeviceSettings/${deviceId}'
-                    .replace('${' + 'deviceId' + '}', String(deviceId));
+            .replace('${' + 'deviceId' + '}', String(deviceId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -854,12 +855,12 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -877,7 +878,7 @@ export class SettingsService {
      */
     public listDeviceSettingsContainersWithHttpInfo(mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/listDeviceSettingsContainers/${mac}'
-                    .replace('${' + 'mac' + '}', String(mac));
+            .replace('${' + 'mac' + '}', String(mac));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -896,12 +897,12 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -922,7 +923,7 @@ export class SettingsService {
      */
     public listSettingsWithHttpInfo(settingsMetadataId: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/listSettings/${settingsMetadataId}'
-                    .replace('${' + 'settingsMetadataId' + '}', String(settingsMetadataId));
+            .replace('${' + 'settingsMetadataId' + '}', String(settingsMetadataId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -949,7 +950,7 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -957,7 +958,7 @@ export class SettingsService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -976,8 +977,8 @@ export class SettingsService {
      */
     public setActiveSettingsWithHttpInfo(settingsMetaId: string, settingId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/setActiveSettings/${settingsMetaId}/${settingId}'
-                    .replace('${' + 'settingsMetaId' + '}', String(settingsMetaId))
-                    .replace('${' + 'settingId' + '}', String(settingId));
+            .replace('${' + 'settingsMetaId' + '}', String(settingsMetaId))
+            .replace('${' + 'settingId' + '}', String(settingId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1000,12 +1001,12 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1023,7 +1024,7 @@ export class SettingsService {
      */
     public setActiveSettingsAsDefaultWithHttpInfo(settingsMetaId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/setActiveSettingsAsDefault/${settingsMetaId}'
-                    .replace('${' + 'settingsMetaId' + '}', String(settingsMetaId));
+            .replace('${' + 'settingsMetaId' + '}', String(settingsMetaId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1042,12 +1043,12 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -1066,7 +1067,7 @@ export class SettingsService {
      */
     public updateMetadataSimpleWithHttpInfo(linkId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/settings/updateMetadataSimple/${linkId}'
-                    .replace('${' + 'linkId' + '}', String(linkId));
+            .replace('${' + 'linkId' + '}', String(linkId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -1089,12 +1090,12 @@ export class SettingsService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {

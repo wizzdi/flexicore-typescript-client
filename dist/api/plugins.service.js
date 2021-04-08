@@ -25,6 +25,7 @@ const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
 const http_1 = require("@angular/http");
 const http_2 = require("@angular/http");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let PluginsService = class PluginsService {
@@ -75,14 +76,14 @@ let PluginsService = class PluginsService {
      */
     getOffsetInfo(authenticationkey, body, extraHttpRequestParams) {
         return this.getOffsetInfoWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -90,14 +91,14 @@ let PluginsService = class PluginsService {
      */
     listAllLoadedPlugins(authenticationkey, extraHttpRequestParams) {
         return this.listAllLoadedPluginsWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
     *
@@ -105,14 +106,14 @@ let PluginsService = class PluginsService {
     */
     listAllModules(authenticationkey, extraHttpRequestParams) {
         return this.listAllModulesWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -120,14 +121,14 @@ let PluginsService = class PluginsService {
      */
     restart(authenticationkey, extraHttpRequestParams) {
         return this.restartWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -135,14 +136,14 @@ let PluginsService = class PluginsService {
      */
     testUpdate(authenticationkey, extraHttpRequestParams) {
         return this.testUpdateWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *

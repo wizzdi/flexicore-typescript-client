@@ -24,7 +24,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
 const http_1 = require("@angular/http");
-require("rxjs/add/operator/map");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let AuthenticationService = class AuthenticationService {
@@ -76,14 +76,14 @@ let AuthenticationService = class AuthenticationService {
      */
     login(authenticationkey, body, extraHttpRequestParams) {
         return this.loginWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * log-out from the system
@@ -92,14 +92,14 @@ let AuthenticationService = class AuthenticationService {
      */
     logout(authenticationkey, extraHttpRequestParams) {
         return this.logoutWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Sign-up to the system, pass an initialized instance of NewUser, sign-in name and password are stored there
@@ -110,14 +110,14 @@ let AuthenticationService = class AuthenticationService {
      */
     signin(authenticationkey, loginuponsuccess, body, extraHttpRequestParams) {
         return this.signinWithHttpInfo(authenticationkey, loginuponsuccess, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Sign-in(login)

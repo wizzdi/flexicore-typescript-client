@@ -129,7 +129,7 @@ export class FlexiCoreDecycle {
                 // JavaScript really should have a decent dictionary or map class.
                 for (i = 0; i < catalog.length; i += 1) {
                     if (catalog[i] === obj) {
-                        return {$ref: i.toString()};
+                        return { $ref: i.toString() };
                     }
                 }
 

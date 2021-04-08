@@ -11,11 +11,13 @@
  */
 
 
-import { Inject, Injectable, Optional } from '@angular/core'; 
-import { FlexiCoreDecycle } from './flexiCoreDecycle';
-import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { Http, Headers, URLSearchParams } from '@angular/http';
+import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
+import { Response } from '@angular/http';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { UIComponent } from '../model/uIComponent';
 import { UIComponentsRegistrationContainer } from '../model/uIComponentsRegistrationContainer';
@@ -30,88 +32,103 @@ export class UIComponentService {
 	public defaultHeaders: HttpHeaders = new HttpHeaders();
 	public configuration: Configuration = new Configuration();
 
-	constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-		if (basePath) {
-			this.basePath = basePath;
-		}
-		if (configuration) {
-			this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
-		}
-	}
+    constructor(protected http: Http, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+        if (basePath) {
+            this.basePath = basePath;
+        }
+        if (configuration) {
+            this.configuration = configuration;
+            this.basePath = basePath || configuration.basePath || this.basePath;
+        }
+    }
 
-	/**
-	 * 
-	 * Extends object by coping non-existing properties.
-	 * @param objA object to be extended
-	 * @param objB source object
-	 */
-	private extendObj<T1, T2>(objA: T1, objB: T2) {
-		for (let key in objB) {
-			if (objB.hasOwnProperty(key)) {
-				(objA as any)[key] = (objB as any)[key];
-			}
-		}
-		return <T1 & T2>objA;
-	}
+    /**
+     * 
+     * Extends object by coping non-existing properties.
+     * @param objA object to be extended
+     * @param objB source object
+     */
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
+                (objA as any)[key] = (objB as any)[key];
+            }
+        }
+        return <T1 & T2>objA;
+    }
 
-	/**
-	 * @param consumes string[] mime-types
-	 * @return true: consumes contains 'multipart/form-data', false: otherwise
-	 */
-	private canConsumeForm(consumes: string[]): boolean {
-		const form = 'multipart/form-data';
-		for (let consume of consumes) {
-			if (form === consume) {
-				return true;
-			}
-		}
-		return false;
-	}
+    /**
+     * @param consumes string[] mime-types
+     * @return true: consumes contains 'multipart/form-data', false: otherwise
+     */
+    private canConsumeForm(consumes: string[]): boolean {
+        const form = 'multipart/form-data';
+        for (let consume of consumes) {
+            if (form === consume) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	/**
-	 * registers components if not exists and returns allowed
-	 * @summary registerAndGetAllowedUIComponents
-	 * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-	 * @param body 
-	 */
-	public registerAndGetAllowedUIComponents(body?: UIComponentsRegistrationContainer, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<UIComponent>>;
-	public registerAndGetAllowedUIComponents(body?: UIComponentsRegistrationContainer, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<UIComponent>>>;
-	public registerAndGetAllowedUIComponents(body?: UIComponentsRegistrationContainer, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<UIComponent>>>;
-	public registerAndGetAllowedUIComponents(body?: UIComponentsRegistrationContainer, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    /**
+     * registers components if not exists and returns allowed
+     * @summary registerAndGetAllowedUIComponents
+     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+     * @param body 
+     */
+    public registerAndGetAllowedUIComponents(authenticationkey?: string, body?: UIComponentsRegistrationContainer, extraHttpRequestParams?: any): Observable<Array<UIComponent>> {
+        return this.registerAndGetAllowedUIComponentsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
+            .pipe(map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                }
+            }));
+    }
 
-		let headers = this.defaultHeaders;
 
-		if (authenticationkey !== undefined && authenticationkey !== null) {
-			headers = headers.set('authenticationkey', String(authenticationkey));
-		}
 
-		// to determine the Accept header
-		let httpHeaderAccepts: string[] = [
-			'application/json'
-		];
-		const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-		if (httpHeaderAcceptSelected != undefined) {
-			headers = headers.set('Accept', httpHeaderAcceptSelected);
-		}
+    /**
+     * registerAndGetAllowedUIComponents
+     * registers components if not exists and returns allowed
+     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+     * @param body 
+     */
+    public registerAndGetAllowedUIComponentsWithHttpInfo(authenticationkey?: string, body?: UIComponentsRegistrationContainer, extraHttpRequestParams?: any): Observable<Response> {
+        const path = this.basePath + '/uiPlugin/registerAndGetAllowedUIComponents';
 
-		// to determine the Content-Type header
-		const consumes: string[] = [
-			'application/json'
-		];
-		const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-		if (httpContentTypeSelected != undefined) {
-			headers = headers.set('Content-Type', httpContentTypeSelected);
-		}
+        let queryParameters = new URLSearchParams();
+        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
-		return this.httpClient.post<Array<UIComponent>>(`${this.basePath}/uiPlugin/registerAndGetAllowedUIComponents`,
-			body,
-			{
-				withCredentials: this.configuration.withCredentials,
-				headers: headers,
-				observe: observe,
-				reportProgress: reportProgress
-			}
-		).map(o => FlexiCoreDecycle.retrocycle(o));
-	}
+        if (authenticationkey !== undefined && authenticationkey !== null) {
+            headers.set('authenticationkey', String(authenticationkey));
+        }
+
+
+        // to determine the Accept header
+        let produces: string[] = [
+            'application/json'
+        ];
+
+
+        headers.set('Content-Type', 'application/json');
+
+        let requestOptions: RequestOptionsArgs = new RequestOptions({
+            method: RequestMethod.Post,
+            headers: headers,
+            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
+            search: queryParameters,
+            withCredentials: this.configuration.withCredentials
+        });
+        // https://github.com/swagger-api/swagger-codegen/issues/4037
+        if (extraHttpRequestParams) {
+            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
+        }
+
+        return this.http.request(path, requestOptions);
+    }
+
+
 }

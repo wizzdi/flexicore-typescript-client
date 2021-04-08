@@ -11,18 +11,18 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { LicensingFeature } from '../model/licensingFeature';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 import { FlexiCoreDecycle } from './api';
-import {  PaginationResponse, LicensingFeatureFiltering } from '../model/models';
+import { PaginationResponse, LicensingFeatureFiltering } from '../model/models';
 
 
 @Injectable()
@@ -32,7 +32,7 @@ export class LicensingFeatureService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -58,26 +58,26 @@ export class LicensingFeatureService {
 
 
 
-     /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     * @param body 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
+    /**
+    * 
+    * 
+    * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+    * @param pagesize Number of entries to be retrieved per page or -1 for full list
+    * @param currentpage The current page or -1 for full list
+    * @param body 
+    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+    * @param reportProgress flag to report request and response progress.
+    */
     public getAllLicensingFeatures(authenticationkey?: string, body?: LicensingFeatureFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<LicensingFeature>>;
     public getAllLicensingFeatures(authenticationkey?: string, body?: LicensingFeatureFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<LicensingFeature>>>;
     public getAllLicensingFeatures(authenticationkey?: string, body?: LicensingFeatureFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<LicensingFeature>>>;
-    public getAllLicensingFeatures(authenticationkey?: string, body?: LicensingFeatureFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllLicensingFeatures(authenticationkey?: string, body?: LicensingFeatureFiltering, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers = headers.set('authenticationkey', String(authenticationkey));
         }
-       
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -104,7 +104,7 @@ export class LicensingFeatureService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 }

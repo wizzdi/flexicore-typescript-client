@@ -11,7 +11,7 @@
  */
 import { Http, Headers } from '@angular/http';
 import { Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Clazz } from '../model/clazz';
 import { ClazzLinkContainer } from '../model/clazzLinkContainer';
 import { FieldContainer } from '../model/fieldContainer';

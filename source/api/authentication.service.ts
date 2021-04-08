@@ -12,8 +12,8 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import {Inject, Injectable, Optional} from '@angular/core';
-import {FlexiCoreDecycle} from './flexiCoreDecycle';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { FlexiCoreDecycle } from './flexiCoreDecycle';
 
 import {
     Headers,
@@ -25,15 +25,15 @@ import {
     URLSearchParams
 } from '@angular/http';
 
-import {Observable} from 'rxjs/Observable';
-import "rxjs/add/operator/map";
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import {AuthenticationBundle} from '../model/authenticationBundle';
-import {AuthenticationRequestHolder} from '../model/authenticationRequestHolder';
-import {NewUserUserClass} from '../model/newUserUserClass';
+import { AuthenticationBundle } from '../model/authenticationBundle';
+import { AuthenticationRequestHolder } from '../model/authenticationRequestHolder';
+import { NewUserUserClass } from '../model/newUserUserClass';
 
-import {BASE_PATH} from '../variables';
-import {Configuration} from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 
 
 
@@ -44,13 +44,13 @@ export class AuthenticationService {
     public defaultHeaders: Headers = new Headers();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected http: Http, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
+            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -60,13 +60,13 @@ export class AuthenticationService {
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
                 (objA as any)[key] = (objB as any)[key];
             }
         }
-        return <T1&T2>objA;
+        return <T1 & T2>objA;
     }
 
     /**
@@ -91,13 +91,13 @@ export class AuthenticationService {
      */
     public login(authenticationkey?: string, body?: AuthenticationRequestHolder, extraHttpRequestParams?: any): Observable<AuthenticationBundle> {
         return this.loginWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -107,13 +107,13 @@ export class AuthenticationService {
      */
     public logout(authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.logoutWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -125,13 +125,13 @@ export class AuthenticationService {
      */
     public signin(authenticationkey?: string, loginuponsuccess?: boolean, body?: NewUserUserClass, extraHttpRequestParams?: any): Observable<{}> {
         return this.signinWithHttpInfo(authenticationkey, loginuponsuccess, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -156,7 +156,7 @@ export class AuthenticationService {
         let produces: string[] = [
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -164,7 +164,7 @@ export class AuthenticationService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -194,12 +194,12 @@ export class AuthenticationService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -235,7 +235,7 @@ export class AuthenticationService {
         let produces: string[] = [
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -243,7 +243,7 @@ export class AuthenticationService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {

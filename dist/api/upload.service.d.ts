@@ -11,7 +11,7 @@
  */
 import { Http, Headers } from '@angular/http';
 import { Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { FileResource } from '../model/fileResource';
 import { Job } from '../model/job';
 import { MultipartFormDataInput } from '../model/multipartFormDataInput';

@@ -22,6 +22,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const http_1 = require("@angular/common/http");
+const operators_1 = require("rxjs/operators");
 const api_1 = require("./api");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
@@ -78,7 +79,7 @@ let FlexiCoreServerService = class FlexiCoreServerService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).map(o => api_1.FlexiCoreDecycle.retrocycle(o));
+        }).pipe(operators_1.map(o => api_1.FlexiCoreDecycle.retrocycle(o)));
     }
     createFlexiCoreServerToBaseclass(body, authenticationKey, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -106,7 +107,7 @@ let FlexiCoreServerService = class FlexiCoreServerService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).map(o => api_1.FlexiCoreDecycle.retrocycle(o));
+        }).pipe(operators_1.map(o => api_1.FlexiCoreDecycle.retrocycle(o)));
     }
     getFlexiCoreServerToBaseclassLinks(body, authenticationKey, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -134,7 +135,7 @@ let FlexiCoreServerService = class FlexiCoreServerService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).map(o => api_1.FlexiCoreDecycle.retrocycle(o));
+        }).pipe(operators_1.map(o => api_1.FlexiCoreDecycle.retrocycle(o)));
     }
     getFlexiCoreServers(body, authenticationKey, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -162,7 +163,7 @@ let FlexiCoreServerService = class FlexiCoreServerService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).map(o => api_1.FlexiCoreDecycle.retrocycle(o));
+        }).pipe(operators_1.map(o => api_1.FlexiCoreDecycle.retrocycle(o)));
     }
     getSyncStatus(body, authenticationkey, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -190,7 +191,7 @@ let FlexiCoreServerService = class FlexiCoreServerService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).map(o => api_1.FlexiCoreDecycle.retrocycle(o));
+        }).pipe(operators_1.map(o => api_1.FlexiCoreDecycle.retrocycle(o)));
     }
     openConnectionFlexiCoreServer(body, authenticationKey, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -218,7 +219,7 @@ let FlexiCoreServerService = class FlexiCoreServerService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).map(o => api_1.FlexiCoreDecycle.retrocycle(o));
+        }).pipe(operators_1.map(o => api_1.FlexiCoreDecycle.retrocycle(o)));
     }
     syncBaseclass(body, authenticationkey, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -246,7 +247,7 @@ let FlexiCoreServerService = class FlexiCoreServerService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).map(o => api_1.FlexiCoreDecycle.retrocycle(o));
+        }).pipe(operators_1.map(o => api_1.FlexiCoreDecycle.retrocycle(o)));
     }
     updateFlexiCoreServer(body, authenticationKey, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -274,7 +275,7 @@ let FlexiCoreServerService = class FlexiCoreServerService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).map(o => api_1.FlexiCoreDecycle.retrocycle(o));
+        }).pipe(operators_1.map(o => api_1.FlexiCoreDecycle.retrocycle(o)));
     }
 };
 FlexiCoreServerService = __decorate([

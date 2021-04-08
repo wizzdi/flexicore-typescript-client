@@ -11,19 +11,19 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { ExecuteInvokerRequest } from '../model/executeInvokerRequest';
 import { ExecuteInvokersResponse } from '../model/executeInvokersResponse';
 import { InvokersFilter } from '../model/invokersFilter';
 import { PaginationResponse } from '../model/paginationResponse';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 import { InvokerInfo } from '../model/invokerInfo';
 import { InvokersOperationFilter } from '../model/invokersOperationFilter';
 import { Operation, DynamicExecution, ExecuteDynamicExecution, FileResource, DynamicExecutionExampleRequest } from '../model/models';
@@ -41,7 +41,7 @@ export class DynamicInvokersService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -77,7 +77,7 @@ export class DynamicInvokersService {
     public executeInvoker(authenticationKey?: string, body?: ExecuteInvokerRequest, observe?: 'body', reportProgress?: boolean): Observable<ExecuteInvokersResponse>;
     public executeInvoker(authenticationKey?: string, body?: ExecuteInvokerRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ExecuteInvokersResponse>>;
     public executeInvoker(authenticationKey?: string, body?: ExecuteInvokerRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ExecuteInvokersResponse>>;
-    public executeInvoker(authenticationKey?: string, body?: ExecuteInvokerRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public executeInvoker(authenticationKey?: string, body?: ExecuteInvokerRequest, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
@@ -109,22 +109,22 @@ export class DynamicInvokersService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
-      /**
-     * executeInvoker
-     * executeInvoker
-     * @param authenticationKey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
+    /**
+   * executeInvoker
+   * executeInvoker
+   * @param authenticationKey The AuthenticationKey retrieved when sign-in into the system
+   * @param body 
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
     public executeDynamicExecution(authenticationKey?: string, body?: ExecuteDynamicExecution, observe?: 'body', reportProgress?: boolean): Observable<ExecuteInvokersResponse>;
     public executeDynamicExecution(authenticationKey?: string, body?: ExecuteDynamicExecution, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ExecuteInvokersResponse>>;
     public executeDynamicExecution(authenticationKey?: string, body?: ExecuteDynamicExecution, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ExecuteInvokersResponse>>;
-    public executeDynamicExecution(authenticationKey?: string, body?: ExecuteDynamicExecution, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public executeDynamicExecution(authenticationKey?: string, body?: ExecuteDynamicExecution, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
@@ -156,15 +156,15 @@ export class DynamicInvokersService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
-  
+
     public createDynamicExecution(authenticationKey?: string, body?: CreateDynamicExecution, observe?: 'body', reportProgress?: boolean): Observable<DynamicExecution>;
     public createDynamicExecution(authenticationKey?: string, body?: CreateDynamicExecution, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<DynamicExecution>>;
     public createDynamicExecution(authenticationKey?: string, body?: CreateDynamicExecution, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<DynamicExecution>>;
-    public createDynamicExecution(authenticationKey?: string, body?: CreateDynamicExecution, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createDynamicExecution(authenticationKey?: string, body?: CreateDynamicExecution, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
@@ -196,13 +196,13 @@ export class DynamicInvokersService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     public getAllDynamicExecutions(authenticationKey?: string, body?: DynamicExecutionFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<DynamicExecution>>;
     public getAllDynamicExecutions(authenticationKey?: string, body?: DynamicExecutionFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<DynamicExecution>>>;
     public getAllDynamicExecutions(authenticationKey?: string, body?: DynamicExecutionFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<DynamicExecution>>>;
-    public getAllDynamicExecutions(authenticationKey?: string, body?: DynamicExecutionFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllDynamicExecutions(authenticationKey?: string, body?: DynamicExecutionFilter, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
@@ -234,14 +234,14 @@ export class DynamicInvokersService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
     public getDynamicExecutionReturnExample(authenticationKey?: string, body?: DynamicExecutionExampleRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public getDynamicExecutionReturnExample(authenticationKey?: string, body?: DynamicExecutionExampleRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public getDynamicExecutionReturnExample(authenticationKey?: string, body?: DynamicExecutionExampleRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public getDynamicExecutionReturnExample(authenticationKey?: string, body?: DynamicExecutionExampleRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getDynamicExecutionReturnExample(authenticationKey?: string, body?: DynamicExecutionExampleRequest, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
@@ -273,14 +273,14 @@ export class DynamicInvokersService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
     public updateDynamicExecution(authenticationKey?: string, body?: UpdateDynamicExecution, observe?: 'body', reportProgress?: boolean): Observable<DynamicExecution>;
     public updateDynamicExecution(authenticationKey?: string, body?: UpdateDynamicExecution, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<DynamicExecution>>;
     public updateDynamicExecution(authenticationKey?: string, body?: UpdateDynamicExecution, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<DynamicExecution>>;
-    public updateDynamicExecution(authenticationKey?: string, body?: UpdateDynamicExecution, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateDynamicExecution(authenticationKey?: string, body?: UpdateDynamicExecution, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
@@ -312,21 +312,21 @@ export class DynamicInvokersService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
-   /**
-     * getAllInvokerOperations
-     * lists all Invoker operations
-     * @param authenticationKey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
+    /**
+      * getAllInvokerOperations
+      * lists all Invoker operations
+      * @param authenticationKey The AuthenticationKey retrieved when sign-in into the system
+      * @param body 
+      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+      * @param reportProgress flag to report request and response progress.
+      */
     public getAllInvokerOperations(authenticationKey?: string, body?: InvokersOperationFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Operation>>;
     public getAllInvokerOperations(authenticationKey?: string, body?: InvokersOperationFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Operation>>>;
     public getAllInvokerOperations(authenticationKey?: string, body?: InvokersOperationFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Operation>>>;
-    public getAllInvokerOperations(authenticationKey?: string, body?: InvokersOperationFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllInvokerOperations(authenticationKey?: string, body?: InvokersOperationFilter, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
@@ -358,7 +358,7 @@ export class DynamicInvokersService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -372,7 +372,7 @@ export class DynamicInvokersService {
     public exportDynamicExecutionResultToCSV(authenticationKey?: string, body?: ExportDynamicExecution, observe?: 'body', reportProgress?: boolean): Observable<FileResource>;
     public exportDynamicExecutionResultToCSV(authenticationKey?: string, body?: ExportDynamicExecution, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileResource>>;
     public exportDynamicExecutionResultToCSV(authenticationKey?: string, body?: ExportDynamicExecution, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileResource>>;
-    public exportDynamicExecutionResultToCSV(authenticationKey?: string, body?: ExportDynamicExecution, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public exportDynamicExecutionResultToCSV(authenticationKey?: string, body?: ExportDynamicExecution, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
@@ -404,7 +404,7 @@ export class DynamicInvokersService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -420,7 +420,7 @@ export class DynamicInvokersService {
     public getAllInvokers(authenticationKey?: string, body?: InvokersFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<InvokerInfo>>;
     public getAllInvokers(authenticationKey?: string, body?: InvokersFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<InvokerInfo>>>;
     public getAllInvokers(authenticationKey?: string, body?: InvokersFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<InvokerInfo>>>;
-    public getAllInvokers(authenticationKey?: string, body?: InvokersFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllInvokers(authenticationKey?: string, body?: InvokersFilter, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
@@ -452,22 +452,22 @@ export class DynamicInvokersService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
-       /**
-     * getAllInvokersProtected
-     * lists all Invokers protected
-     * @param authenticationKey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
+    /**
+  * getAllInvokersProtected
+  * lists all Invokers protected
+  * @param authenticationKey The AuthenticationKey retrieved when sign-in into the system
+  * @param body 
+  * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+  * @param reportProgress flag to report request and response progress.
+  */
     public getAllInvokersProtected(authenticationKey?: string, body?: InvokersFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<InvokerInfo>>;
     public getAllInvokersProtected(authenticationKey?: string, body?: InvokersFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<InvokerInfo>>>;
     public getAllInvokersProtected(authenticationKey?: string, body?: InvokersFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<InvokerInfo>>>;
-    public getAllInvokersProtected(authenticationKey?: string, body?: InvokersFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllInvokersProtected(authenticationKey?: string, body?: InvokersFilter, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
@@ -499,7 +499,7 @@ export class DynamicInvokersService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 }

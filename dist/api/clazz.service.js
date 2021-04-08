@@ -24,6 +24,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const http_1 = require("@angular/http");
 const http_2 = require("@angular/http");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let ClazzService = class ClazzService {
@@ -75,14 +76,14 @@ let ClazzService = class ClazzService {
      */
     getAllOperations(clazzName, authenticationkey, extraHttpRequestParams) {
         return this.getAllOperationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return response.json() || {};
             }
-        });
+        }));
     }
     /**
      * Returns a list of ClazzLinkContainer instances of the given link(!) canonical name
@@ -92,14 +93,14 @@ let ClazzService = class ClazzService {
      */
     getAssociations(clazzName, authenticationkey, extraHttpRequestParams) {
         return this.getAssociationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return response.json() || {};
             }
-        });
+        }));
     }
     /**
      * Return a concrete instance of type Clazz, every type in the system including those created by Plug-ins have a concrete instance of Clazz type describing it.
@@ -109,14 +110,14 @@ let ClazzService = class ClazzService {
      */
     getClazz(clazzName, authenticationkey, extraHttpRequestParams) {
         return this.getClazzWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return response.json() || {};
             }
-        });
+        }));
     }
     /**
      * get a list of all FieldContainers per class, use it for the creation of a new instance and for updating one
@@ -126,14 +127,14 @@ let ClazzService = class ClazzService {
      */
     getFields(clazzName, authenticationkey, extraHttpRequestParams) {
         return this.getFieldsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return response.json() || {};
             }
-        });
+        }));
     }
     /**
      * Get all Operations

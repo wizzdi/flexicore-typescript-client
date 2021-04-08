@@ -11,16 +11,16 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { LicenseRequest } from '../model/licenseRequest';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 import { FlexiCoreDecycle } from './api';
 import { LicenseRequestCreate, LicenseRequestUpdate, LicenseRequestFiltering, PaginationResponse } from '../model/models';
 
@@ -32,7 +32,7 @@ export class LicenseRequestService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -58,26 +58,26 @@ export class LicenseRequestService {
 
 
 
-     /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     * @param body 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
+    /**
+    * 
+    * 
+    * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+    * @param pagesize Number of entries to be retrieved per page or -1 for full list
+    * @param currentpage The current page or -1 for full list
+    * @param body 
+    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+    * @param reportProgress flag to report request and response progress.
+    */
     public getAllLicenseRequests(authenticationkey?: string, body?: LicenseRequestFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<LicenseRequest>>;
     public getAllLicenseRequests(authenticationkey?: string, body?: LicenseRequestFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<LicenseRequest>>>;
     public getAllLicenseRequests(authenticationkey?: string, body?: LicenseRequestFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<LicenseRequest>>>;
-    public getAllLicenseRequests(authenticationkey?: string, body?: LicenseRequestFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllLicenseRequests(authenticationkey?: string, body?: LicenseRequestFiltering, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers = headers.set('authenticationkey', String(authenticationkey));
         }
-       
+
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
@@ -104,27 +104,27 @@ export class LicenseRequestService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
-     /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public updateLicenseRequest(authenticationkey?: string,body?: LicenseRequestUpdate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequest>;
-    public updateLicenseRequest(authenticationkey?: string,body?: LicenseRequestUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequest>>;
-    public updateLicenseRequest(authenticationkey?: string,body?: LicenseRequestUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequest>>;
-    public updateLicenseRequest(authenticationkey?: string,body?: LicenseRequestUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    /**
+    * 
+    * 
+    * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+    * @param body 
+    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+    * @param reportProgress flag to report request and response progress.
+    */
+    public updateLicenseRequest(authenticationkey?: string, body?: LicenseRequestUpdate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequest>;
+    public updateLicenseRequest(authenticationkey?: string, body?: LicenseRequestUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequest>>;
+    public updateLicenseRequest(authenticationkey?: string, body?: LicenseRequestUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequest>>;
+    public updateLicenseRequest(authenticationkey?: string, body?: LicenseRequestUpdate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers = headers.set('authenticationkey', String(authenticationkey));
         }
-      
+
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -152,28 +152,28 @@ export class LicenseRequestService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
-     /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public createLicenseRequest(authenticationkey?: string,body?: LicenseRequestCreate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequest>;
-    public createLicenseRequest(authenticationkey?: string,body?: LicenseRequestCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequest>>;
-    public createLicenseRequest(authenticationkey?: string,body?: LicenseRequestCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequest>>;
-    public createLicenseRequest(authenticationkey?: string,body?: LicenseRequestCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    /**
+    * 
+    * 
+    * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+    * @param body 
+    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+    * @param reportProgress flag to report request and response progress.
+    */
+    public createLicenseRequest(authenticationkey?: string, body?: LicenseRequestCreate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequest>;
+    public createLicenseRequest(authenticationkey?: string, body?: LicenseRequestCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequest>>;
+    public createLicenseRequest(authenticationkey?: string, body?: LicenseRequestCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequest>>;
+    public createLicenseRequest(authenticationkey?: string, body?: LicenseRequestCreate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers = headers.set('authenticationkey', String(authenticationkey));
         }
-      
+
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -201,7 +201,7 @@ export class LicenseRequestService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 }

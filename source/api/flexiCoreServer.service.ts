@@ -10,11 +10,11 @@
  * Do not edit the class manually.
  *//* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { FlexiCoreDecycle } from './api';
 
@@ -30,8 +30,8 @@ import { PaginationResponse } from '../model/paginationResponse';
 import { SyncStatusElement } from '../model/syncStatusElement';
 import { UserInitiatedSyncJob } from '../model/userInitiatedSyncJob';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 
 
 @Injectable()
@@ -41,7 +41,7 @@ export class FlexiCoreServerService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -77,7 +77,7 @@ export class FlexiCoreServerService {
     public createFlexiCoreServer(body?: FlexiCoreServerCreate, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<FlexiCoreServer>;
     public createFlexiCoreServer(body?: FlexiCoreServerCreate, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FlexiCoreServer>>;
     public createFlexiCoreServer(body?: FlexiCoreServerCreate, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FlexiCoreServer>>;
-    public createFlexiCoreServer(body?: FlexiCoreServerCreate, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createFlexiCoreServer(body?: FlexiCoreServerCreate, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
 
 
@@ -112,7 +112,7 @@ export class FlexiCoreServerService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -126,7 +126,7 @@ export class FlexiCoreServerService {
     public createFlexiCoreServerToBaseclass(body?: FlexiCoreServerToBaseclassCreate, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<FlexiCoreServerToBaseclass>;
     public createFlexiCoreServerToBaseclass(body?: FlexiCoreServerToBaseclassCreate, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FlexiCoreServerToBaseclass>>;
     public createFlexiCoreServerToBaseclass(body?: FlexiCoreServerToBaseclassCreate, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FlexiCoreServerToBaseclass>>;
-    public createFlexiCoreServerToBaseclass(body?: FlexiCoreServerToBaseclassCreate, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createFlexiCoreServerToBaseclass(body?: FlexiCoreServerToBaseclassCreate, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
 
 
@@ -161,7 +161,7 @@ export class FlexiCoreServerService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -175,7 +175,7 @@ export class FlexiCoreServerService {
     public getFlexiCoreServerToBaseclassLinks(body?: FlexiCoreServerToBaseclassFilter, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<FlexiCoreServerToBaseclass>>;
     public getFlexiCoreServerToBaseclassLinks(body?: FlexiCoreServerToBaseclassFilter, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<FlexiCoreServerToBaseclass>>>;
     public getFlexiCoreServerToBaseclassLinks(body?: FlexiCoreServerToBaseclassFilter, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<FlexiCoreServerToBaseclass>>>;
-    public getFlexiCoreServerToBaseclassLinks(body?: FlexiCoreServerToBaseclassFilter, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getFlexiCoreServerToBaseclassLinks(body?: FlexiCoreServerToBaseclassFilter, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
 
 
@@ -210,7 +210,7 @@ export class FlexiCoreServerService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -224,7 +224,7 @@ export class FlexiCoreServerService {
     public getFlexiCoreServers(body?: FlexiCoreServerFilter, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<FlexiCoreServer>>;
     public getFlexiCoreServers(body?: FlexiCoreServerFilter, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<FlexiCoreServer>>>;
     public getFlexiCoreServers(body?: FlexiCoreServerFilter, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<FlexiCoreServer>>>;
-    public getFlexiCoreServers(body?: FlexiCoreServerFilter, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getFlexiCoreServers(body?: FlexiCoreServerFilter, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
 
 
@@ -259,7 +259,7 @@ export class FlexiCoreServerService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -273,7 +273,7 @@ export class FlexiCoreServerService {
     public getSyncStatus(body?: FlexiCoreServerToBaseclassFilter, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<SyncStatusElement>>;
     public getSyncStatus(body?: FlexiCoreServerToBaseclassFilter, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SyncStatusElement>>>;
     public getSyncStatus(body?: FlexiCoreServerToBaseclassFilter, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SyncStatusElement>>>;
-    public getSyncStatus(body?: FlexiCoreServerToBaseclassFilter, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getSyncStatus(body?: FlexiCoreServerToBaseclassFilter, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
 
 
@@ -308,7 +308,7 @@ export class FlexiCoreServerService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -322,7 +322,7 @@ export class FlexiCoreServerService {
     public openConnectionFlexiCoreServer(body?: OpenFlexiCoreServer, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public openConnectionFlexiCoreServer(body?: OpenFlexiCoreServer, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public openConnectionFlexiCoreServer(body?: OpenFlexiCoreServer, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public openConnectionFlexiCoreServer(body?: OpenFlexiCoreServer, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public openConnectionFlexiCoreServer(body?: OpenFlexiCoreServer, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
 
 
@@ -357,7 +357,7 @@ export class FlexiCoreServerService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -371,7 +371,7 @@ export class FlexiCoreServerService {
     public syncBaseclass(body?: UserInitiatedSyncJob, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
     public syncBaseclass(body?: UserInitiatedSyncJob, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public syncBaseclass(body?: UserInitiatedSyncJob, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public syncBaseclass(body?: UserInitiatedSyncJob, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public syncBaseclass(body?: UserInitiatedSyncJob, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
 
 
@@ -406,7 +406,7 @@ export class FlexiCoreServerService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -420,7 +420,7 @@ export class FlexiCoreServerService {
     public updateFlexiCoreServer(body?: FlexiCoreServerUpdate, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<FlexiCoreServer>;
     public updateFlexiCoreServer(body?: FlexiCoreServerUpdate, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FlexiCoreServer>>;
     public updateFlexiCoreServer(body?: FlexiCoreServerUpdate, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FlexiCoreServer>>;
-    public updateFlexiCoreServer(body?: FlexiCoreServerUpdate, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateFlexiCoreServer(body?: FlexiCoreServerUpdate, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
 
 
@@ -455,7 +455,7 @@ export class FlexiCoreServerService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 }

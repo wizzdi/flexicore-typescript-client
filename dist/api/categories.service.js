@@ -25,6 +25,7 @@ const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
 const http_1 = require("@angular/http");
 const http_2 = require("@angular/http");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let CategoriesService = class CategoriesService {
@@ -77,14 +78,14 @@ let CategoriesService = class CategoriesService {
      */
     connectCategory(baseId, authenticationkey, catId, extraHttpRequestParams) {
         return this.connectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Return a single category
@@ -94,14 +95,14 @@ let CategoriesService = class CategoriesService {
      */
     createCategory(categoryName, authenticationkey, extraHttpRequestParams) {
         return this.createCategoryWithHttpInfo(categoryName, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Disable a previously disabled Category, the CategoryID to be enabled is passed as the entity in the Post request(!)
@@ -112,14 +113,14 @@ let CategoriesService = class CategoriesService {
      */
     disableCategory(className, authenticationkey, body, extraHttpRequestParams) {
         return this.disableCategoryWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Disconnect a Category from an instance of a connected(to this Category) entity in the system
@@ -130,14 +131,14 @@ let CategoriesService = class CategoriesService {
      */
     disconnectCategory(baseId, authenticationkey, catId, extraHttpRequestParams) {
         return this.disconnectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Before a Category can be connected to an INSTANCE of a class it must be enabled to the class, thus a list of categories can be easily filtered by the context of the class at hand, the CategoryID to be enabled is passed as the entity in the Post request(!)
@@ -148,14 +149,14 @@ let CategoriesService = class CategoriesService {
      */
     enableCategory(className, authenticationkey, body, extraHttpRequestParams) {
         return this.enableCategoryWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Get a list of all Categories whose name starts with the supplied string
@@ -166,14 +167,14 @@ let CategoriesService = class CategoriesService {
      */
     getAllCategories(authenticationkey, pagesize, currentpage, extraHttpRequestParams) {
         return this.getAllCategoriesWithHttpInfo(authenticationkey, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Get a list of all Categories that are connected to an instance
@@ -183,14 +184,14 @@ let CategoriesService = class CategoriesService {
      */
     getAllCategoriesConnected(baseId, authenticationkey, extraHttpRequestParams) {
         return this.getAllCategoriesConnectedWithHttpInfo(baseId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Get a list of all Categories that can be used (previously enabled) by a Class
@@ -200,14 +201,14 @@ let CategoriesService = class CategoriesService {
      */
     getCategory(className, authenticationkey, extraHttpRequestParams) {
         return this.getCategoryWithHttpInfo(className, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Get a list of all Categories whose name starts with the supplied string
@@ -217,14 +218,14 @@ let CategoriesService = class CategoriesService {
      */
     getCategoryByName(name, authenticationkey, extraHttpRequestParams) {
         return this.getCategoryByNameWithHttpInfo(name, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Connect to Category

@@ -25,6 +25,7 @@ const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
 const http_1 = require("@angular/http");
 const http_2 = require("@angular/http");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let DynamicPropertiesService = class DynamicPropertiesService {
@@ -78,14 +79,14 @@ let DynamicPropertiesService = class DynamicPropertiesService {
      */
     connectPropertyComplex(propertyId, baseclassId, valueId, authenticationkey, extraHttpRequestParams) {
         return this.connectPropertyComplexWithHttpInfo(propertyId, baseclassId, valueId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Connect property and a baseclass with simple value, assign a value of a Property to an instance of Baseclass, any Baseclass instance
@@ -97,14 +98,14 @@ let DynamicPropertiesService = class DynamicPropertiesService {
      */
     connectPropertySimple(propertyId, baseclassId, authenticationkey, simpleValue, extraHttpRequestParams) {
         return this.connectPropertySimpleWithHttpInfo(propertyId, baseclassId, authenticationkey, simpleValue, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * creates a property given a type and a name, properties can be created and linked with Types. instances of these types can have associated values
@@ -115,14 +116,14 @@ let DynamicPropertiesService = class DynamicPropertiesService {
      */
     createProperty(authenticationkey, propertyName, propertyType, extraHttpRequestParams) {
         return this.createPropertyWithHttpInfo(authenticationkey, propertyName, propertyType, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * creates a property Type given  a name
@@ -132,14 +133,14 @@ let DynamicPropertiesService = class DynamicPropertiesService {
      */
     createPropertyType(authenticationkey, propertyTypeName, extraHttpRequestParams) {
         return this.createPropertyTypeWithHttpInfo(authenticationkey, propertyTypeName, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * get all properties connected to baseclass
@@ -151,14 +152,14 @@ let DynamicPropertiesService = class DynamicPropertiesService {
      */
     getDynamicProperties(id, authenticationkey, propertyClazz, plainView, extraHttpRequestParams) {
         return this.getDynamicPropertiesWithHttpInfo(id, authenticationkey, propertyClazz, plainView, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * get all properties connected to baseclass
@@ -170,14 +171,14 @@ let DynamicPropertiesService = class DynamicPropertiesService {
      */
     getDynamicPropertiesWithCategories(id, authenticationkey, propertyClazz, plainView, extraHttpRequestParams) {
         return this.getDynamicPropertiesWithCategoriesWithHttpInfo(id, authenticationkey, propertyClazz, plainView, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * get all Properties, paged, filtered and sorted by a FilteringInformationHolder
@@ -189,14 +190,14 @@ let DynamicPropertiesService = class DynamicPropertiesService {
      */
     listProperties(authenticationkey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.listPropertiesWithHttpInfo(authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * get all property types, filtered and sorted
@@ -208,14 +209,14 @@ let DynamicPropertiesService = class DynamicPropertiesService {
      */
     listPropertyTypes(authenticationkey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.listPropertyTypesWithHttpInfo(authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * set Property to use with specific Clazz, a Clazz is an Entity in FlexiCore, the PropertySetContainer has the required default values for both simple and complex values
@@ -225,14 +226,14 @@ let DynamicPropertiesService = class DynamicPropertiesService {
      */
     setProperty(authenticationkey, body, extraHttpRequestParams) {
         return this.setPropertyWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * update Simple value of a Dynamic Property of a Baseclass instance
@@ -243,14 +244,14 @@ let DynamicPropertiesService = class DynamicPropertiesService {
      */
     updateSimple(linkId, authenticationkey, simpleValue, extraHttpRequestParams) {
         return this.updateSimpleWithHttpInfo(linkId, authenticationkey, simpleValue, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * connect Property

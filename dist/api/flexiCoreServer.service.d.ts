@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */ 
 import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { FlexiCoreServer } from '../model/flexiCoreServer';
 import { FlexiCoreServerCreate } from '../model/flexiCoreServerCreate';
 import { FlexiCoreServerFilter } from '../model/flexiCoreServerFilter';

@@ -25,6 +25,7 @@ const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
 const http_1 = require("@angular/http");
 const http_2 = require("@angular/http");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let CoreService = class CoreService {
@@ -77,14 +78,14 @@ let CoreService = class CoreService {
      */
     activateLink(baseId, mac, authenticationkey, extraHttpRequestParams) {
         return this.activateLinkWithHttpInfo(baseId, mac, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -94,14 +95,14 @@ let CoreService = class CoreService {
      */
     addUserToRole(roleId, userId, authenticationkey, extraHttpRequestParams) {
         return this.addUserToRoleWithHttpInfo(roleId, userId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -111,14 +112,14 @@ let CoreService = class CoreService {
      */
     attachCertificate(id, crtId, authenticationkey, extraHttpRequestParams) {
         return this.attachCertificateWithHttpInfo(id, crtId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * attachs a file resource to the given media , using primary bundle
@@ -130,14 +131,14 @@ let CoreService = class CoreService {
      */
     attachFileResource(mediaId, fileResourceId, authenticationkey, group, extraHttpRequestParams) {
         return this.attachFileResourceWithHttpInfo(mediaId, fileResourceId, authenticationkey, group, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * attach Property to metadata
@@ -149,14 +150,14 @@ let CoreService = class CoreService {
      */
     attachPropertyToMetadata(settingsMetaId, propertyId, authenticationkey, value, extraHttpRequestParams) {
         return this.attachPropertyToMetadataWithHttpInfo(settingsMetaId, propertyId, authenticationkey, value, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -165,14 +166,14 @@ let CoreService = class CoreService {
      */
     attachTenant(authenticationkey, body, extraHttpRequestParams) {
         return this.attachTenantWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -182,28 +183,28 @@ let CoreService = class CoreService {
      */
     changeMediaPrimaryFileResourceBundle(id, fileResourceId, authenticationkey, extraHttpRequestParams) {
         return this.changeMediaPrimaryFileResourceBundleWithHttpInfo(id, fileResourceId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
      */
     checkDBAvailable(extraHttpRequestParams) {
         return this.checkDBAvailableWithHttpInfo(extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Connect a Category to an instance of any entity in the system
@@ -214,14 +215,14 @@ let CoreService = class CoreService {
      */
     connectCategory(baseId, authenticationkey, catId, extraHttpRequestParams) {
         return this.connectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Connect a Device to an instance of any entity in the system
@@ -233,14 +234,14 @@ let CoreService = class CoreService {
      */
     connectDeviceToBaseclass(baseId, mac, authenticationkey, someHeader, extraHttpRequestParams) {
         return this.connectDeviceToBaseclassWithHttpInfo(baseId, mac, authenticationkey, someHeader, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Connect a property and a baseclass with a complex type, this is the actual action of assigning a Complex Value of a property to a specific Baseclass , any Baseclasss
@@ -252,14 +253,14 @@ let CoreService = class CoreService {
      */
     connectPropertyComplex(propertyId, baseclassId, valueId, authenticationkey, extraHttpRequestParams) {
         return this.connectPropertyComplexWithHttpInfo(propertyId, baseclassId, valueId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Connect property and a baseclass with simple value, assign a value of a Property to an instance of Baseclass, any Baseclass instance
@@ -271,14 +272,14 @@ let CoreService = class CoreService {
      */
     connectPropertySimple(propertyId, baseclassId, authenticationkey, simpleValue, extraHttpRequestParams) {
         return this.connectPropertySimpleWithHttpInfo(propertyId, baseclassId, authenticationkey, simpleValue, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -287,14 +288,14 @@ let CoreService = class CoreService {
      */
     connectToTenant(authenticationkey, body, extraHttpRequestParams) {
         return this.connectToTenantWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -304,14 +305,14 @@ let CoreService = class CoreService {
      */
     count(type, authenticationkey, body, extraHttpRequestParams) {
         return this.countWithHttpInfo(type, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -322,14 +323,14 @@ let CoreService = class CoreService {
      */
     countAllofType(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.countAllofTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -343,14 +344,14 @@ let CoreService = class CoreService {
      */
     countConnected(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams) {
         return this.countConnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -364,14 +365,14 @@ let CoreService = class CoreService {
      */
     countDisconnected(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams) {
         return this.countDisconnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Creates a new instance of the requested Class, pass a properly initialized instance of BaseclassCreationContainer
@@ -381,14 +382,14 @@ let CoreService = class CoreService {
      */
     create(authenticationkey, body, extraHttpRequestParams) {
         return this.createWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Creates a link between two instances in a generic way, provide values of the link
@@ -403,14 +404,14 @@ let CoreService = class CoreService {
      */
     createBaselink(leftId, rightId, linkClazzName, authenticationkey, value, simpleValue, check, extraHttpRequestParams) {
         return this.createBaselinkWithHttpInfo(leftId, rightId, linkClazzName, authenticationkey, value, simpleValue, check, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Return a single category
@@ -420,14 +421,14 @@ let CoreService = class CoreService {
      */
     createCategory(categoryName, authenticationkey, extraHttpRequestParams) {
         return this.createCategoryWithHttpInfo(categoryName, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * creates a device
@@ -441,14 +442,14 @@ let CoreService = class CoreService {
      */
     createDevice(mac, serialNumber, authenticationkey, name, lat, lon, extraHttpRequestParams) {
         return this.createDeviceWithHttpInfo(mac, serialNumber, authenticationkey, name, lat, lon, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * create heap dump
@@ -458,14 +459,14 @@ let CoreService = class CoreService {
      */
     createHeapDump(authenticationkey, path, extraHttpRequestParams) {
         return this.createHeapDumpWithHttpInfo(authenticationkey, path, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * creates a property given a type and a name, properties can be created and linked with Types. instances of these types can have associated values
@@ -476,14 +477,14 @@ let CoreService = class CoreService {
      */
     createProperty(authenticationkey, propertyName, propertyType, extraHttpRequestParams) {
         return this.createPropertyWithHttpInfo(authenticationkey, propertyName, propertyType, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * creates a property Type given  a name
@@ -493,14 +494,14 @@ let CoreService = class CoreService {
      */
     createPropertyType(authenticationkey, propertyTypeName, extraHttpRequestParams) {
         return this.createPropertyTypeWithHttpInfo(authenticationkey, propertyTypeName, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -509,14 +510,14 @@ let CoreService = class CoreService {
      */
     createRole(authenticationkey, body, extraHttpRequestParams) {
         return this.createRoleWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * create Settings
@@ -527,14 +528,14 @@ let CoreService = class CoreService {
      */
     createSettings(settingsMetadataId, authenticationkey, body, extraHttpRequestParams) {
         return this.createSettingsWithHttpInfo(settingsMetadataId, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * creates a settings metadata
@@ -544,14 +545,14 @@ let CoreService = class CoreService {
      */
     createSettingsMetadata(authenticationkey, body, extraHttpRequestParams) {
         return this.createSettingsMetadataWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -562,14 +563,14 @@ let CoreService = class CoreService {
      */
     createTenant(tenantName, apiKey, authenticationkey, body, extraHttpRequestParams) {
         return this.createTenantWithHttpInfo(tenantName, apiKey, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -579,14 +580,14 @@ let CoreService = class CoreService {
      */
     createTenantNoUser(tenantName, apiKey, authenticationkey, extraHttpRequestParams) {
         return this.createTenantNoUserWithHttpInfo(tenantName, apiKey, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -596,14 +597,14 @@ let CoreService = class CoreService {
      */
     createUser(authenticationkey, loginuponsuccess, body, extraHttpRequestParams) {
         return this.createUserWithHttpInfo(authenticationkey, loginuponsuccess, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -612,14 +613,14 @@ let CoreService = class CoreService {
      */
     create_1(authenticationkey, body, extraHttpRequestParams) {
         return this.create_1WithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * deactivate all links between a device and baseclass
@@ -630,14 +631,14 @@ let CoreService = class CoreService {
      */
     deactivateAllLinks(baseId, mac, authenticationkey, extraHttpRequestParams) {
         return this.deactivateAllLinksWithHttpInfo(baseId, mac, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * deactivate link
@@ -647,14 +648,14 @@ let CoreService = class CoreService {
      */
     deactivateLink(linkId, authenticationkey, extraHttpRequestParams) {
         return this.deactivateLinkWithHttpInfo(linkId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * deletes an entity by id
@@ -664,14 +665,14 @@ let CoreService = class CoreService {
      */
     deleteById(id, authenticationkey, extraHttpRequestParams) {
         return this.deleteByIdWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * deletes an entity by id
@@ -682,14 +683,14 @@ let CoreService = class CoreService {
      */
     deleteById_2(id, className, authenticationkey, extraHttpRequestParams) {
         return this.deleteById_2WithHttpInfo(id, className, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -698,14 +699,14 @@ let CoreService = class CoreService {
      */
     deleteFileResource(md5, authenticationkey, extraHttpRequestParams) {
         return this.deleteFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * delete heap dump
@@ -715,14 +716,14 @@ let CoreService = class CoreService {
      */
     deleteHeapDump(id, authenticationkey, extraHttpRequestParams) {
         return this.deleteHeapDumpWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -731,14 +732,14 @@ let CoreService = class CoreService {
      */
     deleteMedia(id, authenticationkey, extraHttpRequestParams) {
         return this.deleteMediaWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Remove an existing link by the ID of its 'sides'
@@ -750,14 +751,14 @@ let CoreService = class CoreService {
      */
     detachEntities(leftId, rightId, linkClazzName, authenticationkey, extraHttpRequestParams) {
         return this.detachEntitiesWithHttpInfo(leftId, rightId, linkClazzName, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * create Settings
@@ -767,14 +768,14 @@ let CoreService = class CoreService {
      */
     deviceGetSettings(settingsId, authenticationkey, extraHttpRequestParams) {
         return this.deviceGetSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Disable a previously disabled Category, the CategoryID to be enabled is passed as the entity in the Post request(!)
@@ -785,14 +786,14 @@ let CoreService = class CoreService {
      */
     disableCategory(className, authenticationkey, body, extraHttpRequestParams) {
         return this.disableCategoryWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Disconnect a Category from an instance of a connected(to this Category) entity in the system
@@ -803,14 +804,14 @@ let CoreService = class CoreService {
      */
     disconnectCategory(baseId, authenticationkey, catId, extraHttpRequestParams) {
         return this.disconnectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -819,14 +820,14 @@ let CoreService = class CoreService {
      */
     download(authenticationkey, id, extraHttpRequestParams) {
         return this.downloadWithHttpInfo(authenticationkey, id, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * duplicate an entity by Id , returns null if not successfully duplicated
@@ -836,14 +837,14 @@ let CoreService = class CoreService {
      */
     duplicate(id, authenticationkey, extraHttpRequestParams) {
         return this.duplicateWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * duplicate Settings
@@ -854,14 +855,14 @@ let CoreService = class CoreService {
      */
     duplicateSettings(originalSettingsId, authenticationkey, body, extraHttpRequestParams) {
         return this.duplicateSettingsWithHttpInfo(originalSettingsId, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Before a Category can be connected to an INSTANCE of a class it must be enabled to the class, thus a list of categories can be easily filtered by the context of the class at hand, the CategoryID to be enabled is passed as the entity in the Post request(!)
@@ -872,14 +873,14 @@ let CoreService = class CoreService {
      */
     enableCategory(className, authenticationkey, body, extraHttpRequestParams) {
         return this.enableCategoryWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * exports to file
@@ -889,14 +890,14 @@ let CoreService = class CoreService {
      */
     exportBaseclass(id, authenticationkey, extraHttpRequestParams) {
         return this.exportBaseclassWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * export Settings
@@ -906,14 +907,14 @@ let CoreService = class CoreService {
      */
     exportSettings(settingsId, authenticationkey, extraHttpRequestParams) {
         return this.exportSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -924,14 +925,14 @@ let CoreService = class CoreService {
      */
     fileResourcesOfType(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.fileResourcesOfTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * finalize FileResource , sending it for processing
@@ -944,14 +945,14 @@ let CoreService = class CoreService {
      */
     finalizeUpload(md5, authenticationkey, hint, fileType, dontProcess, extraHttpRequestParams) {
         return this.finalizeUploadWithHttpInfo(md5, authenticationkey, hint, fileType, dontProcess, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Find an entity by Id and type, returns null if not found
@@ -962,14 +963,14 @@ let CoreService = class CoreService {
      */
     findById(id, classname, authenticationkey, extraHttpRequestParams) {
         return this.findByIdWithHttpInfo(id, classname, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Find an instance of a Baseclass extender by its id, returns an instance of a Baseclass
@@ -979,14 +980,14 @@ let CoreService = class CoreService {
      */
     findById_3(ID, authenticationkey, extraHttpRequestParams) {
         return this.findById_3WithHttpInfo(ID, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -995,14 +996,14 @@ let CoreService = class CoreService {
      */
     findById_4(id, authenticationkey, extraHttpRequestParams) {
         return this.findById_4WithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * returns a list of instances of the type requested
@@ -1013,14 +1014,14 @@ let CoreService = class CoreService {
      */
     findByName(name, classname, authenticationkey, extraHttpRequestParams) {
         return this.findByNameWithHttpInfo(name, classname, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1033,14 +1034,14 @@ let CoreService = class CoreService {
      */
     findBySidesId(left, right, classname, authenticationkey, value, simpleValue, extraHttpRequestParams) {
         return this.findBySidesIdWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1056,14 +1057,14 @@ let CoreService = class CoreService {
      */
     findLinks(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.findLinksWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1079,14 +1080,14 @@ let CoreService = class CoreService {
      */
     findLinksContainers(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.findLinksContainersWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1102,14 +1103,14 @@ let CoreService = class CoreService {
      */
     findLinksValues(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.findLinksValuesWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1119,14 +1120,14 @@ let CoreService = class CoreService {
      */
     generateClient(clientType, authenticationkey, view, extraHttpRequestParams) {
         return this.generateClientWithHttpInfo(clientType, authenticationkey, view, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1136,14 +1137,14 @@ let CoreService = class CoreService {
      */
     get(id, authenticationkey, targetDevice, extraHttpRequestParams) {
         return this.getWithHttpInfo(id, authenticationkey, targetDevice, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Get a list of all Categories whose name starts with the supplied string
@@ -1154,14 +1155,14 @@ let CoreService = class CoreService {
      */
     getAllCategories(authenticationkey, pagesize, currentpage, extraHttpRequestParams) {
         return this.getAllCategoriesWithHttpInfo(authenticationkey, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Get a list of all Categories that are connected to an instance
@@ -1171,14 +1172,14 @@ let CoreService = class CoreService {
      */
     getAllCategoriesConnected(baseId, authenticationkey, extraHttpRequestParams) {
         return this.getAllCategoriesConnectedWithHttpInfo(baseId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1186,14 +1187,14 @@ let CoreService = class CoreService {
      */
     getAllFileTypes(authenticationkey, extraHttpRequestParams) {
         return this.getAllFileTypesWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Get a list of all Operations defined for the this Class, Some Operations have meaning with some Classes only
@@ -1203,14 +1204,14 @@ let CoreService = class CoreService {
      */
     getAllOperations(clazzName, authenticationkey, extraHttpRequestParams) {
         return this.getAllOperationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * returns a list of views
@@ -1219,14 +1220,14 @@ let CoreService = class CoreService {
      */
     getAllViews(authenticationkey, extraHttpRequestParams) {
         return this.getAllViewsWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Returns a list of ClazzLinkContainer instances of the given link(!) canonical name
@@ -1236,14 +1237,14 @@ let CoreService = class CoreService {
      */
     getAssociations(clazzName, authenticationkey, extraHttpRequestParams) {
         return this.getAssociationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Get a list of all Categories that can be used (previously enabled) by a Class
@@ -1253,14 +1254,14 @@ let CoreService = class CoreService {
      */
     getCategory(className, authenticationkey, extraHttpRequestParams) {
         return this.getCategoryWithHttpInfo(className, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Get a list of all Categories whose name starts with the supplied string
@@ -1270,14 +1271,14 @@ let CoreService = class CoreService {
      */
     getCategoryByName(name, authenticationkey, extraHttpRequestParams) {
         return this.getCategoryByNameWithHttpInfo(name, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Return a concrete instance of type Clazz, every type in the system including those created by Plug-ins have a concrete instance of Clazz type describing it.
@@ -1287,14 +1288,14 @@ let CoreService = class CoreService {
      */
     getClazz(clazzName, authenticationkey, extraHttpRequestParams) {
         return this.getClazzWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1302,14 +1303,14 @@ let CoreService = class CoreService {
      */
     getClients(authenticationkey, extraHttpRequestParams) {
         return this.getClientsWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1323,14 +1324,14 @@ let CoreService = class CoreService {
      */
     getConnected(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams) {
         return this.getConnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * update device used properties
@@ -1343,14 +1344,14 @@ let CoreService = class CoreService {
      */
     getDeviceUsedProperties(mac, authenticationkey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.getDeviceUsedPropertiesWithHttpInfo(mac, authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1364,14 +1365,14 @@ let CoreService = class CoreService {
      */
     getDisconnected(id, wantedClazzName, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams) {
         return this.getDisconnectedWithHttpInfo(id, wantedClazzName, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1380,14 +1381,14 @@ let CoreService = class CoreService {
      */
     getDocs(authenticationkey, view, extraHttpRequestParams) {
         return this.getDocsWithHttpInfo(authenticationkey, view, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * get all properties connected to baseclass
@@ -1399,14 +1400,14 @@ let CoreService = class CoreService {
      */
     getDynamicProperties(id, authenticationkey, propertyClazz, plainView, extraHttpRequestParams) {
         return this.getDynamicPropertiesWithHttpInfo(id, authenticationkey, propertyClazz, plainView, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * get all properties connected to baseclass
@@ -1418,14 +1419,14 @@ let CoreService = class CoreService {
      */
     getDynamicPropertiesWithCategories(id, authenticationkey, propertyClazz, plainView, extraHttpRequestParams) {
         return this.getDynamicPropertiesWithCategoriesWithHttpInfo(id, authenticationkey, propertyClazz, plainView, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1436,14 +1437,14 @@ let CoreService = class CoreService {
      */
     getFeatures(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.getFeaturesWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * get a list of all FieldContainers per class, use it for the creation of a new instance and for updating one
@@ -1453,14 +1454,14 @@ let CoreService = class CoreService {
      */
     getFields(clazzName, authenticationkey, extraHttpRequestParams) {
         return this.getFieldsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1469,14 +1470,14 @@ let CoreService = class CoreService {
      */
     getFields_5(className, authenticationkey, extraHttpRequestParams) {
         return this.getFields_5WithHttpInfo(className, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1485,14 +1486,14 @@ let CoreService = class CoreService {
      */
     getFileResource(md5, authenticationkey, extraHttpRequestParams) {
         return this.getFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1501,14 +1502,14 @@ let CoreService = class CoreService {
      */
     getJob(jobID, authenticationkey, extraHttpRequestParams) {
         return this.getJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1517,14 +1518,14 @@ let CoreService = class CoreService {
      */
     getOffsetInfo(authenticationkey, body, extraHttpRequestParams) {
         return this.getOffsetInfoWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1533,14 +1534,14 @@ let CoreService = class CoreService {
      */
     getPreview(id, authenticationkey, extraHttpRequestParams) {
         return this.getPreviewWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1551,14 +1552,14 @@ let CoreService = class CoreService {
      */
     getProducts(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.getProductsWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1571,14 +1572,14 @@ let CoreService = class CoreService {
      */
     getRenderingBundles(grouping, id, authenticationkey, pagesize, currentpage, sortby, extraHttpRequestParams) {
         return this.getRenderingBundlesWithHttpInfo(grouping, id, authenticationkey, pagesize, currentpage, sortby, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * create Settings
@@ -1588,14 +1589,14 @@ let CoreService = class CoreService {
      */
     getSettings(settingsId, authenticationkey, extraHttpRequestParams) {
         return this.getSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1604,14 +1605,14 @@ let CoreService = class CoreService {
      */
     getSwaggerJSON(authenticationkey, view, extraHttpRequestParams) {
         return this.getSwaggerJSONWithHttpInfo(authenticationkey, view, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1620,14 +1621,14 @@ let CoreService = class CoreService {
      */
     getTenant(apiKey, authenticationkey, extraHttpRequestParams) {
         return this.getTenantWithHttpInfo(apiKey, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1638,14 +1639,14 @@ let CoreService = class CoreService {
      */
     getTenants(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.getTenantsWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1654,14 +1655,14 @@ let CoreService = class CoreService {
      */
     getViewClazzes(viewId, authenticationkey, extraHttpRequestParams) {
         return this.getViewClazzesWithHttpInfo(viewId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * import baseclass
@@ -1672,14 +1673,14 @@ let CoreService = class CoreService {
      */
     importBaseclass(className, authenticationkey, body, extraHttpRequestParams) {
         return this.importBaseclassWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * import Settings
@@ -1691,14 +1692,14 @@ let CoreService = class CoreService {
      */
     importSettings(authenticationkey, body, byName, dontUpdate, extraHttpRequestParams) {
         return this.importSettingsWithHttpInfo(authenticationkey, body, byName, dontUpdate, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1706,14 +1707,14 @@ let CoreService = class CoreService {
      */
     invalidateCache(authenticationkey, extraHttpRequestParams) {
         return this.invalidateCacheWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1724,14 +1725,14 @@ let CoreService = class CoreService {
      */
     linkBaseclassTouser(leftId, rightId, operationId, authenticationkey, extraHttpRequestParams) {
         return this.linkBaseclassTouserWithHttpInfo(leftId, rightId, operationId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Helper class for linking Role and User using a RoleUserContainer class, can be carried out by using the Generic createBaselink call
@@ -1741,14 +1742,14 @@ let CoreService = class CoreService {
      */
     linkroleuser(authenticationkey, body, extraHttpRequestParams) {
         return this.linkroleuserWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1759,14 +1760,14 @@ let CoreService = class CoreService {
      */
     listAll(authenticationkey, pagesize, currentpage, sortby, extraHttpRequestParams) {
         return this.listAllWithHttpInfo(authenticationkey, pagesize, currentpage, sortby, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * lists all media that suites Filtering information holder
@@ -1780,14 +1781,14 @@ let CoreService = class CoreService {
      */
     listAllFileResourcesOfGroupInMedia(id, authenticationkey, group, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.listAllFileResourcesOfGroupInMediaWithHttpInfo(id, authenticationkey, group, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * returns all the file resources of the given types that are connected to the given Media
@@ -1800,14 +1801,14 @@ let CoreService = class CoreService {
      */
     listAllFileResourcesOfType(mediaId, authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.listAllFileResourcesOfTypeWithHttpInfo(mediaId, authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1815,14 +1816,14 @@ let CoreService = class CoreService {
      */
     listAllLoadedPlugins(authenticationkey, extraHttpRequestParams) {
         return this.listAllLoadedPluginsWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1833,14 +1834,14 @@ let CoreService = class CoreService {
      */
     listAllRoles(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.listAllRolesWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * lists all settings
@@ -1852,14 +1853,14 @@ let CoreService = class CoreService {
      */
     listAllSettings(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.listAllSettingsWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * lists all settings metadata
@@ -1871,14 +1872,14 @@ let CoreService = class CoreService {
      */
     listAllSettingsMetadata(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.listAllSettingsMetadataWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1887,14 +1888,14 @@ let CoreService = class CoreService {
      */
     listAllUserRoles(id, authenticationkey, extraHttpRequestParams) {
         return this.listAllUserRolesWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1905,14 +1906,14 @@ let CoreService = class CoreService {
      */
     listAllUsers(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.listAllUsersWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * lists all media that suites Filtering information holder
@@ -1924,14 +1925,14 @@ let CoreService = class CoreService {
      */
     listAllofType(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.listAllofTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * list device Settings
@@ -1941,14 +1942,14 @@ let CoreService = class CoreService {
      */
     listDeviceSettings(deviceId, authenticationkey, extraHttpRequestParams) {
         return this.listDeviceSettingsWithHttpInfo(deviceId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * list device Settings containers
@@ -1958,14 +1959,14 @@ let CoreService = class CoreService {
      */
     listDeviceSettingsContainers(mac, authenticationkey, extraHttpRequestParams) {
         return this.listDeviceSettingsContainersWithHttpInfo(mac, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -1976,14 +1977,14 @@ let CoreService = class CoreService {
      */
     listDevices(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.listDevicesWithHttpInfo(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * list heap dumps
@@ -1996,14 +1997,14 @@ let CoreService = class CoreService {
      */
     listHeapDumps(authenticationkey, body, pagesize, currentpage, start, extraHttpRequestParams) {
         return this.listHeapDumpsWithHttpInfo(authenticationkey, body, pagesize, currentpage, start, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * lists license requests
@@ -2015,14 +2016,14 @@ let CoreService = class CoreService {
      */
     listLicenseRequest(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.listLicenseRequestWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * get all Properties, paged, filtered and sorted by a FilteringInformationHolder
@@ -2034,14 +2035,14 @@ let CoreService = class CoreService {
      */
     listProperties(authenticationkey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.listPropertiesWithHttpInfo(authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * get all property types, filtered and sorted
@@ -2053,14 +2054,14 @@ let CoreService = class CoreService {
      */
     listPropertyTypes(authenticationkey, body, pagesize, currentPage, extraHttpRequestParams) {
         return this.listPropertyTypesWithHttpInfo(authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * lists settings
@@ -2073,14 +2074,14 @@ let CoreService = class CoreService {
      */
     listSettings(settingsMetadataId, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.listSettingsWithHttpInfo(settingsMetadataId, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -2089,14 +2090,14 @@ let CoreService = class CoreService {
      */
     lookupUserByEmail(email, authenticationkey, extraHttpRequestParams) {
         return this.lookupUserByEmailWithHttpInfo(email, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -2105,14 +2106,14 @@ let CoreService = class CoreService {
      */
     lookupUserById(id, authenticationkey, extraHttpRequestParams) {
         return this.lookupUserByIdWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -2121,14 +2122,14 @@ let CoreService = class CoreService {
      */
     multipleCreate(authenticationkey, number, extraHttpRequestParams) {
         return this.multipleCreateWithHttpInfo(authenticationkey, number, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * returns a list of instances of the type requested
@@ -2141,28 +2142,28 @@ let CoreService = class CoreService {
      */
     nameLike(classname, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.nameLikeWithHttpInfo(classname, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
      */
     ping(extraHttpRequestParams) {
         return this.pingWithHttpInfo(extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * registers components if not exists and returns allowed
@@ -2172,14 +2173,14 @@ let CoreService = class CoreService {
      */
     registerAndGetAllowedUIComponents(authenticationkey, body, extraHttpRequestParams) {
         return this.registerAndGetAllowedUIComponentsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -2189,14 +2190,14 @@ let CoreService = class CoreService {
      */
     registerFile(authenticationkey, path, calcMd5, extraHttpRequestParams) {
         return this.registerFileWithHttpInfo(authenticationkey, path, calcMd5, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -2209,14 +2210,14 @@ let CoreService = class CoreService {
      */
     registerFileAndFinlize(authenticationkey, path, hint, fileType, dontProcess, calcMd5, extraHttpRequestParams) {
         return this.registerFileAndFinlizeWithHttpInfo(authenticationkey, path, hint, fileType, dontProcess, calcMd5, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -2224,14 +2225,14 @@ let CoreService = class CoreService {
      */
     restart(authenticationkey, extraHttpRequestParams) {
         return this.restartWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * sets active settings for settingsMetadata
@@ -2242,14 +2243,14 @@ let CoreService = class CoreService {
      */
     setActiveSettings(settingsMetaId, settingId, authenticationkey, extraHttpRequestParams) {
         return this.setActiveSettingsWithHttpInfo(settingsMetaId, settingId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * sets active settings for settingsMetadata as null(using default values)
@@ -2259,14 +2260,14 @@ let CoreService = class CoreService {
      */
     setActiveSettingsAsDefault(settingsMetaId, authenticationkey, extraHttpRequestParams) {
         return this.setActiveSettingsAsDefaultWithHttpInfo(settingsMetaId, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * update device used properties
@@ -2277,14 +2278,14 @@ let CoreService = class CoreService {
      */
     setDeviceUsedProperties(mac, authenticationkey, body, extraHttpRequestParams) {
         return this.setDeviceUsedPropertiesWithHttpInfo(mac, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Sets Link as Updated
@@ -2295,14 +2296,14 @@ let CoreService = class CoreService {
      */
     setLinkUpdateDate(linkId, authenticationkey, date, extraHttpRequestParams) {
         return this.setLinkUpdateDateWithHttpInfo(linkId, authenticationkey, date, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * set Property to use with specific Clazz, a Clazz is an Entity in FlexiCore, the PropertySetContainer has the required default values for both simple and complex values
@@ -2312,14 +2313,14 @@ let CoreService = class CoreService {
      */
     setProperty(authenticationkey, body, extraHttpRequestParams) {
         return this.setPropertyWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * soft delete baseclass
@@ -2329,14 +2330,14 @@ let CoreService = class CoreService {
      */
     softDelete(id, authenticationkey, extraHttpRequestParams) {
         return this.softDeleteWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -2345,14 +2346,14 @@ let CoreService = class CoreService {
      */
     stopJob(jobID, authenticationkey, extraHttpRequestParams) {
         return this.stopJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -2360,14 +2361,14 @@ let CoreService = class CoreService {
      */
     testUpdate(authenticationkey, extraHttpRequestParams) {
         return this.testUpdateWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Update an instance,retrieve the related fields first, create BaseclassUpdateContainer with required fields
@@ -2379,14 +2380,14 @@ let CoreService = class CoreService {
      */
     update(id, clazzName, authenticationkey, body, extraHttpRequestParams) {
         return this.updateWithHttpInfo(id, clazzName, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * Update an instance of a Baseclass using a BasicContainer instance
@@ -2396,14 +2397,14 @@ let CoreService = class CoreService {
      */
     updateBasicDetails(authenticationkey, body, extraHttpRequestParams) {
         return this.updateBasicDetailsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -2413,14 +2414,14 @@ let CoreService = class CoreService {
      */
     updateJobPhase(jobID, phaseName, authenticationkey, extraHttpRequestParams) {
         return this.updateJobPhaseWithHttpInfo(jobID, phaseName, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -2431,14 +2432,14 @@ let CoreService = class CoreService {
      */
     updateJobProperty(jobID, key, value, authenticationkey, extraHttpRequestParams) {
         return this.updateJobPropertyWithHttpInfo(jobID, key, value, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * update metadata property
@@ -2449,14 +2450,14 @@ let CoreService = class CoreService {
      */
     updateMetadataSimple(linkId, authenticationkey, simpleValue, extraHttpRequestParams) {
         return this.updateMetadataSimpleWithHttpInfo(linkId, authenticationkey, simpleValue, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * update Simple value of a Dynamic Property of a Baseclass instance
@@ -2467,14 +2468,14 @@ let CoreService = class CoreService {
      */
     updateSimple(linkId, authenticationkey, simpleValue, extraHttpRequestParams) {
         return this.updateSimpleWithHttpInfo(linkId, authenticationkey, simpleValue, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -2484,14 +2485,14 @@ let CoreService = class CoreService {
      */
     updateVersion(id, updateTo, authenticationkey, extraHttpRequestParams) {
         return this.updateVersionWithHttpInfo(id, updateTo, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -2500,14 +2501,14 @@ let CoreService = class CoreService {
      */
     update_6(authenticationkey, body, extraHttpRequestParams) {
         return this.update_6WithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -2516,14 +2517,14 @@ let CoreService = class CoreService {
      */
     uploadFileMulti(authenticationkey, body, extraHttpRequestParams) {
         return this.uploadFileMultiWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -2531,14 +2532,14 @@ let CoreService = class CoreService {
      */
     validate(authenticationkey, extraHttpRequestParams) {
         return this.validateWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      * activateLink

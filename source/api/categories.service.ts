@@ -12,19 +12,20 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
+import { Response } from '@angular/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Baseclass } from '../model/baseclass';
 import { Category } from '../model/category';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 
 
 @Injectable()
@@ -34,13 +35,13 @@ export class CategoriesService {
     public defaultHeaders: Headers = new Headers();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected http: Http, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
+            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -50,13 +51,13 @@ export class CategoriesService {
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
                 (objA as any)[key] = (objB as any)[key];
             }
         }
-        return <T1&T2>objA;
+        return <T1 & T2>objA;
     }
 
     /**
@@ -82,13 +83,13 @@ export class CategoriesService {
      */
     public connectCategory(baseId: string, authenticationkey?: string, catId?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.connectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -99,13 +100,13 @@ export class CategoriesService {
      */
     public createCategory(categoryName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Category> {
         return this.createCategoryWithHttpInfo(categoryName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -117,13 +118,13 @@ export class CategoriesService {
      */
     public disableCategory(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.disableCategoryWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -135,13 +136,13 @@ export class CategoriesService {
      */
     public disconnectCategory(baseId: string, authenticationkey?: string, catId?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.disconnectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -153,13 +154,13 @@ export class CategoriesService {
      */
     public enableCategory(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.enableCategoryWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -171,13 +172,13 @@ export class CategoriesService {
      */
     public getAllCategories(authenticationkey?: string, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Category>> {
         return this.getAllCategoriesWithHttpInfo(authenticationkey, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -188,13 +189,13 @@ export class CategoriesService {
      */
     public getAllCategoriesConnected(baseId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
         return this.getAllCategoriesConnectedWithHttpInfo(baseId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -205,13 +206,13 @@ export class CategoriesService {
      */
     public getCategory(className: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Category>> {
         return this.getCategoryWithHttpInfo(className, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -222,13 +223,13 @@ export class CategoriesService {
      */
     public getCategoryByName(name: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Category>> {
         return this.getCategoryByNameWithHttpInfo(name, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -241,7 +242,7 @@ export class CategoriesService {
      */
     public connectCategoryWithHttpInfo(baseId: string, authenticationkey?: string, catId?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category/${baseId}'
-                    .replace('${' + 'baseId' + '}', String(baseId));
+            .replace('${' + 'baseId' + '}', String(baseId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -264,12 +265,12 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -309,12 +310,12 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -333,7 +334,7 @@ export class CategoriesService {
      */
     public disableCategoryWithHttpInfo(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category/${class_name}/disable'
-                    .replace('${' + 'class_name' + '}', String(className));
+            .replace('${' + 'class_name' + '}', String(className));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -352,7 +353,7 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -360,7 +361,7 @@ export class CategoriesService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -379,7 +380,7 @@ export class CategoriesService {
      */
     public disconnectCategoryWithHttpInfo(baseId: string, authenticationkey?: string, catId?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category/${baseId}'
-                    .replace('${' + 'baseId' + '}', String(baseId));
+            .replace('${' + 'baseId' + '}', String(baseId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -402,12 +403,12 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -426,7 +427,7 @@ export class CategoriesService {
      */
     public enableCategoryWithHttpInfo(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category/enable/${class_name}'
-                    .replace('${' + 'class_name' + '}', String(className));
+            .replace('${' + 'class_name' + '}', String(className));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -445,7 +446,7 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -453,7 +454,7 @@ export class CategoriesService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -494,12 +495,12 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -517,7 +518,7 @@ export class CategoriesService {
      */
     public getAllCategoriesConnectedWithHttpInfo(baseId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category/connected/${baseId}'
-                    .replace('${' + 'baseId' + '}', String(baseId));
+            .replace('${' + 'baseId' + '}', String(baseId));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -536,12 +537,12 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -559,7 +560,7 @@ export class CategoriesService {
      */
     public getCategoryWithHttpInfo(className: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category/${class_name}'
-                    .replace('${' + 'class_name' + '}', String(className));
+            .replace('${' + 'class_name' + '}', String(className));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -578,12 +579,12 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -601,7 +602,7 @@ export class CategoriesService {
      */
     public getCategoryByNameWithHttpInfo(name: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category/byname/${name}'
-                    .replace('${' + 'name' + '}', String(name));
+            .replace('${' + 'name' + '}', String(name));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -620,12 +621,12 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {

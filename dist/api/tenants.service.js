@@ -25,6 +25,7 @@ const core_1 = require("@angular/core");
 const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
 const http_1 = require("@angular/http");
 const http_2 = require("@angular/http");
+const operators_1 = require("rxjs/operators");
 const variables_1 = require("../variables");
 const configuration_1 = require("../configuration");
 let TenantsService = class TenantsService {
@@ -77,14 +78,14 @@ let TenantsService = class TenantsService {
      */
     createTenant(tenantName, apiKey, authenticationkey, body, extraHttpRequestParams) {
         return this.createTenantWithHttpInfo(tenantName, apiKey, authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
  *
@@ -95,14 +96,14 @@ let TenantsService = class TenantsService {
  */
     createTenantNew(authenticationkey, body, extraHttpRequestParams) {
         return this.createTenantNewWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
 *
@@ -113,14 +114,14 @@ let TenantsService = class TenantsService {
 */
     updateTenantNew(authenticationkey, body, extraHttpRequestParams) {
         return this.updateTenantNewWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -130,14 +131,14 @@ let TenantsService = class TenantsService {
      */
     createTenantNoUser(tenantName, apiKey, authenticationkey, extraHttpRequestParams) {
         return this.createTenantNoUserWithHttpInfo(tenantName, apiKey, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -146,14 +147,14 @@ let TenantsService = class TenantsService {
      */
     getTenant(apiKey, authenticationkey, extraHttpRequestParams) {
         return this.getTenantWithHttpInfo(apiKey, authenticationkey, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
        *
@@ -162,14 +163,14 @@ let TenantsService = class TenantsService {
        */
     getAllTenants(authenticationkey, body, extraHttpRequestParams) {
         return this.getAllTenantsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *
@@ -180,14 +181,14 @@ let TenantsService = class TenantsService {
      */
     getTenants(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.getTenantsWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response) => {
+            .pipe(operators_1.map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
                 return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
-        });
+        }));
     }
     /**
      *

@@ -11,24 +11,16 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { FilteringInformationHolder } from '../model/filteringInformationHolder';
-import { NewUserUserClass } from '../model/newUserUserClass';
-import { ResetUserPasswordRequest } from '../model/resetUserPasswordRequest';
-import { RunningUser } from '../model/runningUser';
-import { UserClass } from '../model/userClass';
-
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 import { FlexiCoreDecycle } from './api';
-import { UserProfileRequest } from '../model/userProfileRequest';
-import { UserProfile } from '../model/userProfile';
-import { UserCreate, UserUpdate, UserFiltering, PaginationResponse, HealthReportAggregationRequest, HealthAggregationResponse } from '../model/models';
+import { PaginationResponse, HealthReportAggregationRequest, HealthAggregationResponse } from '../model/models';
 import { HealthReport } from '../model/healthReport';
 import { HealthReportFiltering } from '../model/healthReportFiltering';
 
@@ -40,7 +32,7 @@ export class HealthReportService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -65,25 +57,25 @@ export class HealthReportService {
     }
 
 
-/**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param loginuponsuccess 
-     * @param body 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
+    /**
+         * 
+         * 
+         * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+         * @param loginuponsuccess 
+         * @param body 
+         * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+         * @param reportProgress flag to report request and response progress.
+         */
     public getAllHealthReport(authenticationkey?: string, body?: HealthReportFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<HealthReport>>;
     public getAllHealthReport(authenticationkey?: string, body?: HealthReportFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<HealthReport>>>;
     public getAllHealthReport(authenticationkey?: string, body?: HealthReportFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<HealthReport>>>;
-    public getAllHealthReport(authenticationkey?: string, body?: HealthReportFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllHealthReport(authenticationkey?: string, body?: HealthReportFiltering, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers = headers.set('authenticationKey', String(authenticationkey));
         }
-      
+
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -111,7 +103,7 @@ export class HealthReportService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -127,13 +119,13 @@ export class HealthReportService {
     public getAggregatedHealthReport(authenticationkey?: string, body?: HealthReportAggregationRequest, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<HealthAggregationResponse>>;
     public getAggregatedHealthReport(authenticationkey?: string, body?: HealthReportAggregationRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<HealthAggregationResponse>>>;
     public getAggregatedHealthReport(authenticationkey?: string, body?: HealthReportAggregationRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<HealthAggregationResponse>>>;
-    public getAggregatedHealthReport(authenticationkey?: string, body?: HealthReportAggregationRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAggregatedHealthReport(authenticationkey?: string, body?: HealthReportAggregationRequest, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers = headers.set('authenticationKey', String(authenticationkey));
         }
-      
+
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -161,6 +153,6 @@ export class HealthReportService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 }

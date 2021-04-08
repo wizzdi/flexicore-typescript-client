@@ -12,19 +12,20 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';  import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
+import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
+import { Response } from '@angular/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { FileResource } from '../model/fileResource';
 import { Job } from '../model/job';
 import { MultipartFormDataInput } from '../model/multipartFormDataInput';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
 
 
 @Injectable()
@@ -34,13 +35,13 @@ export class UploadService {
     public defaultHeaders: Headers = new Headers();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected http: Http, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
+            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -50,13 +51,13 @@ export class UploadService {
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
                 (objA as any)[key] = (objB as any)[key];
             }
         }
-        return <T1&T2>objA;
+        return <T1 & T2>objA;
     }
 
     /**
@@ -80,13 +81,13 @@ export class UploadService {
      */
     public deleteFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.deleteFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -98,15 +99,15 @@ export class UploadService {
      * @param fileType 
      * @param dontProcess 
      */
-    public finalizeUpload(md5: string, authenticationkey?: string, hint?: string, fileType?: string, dontProcess?: boolean,extraHeaders?:Map<String,String>, extraHttpRequestParams?: any): Observable<Job> {
-        return this.finalizeUploadWithHttpInfo(md5, authenticationkey, hint, fileType, dontProcess,extraHeaders, extraHttpRequestParams)
-            .map((response: Response) => {
+    public finalizeUpload(md5: string, authenticationkey?: string, hint?: string, fileType?: string, dontProcess?: boolean, extraHeaders?: Map<String, String>, extraHttpRequestParams?: any): Observable<Job> {
+        return this.finalizeUploadWithHttpInfo(md5, authenticationkey, hint, fileType, dontProcess, extraHeaders, extraHttpRequestParams)
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -116,13 +117,13 @@ export class UploadService {
      */
     public getFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.getFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -132,13 +133,13 @@ export class UploadService {
      */
     public getJob(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Job> {
         return this.getJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -149,13 +150,13 @@ export class UploadService {
      */
     public registerFile(authenticationkey?: string, path?: string, calcMd5?: boolean, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.registerFileWithHttpInfo(authenticationkey, path, calcMd5, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -169,13 +170,13 @@ export class UploadService {
      */
     public registerFileAndFinlize(authenticationkey?: string, path?: string, hint?: string, fileType?: string, dontProcess?: boolean, calcMd5?: boolean, extraHttpRequestParams?: any): Observable<Job> {
         return this.registerFileAndFinlizeWithHttpInfo(authenticationkey, path, hint, fileType, dontProcess, calcMd5, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -185,13 +186,13 @@ export class UploadService {
      */
     public stopJob(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.stopJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -202,13 +203,13 @@ export class UploadService {
      */
     public updateJobPhase(jobID: string, phaseName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateJobPhaseWithHttpInfo(jobID, phaseName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -220,36 +221,36 @@ export class UploadService {
      */
     public updateJobProperty(jobID: string, key: string, value: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateJobPropertyWithHttpInfo(jobID, key, value, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
-    public uploadFile(authenticationkey?: string,md5?: string,name?: string,blob?:Blob, extraHttpRequestParams?: any):Observable<FileResource>{
-        return this.uploadFileWithHttpInfo(authenticationkey,md5,name,null,false, blob, extraHttpRequestParams)
-        .map((response: Response) => {
-            if (response.status === 204) {
-                return undefined;
-            } else {
-                return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-            }
-        });
+    public uploadFile(authenticationkey?: string, md5?: string, name?: string, blob?: Blob, extraHttpRequestParams?: any): Observable<FileResource> {
+        return this.uploadFileWithHttpInfo(authenticationkey, md5, name, null, false, blob, extraHttpRequestParams)
+            .pipe(map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                }
+            }));
     }
 
-    public uploadFileWithChunkMd5(authenticationkey?: string,md5?: string,name?: string,chunkMd5?:string,lastChunk?:boolean,blob?:Blob, extraHttpRequestParams?: any):Observable<FileResource>{
-        return this.uploadFileWithHttpInfo(authenticationkey,md5,name,chunkMd5,lastChunk, blob, extraHttpRequestParams)
-        .map((response: Response) => {
-            if (response.status === 204) {
-                return undefined;
-            } else {
-                return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-            }
-        });
+    public uploadFileWithChunkMd5(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<FileResource> {
+        return this.uploadFileWithHttpInfo(authenticationkey, md5, name, chunkMd5, lastChunk, blob, extraHttpRequestParams)
+            .pipe(map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                }
+            }));
     }
 
     /**
@@ -259,13 +260,13 @@ export class UploadService {
      */
     public uploadFileMulti(authenticationkey?: string, body?: MultipartFormDataInput, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
         return this.uploadFileMultiWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -274,13 +275,13 @@ export class UploadService {
      */
     public validate(authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.validateWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -292,7 +293,7 @@ export class UploadService {
      */
     public deleteFileResourceWithHttpInfo(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/resources/${md5}'
-                    .replace('${' + 'md5' + '}', String(md5));
+            .replace('${' + 'md5' + '}', String(md5));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -310,12 +311,12 @@ export class UploadService {
         let produces: string[] = [
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -334,9 +335,9 @@ export class UploadService {
      * @param fileType 
      * @param dontProcess 
      */
-    public finalizeUploadWithHttpInfo(md5: string, authenticationkey?: string, hint?: string, fileType?: string, dontProcess?: boolean,extraHeaders?:Map<String,String>, extraHttpRequestParams?: any): Observable<Response> {
+    public finalizeUploadWithHttpInfo(md5: string, authenticationkey?: string, hint?: string, fileType?: string, dontProcess?: boolean, extraHeaders?: Map<String, String>, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/resources/finalize/${md5}'
-                    .replace('${' + 'md5' + '}', String(md5));
+            .replace('${' + 'md5' + '}', String(md5));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -373,12 +374,12 @@ export class UploadService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -396,7 +397,7 @@ export class UploadService {
      */
     public getFileResourceWithHttpInfo(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/resources/${md5}'
-                    .replace('${' + 'md5' + '}', String(md5));
+            .replace('${' + 'md5' + '}', String(md5));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -415,12 +416,12 @@ export class UploadService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -438,7 +439,7 @@ export class UploadService {
      */
     public getJobWithHttpInfo(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/${jobID}'
-                    .replace('${' + 'jobID' + '}', String(jobID));
+            .replace('${' + 'jobID' + '}', String(jobID));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -457,12 +458,12 @@ export class UploadService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -503,12 +504,12 @@ export class UploadService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -564,12 +565,12 @@ export class UploadService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Post,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -587,7 +588,7 @@ export class UploadService {
      */
     public stopJobWithHttpInfo(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/${jobID}'
-                    .replace('${' + 'jobID' + '}', String(jobID));
+            .replace('${' + 'jobID' + '}', String(jobID));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -606,12 +607,12 @@ export class UploadService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Delete,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -630,8 +631,8 @@ export class UploadService {
      */
     public updateJobPhaseWithHttpInfo(jobID: string, phaseName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/updateJobPhase/${jobID}/${phaseName}'
-                    .replace('${' + 'jobID' + '}', String(jobID))
-                    .replace('${' + 'phaseName' + '}', String(phaseName));
+            .replace('${' + 'jobID' + '}', String(jobID))
+            .replace('${' + 'phaseName' + '}', String(phaseName));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -654,12 +655,12 @@ export class UploadService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -679,9 +680,9 @@ export class UploadService {
      */
     public updateJobPropertyWithHttpInfo(jobID: string, key: string, value: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/updateJobProperty/${jobID}/${key}/${value}'
-                    .replace('${' + 'jobID' + '}', String(jobID))
-                    .replace('${' + 'key' + '}', String(key))
-                    .replace('${' + 'value' + '}', String(value));
+            .replace('${' + 'jobID' + '}', String(jobID))
+            .replace('${' + 'key' + '}', String(key))
+            .replace('${' + 'value' + '}', String(value));
 
         let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
@@ -708,12 +709,12 @@ export class UploadService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Put,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -745,7 +746,7 @@ export class UploadService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -753,7 +754,7 @@ export class UploadService {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -764,13 +765,13 @@ export class UploadService {
     }
 
 
- /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public uploadFileWithHttpInfo(authenticationkey?: string,md5?: string,name?: string,chunkMd5?:string,lastChunk?:boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<Response> {
+    /**
+        * 
+        * 
+        * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+        * @param body 
+        */
+    public uploadFileWithHttpInfo(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/resources/upload';
 
         let queryParameters = new URLSearchParams();
@@ -800,7 +801,7 @@ export class UploadService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/octet-stream');
 
         let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -808,7 +809,7 @@ export class UploadService {
             headers: headers,
             body: blob, // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
@@ -840,12 +841,12 @@ export class UploadService {
             'application/json'
         ];
 
-            
+
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {

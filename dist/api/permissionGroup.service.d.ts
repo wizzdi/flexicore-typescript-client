@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { CreatePermissionGroupLinkRequest } from '../model/createPermissionGroupLinkRequest';
 import { CreatePermissionGroupRequest } from '../model/createPermissionGroupRequest';
 import { FilteringInformationHolder } from '../model/filteringInformationHolder';
