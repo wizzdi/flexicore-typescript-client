@@ -27,7 +27,7 @@ import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables'
 import { Configuration }                                     from '../configuration';
 import { UpdatePermissionGroup } from '../model/updatePermissionGroup';
 import { FlexiCoreDecycle } from './api';
-import { PermissionGroupCopy } from '../model/models';
+import { PaginationResponse, PermissionGroupCopy, PermissionGroupsFilter } from '../model/models';
 
 
 @Injectable()
@@ -64,9 +64,9 @@ export class PermissionGroupService {
 
     /**
      * connectPermissionGroupToBaseclass
-     * Connects Permission Group To Baseclass 
-     * @param body 
-     * @param authenticationkey 
+     * Connects Permission Group To Baseclass
+     * @param body
+     * @param authenticationkey
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -112,8 +112,8 @@ export class PermissionGroupService {
     /**
      * createPermissionGroup
      * creates Permission Group
-     * @param body 
-     * @param authenticationkey 
+     * @param body
+     * @param authenticationkey
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -159,8 +159,8 @@ export class PermissionGroupService {
      /**
      * createPermissionGroup
      * creates Permission Group
-     * @param body 
-     * @param authenticationkey 
+     * @param body
+     * @param authenticationkey
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -206,8 +206,8 @@ export class PermissionGroupService {
       /**
      * createPermissionGroup
      * creates Permission Group
-     * @param body 
-     * @param authenticationkey 
+     * @param body
+     * @param authenticationkey
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -251,17 +251,17 @@ export class PermissionGroupService {
     }
 
     /**
-     * listPermissionGroups
-     * lists permission groups 
-     * @param body 
-     * @param authenticationkey 
+     * getAllPermissionGroups
+     * lists permission groups
+     * @param body
+     * @param authenticationkey
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<PermissionGroup>>;
-    public listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PermissionGroup>>>;
-    public listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PermissionGroup>>>;
-    public listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllPermissionGroups(body?: PermissionGroupsFilter, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<PermissionGroup>>;
+    public getAllPermissionGroups(body?: PermissionGroupsFilter, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<PermissionGroup>>>;
+    public getAllPermissionGroups(body?: PermissionGroupsFilter, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<PermissionGroup>>>;
+    public getAllPermissionGroups(body?: PermissionGroupsFilter, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
@@ -286,7 +286,7 @@ export class PermissionGroupService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post(`${this.basePath}/permissionGroup/listPermissionGroups`,
+        return this.httpClient.post(`${this.basePath}/permissionGroup/getAllPermissionGroups`,
         body,
             {
                 withCredentials: this.configuration.withCredentials,
