@@ -135,4 +135,10 @@ __export(require("./uploadUtils.service"));
 const totp_service_1 = require("./totp.service");
 exports.TotpService = totp_service_1.TotpService;
 __export(require("./totp.service"));
+const passwordSecurityPolicy_service_1 = require("./passwordSecurityPolicy.service");
+exports.PasswordSecurityPolicyService = passwordSecurityPolicy_service_1.PasswordSecurityPolicyService;
+__export(require("./passwordSecurityPolicy.service"));
+const totpSecurityPolicy_service_1 = require("./totpSecurityPolicy.service");
+exports.TotpSecurityPolicyService = totpSecurityPolicy_service_1.TotpSecurityPolicyService;
+__export(require("./totpSecurityPolicy.service"));
 //# sourceMappingURL=api.js.map
