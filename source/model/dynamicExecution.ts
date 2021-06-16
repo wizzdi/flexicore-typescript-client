@@ -1,5 +1,5 @@
-import { Baseclass } from "./baseclass";
 import { ExecutionParametersHolder } from "./executionParametersHolder";
+import { SecuredBasic } from "./securedBasic";
 import { ServiceCanonicalName } from "./serviceCanonicalName";
 
 /**
@@ -15,9 +15,9 @@ import { ServiceCanonicalName } from "./serviceCanonicalName";
  */
 
 
-export interface DynamicExecution extends Baseclass { 
+export interface DynamicExecution extends SecuredBasic {
     methodName?: string;
-    executionParametersHolder?:ExecutionParametersHolder;
-    serviceCanonicalNames?:ServiceCanonicalName[];
+    executionParametersHolder?: ExecutionParametersHolder;
+    serviceCanonicalNames?: ServiceCanonicalName[];
 
 }
