@@ -1,4 +1,4 @@
-import { PaginationFilter } from "./paginationFilter";
+import { PresetFilter } from "./presetFilter";
 
-export interface GridPresetFiltering extends PaginationFilter {
+export interface GridPresetFiltering extends PresetFilter {
 }
