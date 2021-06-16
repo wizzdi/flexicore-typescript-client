@@ -1,5 +1,4 @@
-
-import { FilteringInformationHolder } from "./filteringInformationHolder";
+import { PaginationFilter } from "./paginationFilter";
 
 /**
  * REST API for Flexicore filtered by your access rights
@@ -14,9 +13,9 @@ import { FilteringInformationHolder } from "./filteringInformationHolder";
  */
 
 
-export interface DynamicExecutionFilter extends FilteringInformationHolder { 
+export interface DynamicExecutionFilter extends PaginationFilter {
     methodNameLike?: string;
-    serviceCanonicalNameLike?:string;
-    executionParameterHolderCanonicalName?:string;
+    serviceCanonicalNameLike?: string;
+    executionParameterHolderCanonicalName?: string;
 
 }
