@@ -96,11 +96,23 @@ import { PasswordSecurityPolicyService } from './passwordSecurityPolicy.service'
 export * from './passwordSecurityPolicy.service';
 import { TotpSecurityPolicyService } from './totpSecurityPolicy.service';
 export * from './totpSecurityPolicy.service';
+import { DynamicInvokersControllerService } from './dynamicInvokersController.service';
+export * from './dynamicInvokersController.service';
+import { DynamicExecutionControllerService } from './dynamicExecutionController.service';
+export * from './dynamicExecutionController.service';
+import { DynamicInvokerMethodControllerService } from './dynamicInvokerMethodController.service';
+export * from './dynamicInvokerMethodController.service';
+import { GridPresetsService } from './gridPresets.service';
+export * from './gridPresets.service';
+import { TableColumnService } from './tableColumn.service';
+export * from './tableColumn.service';
+import { FilterPropertiesService } from './filterProperties.service';
+export * from './filterProperties.service';
 
 export {
     AuthenticationService, AuthenticationNewService, BaseclassesService, CategoriesService, ClazzService, CoreService, UIComponentService,
     DebugService, DevicesService, DocumnetationService, DownloadService, DynamicPropertiesService, LicenseRequestService, LicenseRequestToFeatureService, LicenseRequestToProductService, LicensingFeatureService, LicensingProductService,
     MediaService, PluginsService, RolesService, SettingsService, SoftwareUpdateService, TenantsService, TestService, PermissionGroupService, ResetPasswordService,
     UploadService, UploadUtilsService, UsersService, ViewsService, FlexiCoreDecycle, TokenBasedService, DynamicInvokersService, HealthService, FlexiCoreServerService, HealthReportService, BaseLinkService, SecurityService, LicenseRequestToQuantityFeatureService, LogService, AuditService, OperationService, TenantToUsersService, TotpService,
-    PasswordSecurityPolicyService, TotpSecurityPolicyService
+    PasswordSecurityPolicyService, TotpSecurityPolicyService, DynamicExecutionControllerService, DynamicInvokerMethodControllerService, DynamicInvokersControllerService, GridPresetsService, TableColumnService, FilterPropertiesService
 };
