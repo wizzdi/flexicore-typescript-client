@@ -7,7 +7,7 @@
   "scripts": {
     "build": "cd source && tsc",
     "postbuild": "mkdir -p dist/node_modules && npm ls --only prod --parseable | tail -n +2 | xargs -I % cp -r % dist/node_modules",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\""
   },
   "repository": {
     "type": "git",
