@@ -22,9 +22,7 @@ import { PaginationResponse } from '../model/paginationResponse';
 
 import { BASE_PATH } from '../variables';
 import { Configuration } from '../configuration';
-import { InvokerMethodHolder } from '../model/InvokerMethodHolder';
 import { FlexiCoreDecycle } from './api';
-import { DynamicInvokerMethodFilter } from '../model/dynamicInvokerMethodFilter';
 import { CreateDynamicExecution, DynamicExecution, DynamicExecutionExampleRequest, DynamicExecutionFilter, ExecuteDynamicExecution, ExecuteInvokersResponse, UpdateDynamicExecution } from '..';
 
 
