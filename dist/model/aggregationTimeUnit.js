@@ -11,6 +11,7 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AggregationTimeUnit = void 0;
 var AggregationTimeUnit;
 (function (AggregationTimeUnit) {
     AggregationTimeUnit["DAYS"] = "DAYS";

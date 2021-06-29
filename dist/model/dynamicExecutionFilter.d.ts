@@ -1,4 +1,4 @@
-import { FilteringInformationHolder } from "./filteringInformationHolder";
+import { PaginationFilter } from "./paginationFilter";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -10,7 +10,7 @@ import { FilteringInformationHolder } from "./filteringInformationHolder";
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-export interface DynamicExecutionFilter extends FilteringInformationHolder {
+export interface DynamicExecutionFilter extends PaginationFilter {
     methodNameLike?: string;
     serviceCanonicalNameLike?: string;
     executionParameterHolderCanonicalName?: string;

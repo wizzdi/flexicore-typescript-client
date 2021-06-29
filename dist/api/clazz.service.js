@@ -20,6 +20,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ClazzService = void 0;
 /* tslint:disable:no-unused-variable member-ordering */
 const core_1 = require("@angular/core");
 const http_1 = require("@angular/http");
@@ -274,7 +275,9 @@ let ClazzService = class ClazzService {
 };
 ClazzService = __decorate([
     core_1.Injectable(),
-    __param(1, core_1.Optional()), __param(1, core_1.Inject(variables_1.BASE_PATH)), __param(2, core_1.Optional())
+    __param(1, core_1.Optional()),
+    __param(1, core_1.Inject(variables_1.BASE_PATH)),
+    __param(2, core_1.Optional())
 ], ClazzService);
 exports.ClazzService = ClazzService;
 //# sourceMappingURL=clazz.service.js.map

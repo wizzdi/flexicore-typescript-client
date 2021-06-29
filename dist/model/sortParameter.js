@@ -11,6 +11,7 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SortParameter = void 0;
 var SortParameter;
 (function (SortParameter) {
     let OrderEnum;

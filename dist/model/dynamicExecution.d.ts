@@ -1,5 +1,5 @@
-import { Baseclass } from "./baseclass";
 import { ExecutionParametersHolder } from "./executionParametersHolder";
+import { SecuredBasic } from "./securedBasic";
 import { ServiceCanonicalName } from "./serviceCanonicalName";
 /**
  * REST API for Flexicore filtered by your access rights
@@ -12,7 +12,7 @@ import { ServiceCanonicalName } from "./serviceCanonicalName";
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-export interface DynamicExecution extends Baseclass {
+export interface DynamicExecution extends SecuredBasic {
     methodName?: string;
     executionParametersHolder?: ExecutionParametersHolder;
     serviceCanonicalNames?: ServiceCanonicalName[];

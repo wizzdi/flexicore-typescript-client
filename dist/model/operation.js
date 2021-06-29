@@ -11,6 +11,7 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Operation = void 0;
 var Operation;
 (function (Operation) {
     let DefaultaccessEnum;
