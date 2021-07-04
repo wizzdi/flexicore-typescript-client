@@ -20,7 +20,6 @@ import { Response, ResponseContentType }                     from '@angular/http
 import { Observable }                                        from 'rxjs/Observable';
 
 import { PluginInformationHolder } from '../model/pluginInformationHolder';
-import { UpdateBundle } from '../model/updateBundle';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -71,22 +70,6 @@ export class PluginsService {
             }
         }
         return false;
-    }
-
-    /**
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public getOffsetInfo(authenticationkey?: string, body?: UpdateBundle, extraHttpRequestParams?: any): Observable<UpdateBundle> {
-        return this.getOffsetInfoWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
     }
 
     /**
@@ -150,45 +133,7 @@ export class PluginsService {
     }
 
 
-    /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public getOffsetInfoWithHttpInfo(authenticationkey?: string, body?: UpdateBundle, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/plugins';
 
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
 
     /**
      * 

@@ -21,7 +21,6 @@ import { Observable }                                        from 'rxjs/Observab
 
 import { Clazz } from '../model/clazz';
 import { ClazzLinkContainer } from '../model/clazzLinkContainer';
-import { FieldContainer } from '../model/fieldContainer';
 import { Operation } from '../model/operation';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -125,22 +124,7 @@ export class ClazzService {
             });
     }
 
-    /**
-     * get a list of all FieldContainers per class, use it for the creation of a new instance and for updating one
-     * @summary Get Field Containers per class
-     * @param clazzName The canonical name of the Class for which the list is to be obtained
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public getFields(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<FieldContainer>> {
-        return this.getFieldsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json() || {};
-                }
-            });
-    }
+
 
 
     /**

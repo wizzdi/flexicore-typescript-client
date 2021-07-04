@@ -1,9 +1,10 @@
+import { BasicPropertiesFilter } from "./basicPropertiesFilter";
 import { DynamicInvokerFilter } from "./dynamicInvokerFilter";
+import { PaginationFilter } from "./paginationFilter";
 
-export interface DynamicInvokerMethodFilter {
+export interface DynamicInvokerMethodFilter extends PaginationFilter{
+  basicPropertiesFilter?: BasicPropertiesFilter;
   categories?: string[];
-  currentPage?: number;
   dynamicInvokerFilter?: DynamicInvokerFilter;
-  nameLike?: string;
-  pageSize?: number;
+
 }

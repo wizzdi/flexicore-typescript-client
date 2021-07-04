@@ -10,43 +10,26 @@ export * from './clazz.service';
 import { ClazzService } from './clazz.service';
 export * from './core.service';
 import { CoreService } from './core.service';
-export * from './debug.service';
-import { DebugService } from './debug.service';
-export * from './devices.service';
-import { DevicesService } from './devices.service';
 export * from './documnetation.service';
 import { DocumnetationService } from './documnetation.service';
 export * from './download.service';
 import { DownloadService } from './download.service';
-export * from './dynamicProperties.service';
-import { DynamicPropertiesService } from './dynamicProperties.service';
 
-export * from './media.service';
-import { MediaService } from './media.service';
+
 export * from './plugins.service';
 import { PluginsService } from './plugins.service';
 export * from './roles.service';
 import { RolesService } from './roles.service';
-export * from './settings.service';
-import { SettingsService } from './settings.service';
-export * from './softwareUpdate.service';
-import { SoftwareUpdateService } from './softwareUpdate.service';
 export * from './tenants.service';
 import { TenantsService } from './tenants.service';
-export * from './test.service';
-import { TestService } from './test.service';
 export * from './upload.service';
 import { UploadService } from './upload.service';
 export * from './users.service';
 import { UsersService } from './users.service';
-export * from './views.service';
-import { ViewsService } from './views.service';
 import { FlexiCoreDecycle } from './flexiCoreDecycle'
 export * from './flexiCoreDecycle';
 import { TokenBasedService } from './tokenBased.service'
 export * from './tokenBased.service';
-import { DynamicInvokersService } from './dynamicInvokers.service'
-export * from './dynamicInvokers.service';
 
 import { PermissionGroupService } from './permissionGroup.service'
 export * from './permissionGroup.service';
@@ -105,8 +88,8 @@ export * from './dynamicInvokerMethodController.service';
 
 export {
     AuthenticationService, AuthenticationNewService, BaseclassesService, CategoriesService, ClazzService, CoreService, UIComponentService,
-    DebugService, DevicesService, DocumnetationService, DownloadService, DynamicPropertiesService, LicenseRequestService, LicenseRequestToFeatureService, LicenseRequestToProductService, LicensingFeatureService, LicensingProductService,
-    MediaService, PluginsService, RolesService, SettingsService, SoftwareUpdateService, TenantsService, TestService, PermissionGroupService, ResetPasswordService,
-    UploadService, UploadUtilsService, UsersService, ViewsService, FlexiCoreDecycle, TokenBasedService, DynamicInvokersService, HealthService, FlexiCoreServerService, HealthReportService, BaseLinkService, SecurityService, LicenseRequestToQuantityFeatureService, LogService, AuditService, OperationService, TenantToUsersService, TotpService,
+      DocumnetationService, DownloadService, LicenseRequestService, LicenseRequestToFeatureService, LicenseRequestToProductService, LicensingFeatureService, LicensingProductService,
+     PluginsService, RolesService,  TenantsService,  PermissionGroupService, ResetPasswordService,
+    UploadService, UploadUtilsService, UsersService,  FlexiCoreDecycle, TokenBasedService, HealthService, FlexiCoreServerService, HealthReportService, BaseLinkService, SecurityService, LicenseRequestToQuantityFeatureService, LogService, AuditService, OperationService, TenantToUsersService, TotpService,
     PasswordSecurityPolicyService, TotpSecurityPolicyService, DynamicExecutionControllerService, DynamicInvokerMethodControllerService, DynamicInvokersControllerService
 };

@@ -1,7 +1,9 @@
-export interface DynamicInvokerFilter {
-  currentPage?: number;
+import { BasicPropertiesFilter } from "./basicPropertiesFilter";
+import { PaginationFilter } from "./paginationFilter";
+
+export interface DynamicInvokerFilter extends PaginationFilter{
+  basicPropertiesFilter?: BasicPropertiesFilter;
   invokerTypes?: string[];
   methodNameLike?: string;
-  nameLike?: string;
-  pageSize?: number;
+  pluginNames?: string[];
 }

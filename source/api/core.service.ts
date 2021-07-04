@@ -20,21 +20,12 @@ import { Response, ResponseContentType }                     from '@angular/http
 import { Observable }                                        from 'rxjs/Observable';
 
 import { Baseclass } from '../model/baseclass';
-import { BaseclassCreationContainer } from '../model/baseclassCreationContainer';
-import { BaseclassUpdateContainer } from '../model/baseclassUpdateContainer';
 import { Baselink } from '../model/baselink';
 import { BasicContainer } from '../model/basicContainer';
 import { Category } from '../model/category';
 import { Clazz } from '../model/clazz';
 import { ClazzLinkContainer } from '../model/clazzLinkContainer';
-import { Device } from '../model/device';
-import { DevicePropertyContainerObject } from '../model/devicePropertyContainerObject';
-import { DeviceSettingsContainer } from '../model/deviceSettingsContainer';
-import { DeviceToBaseclass } from '../model/deviceToBaseclass';
-import { DeviceUsedPropertiesContainer } from '../model/deviceUsedPropertiesContainer';
-import { FieldContainer } from '../model/fieldContainer';
 import { FileResource } from '../model/fileResource';
-import { FileResourceBundleHolder } from '../model/fileResourceBundleHolder';
 import { FileType } from '../model/fileType';
 import { FilteringInformationHolder } from '../model/filteringInformationHolder';
 import { Job } from '../model/job';
@@ -42,31 +33,17 @@ import { LicenseRequest } from '../model/licenseRequest';
 import { LicensingFeature } from '../model/licensingFeature';
 import { LicensingProduct } from '../model/licensingProduct';
 import { LinkContainer } from '../model/linkContainer';
-import { Media } from '../model/media';
-import { MultipartFormDataInput } from '../model/multipartFormDataInput';
 import { NewUser } from '../model/newUser';
 import { NewUserUserClass } from '../model/newUserUserClass';
 import { Operation } from '../model/operation';
 import { PluginInformationHolder } from '../model/pluginInformationHolder';
-import { Property } from '../model/property';
-import { PropertyContainerSerializable } from '../model/propertyContainerSerializable';
-import { PropertySetContainerBaseclass } from '../model/propertySetContainerBaseclass';
-import { PropertyToBaseclass } from '../model/propertyToBaseclass';
-import { PropertyToClazz } from '../model/propertyToClazz';
-import { PropertyToSettingsMetadata } from '../model/propertyToSettingsMetadata';
-import { PropertyType } from '../model/propertyType';
 import { Role } from '../model/role';
 import { RoleToUser } from '../model/roleToUser';
 import { RoleUserContainer } from '../model/roleUserContainer';
 import { RunningUser } from '../model/runningUser';
-import { Settings } from '../model/settings';
-import { SettingsContainer } from '../model/settingsContainer';
-import { SettingsMetadata } from '../model/settingsMetadata';
-import { SettingsMetadataCreationContainer } from '../model/settingsMetadataCreationContainer';
 import { Tenant } from '../model/tenant';
 import { UIComponent } from '../model/uIComponent';
 import { UIComponentsRegistrationContainer } from '../model/uIComponentsRegistrationContainer';
-import { UpdateBundle } from '../model/updateBundle';
 import { UserClass } from '../model/userClass';
 import { View } from '../model/view';
 
@@ -121,24 +98,6 @@ export class CoreService {
     }
 
     /**
-     * activate a link between a device and baseclass
-     * @summary activateLink
-     * @param baseId 
-     * @param mac 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public activateLink(baseId: string, mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
-        return this.activateLinkWithHttpInfo(baseId, mac, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
      * 
      * @param roleId 
      * @param userId 
@@ -173,44 +132,6 @@ export class CoreService {
     }
 
     /**
-     * attachs a file resource to the given media , using primary bundle
-     * @summary attach file resource
-     * @param mediaId 
-     * @param fileResourceId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param group 
-     */
-    public attachFileResource(mediaId: string, fileResourceId: string, authenticationkey?: string, group?: string, extraHttpRequestParams?: any): Observable<{}> {
-        return this.attachFileResourceWithHttpInfo(mediaId, fileResourceId, authenticationkey, group, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * attach Property to metadata
-     * @summary attach Property to metadata
-     * @param settingsMetaId 
-     * @param propertyId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param value 
-     */
-    public attachPropertyToMetadata(settingsMetaId: string, propertyId: string, authenticationkey?: string, value?: string, extraHttpRequestParams?: any): Observable<PropertyToSettingsMetadata> {
-        return this.attachPropertyToMetadataWithHttpInfo(settingsMetaId, propertyId, authenticationkey, value, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
      * 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      * @param body 
@@ -226,22 +147,6 @@ export class CoreService {
             });
     }
 
-    /**
-     * 
-     * @param id 
-     * @param fileResourceId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public changeMediaPrimaryFileResourceBundle(id: string, fileResourceId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
-        return this.changeMediaPrimaryFileResourceBundleWithHttpInfo(id, fileResourceId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * 
@@ -266,63 +171,6 @@ export class CoreService {
      */
     public connectCategory(baseId: string, authenticationkey?: string, catId?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.connectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * Connect a Device to an instance of any entity in the system
-     * @summary connectDeviceToBaseclass
-     * @param baseId 
-     * @param mac 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param someHeader 
-     */
-    public connectDeviceToBaseclass(baseId: string, mac: string, authenticationkey?: string, someHeader?: string, extraHttpRequestParams?: any): Observable<DeviceToBaseclass> {
-        return this.connectDeviceToBaseclassWithHttpInfo(baseId, mac, authenticationkey, someHeader, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * Connect a property and a baseclass with a complex type, this is the actual action of assigning a Complex Value of a property to a specific Baseclass , any Baseclasss
-     * @summary connect Property
-     * @param propertyId the ID of the Property instance to use
-     * @param baseclassId The ID of the Baseclass to which we want to assign this complex value
-     * @param valueId The ID of the ? extends Baseclass which is the complex value
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public connectPropertyComplex(propertyId: string, baseclassId: string, valueId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<PropertyToBaseclass> {
-        return this.connectPropertyComplexWithHttpInfo(propertyId, baseclassId, valueId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * Connect property and a baseclass with simple value, assign a value of a Property to an instance of Baseclass, any Baseclass instance
-     * @summary connect Property
-     * @param propertyId The ID of the property, this Property must be connected eith the Clazz of the Baseclass in the baseclass_id parameter
-     * @param baseclassId The Baseclass instance to which this value (for that property) is set
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param simpleValue The value to set, must be a String
-     */
-    public connectPropertySimple(propertyId: string, baseclassId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<PropertyToBaseclass> {
-        return this.connectPropertySimpleWithHttpInfo(propertyId, baseclassId, authenticationkey, simpleValue, extraHttpRequestParams)
             .map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
@@ -425,22 +273,6 @@ export class CoreService {
             });
     }
 
-    /**
-     * Creates a new instance of the requested Class, pass a properly initialized instance of BaseclassCreationContainer
-     * @summary Create an instance of a Baseclass extender
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public create(authenticationkey?: string, body?: BaseclassCreationContainer, extraHttpRequestParams?: any): Observable<string> {
-        return this.createWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * Creates a link between two instances in a generic way, provide values of the link
@@ -481,80 +313,6 @@ export class CoreService {
             });
     }
 
-    /**
-     * creates a device
-     * @summary createDevice
-     * @param mac 
-     * @param serialNumber 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param name 
-     * @param lat 
-     * @param lon 
-     */
-    public createDevice(mac: string, serialNumber: string, authenticationkey?: string, name?: string, lat?: number, lon?: number, extraHttpRequestParams?: any): Observable<Device> {
-        return this.createDeviceWithHttpInfo(mac, serialNumber, authenticationkey, name, lat, lon, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * create heap dump
-     * @summary createHeapDump
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param path 
-     */
-    public createHeapDump(authenticationkey?: string, path?: string, extraHttpRequestParams?: any): Observable<FileResource> {
-        return this.createHeapDumpWithHttpInfo(authenticationkey, path, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-
-
-    /**
-     * creates a property given a type and a name, properties can be created and linked with Types. instances of these types can have associated values
-     * @summary creates Property
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param propertyName 
-     * @param propertyType 
-     */
-    public createProperty(authenticationkey?: string, propertyName?: string, propertyType?: string, extraHttpRequestParams?: any): Observable<Property> {
-        return this.createPropertyWithHttpInfo(authenticationkey, propertyName, propertyType, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * creates a property Type given  a name
-     * @summary creates Property Type
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param propertyTypeName  the name of the property type to create
-     */
-    public createPropertyType(authenticationkey?: string, propertyTypeName?: string, extraHttpRequestParams?: any): Observable<PropertyType> {
-        return this.createPropertyTypeWithHttpInfo(authenticationkey, propertyTypeName, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * 
@@ -572,40 +330,6 @@ export class CoreService {
             });
     }
 
-    /**
-     * create Settings
-     * @summary create settings
-     * @param settingsMetadataId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public createSettings(settingsMetadataId: string, authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<Settings> {
-        return this.createSettingsWithHttpInfo(settingsMetadataId, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * creates a settings metadata
-     * @summary creates Settings Metadata
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body Settings metadata container
-     */
-    public createSettingsMetadata(authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<SettingsMetadata> {
-        return this.createSettingsMetadataWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * 
@@ -660,57 +384,8 @@ export class CoreService {
             });
     }
 
-    /**
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public create_1(authenticationkey?: string, body?: Media, extraHttpRequestParams?: any): Observable<{}> {
-        return this.create_1WithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * deactivate all links between a device and baseclass
-     * @summary deactivateAllLinks
-     * @param baseId 
-     * @param mac 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public deactivateAllLinks(baseId: string, mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<number> {
-        return this.deactivateAllLinksWithHttpInfo(baseId, mac, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * deactivate link 
-     * @summary deactivateLink
-     * @param linkId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public deactivateLink(linkId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
-        return this.deactivateLinkWithHttpInfo(linkId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
+ 
+   
     /**
      * deletes an entity by id
      * @summary delete
@@ -814,22 +489,6 @@ export class CoreService {
             });
     }
 
-    /**
-     * create Settings
-     * @summary device get settings
-     * @param settingsId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public deviceGetSettings(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<SettingsContainer> {
-        return this.deviceGetSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * Disable a previously disabled Category, the CategoryID to be enabled is passed as the entity in the Post request(!)
@@ -900,23 +559,6 @@ export class CoreService {
             });
     }
 
-    /**
-     * duplicate Settings
-     * @summary duplicate settings
-     * @param originalSettingsId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public duplicateSettings(originalSettingsId: string, authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<Settings> {
-        return this.duplicateSettingsWithHttpInfo(originalSettingsId, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * Before a Category can be connected to an INSTANCE of a class it must be enabled to the class, thus a list of categories can be easily filtered by the context of the class at hand, the CategoryID to be enabled is passed as the entity in the Post request(!)
@@ -944,23 +586,6 @@ export class CoreService {
      */
     public exportBaseclass(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.exportBaseclassWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * export Settings
-     * @summary export settings
-     * @param settingsId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public exportSettings(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource> {
-        return this.exportSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
             .map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
@@ -1183,22 +808,7 @@ export class CoreService {
             });
     }
 
-    /**
-     * 
-     * @param id 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param targetDevice 
-     */
-    public get(id: string, authenticationkey?: string, targetDevice?: string, extraHttpRequestParams?: any): Observable<Media> {
-        return this.getWithHttpInfo(id, authenticationkey, targetDevice, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
+
 
     /**
      * Get a list of all Categories whose name starts with the supplied string
@@ -1267,21 +877,6 @@ export class CoreService {
             });
     }
 
-    /**
-     * returns a list of views
-     * @summary 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public getAllViews(authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<View>> {
-        return this.getAllViewsWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * Returns a list of ClazzLinkContainer instances of the given link(!) canonical name
@@ -1388,26 +983,6 @@ export class CoreService {
     }
 
     /**
-     * update device used properties
-     * @summary getDeviceUsedProperties
-     * @param mac 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentPage The current page or -1 for full list
-     */
-    public getDeviceUsedProperties(mac: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<DevicePropertyContainerObject>> {
-        return this.getDeviceUsedPropertiesWithHttpInfo(mac, authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
      * 
      * @param id 
      * @param wantedClazzName 
@@ -1428,59 +1003,7 @@ export class CoreService {
             });
     }
 
-    /**
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param view 
-     */
-    public getDocs(authenticationkey: string, view?: string, extraHttpRequestParams?: any): Observable<string> {
-        return this.getDocsWithHttpInfo(authenticationkey, view, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
-    /**
-     * get all properties connected to baseclass
-     * @summary get Connected Properties
-     * @param id 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param propertyClazz 
-     * @param plainView 
-     */
-    public getDynamicProperties(id: string, authenticationkey?: string, propertyClazz?: string, plainView?: boolean, extraHttpRequestParams?: any): Observable<Array<PropertyContainerSerializable>> {
-        return this.getDynamicPropertiesWithHttpInfo(id, authenticationkey, propertyClazz, plainView, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * get all properties connected to baseclass
-     * @summary get Connected Properties With Categories
-     * @param id 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param propertyClazz 
-     * @param plainView 
-     */
-    public getDynamicPropertiesWithCategories(id: string, authenticationkey?: string, propertyClazz?: string, plainView?: boolean, extraHttpRequestParams?: any): Observable<Array<PropertyContainerSerializable>> {
-        return this.getDynamicPropertiesWithCategoriesWithHttpInfo(id, authenticationkey, propertyClazz, plainView, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * 
@@ -1500,38 +1023,6 @@ export class CoreService {
             });
     }
 
-    /**
-     * get a list of all FieldContainers per class, use it for the creation of a new instance and for updating one
-     * @summary Get Field Containers per class
-     * @param clazzName The canonical name of the Class for which the list is to be obtained
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public getFields(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<FieldContainer>> {
-        return this.getFieldsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * 
-     * @param className 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public getFields_5(className: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<string>> {
-        return this.getFields_5WithHttpInfo(className, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * 
@@ -1565,92 +1056,9 @@ export class CoreService {
             });
     }
 
-    /**
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public getOffsetInfo(authenticationkey?: string, body?: UpdateBundle, extraHttpRequestParams?: any): Observable<UpdateBundle> {
-        return this.getOffsetInfoWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
-    /**
-     * 
-     * @param id 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public getPreview(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource> {
-        return this.getPreviewWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
-    /**
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     * @param body filtering information
-     */
-    public getProducts(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<LicensingProduct>> {
-        return this.getProductsWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
-    /**
-     * 
-     * @param grouping 
-     * @param id 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     * @param sortby 
-     */
-    public getRenderingBundles(grouping: string, id: string, authenticationkey?: string, pagesize?: number, currentpage?: number, sortby?: string, extraHttpRequestParams?: any): Observable<Array<FileResourceBundleHolder>> {
-        return this.getRenderingBundlesWithHttpInfo(grouping, id, authenticationkey, pagesize, currentpage, sortby, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * create Settings
-     * @summary create settings
-     * @param settingsId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public getSettings(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<SettingsContainer> {
-        return this.getSettingsWithHttpInfo(settingsId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * 
@@ -1702,21 +1110,6 @@ export class CoreService {
             });
     }
 
-    /**
-     * 
-     * @param viewId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public getViewClazzes(viewId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Clazz>> {
-        return this.getViewClazzesWithHttpInfo(viewId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * import baseclass
@@ -1736,24 +1129,7 @@ export class CoreService {
             });
     }
 
-    /**
-     * import Settings
-     * @summary import settings
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param byName 
-     * @param dontUpdate 
-     */
-    public importSettings(authenticationkey?: string, body?: SettingsContainer, byName?: boolean, dontUpdate?: boolean, extraHttpRequestParams?: any): Observable<boolean> {
-        return this.importSettingsWithHttpInfo(authenticationkey, body, byName, dontUpdate, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
+
 
     /**
      * 
@@ -1805,64 +1181,7 @@ export class CoreService {
             });
     }
 
-    /**
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     * @param sortby 
-     */
-    public listAll(authenticationkey?: string, pagesize?: number, currentpage?: number, sortby?: string, extraHttpRequestParams?: any): Observable<Array<Media>> {
-        return this.listAllWithHttpInfo(authenticationkey, pagesize, currentpage, sortby, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * lists all media that suites Filtering information holder
-     * @summary fileResourcesInMediaByGroup
-     * @param id 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param group 
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     * @param body filtering information
-     */
-    public listAllFileResourcesOfGroupInMedia(id: string, authenticationkey?: string, group?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
-        return this.listAllFileResourcesOfGroupInMediaWithHttpInfo(id, authenticationkey, group, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * returns all the file resources of the given types that are connected to the given Media
-     * @summary get file resources
-     * @param mediaId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     * @param body 
-     */
-    public listAllFileResourcesOfType(mediaId: string, authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
-        return this.listAllFileResourcesOfTypeWithHttpInfo(mediaId, authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
+ 
 
     /**
      * 
@@ -1897,43 +1216,6 @@ export class CoreService {
             });
     }
 
-    /**
-     * lists all settings
-     * @summary lists all Settings
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     */
-    public listAllSettings(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Settings>> {
-        return this.listAllSettingsWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * lists all settings metadata
-     * @summary lists all Settings Metadata
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     */
-    public listAllSettingsMetadata(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<SettingsMetadata>> {
-        return this.listAllSettingsMetadataWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * 
@@ -1969,96 +1251,8 @@ export class CoreService {
             });
     }
 
-    /**
-     * lists all media that suites Filtering information holder
-     * @summary 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     * @param body filtering information
-     */
-    public listAllofType(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<Media>> {
-        return this.listAllofTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
+    
 
-    /**
-     * list device Settings
-     * @summary listDeviceSettingss
-     * @param deviceId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public listDeviceSettings(deviceId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<DeviceSettingsContainer>> {
-        return this.listDeviceSettingsWithHttpInfo(deviceId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * list device Settings containers
-     * @summary listDeviceSettingsContainers
-     * @param mac 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public listDeviceSettingsContainers(mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<SettingsContainer>> {
-        return this.listDeviceSettingsContainersWithHttpInfo(mac, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * 
-     * @param authenticationKey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentPage The current page or -1 for full list
-     */
-    public listDevices(authenticationKey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<Device>> {
-        return this.listDevicesWithHttpInfo(authenticationKey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * list heap dumps
-     * @summary listHeapDumps
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     * @param start 
-     */
-    public listHeapDumps(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, start?: number, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
-        return this.listHeapDumpsWithHttpInfo(authenticationkey, body, pagesize, currentpage, start, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * lists license requests
@@ -2079,63 +1273,6 @@ export class CoreService {
             });
     }
 
-    /**
-     * get all Properties, paged, filtered and sorted by a FilteringInformationHolder
-     * @summary listProperties
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentPage The current page or -1 for full list
-     */
-    public listProperties(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<Property>> {
-        return this.listPropertiesWithHttpInfo(authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * get all property types, filtered and sorted
-     * @summary listPropertyTypes
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentPage The current page or -1 for full list
-     */
-    public listPropertyTypes(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentPage?: number, extraHttpRequestParams?: any): Observable<Array<PropertyType>> {
-        return this.listPropertyTypesWithHttpInfo(authenticationkey, body, pagesize, currentPage, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * lists settings
-     * @summary lists Settings
-     * @param settingsMetadataId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     */
-    public listSettings(settingsMetadataId: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Settings>> {
-        return this.listSettingsWithHttpInfo(settingsMetadataId, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * 
@@ -2290,94 +1427,7 @@ export class CoreService {
             });
     }
 
-    /**
-     * sets active settings for settingsMetadata
-     * @summary setsActiveSettings
-     * @param settingsMetaId 
-     * @param settingId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public setActiveSettings(settingsMetaId: string, settingId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
-        return this.setActiveSettingsWithHttpInfo(settingsMetaId, settingId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * sets active settings for settingsMetadata as null(using default values)
-     * @summary setActiveSettingsAsDefault
-     * @param settingsMetaId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public setActiveSettingsAsDefault(settingsMetaId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
-        return this.setActiveSettingsAsDefaultWithHttpInfo(settingsMetaId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * update device used properties
-     * @summary setDeviceUsedProperties
-     * @param mac 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public setDeviceUsedProperties(mac: string, authenticationkey?: string, body?: DeviceUsedPropertiesContainer, extraHttpRequestParams?: any): Observable<{}> {
-        return this.setDeviceUsedPropertiesWithHttpInfo(mac, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * Sets Link as Updated
-     * @summary setLinkUpdateDate
-     * @param linkId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param date 
-     */
-    public setLinkUpdateDate(linkId: string, authenticationkey?: string, date?: Date, extraHttpRequestParams?: any): Observable<{}> {
-        return this.setLinkUpdateDateWithHttpInfo(linkId, authenticationkey, date, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * set Property to use with specific Clazz, a Clazz is an Entity in FlexiCore, the PropertySetContainer has the required default values for both simple and complex values
-     * @summary set Property
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public setProperty(authenticationkey?: string, body?: PropertySetContainerBaseclass, extraHttpRequestParams?: any): Observable<PropertyToClazz> {
-        return this.setPropertyWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
+   
     /**
      * soft delete baseclass
      * @summary softDelete
@@ -2426,24 +1476,7 @@ export class CoreService {
             });
     }
 
-    /**
-     * Update an instance,retrieve the related fields first, create BaseclassUpdateContainer with required fields
-     * @summary Update an instance of a Baseclass extender
-     * @param id 
-     * @param clazzName 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public update(id: string, clazzName: string, authenticationkey?: string, body?: BaseclassUpdateContainer, extraHttpRequestParams?: any): Observable<boolean> {
-        return this.updateWithHttpInfo(id, clazzName, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
+
 
     /**
      * Update an instance of a Baseclass using a BasicContainer instance 
@@ -2497,90 +1530,7 @@ export class CoreService {
             });
     }
 
-    /**
-     * update metadata property
-     * @summary update metadata property
-     * @param linkId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param simpleValue 
-     */
-    public updateMetadataSimple(linkId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<PropertyToSettingsMetadata> {
-        return this.updateMetadataSimpleWithHttpInfo(linkId, authenticationkey, simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * update Simple value of a Dynamic Property of a Baseclass instance
-     * @summary updateSimple
-     * @param linkId The link id (of PropertyToBaseclass type)
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param simpleValue The value to update
-     */
-    public updateSimple(linkId: string, authenticationkey?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<PropertyToBaseclass> {
-        return this.updateSimpleWithHttpInfo(linkId, authenticationkey, simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * 
-     * @param id 
-     * @param updateTo 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public updateVersion(id: string, updateTo: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
-        return this.updateVersionWithHttpInfo(id, updateTo, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public update_6(authenticationkey?: string, body?: Media, extraHttpRequestParams?: any): Observable<{}> {
-        return this.update_6WithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
-
-    /**
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public uploadFileMulti(authenticationkey?: string, body?: MultipartFormDataInput, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
-        return this.uploadFileMultiWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
+   
 
     /**
      * 
@@ -2598,53 +1548,7 @@ export class CoreService {
     }
 
 
-    /**
-     * activateLink
-     * activate a link between a device and baseclass
-     * @param baseId 
-     * @param mac 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public activateLinkWithHttpInfo(baseId: string, mac: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/device/activateLink/${mac}/${baseId}'
-                    .replace('${' + 'baseId' + '}', String(baseId))
-                    .replace('${' + 'mac' + '}', String(mac));
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        // verify required parameter 'baseId' is not null or undefined
-        if (baseId === null || baseId === undefined) {
-            throw new Error('Required parameter baseId was null or undefined when calling activateLink.');
-        }
-        // verify required parameter 'mac' is not null or undefined
-        if (mac === null || mac === undefined) {
-            throw new Error('Required parameter mac was null or undefined when calling activateLink.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
+   
 
     /**
      * 
@@ -2795,58 +1699,7 @@ export class CoreService {
         return this.http.request(path, requestOptions);
     }
 
-    /**
-     * attach Property to metadata
-     * attach Property to metadata
-     * @param settingsMetaId 
-     * @param propertyId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param value 
-     */
-    public attachPropertyToMetadataWithHttpInfo(settingsMetaId: string, propertyId: string, authenticationkey?: string, value?: string, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/settings/attachPropertyToMetadata/${settingsMetaId}/${propertyId}'
-                    .replace('${' + 'settingsMetaId' + '}', String(settingsMetaId))
-                    .replace('${' + 'propertyId' + '}', String(propertyId));
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        // verify required parameter 'settingsMetaId' is not null or undefined
-        if (settingsMetaId === null || settingsMetaId === undefined) {
-            throw new Error('Required parameter settingsMetaId was null or undefined when calling attachPropertyToMetadata.');
-        }
-        // verify required parameter 'propertyId' is not null or undefined
-        if (propertyId === null || propertyId === undefined) {
-            throw new Error('Required parameter propertyId was null or undefined when calling attachPropertyToMetadata.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-        if (value !== undefined && value !== null) {
-            headers.set('value', String(value));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
+  
 
     /**
      * 
@@ -3459,45 +2312,7 @@ export class CoreService {
         return this.http.request(path, requestOptions);
     }
 
-    /**
-     * Create an instance of a Baseclass extender
-     * Creates a new instance of the requested Class, pass a properly initialized instance of BaseclassCreationContainer
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public createWithHttpInfo(authenticationkey?: string, body?: BaseclassCreationContainer, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/baseclass';
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
-
+  
     /**
      * Create a link
      * Creates a link between two instances in a generic way, provide values of the link
@@ -3846,91 +2661,8 @@ export class CoreService {
         return this.http.request(path, requestOptions);
     }
 
-    /**
-     * create settings
-     * create Settings
-     * @param settingsMetadataId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public createSettingsWithHttpInfo(settingsMetadataId: string, authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/settings/createSettings/${settingsMetadataId}'
-                    .replace('${' + 'settingsMetadataId' + '}', String(settingsMetadataId));
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        // verify required parameter 'settingsMetadataId' is not null or undefined
-        if (settingsMetadataId === null || settingsMetadataId === undefined) {
-            throw new Error('Required parameter settingsMetadataId was null or undefined when calling createSettings.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
 
 
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
-
-    /**
-     * creates Settings Metadata
-     * creates a settings metadata
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body Settings metadata container
-     */
-    public createSettingsMetadataWithHttpInfo(authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/settings/new';
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
 
     /**
      * 
@@ -4119,45 +2851,7 @@ export class CoreService {
         return this.http.request(path, requestOptions);
     }
 
-    /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public create_1WithHttpInfo(authenticationkey?: string, body?: Media, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/media/new';
 
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
 
     /**
      * deactivateAllLinks
@@ -4735,51 +3429,7 @@ export class CoreService {
         return this.http.request(path, requestOptions);
     }
 
-    /**
-     * duplicate settings
-     * duplicate Settings
-     * @param originalSettingsId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public duplicateSettingsWithHttpInfo(originalSettingsId: string, authenticationkey?: string, body?: SettingsMetadataCreationContainer, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/settings/duplicateSettings/${originalSettingsId}'
-                    .replace('${' + 'originalSettingsId' + '}', String(originalSettingsId));
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        // verify required parameter 'originalSettingsId' is not null or undefined
-        if (originalSettingsId === null || originalSettingsId === undefined) {
-            throw new Error('Required parameter originalSettingsId was null or undefined when calling duplicateSettings.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
+ 
 
     /**
      * Enable Category on Class
@@ -6564,242 +5214,7 @@ export class CoreService {
         return this.http.request(path, requestOptions);
     }
 
-    /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public getOffsetInfoWithHttpInfo(authenticationkey?: string, body?: UpdateBundle, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/plugins';
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
-
-    /**
-     * 
-     * 
-     * @param id 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public getPreviewWithHttpInfo(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/media/${id}/preview'
-                    .replace('${' + 'id' + '}', String(id));
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        // verify required parameter 'id' is not null or undefined
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getPreview.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
-
-    /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     * @param body filtering information
-     */
-    public getProductsWithHttpInfo(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/license/getProducts';
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-        if (pagesize !== undefined && pagesize !== null) {
-            headers.set('pagesize', String(pagesize));
-        }
-
-        if (currentpage !== undefined && currentpage !== null) {
-            headers.set('currentpage', String(currentpage));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
-
-    /**
-     * 
-     * 
-     * @param grouping 
-     * @param id 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     * @param sortby 
-     */
-    public getRenderingBundlesWithHttpInfo(grouping: string, id: string, authenticationkey?: string, pagesize?: number, currentpage?: number, sortby?: string, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/media/bundles/${grouping}/${id}'
-                    .replace('${' + 'grouping' + '}', String(grouping))
-                    .replace('${' + 'id' + '}', String(id));
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        // verify required parameter 'grouping' is not null or undefined
-        if (grouping === null || grouping === undefined) {
-            throw new Error('Required parameter grouping was null or undefined when calling getRenderingBundles.');
-        }
-        // verify required parameter 'id' is not null or undefined
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getRenderingBundles.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-        if (pagesize !== undefined && pagesize !== null) {
-            headers.set('pagesize', String(pagesize));
-        }
-
-        if (currentpage !== undefined && currentpage !== null) {
-            headers.set('currentpage', String(currentpage));
-        }
-
-        if (sortby !== undefined && sortby !== null) {
-            headers.set('sortby', String(sortby));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
-
-    /**
-     * create settings
-     * create Settings
-     * @param settingsId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public getSettingsWithHttpInfo(settingsId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/settings/${settingsId}'
-                    .replace('${' + 'settingsId' + '}', String(settingsId));
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        // verify required parameter 'settingsId' is not null or undefined
-        if (settingsId === null || settingsId === undefined) {
-            throw new Error('Required parameter settingsId was null or undefined when calling getSettings.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
+   
 
     /**
      * 
@@ -7022,55 +5437,7 @@ export class CoreService {
         return this.http.request(path, requestOptions);
     }
 
-    /**
-     * import settings
-     * import Settings
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     * @param byName 
-     * @param dontUpdate 
-     */
-    public importSettingsWithHttpInfo(authenticationkey?: string, body?: SettingsContainer, byName?: boolean, dontUpdate?: boolean, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/settings/importSettings';
 
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-        if (byName !== undefined && byName !== null) {
-            headers.set('byName', String(byName));
-        }
-
-        if (dontUpdate !== undefined && dontUpdate !== null) {
-            headers.set('dontUpdate', String(dontUpdate));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
 
     /**
      * 
@@ -8683,138 +7050,8 @@ export class CoreService {
         return this.http.request(path, requestOptions);
     }
 
-    /**
-     * setDeviceUsedProperties
-     * update device used properties
-     * @param mac 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public setDeviceUsedPropertiesWithHttpInfo(mac: string, authenticationkey?: string, body?: DeviceUsedPropertiesContainer, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/device/setDeviceUsedProperties/${mac}'
-                    .replace('${' + 'mac' + '}', String(mac));
 
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        // verify required parameter 'mac' is not null or undefined
-        if (mac === null || mac === undefined) {
-            throw new Error('Required parameter mac was null or undefined when calling setDeviceUsedProperties.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
-
-    /**
-     * setLinkUpdateDate
-     * Sets Link as Updated
-     * @param linkId 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param date 
-     */
-    public setLinkUpdateDateWithHttpInfo(linkId: string, authenticationkey?: string, date?: Date, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/device/setLinkUpdateDate/${linkId}'
-                    .replace('${' + 'linkId' + '}', String(linkId));
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        // verify required parameter 'linkId' is not null or undefined
-        if (linkId === null || linkId === undefined) {
-            throw new Error('Required parameter linkId was null or undefined when calling setLinkUpdateDate.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-        if (date !== undefined && date !== null) {
-            headers.set('date', String(date));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
-
-    /**
-     * set Property
-     * set Property to use with specific Clazz, a Clazz is an Entity in FlexiCore, the PropertySetContainer has the required default values for both simple and complex values
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public setPropertyWithHttpInfo(authenticationkey?: string, body?: PropertySetContainerBaseclass, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/property/set';
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
+  
 
     /**
      * softDelete
@@ -8935,56 +7172,7 @@ export class CoreService {
         return this.http.request(path, requestOptions);
     }
 
-    /**
-     * Update an instance of a Baseclass extender
-     * Update an instance,retrieve the related fields first, create BaseclassUpdateContainer with required fields
-     * @param id 
-     * @param clazzName 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public updateWithHttpInfo(id: string, clazzName: string, authenticationkey?: string, body?: BaseclassUpdateContainer, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/baseclass/update/${clazz_name}/${id}'
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'clazz_name' + '}', String(clazzName));
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        // verify required parameter 'id' is not null or undefined
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling update.');
-        }
-        // verify required parameter 'clazzName' is not null or undefined
-        if (clazzName === null || clazzName === undefined) {
-            throw new Error('Required parameter clazzName was null or undefined when calling update.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
+   
 
     /**
      * Update basic data
@@ -9269,85 +7457,8 @@ export class CoreService {
         return this.http.request(path, requestOptions);
     }
 
-    /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public update_6WithHttpInfo(authenticationkey?: string, body?: Media, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/media';
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
 
 
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
-
-    /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public uploadFileMultiWithHttpInfo(authenticationkey?: string, body?: MultipartFormDataInput, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/resources/upload';
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
 
     /**
      * 

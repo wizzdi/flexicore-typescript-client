@@ -21,8 +21,6 @@ import { Response, ResponseContentType }                     from '@angular/http
 import { Observable }                                        from 'rxjs/Observable';
 
 import { Baseclass } from '../model/baseclass';
-import { BaseclassCreationContainer } from '../model/baseclassCreationContainer';
-import { BaseclassUpdateContainer } from '../model/baseclassUpdateContainer';
 import { Baselink } from '../model/baselink';
 import { BasicContainer } from '../model/basicContainer';
 import { FileResource } from '../model/fileResource';
@@ -145,22 +143,6 @@ export class BaseclassesService {
             });
     }
 
-    /**
-     * Creates a new instance of the requested Class, pass a properly initialized instance of BaseclassCreationContainer
-     * @summary Create an instance of a Baseclass extender
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public create(authenticationkey?: string, body?: BaseclassCreationContainer, extraHttpRequestParams?: any): Observable<string> {
-        return this.createWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * Creates a link between two instances in a generic way, provide values of the link
@@ -569,24 +551,6 @@ export class BaseclassesService {
             });
     }
 
-    /**
-     * Update an instance,retrieve the related fields first, create BaseclassUpdateContainer with required fields
-     * @summary Update an instance of a Baseclass extender
-     * @param id 
-     * @param clazzName 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public update(id: string, clazzName: string, authenticationkey?: string, body?: BaseclassUpdateContainer, extraHttpRequestParams?: any): Observable<boolean> {
-        return this.updateWithHttpInfo(id, clazzName, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * Update an instance of a Baseclass using a BasicContainer instance 
@@ -799,44 +763,7 @@ export class BaseclassesService {
 
        return this.http.request(path, requestOptions);
    }
-    /**
-     * Create an instance of a Baseclass extender
-     * Creates a new instance of the requested Class, pass a properly initialized instance of BaseclassCreationContainer
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public createWithHttpInfo(authenticationkey?: string, body?: BaseclassCreationContainer, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/baseclass';
 
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
 
     /**
      * Create a link
@@ -2372,57 +2299,7 @@ export class BaseclassesService {
         return this.http.request(path, requestOptions);
     }
 
-    /**
-     * Update an instance of a Baseclass extender
-     * Update an instance,retrieve the related fields first, create BaseclassUpdateContainer with required fields
-     * @param id 
-     * @param clazzName 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public updateWithHttpInfo(id: string, clazzName: string, authenticationkey?: string, body?: BaseclassUpdateContainer, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/baseclass/update/${clazz_name}/${id}'
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'clazz_name' + '}', String(clazzName));
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        // verify required parameter 'id' is not null or undefined
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling update.');
-        }
-        // verify required parameter 'clazzName' is not null or undefined
-        if (clazzName === null || clazzName === undefined) {
-            throw new Error('Required parameter clazzName was null or undefined when calling update.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
-
+   
     /**
      * Update basic data
      * Update an instance of a Baseclass using a BasicContainer instance 

@@ -10,16 +10,10 @@
  * Do not edit the class manually.
  */
 
-import { CategoryToBaseClass } from './categoryToBaseClass';
-import { Clazz } from './clazz';
-import { DeviceToBaseclass } from './deviceToBaseclass';
-import { KeyWordToBaseclass } from './keyWordToBaseclass';
-import { PropertyToBaseclass } from './propertyToBaseclass';
+
 import { RoleToUser } from './roleToUser';
-import { SecurityLink } from './securityLink';
-import { Tenant } from './tenant';
+
 import { TenantToUser } from './tenantToUser';
-import { UserToBaseClass } from './userToBaseClass';
 import { Baseclass } from './baseclass';
 
 

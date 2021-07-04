@@ -1,3 +1,6 @@
+import { BasicPropertiesFilter } from "./basicPropertiesFilter";
+import { DynamicInvokerFilter } from "./dynamicInvokerFilter";
+import { DynamicInvokerMethodFilter } from "./dynamicInvokerMethodFilter";
 import { PaginationFilter } from "./paginationFilter";
 
 /**
@@ -14,8 +17,7 @@ import { PaginationFilter } from "./paginationFilter";
 
 
 export interface DynamicExecutionFilter extends PaginationFilter {
-    methodNameLike?: string;
-    serviceCanonicalNameLike?: string;
-    executionParameterHolderCanonicalName?: string;
+    basicPropertiesFilter?: BasicPropertiesFilter;
+    dynamicInvokerMethodFilter?: DynamicInvokerMethodFilter;
 
 }

@@ -21,7 +21,6 @@ import { Observable }                                        from 'rxjs/Observab
 
 import { FileResource } from '../model/fileResource';
 import { Job } from '../model/job';
-import { MultipartFormDataInput } from '../model/multipartFormDataInput';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -252,21 +251,6 @@ export class UploadService {
         });
     }
 
-    /**
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public uploadFileMulti(authenticationkey?: string, body?: MultipartFormDataInput, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
-        return this.uploadFileMultiWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
 
     /**
      * 
@@ -723,45 +707,6 @@ export class UploadService {
         return this.http.request(path, requestOptions);
     }
 
-    /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public uploadFileMultiWithHttpInfo(authenticationkey?: string, body?: MultipartFormDataInput, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/resources/upload';
-
-        let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
-    }
 
 
  /**

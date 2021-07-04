@@ -6,4 +6,5 @@ export class BasicPropertiesFilter {
   names?: string[];
   softDelete?: boolean;
   updateDateFilter?: DateFilter;
+  onlyIds?:string[];
 }

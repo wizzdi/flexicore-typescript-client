@@ -19,5 +19,6 @@ export interface DynamicExecution extends SecuredBasic {
     methodName?: string;
     executionParametersHolder?: ExecutionParametersHolder;
     serviceCanonicalNames?: ServiceCanonicalName[];
+    category?:string;
 
 }
