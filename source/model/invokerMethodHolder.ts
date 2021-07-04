@@ -11,4 +11,5 @@ export interface InvokerMethodHolder {
   parameters?: ParameterInfo[];
   relatedMethodNames?: string[];
   returnType?: string;
+  pluginId?:string;
 }

@@ -5,5 +5,5 @@ export interface DynamicInvokerFilter extends PaginationFilter{
   basicPropertiesFilter?: BasicPropertiesFilter;
   invokerTypes?: string[];
   methodNameLike?: string;
-  pluginNames?: string[];
+  pluginIds?: string[];
 }

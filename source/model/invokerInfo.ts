@@ -18,4 +18,6 @@ export interface InvokerInfo {
     description?: string; // human readable description
     displayName?: string; //human readable display name
     methods?: Array<InvokerMethodInfo>; // list of method info
+    pluginId?:string;
+    
 }
