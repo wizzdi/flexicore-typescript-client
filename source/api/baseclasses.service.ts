@@ -35,7 +35,8 @@ import { SetBaseclassTenantRequest, ParameterInfo, PaginationResponse } from '..
 import { GetClassInfo } from '../model/getClassInfo';
 import { ClassInfo } from '../model/classInfo';
 import { ExportBaseclassGeneric } from '../model/exportBaseclassGeneric';
-import { Basic } from '../model/basic';
+import { BasicDelete } from '../model/basicDelete';
+import { BasicDeleteResponse } from '../model/basicDeleteResponse';
 
 
 @Injectable()
@@ -2339,7 +2340,7 @@ export class BaseclassesService {
         return this.http.request(path, requestOptions);
     }
 
-    public genericSoftDelete(body?: Basic, authenticationKey?: string): Observable<any> {
+    public genericSoftDelete(body?: BasicDelete, authenticationKey?: string): Observable<BasicDeleteResponse> {
         let preparedBody = {
             entries: [body]
         };
