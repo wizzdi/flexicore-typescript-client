@@ -5,4 +5,5 @@ export class Basic {
   name?: string;
   softdelete?: boolean;
   updateDate?: Date;
+  javaType?: string;
 }
