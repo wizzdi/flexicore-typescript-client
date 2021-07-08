@@ -33,9 +33,10 @@ import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables'
 import { Configuration }                                     from '../configuration';
 import { SetBaseclassTenantRequest, ParameterInfo, PaginationResponse } from '../model/models';
 import { GetClassInfo } from '../model/getClassInfo';
-import { HttpResponse } from '@angular/common/http';
 import { ClassInfo } from '../model/classInfo';
 import { ExportBaseclassGeneric } from '../model/exportBaseclassGeneric';
+import { BasicDelete } from '../model/basicDelete';
+import { BasicDeleteResponse } from '../model/basicDeleteResponse';
 
 
 @Injectable()
@@ -2337,6 +2338,42 @@ export class BaseclassesService {
         }
 
         return this.http.request(path, requestOptions);
+    }
+
+    public genericSoftDelete(body?: BasicDelete, authenticationKey?: string): Observable<BasicDeleteResponse> {
+        let preparedBody = {
+            entries: [body]
+        };
+        let headers = this.defaultHeaders;
+        if (authenticationKey !== undefined && authenticationKey !== null) {
+            headers.set('authenticationKey', String(authenticationKey));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.http.delete(`${this.basePath}/plugins/PresetToPresets/createPresetToPreset`,
+            {
+                body: preparedBody,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers
+            }
+        ).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
 }
