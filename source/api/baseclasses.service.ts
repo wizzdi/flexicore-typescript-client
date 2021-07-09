@@ -2367,7 +2367,7 @@ export class BaseclassesService {
             headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.http.delete(`${this.basePath}/plugins/PresetToPresets/createPresetToPreset`,
+        return this.http.delete(`${this.basePath}/generic/softDelete`,
             {
                 body: preparedBody,
                 withCredentials: this.configuration.withCredentials,
