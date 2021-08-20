@@ -7,4 +7,5 @@ export class BasicPropertiesFilter {
   softDelete?: boolean;
   updateDateFilter?: DateFilter;
   onlyIds?:string[];
+  nameLikeCaseSensitive?: boolean;
 }

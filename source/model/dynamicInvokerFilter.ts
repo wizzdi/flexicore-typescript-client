@@ -7,4 +7,6 @@ export interface DynamicInvokerFilter extends PaginationFilter{
   methodNameLike?: string;
   pluginIds?: string[];
   handlingTypes?: string[];
+  handlingTypeLike?: string;
+  handlingTypeLikeCaseSensitive?: boolean;
 }
