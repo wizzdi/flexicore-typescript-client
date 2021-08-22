@@ -9,4 +9,5 @@ export interface DynamicInvokerFilter extends PaginationFilter{
   handlingTypes?: string[];
   handlingTypeLike?: string;
   handlingTypeLikeCaseSensitive?: boolean;
+  includeCoreInvokers?: boolean;
 }
