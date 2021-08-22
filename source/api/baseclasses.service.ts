@@ -2366,6 +2366,11 @@ export class BaseclassesService {
         if (httpContentTypeSelected != undefined) {
             headers.set('Content-Type', httpContentTypeSelected);
         }
+        
+        const indexOfFlexicore = this.basePath.indexOf('FlexiCore/rest');
+        if (indexOfFlexicore > -1) {
+            this.basePath = this.basePath.slice(0, indexOfFlexicore);
+        }
 
         return this.http.delete(`${this.basePath}/generic/softDelete`,
             {
