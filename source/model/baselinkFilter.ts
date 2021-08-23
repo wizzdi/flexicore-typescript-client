@@ -16,7 +16,9 @@ import { FilteringInformationHolder } from "./filteringInformationHolder";
 
 export interface BaselinkFilter extends FilteringInformationHolder {
     leftsideIds?: string[];
+    leftsideTypeClassName?: string;
     rightsideIds?:string[];
+    rightsideTypeClassName?: string;
     valueId?:string;
     simpleValue?:string;
     linkClassName?:string;
