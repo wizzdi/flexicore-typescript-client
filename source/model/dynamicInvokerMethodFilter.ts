@@ -7,5 +7,6 @@ export interface DynamicInvokerMethodFilter extends PaginationFilter{
   categories?: string[];
   dynamicInvokerFilter?: DynamicInvokerFilter;
   emptyCategories?:boolean;
+  includeCoreInvokers?: boolean;
 
 }
