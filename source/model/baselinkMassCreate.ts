@@ -19,5 +19,6 @@ export interface BaselinkMassCreate {
     valueId?:string;
     simpleValue?:string;
     linkClassName?:string;
-
+    leftsideTypeClassName?: string;
+    rightsideTypeClassName?: string;
 }
