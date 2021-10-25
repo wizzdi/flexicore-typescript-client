@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Headers } from '@angular/http';
 import * as SparkMD5 from 'spark-md5';
 import { Configuration } from '../configuration';
 import { Upload } from '../model/upload';
@@ -7,11 +6,12 @@ import { UploadService } from './upload.service';
 import { FileResource } from '../model/fileResource';
 import { Observable } from 'rxjs';
 import { defer } from 'rxjs/observable/defer';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class UploadUtilsService {
     protected basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-    public defaultHeaders: Headers = new Headers();
+    public defaultHeaders = new HttpHeaders();
     public configuration: Configuration = new Configuration();
 
     constructor(private uploadService: UploadService) {

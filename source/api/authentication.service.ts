@@ -14,17 +14,6 @@
 
 import {Inject, Injectable, Optional} from '@angular/core';
 import {FlexiCoreDecycle} from './flexiCoreDecycle';
-
-import {
-    Headers,
-    Http,
-    RequestMethod,
-    RequestOptions,
-    RequestOptionsArgs,
-    Response,
-    URLSearchParams
-} from '@angular/http';
-
 import {Observable} from 'rxjs/Observable';
 import "rxjs/add/operator/map";
 
@@ -34,6 +23,7 @@ import {NewUserUserClass} from '../model/newUserUserClass';
 
 import {BASE_PATH} from '../variables';
 import {Configuration} from '../configuration';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 
 
 
@@ -41,10 +31,10 @@ import {Configuration} from '../configuration';
 export class AuthenticationService {
 
     protected basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-    public defaultHeaders: Headers = new Headers();
+    public defaultHeaders = new HttpHeaders();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -145,7 +135,7 @@ export class AuthenticationService {
         const path = this.basePath + '/authentication/login';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -159,8 +149,10 @@ export class AuthenticationService {
             
         headers.set('Content-Type', 'application/json');
 
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
+        let requestOptions =  new HttpRequest(
+            'POST',
+            path,
+            {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
@@ -170,8 +162,7 @@ export class AuthenticationService {
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
-
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -183,7 +174,7 @@ export class AuthenticationService {
         const path = this.basePath + '/authentication/logout';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -195,18 +186,20 @@ export class AuthenticationService {
         ];
 
             
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+        let requestOptions = new HttpRequest(
+            'POST',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -220,7 +213,7 @@ export class AuthenticationService {
         const path = this.basePath + '/authentication/signin';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -238,19 +231,20 @@ export class AuthenticationService {
             
         headers.set('Content-Type', 'application/json');
 
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+        let requestOptions = new HttpRequest(
+            'POST',
+            path,
+            {
+                headers: headers,
+                body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
-
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
     }
 
 }

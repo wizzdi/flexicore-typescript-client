@@ -14,9 +14,6 @@
 
 import { Inject, Injectable, Optional }                      from '@angular/core';
 import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
-import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
 
 import { Observable }                                        from 'rxjs/Observable';
 
@@ -25,16 +22,17 @@ import { Category } from '../model/category';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 @Injectable()
 export class CategoriesService {
 
     protected basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-    public defaultHeaders: Headers = new Headers();
+    public defaultHeaders = new HttpHeaders();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -244,7 +242,7 @@ export class CategoriesService {
                     .replace('${' + 'baseId' + '}', String(baseId));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'baseId' is not null or undefined
         if (baseId === null || baseId === undefined) {
@@ -264,19 +262,12 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
+        return this.httpClient.put(path, {
+            withCredentials: this.configuration.withCredentials,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
+        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        // return this.http.request(path, requestOptions);
     }
 
     /**
@@ -289,7 +280,7 @@ export class CategoriesService {
         const path = this.basePath + '/category';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'categoryName' is not null or undefined
         if (categoryName === null || categoryName === undefined) {
@@ -309,19 +300,13 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
+        return this.httpClient.post(path, {
+            withCredentials: this.configuration.withCredentials,
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
+        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        
+        // return this.http.request(path, requestOptions);
     }
 
     /**
@@ -336,7 +321,7 @@ export class CategoriesService {
                     .replace('${' + 'class_name' + '}', String(className));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'className' is not null or undefined
         if (className === null || className === undefined) {
@@ -355,19 +340,12 @@ export class CategoriesService {
             
         headers.set('Content-Type', 'application/json');
 
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
+        return this.httpClient.put(path, {
+            withCredentials: this.configuration.withCredentials,
             headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
+        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        // return this.http.request(path, requestOptions);
     }
 
     /**
@@ -382,7 +360,7 @@ export class CategoriesService {
                     .replace('${' + 'baseId' + '}', String(baseId));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'baseId' is not null or undefined
         if (baseId === null || baseId === undefined) {
@@ -402,19 +380,12 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Delete,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.delete(path, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        // return this.http.request(path, requestOptions);
     }
 
     /**
@@ -429,7 +400,7 @@ export class CategoriesService {
                     .replace('${' + 'class_name' + '}', String(className));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'className' is not null or undefined
         if (className === null || className === undefined) {
@@ -448,19 +419,12 @@ export class CategoriesService {
             
         headers.set('Content-Type', 'application/json');
 
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
+        return this.httpClient.put(path, {}, {
+            withCredentials: this.configuration.withCredentials,
             headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
+        }).map(o=>FlexiCoreDecycle.retrocycle(o));
 
-        return this.http.request(path, requestOptions);
+        // return this.http.request(path, requestOptions);
     }
 
     /**
@@ -474,7 +438,7 @@ export class CategoriesService {
         const path = this.basePath + '/category/getAll';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -494,19 +458,13 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.get(path, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+
+        // return this.http.request(path, requestOptions);
     }
 
     /**
@@ -520,7 +478,7 @@ export class CategoriesService {
                     .replace('${' + 'baseId' + '}', String(baseId));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'baseId' is not null or undefined
         if (baseId === null || baseId === undefined) {
@@ -537,18 +495,11 @@ export class CategoriesService {
         ];
 
             
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
+        return this.httpClient.get(path, {
+            withCredentials: this.configuration.withCredentials,
             headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.http.request(path, requestOptions);
+        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        // return this.http.request(path, requestOptions);
     }
 
     /**
@@ -562,7 +513,7 @@ export class CategoriesService {
                     .replace('${' + 'class_name' + '}', String(className));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'className' is not null or undefined
         if (className === null || className === undefined) {
@@ -578,19 +529,12 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.get(path, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        // return this.http.request(path, requestOptions);
     }
 
     /**
@@ -604,7 +548,7 @@ export class CategoriesService {
                     .replace('${' + 'name' + '}', String(name));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'name' is not null or undefined
         if (name === null || name === undefined) {
@@ -620,19 +564,12 @@ export class CategoriesService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.get(path, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        // return this.http.request(path, requestOptions);
     }
 
 }
