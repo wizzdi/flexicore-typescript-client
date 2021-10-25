@@ -12,39 +12,37 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';  import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
-import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
+import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 import { FilteringInformationHolder } from '../model/filteringInformationHolder';
 import { NewUser } from '../model/newUser';
 import { Tenant } from '../model/tenant';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 import { TenantCreate } from '../model/tenantCreate';
 import { TenantUpdate } from '../model/tenantUpdate';
 import { TenantFiltering } from '../model/tenantFiltering';
 import { PaginationResponse } from '../model/models';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 
 
 @Injectable()
 export class TenantsService {
 
     protected basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-    public defaultHeaders: Headers = new Headers();
+    public defaultHeaders = new HttpHeaders();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
+            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -54,13 +52,13 @@ export class TenantsService {
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
                 (objA as any)[key] = (objB as any)[key];
             }
         }
-        return <T1&T2>objA;
+        return <T1 & T2>objA;
     }
 
     /**
@@ -90,43 +88,43 @@ export class TenantsService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
 
-        /**
-     * 
-     * @param tenantName 
-     * @param apiKey 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
+    /**
+ * 
+ * @param tenantName 
+ * @param apiKey 
+ * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+ * @param body 
+ */
     public createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any): Observable<Tenant> {
         return this.createTenantNewWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
             .map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
 
-           /**
-     * 
-     * @param tenantName 
-     * @param apiKey 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
+    /**
+* 
+* @param tenantName 
+* @param apiKey 
+* @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+* @param body 
+*/
     public updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any): Observable<Tenant> {
         return this.updateTenantNewWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
             .map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -143,7 +141,7 @@ export class TenantsService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -159,23 +157,23 @@ export class TenantsService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
 
-  /**
-     * 
-     * @param apiKey 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public getAllTenants( authenticationkey?: string,body?:TenantFiltering, extraHttpRequestParams?: any): Observable<PaginationResponse<Tenant>> {
-        return this.getAllTenantsWithHttpInfo( authenticationkey,body, extraHttpRequestParams)
+    /**
+       * 
+       * @param apiKey 
+       * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+       */
+    public getAllTenants(authenticationkey?: string, body?: TenantFiltering, extraHttpRequestParams?: any): Observable<PaginationResponse<Tenant>> {
+        return this.getAllTenantsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
             .map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -194,7 +192,7 @@ export class TenantsService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -210,11 +208,11 @@ export class TenantsService {
      */
     public createTenantWithHttpInfo(tenantName: string, apiKey: string, authenticationkey?: string, body?: NewUser, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/tenant/${tenant_name}/${apiKey}'
-                    .replace('${' + 'tenant_name' + '}', String(tenantName))
-                    .replace('${' + 'apiKey' + '}', String(apiKey));
+            .replace('${' + 'tenant_name' + '}', String(tenantName))
+            .replace('${' + 'apiKey' + '}', String(apiKey));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'tenantName' is not null or undefined
         if (tenantName === null || tenantName === undefined) {
@@ -234,22 +232,24 @@ export class TenantsService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+        let requestOptions = new HttpRequest(
+            'POST',
+            path,
+            {
+                headers: headers,
+                body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -264,7 +264,7 @@ export class TenantsService {
         const path = this.basePath + '/tenant/updateTenant';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -276,22 +276,24 @@ export class TenantsService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+        let requestOptions = new HttpRequest(
+            'POST',
+            path,
+            {
+                headers: headers,
+                body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -306,7 +308,7 @@ export class TenantsService {
         const path = this.basePath + '/tenant/createTenant';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -318,22 +320,24 @@ export class TenantsService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/json');
 
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+        let requestOptions = new HttpRequest(
+            'POST',
+            path,
+            {
+                headers: headers,
+                body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -345,11 +349,11 @@ export class TenantsService {
      */
     public createTenantNoUserWithHttpInfo(tenantName: string, apiKey: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/tenant/createTenantNoUser/${tenant_name}/${apiKey}'
-                    .replace('${' + 'tenant_name' + '}', String(tenantName))
-                    .replace('${' + 'apiKey' + '}', String(apiKey));
+            .replace('${' + 'tenant_name' + '}', String(tenantName))
+            .replace('${' + 'apiKey' + '}', String(apiKey));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'tenantName' is not null or undefined
         if (tenantName === null || tenantName === undefined) {
@@ -369,36 +373,38 @@ export class TenantsService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'POST',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
-    
 
-       /**
-     * 
-     * 
-     * @param apiKey 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public getAllTenantsWithHttpInfo(authenticationkey?: string,body?:TenantFiltering, extraHttpRequestParams?: any): Observable<Response> {
+
+    /**
+  * 
+  * 
+  * @param apiKey 
+  * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+  */
+    public getAllTenantsWithHttpInfo(authenticationkey?: string, body?: TenantFiltering, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/tenant/getAllTenants';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
-    
+
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
         }
@@ -411,21 +417,23 @@ export class TenantsService {
 
         headers.set('Content-Type', 'application/json');
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
 
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+        let requestOptions = new HttpRequest(
+            'POST',
+            path,
+            {
+                headers: headers,
+                body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
+
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -436,10 +444,10 @@ export class TenantsService {
      */
     public getTenantWithHttpInfo(apiKey: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/tenant/${apiKey}'
-                    .replace('${' + 'apiKey' + '}', String(apiKey));
+            .replace('${' + 'apiKey' + '}', String(apiKey));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'apiKey' is not null or undefined
         if (apiKey === null || apiKey === undefined) {
@@ -456,20 +464,21 @@ export class TenantsService {
         ];
         headers.set('Content-Type', 'application/json');
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'GET',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -484,7 +493,7 @@ export class TenantsService {
         const path = this.basePath + '/tenant';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -504,21 +513,23 @@ export class TenantsService {
             'application/json'
         ];
 
-            
 
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'POST',
+            path,
+            {
+                headers: headers,
+                body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
 }

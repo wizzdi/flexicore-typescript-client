@@ -12,34 +12,32 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';  import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
-import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
+import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 import { PluginInformationHolder } from '../model/pluginInformationHolder';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 import { ModuleManifest } from '../model/models';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 
 
 @Injectable()
 export class PluginsService {
 
     protected basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-    public defaultHeaders: Headers = new Headers();
+    public defaultHeaders = new HttpHeaders();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
+            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -49,13 +47,13 @@ export class PluginsService {
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
                 (objA as any)[key] = (objB as any)[key];
             }
         }
-        return <T1&T2>objA;
+        return <T1 & T2>objA;
     }
 
     /**
@@ -82,22 +80,22 @@ export class PluginsService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
 
-     /**
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
+    /**
+    * 
+    * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+    */
     public listAllModules(authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<ModuleManifest>> {
         return this.listAllModulesWithHttpInfo(authenticationkey, extraHttpRequestParams)
             .map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -112,7 +110,7 @@ export class PluginsService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -127,7 +125,7 @@ export class PluginsService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -144,7 +142,7 @@ export class PluginsService {
         const path = this.basePath + '/plugins';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -156,22 +154,22 @@ export class PluginsService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
+        let requestOptions = new HttpRequest(
+            'GET',
+            path, {
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
-    
+
     /**
      * 
      * 
@@ -181,7 +179,7 @@ export class PluginsService {
         const path = this.basePath + '/plugins/modules';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -193,19 +191,20 @@ export class PluginsService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
+
+        let requestOptions = new HttpRequest(
+            'GET',
+            path, {
             headers: headers,
             search: queryParameters,
-            withCredentials:this.configuration.withCredentials
+            withCredentials: this.configuration.withCredentials
         });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -217,7 +216,7 @@ export class PluginsService {
         const path = this.basePath + '/plugins';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -228,19 +227,21 @@ export class PluginsService {
         let produces: string[] = [
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'PUT',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -252,7 +253,7 @@ export class PluginsService {
         const path = this.basePath + '/plugins/testUpdate';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -263,19 +264,21 @@ export class PluginsService {
         let produces: string[] = [
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'PUT',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
 }

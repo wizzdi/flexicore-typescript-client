@@ -13,10 +13,6 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional }                      from '@angular/core';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
-import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
-
 import { Observable }                                        from 'rxjs/Observable';
 
 import { Clazz } from '../model/clazz';
@@ -25,16 +21,18 @@ import { Operation } from '../model/operation';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { FlexiCoreDecycle } from '..';
 
 
 @Injectable()
 export class ClazzService {
 
     protected basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-    public defaultHeaders: Headers = new Headers();
+    public defaultHeaders = new HttpHeaders();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -79,7 +77,7 @@ export class ClazzService {
      * @param clazzName The canonical classname of the link required
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Operation>> {
+    public getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<any> {
         return this.getAllOperationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
             .map((response: Response) => {
                 if (response.status === 204) {
@@ -96,7 +94,7 @@ export class ClazzService {
      * @param clazzName 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public getAssociations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<ClazzLinkContainer>> {
+    public getAssociations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<any> {
         return this.getAssociationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
             .map((response: Response) => {
                 if (response.status === 204) {
@@ -138,7 +136,7 @@ export class ClazzService {
                     .replace('${' + 'clazzName' + '}', String(clazzName));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'clazzName' is not null or undefined
         if (clazzName === null || clazzName === undefined) {
@@ -155,18 +153,20 @@ export class ClazzService {
         ];
 
             
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+        let requestOptions = new HttpRequest(
+            'GET',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -180,7 +180,7 @@ export class ClazzService {
                     .replace('${' + 'clazzName' + '}', String(clazzName));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'clazzName' is not null or undefined
         if (clazzName === null || clazzName === undefined) {
@@ -197,18 +197,20 @@ export class ClazzService {
         ];
 
             
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+        let requestOptions = new HttpRequest(
+            'GET',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            }
+        );
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
-
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -222,7 +224,7 @@ export class ClazzService {
                     .replace('${' + 'clazzName' + '}', String(clazzName));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'clazzName' is not null or undefined
         if (clazzName === null || clazzName === undefined) {
@@ -239,18 +241,21 @@ export class ClazzService {
         ];
 
             
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+        let requestOptions = new HttpRequest(
+            'GET',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            }
+        );
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -264,7 +269,7 @@ export class ClazzService {
                     .replace('${' + 'clazzName' + '}', String(clazzName));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'clazzName' is not null or undefined
         if (clazzName === null || clazzName === undefined) {
@@ -281,18 +286,20 @@ export class ClazzService {
         ];
 
             
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+        let requestOptions = new HttpRequest(
+            'GET',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
     }
 
 }

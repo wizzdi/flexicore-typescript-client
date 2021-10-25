@@ -12,33 +12,30 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';  import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
-import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
-
-import { Observable }                                        from 'rxjs/Observable';
+import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { Observable } from 'rxjs/Observable';
 
 import { Job } from '../model/job';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 
 
 @Injectable()
 export class DocumnetationService {
 
     protected basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-    public defaultHeaders: Headers = new Headers();
+    public defaultHeaders = new HttpHeaders();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
+            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -48,13 +45,13 @@ export class DocumnetationService {
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
                 (objA as any)[key] = (objB as any)[key];
             }
         }
-        return <T1&T2>objA;
+        return <T1 & T2>objA;
     }
 
     /**
@@ -83,7 +80,7 @@ export class DocumnetationService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -98,7 +95,7 @@ export class DocumnetationService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -114,7 +111,7 @@ export class DocumnetationService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -130,7 +127,7 @@ export class DocumnetationService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -145,7 +142,7 @@ export class DocumnetationService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -160,10 +157,10 @@ export class DocumnetationService {
      */
     public generateClientWithHttpInfo(clientType: string, authenticationkey?: string, view?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/swagger/extended/generateClient/${client_type}'
-                    .replace('${' + 'client_type' + '}', String(clientType));
+            .replace('${' + 'client_type' + '}', String(clientType));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'clientType' is not null or undefined
         if (clientType === null || clientType === undefined) {
@@ -183,19 +180,20 @@ export class DocumnetationService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+        let requestOptions = new HttpRequest(
+            'GET',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -207,7 +205,7 @@ export class DocumnetationService {
         const path = this.basePath + '/swagger/extended/clients';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -219,19 +217,21 @@ export class DocumnetationService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'GET',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -242,10 +242,10 @@ export class DocumnetationService {
      */
     public getDocsWithHttpInfo(authenticationkey: string, view?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/swagger/extended/docs/${authenticationkey}'
-                    .replace('${' + 'authenticationkey' + '}', String(authenticationkey));
+            .replace('${' + 'authenticationkey' + '}', String(authenticationkey));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'authenticationkey' is not null or undefined
         if (authenticationkey === null || authenticationkey === undefined) {
@@ -261,19 +261,21 @@ export class DocumnetationService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'GET',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -284,10 +286,10 @@ export class DocumnetationService {
      */
     public getSwaggerJSONWithHttpInfo(authenticationkey: string, view?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/swagger/extended/swagger.json/${authenticationkey}'
-                    .replace('${' + 'authenticationkey' + '}', String(authenticationkey));
+            .replace('${' + 'authenticationkey' + '}', String(authenticationkey));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'authenticationkey' is not null or undefined
         if (authenticationkey === null || authenticationkey === undefined) {
@@ -303,19 +305,21 @@ export class DocumnetationService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'GET',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -327,7 +331,7 @@ export class DocumnetationService {
         const path = this.basePath + '/swagger/extended/invalidateCache';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -339,19 +343,21 @@ export class DocumnetationService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'PUT',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
 }

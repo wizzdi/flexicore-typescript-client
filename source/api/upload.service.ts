@@ -12,34 +12,32 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';  import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
-import { Http, Headers, URLSearchParams }                    from '@angular/http';
-import { RequestMethod, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { Response, ResponseContentType }                     from '@angular/http';
+import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 import { FileResource } from '../model/fileResource';
 import { Job } from '../model/job';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 
 
 @Injectable()
 export class UploadService {
 
     protected basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-    public defaultHeaders: Headers = new Headers();
+    public defaultHeaders = new HttpHeaders();
     public configuration: Configuration = new Configuration();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
             this.configuration = configuration;
-			this.basePath = basePath || configuration.basePath || this.basePath;
+            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
@@ -49,13 +47,13 @@ export class UploadService {
      * @param objA object to be extended
      * @param objB source object
      */
-    private extendObj<T1,T2>(objA: T1, objB: T2) {
-        for(let key in objB){
-            if(objB.hasOwnProperty(key)){
+    private extendObj<T1, T2>(objA: T1, objB: T2) {
+        for (let key in objB) {
+            if (objB.hasOwnProperty(key)) {
                 (objA as any)[key] = (objB as any)[key];
             }
         }
-        return <T1&T2>objA;
+        return <T1 & T2>objA;
     }
 
     /**
@@ -83,7 +81,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -97,13 +95,13 @@ export class UploadService {
      * @param fileType 
      * @param dontProcess 
      */
-    public finalizeUpload(md5: string, authenticationkey?: string, hint?: string, fileType?: string, dontProcess?: boolean,extraHeaders?:Map<String,String>, extraHttpRequestParams?: any): Observable<Job> {
-        return this.finalizeUploadWithHttpInfo(md5, authenticationkey, hint, fileType, dontProcess,extraHeaders, extraHttpRequestParams)
+    public finalizeUpload(md5: string, authenticationkey?: string, hint?: string, fileType?: string, dontProcess?: boolean, extraHeaders?: Map<String, String>, extraHttpRequestParams?: any): Observable<Job> {
+        return this.finalizeUploadWithHttpInfo(md5, authenticationkey, hint, fileType, dontProcess, extraHeaders, extraHttpRequestParams)
             .map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -119,7 +117,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -135,7 +133,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -152,7 +150,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -172,7 +170,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -188,7 +186,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -205,7 +203,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -223,32 +221,32 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
 
 
-    public uploadFile(authenticationkey?: string,md5?: string,name?: string,blob?:Blob, extraHttpRequestParams?: any):Observable<FileResource>{
-        return this.uploadFileWithHttpInfo(authenticationkey,md5,name,null,false, blob, extraHttpRequestParams)
-        .map((response: Response) => {
-            if (response.status === 204) {
-                return undefined;
-            } else {
-                return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-            }
-        });
+    public uploadFile(authenticationkey?: string, md5?: string, name?: string, blob?: Blob, extraHttpRequestParams?: any): Observable<FileResource> {
+        return this.uploadFileWithHttpInfo(authenticationkey, md5, name, null, false, blob, extraHttpRequestParams)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                }
+            });
     }
 
-    public uploadFileWithChunkMd5(authenticationkey?: string,md5?: string,name?: string,chunkMd5?:string,lastChunk?:boolean,blob?:Blob, extraHttpRequestParams?: any):Observable<FileResource>{
-        return this.uploadFileWithHttpInfo(authenticationkey,md5,name,chunkMd5,lastChunk, blob, extraHttpRequestParams)
-        .map((response: Response) => {
-            if (response.status === 204) {
-                return undefined;
-            } else {
-                return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-            }
-        });
+    public uploadFileWithChunkMd5(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<FileResource> {
+        return this.uploadFileWithHttpInfo(authenticationkey, md5, name, chunkMd5, lastChunk, blob, extraHttpRequestParams)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                }
+            });
     }
 
 
@@ -262,7 +260,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
             });
     }
@@ -276,10 +274,10 @@ export class UploadService {
      */
     public deleteFileResourceWithHttpInfo(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/resources/${md5}'
-                    .replace('${' + 'md5' + '}', String(md5));
+            .replace('${' + 'md5' + '}', String(md5));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'md5' is not null or undefined
         if (md5 === null || md5 === undefined) {
@@ -294,19 +292,21 @@ export class UploadService {
         let produces: string[] = [
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Delete,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'DELETE',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -318,12 +318,12 @@ export class UploadService {
      * @param fileType 
      * @param dontProcess 
      */
-    public finalizeUploadWithHttpInfo(md5: string, authenticationkey?: string, hint?: string, fileType?: string, dontProcess?: boolean,extraHeaders?:Map<String,String>, extraHttpRequestParams?: any): Observable<Response> {
+    public finalizeUploadWithHttpInfo(md5: string, authenticationkey?: string, hint?: string, fileType?: string, dontProcess?: boolean, extraHeaders?: Map<String, String>, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/resources/finalize/${md5}'
-                    .replace('${' + 'md5' + '}', String(md5));
+            .replace('${' + 'md5' + '}', String(md5));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'md5' is not null or undefined
         if (md5 === null || md5 === undefined) {
@@ -357,19 +357,21 @@ export class UploadService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'GET',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -380,10 +382,10 @@ export class UploadService {
      */
     public getFileResourceWithHttpInfo(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/resources/${md5}'
-                    .replace('${' + 'md5' + '}', String(md5));
+            .replace('${' + 'md5' + '}', String(md5));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'md5' is not null or undefined
         if (md5 === null || md5 === undefined) {
@@ -399,19 +401,21 @@ export class UploadService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'GET',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -422,10 +426,10 @@ export class UploadService {
      */
     public getJobWithHttpInfo(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/${jobID}'
-                    .replace('${' + 'jobID' + '}', String(jobID));
+            .replace('${' + 'jobID' + '}', String(jobID));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'jobID' is not null or undefined
         if (jobID === null || jobID === undefined) {
@@ -441,19 +445,21 @@ export class UploadService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'GET',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -467,7 +473,7 @@ export class UploadService {
         const path = this.basePath + '/resources/register';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -487,19 +493,21 @@ export class UploadService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'POST',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -516,7 +524,7 @@ export class UploadService {
         const path = this.basePath + '/resources/registerAndFinalize';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -548,19 +556,21 @@ export class UploadService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'POST',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -571,10 +581,10 @@ export class UploadService {
      */
     public stopJobWithHttpInfo(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/${jobID}'
-                    .replace('${' + 'jobID' + '}', String(jobID));
+            .replace('${' + 'jobID' + '}', String(jobID));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'jobID' is not null or undefined
         if (jobID === null || jobID === undefined) {
@@ -590,19 +600,21 @@ export class UploadService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Delete,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'DELETE',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -614,11 +626,11 @@ export class UploadService {
      */
     public updateJobPhaseWithHttpInfo(jobID: string, phaseName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/updateJobPhase/${jobID}/${phaseName}'
-                    .replace('${' + 'jobID' + '}', String(jobID))
-                    .replace('${' + 'phaseName' + '}', String(phaseName));
+            .replace('${' + 'jobID' + '}', String(jobID))
+            .replace('${' + 'phaseName' + '}', String(phaseName));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'jobID' is not null or undefined
         if (jobID === null || jobID === undefined) {
@@ -638,19 +650,21 @@ export class UploadService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'PUT',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
     /**
@@ -663,12 +677,12 @@ export class UploadService {
      */
     public updateJobPropertyWithHttpInfo(jobID: string, key: string, value: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/updateJobProperty/${jobID}/${key}/${value}'
-                    .replace('${' + 'jobID' + '}', String(jobID))
-                    .replace('${' + 'key' + '}', String(key))
-                    .replace('${' + 'value' + '}', String(value));
+            .replace('${' + 'jobID' + '}', String(jobID))
+            .replace('${' + 'key' + '}', String(key))
+            .replace('${' + 'value' + '}', String(value));
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'jobID' is not null or undefined
         if (jobID === null || jobID === undefined) {
@@ -692,34 +706,36 @@ export class UploadService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Put,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'PUT',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
 
 
- /**
-     * 
-     * 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public uploadFileWithHttpInfo(authenticationkey?: string,md5?: string,name?: string,chunkMd5?:string,lastChunk?:boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<Response> {
+    /**
+        * 
+        * 
+        * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
+        * @param body 
+        */
+    public uploadFileWithHttpInfo(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/resources/upload';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -745,22 +761,24 @@ export class UploadService {
             'application/json'
         ];
 
-            
+
         headers.set('Content-Type', 'application/octet-stream');
 
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Post,
-            headers: headers,
-            body: blob, // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+        let requestOptions = new HttpRequest(
+            'POST',
+            path,
+            {
+                headers: headers,
+                body: blob, // https://github.com/angular/angular/issues/10612
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
 
@@ -773,7 +791,7 @@ export class UploadService {
         const path = this.basePath + '/resources/validate';
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
             headers.set('authenticationkey', String(authenticationkey));
@@ -785,19 +803,21 @@ export class UploadService {
             'application/json'
         ];
 
-            
-        let requestOptions: RequestOptionsArgs = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: headers,
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
+
+        let requestOptions = new HttpRequest(
+            'GET',
+            path,
+            {
+                headers: headers,
+                search: queryParameters,
+                withCredentials: this.configuration.withCredentials
+            });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.http.request(path, requestOptions);
+        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
 }
