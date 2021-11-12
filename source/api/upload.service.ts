@@ -81,7 +81,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response) || {};
                 }
             });
     }
@@ -101,7 +101,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response) || {};
                 }
             });
     }
@@ -113,11 +113,11 @@ export class UploadService {
      */
     public getFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.getFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .map((response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.body) || {};
                 }
             });
     }
@@ -133,7 +133,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response) || {};
                 }
             });
     }
@@ -150,7 +150,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response) || {};
                 }
             });
     }
@@ -170,7 +170,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response) || {};
                 }
             });
     }
@@ -186,7 +186,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response) || {};
                 }
             });
     }
@@ -203,7 +203,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response) || {};
                 }
             });
     }
@@ -221,7 +221,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response) || {};
                 }
             });
     }
@@ -233,7 +233,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response) || {};
                 }
             });
     }
@@ -244,7 +244,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response.body) || {};
                 }
             });
     }
@@ -260,7 +260,7 @@ export class UploadService {
                 if (response.status === 204) {
                     return undefined;
                 } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
+                    return FlexiCoreDecycle.retrocycle(response) || {};
                 }
             });
     }
@@ -284,7 +284,7 @@ export class UploadService {
             throw new Error('Required parameter md5 was null or undefined when calling deleteFileResource.');
         }
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
 
@@ -330,7 +330,7 @@ export class UploadService {
             throw new Error('Required parameter md5 was null or undefined when calling finalizeUpload.');
         }
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
         if (hint !== undefined && hint !== null) {
@@ -380,7 +380,7 @@ export class UploadService {
      * @param md5 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public getFileResourceWithHttpInfo(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
+    public getFileResourceWithHttpInfo(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<any> {
         const path = this.basePath + '/resources/${md5}'
             .replace('${' + 'md5' + '}', String(md5));
 
@@ -392,7 +392,7 @@ export class UploadService {
             throw new Error('Required parameter md5 was null or undefined when calling getFileResource.');
         }
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
 
@@ -415,7 +415,7 @@ export class UploadService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions);
     }
 
     /**
@@ -436,7 +436,7 @@ export class UploadService {
             throw new Error('Required parameter jobID was null or undefined when calling getJob.');
         }
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
 
@@ -476,15 +476,15 @@ export class UploadService {
         let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
         if (path !== undefined && path !== null) {
-            headers.set('path', String(pathparam));
+            headers = headers.set('path', String(pathparam));
         }
 
         if (calcMd5 !== undefined && calcMd5 !== null) {
-            headers.set('calcMd5', String(calcMd5));
+            headers = headers.set('calcMd5', String(calcMd5));
         }
 
 
@@ -497,9 +497,9 @@ export class UploadService {
         let requestOptions = new HttpRequest(
             'POST',
             path,
+            null,
             {
                 headers: headers,
-                search: queryParameters,
                 withCredentials: this.configuration.withCredentials
             });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -527,27 +527,27 @@ export class UploadService {
         let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+           headers =  headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
         if (path !== undefined && path !== null) {
-            headers.set('path', String(pathparam));
+            headers = headers.set('path', String(pathparam));
         }
 
         if (hint !== undefined && hint !== null) {
-            headers.set('hint', String(hint));
+            headers =headers.set('hint', String(hint));
         }
 
         if (fileType !== undefined && fileType !== null) {
-            headers.set('fileType', String(fileType));
+            headers =headers.set('fileType', String(fileType));
         }
 
         if (dontProcess !== undefined && dontProcess !== null) {
-            headers.set('dontProcess', String(dontProcess));
+            headers =headers.set('dontProcess', String(dontProcess));
         }
 
         if (calcMd5 !== undefined && calcMd5 !== null) {
-            headers.set('calcMd5', String(calcMd5));
+            headers = headers.set('calcMd5', String(calcMd5));
         }
 
 
@@ -560,9 +560,9 @@ export class UploadService {
         let requestOptions = new HttpRequest(
             'POST',
             path,
+            {},
             {
                 headers: headers,
-                search: queryParameters,
                 withCredentials: this.configuration.withCredentials
             });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -591,7 +591,7 @@ export class UploadService {
             throw new Error('Required parameter jobID was null or undefined when calling stopJob.');
         }
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
 
@@ -641,7 +641,7 @@ export class UploadService {
             throw new Error('Required parameter phaseName was null or undefined when calling updateJobPhase.');
         }
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
 
@@ -654,9 +654,9 @@ export class UploadService {
         let requestOptions = new HttpRequest(
             'PUT',
             path,
+            null,
             {
                 headers: headers,
-                search: queryParameters,
                 withCredentials: this.configuration.withCredentials
             });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -697,7 +697,7 @@ export class UploadService {
             throw new Error('Required parameter value was null or undefined when calling updateJobProperty.');
         }
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
 
@@ -710,9 +710,9 @@ export class UploadService {
         let requestOptions = new HttpRequest(
             'PUT',
             path,
+            null,
             {
                 headers: headers,
-                search: queryParameters,
                 withCredentials: this.configuration.withCredentials
             });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -731,28 +731,28 @@ export class UploadService {
         * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
         * @param body 
         */
-    public uploadFileWithHttpInfo(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<Response> {
+    public uploadFileWithHttpInfo(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<any> {
         const path = this.basePath + '/resources/upload';
 
         let queryParameters = new URLSearchParams();
         let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
         if (md5 !== undefined && md5 !== null) {
-            headers.set('md5', String(md5));
+            headers = headers.set('md5', String(md5));
         }
 
         if (name !== undefined && name !== null) {
-            headers.set('name', String(name));
+            headers = headers.set('name', String(name));
         }
         if (chunkMd5 !== undefined && chunkMd5 !== null) {
-            headers.set('chunkMd5', String(chunkMd5));
+            headers = headers.set('chunkMd5', String(chunkMd5));
         }
         if (lastChunk !== undefined && lastChunk !== null) {
-            headers.set('lastChunk', String(lastChunk));
+            headers = headers.set('lastChunk', String(lastChunk));
         }
 
 
@@ -762,15 +762,21 @@ export class UploadService {
         ];
 
 
-        headers.set('Content-Type', 'application/octet-stream');
-
+        let httpHeaderAccepts: string[] = [
+            'application/octet-stream'
+        ];
+        // const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        // if (httpHeaderAcceptSelected != undefined) {
+        //     headers = headers.set('Accept', httpHeaderAcceptSelected);
+        // }
+        headers = headers.set('Accept', ' application/json');
+        headers = headers.set('Content-Type', 'application/octet-stream');
         let requestOptions = new HttpRequest(
             'POST',
             path,
+            blob,
             {
-                headers: headers,
-                body: blob, // https://github.com/angular/angular/issues/10612
-                search: queryParameters,
+                headers,
                 withCredentials: this.configuration.withCredentials
             });
         // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -778,7 +784,7 @@ export class UploadService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions);
     }
 
 
@@ -794,7 +800,7 @@ export class UploadService {
         let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
 
@@ -808,7 +814,7 @@ export class UploadService {
             'GET',
             path,
             {
-                headers: headers,
+                headers,
                 search: queryParameters,
                 withCredentials: this.configuration.withCredentials
             });
