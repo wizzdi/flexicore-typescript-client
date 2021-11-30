@@ -210,3 +210,5 @@ export * from './basicPropertiesFilter';
 export * from './dateFilter';
 export * from './presetFilter';
 export * from './paginationFilter';
+export * from './securityTenant';
+export * from './securityTenantsFiltering';
