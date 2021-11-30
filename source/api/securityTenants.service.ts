@@ -18,7 +18,9 @@ import { Observable } from 'rxjs/Observable';
 import { BASE_PATH } from '../variables';
 import { Configuration } from '../configuration';
 import { PaginationResponse } from '../model/models';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import {
+    HttpClient, HttpHeaders, HttpResponse, HttpEvent
+} from '@angular/common/http';
 import { SecurityTenants } from '../model/securityTenant';
 import { SecurityTenantsFiltering } from '../model/securityTenantsFiltering';
 
@@ -26,9 +28,9 @@ import { SecurityTenantsFiltering } from '../model/securityTenantsFiltering';
 @Injectable()
 export class SecurityTenantsService {
 
-    protected basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
+    protected basePath = 'https://169.254.121.191:8080/FlexiCore/rest';
     public defaultHeaders = new HttpHeaders();
-    public configuration: Configuration = new Configuration();
+    public configuration = new Configuration();
 
     constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
@@ -41,58 +43,49 @@ export class SecurityTenantsService {
     }
 
     /**
-       * 
-       * @param apiKey 
-       * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-       */
-    public getAllSecurityTenants(authenticationkey?: string, body?: SecurityTenantsFiltering, extraHttpRequestParams?: any): Observable<PaginationResponse<SecurityTenants>> {
-        return this.getAllSecurityTenantsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            });
-    }
+     * getAll
+     * lists all Invokers
+     * @param authenticationKey The AuthenticationKey retrieved when sign-in into the system
+     * @param body 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAllSecurityTenants(authenticationKey?: string, body?: SecurityTenantsFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<SecurityTenants>>;
+    public getAllSecurityTenants(authenticationKey?: string, body?: SecurityTenantsFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<SecurityTenants>>>;
+    public getAllSecurityTenants(authenticationKey?: string, body?: SecurityTenantsFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<SecurityTenants>>>;
+    public getAllSecurityTenants(authenticationKey?: string, body?: SecurityTenantsFiltering, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
-
-    /**
-      * 
-      * 
-      * @param apiKey 
-      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-      */
-    public getAllSecurityTenantsWithHttpInfo(authenticationkey?: string, body?: SecurityTenantsFiltering, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/securityTenant/getAll';
-
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
-
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+        let headers = this.defaultHeaders;
+        if (authenticationKey !== undefined && authenticationKey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationKey));
         }
 
-        headers.set('Content-Type', 'application/json');
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
 
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
 
-        let requestOptions = new HttpRequest(
-            'POST',
-            path,
+        return this.httpClient.post<PaginationResponse<SecurityTenants>>(`${this.basePath}//securityTenant/getAll`,
+            body,
             {
+                withCredentials: this.configuration.withCredentials,
                 headers: headers,
-                body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-
-                search: queryParameters,
-                withCredentials: this.configuration.withCredentials
-            });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        ).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
 }
