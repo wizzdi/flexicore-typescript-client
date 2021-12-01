@@ -46,7 +46,7 @@ import { View } from '../model/view';
 
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 
 
 @Injectable()
@@ -7739,6 +7739,43 @@ export class CoreService {
         }
 
         return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+    }
+
+    public getFileResourceByMD5(md5: string, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<FileResource>;
+    public getFileResourceByMD5(md5: string, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileResource>>;
+    public getFileResourceByMD5(md5: string, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileResource>>;
+    public getFileResourceByMD5(md5: string, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+
+        let headers = this.defaultHeaders;
+        if (authenticationKey !== undefined && authenticationKey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationKey));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.get<FileResource>(`${this.basePath}/resources/${md5}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        ).map(o => FlexiCoreDecycle.retrocycle(o));
     }
 
 }
