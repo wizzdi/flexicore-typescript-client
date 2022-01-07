@@ -13,4 +13,7 @@
 
 export interface ExecutionParametersHolder { 
     id?: string;
+    currentPage?: number;
+    pageSize?: number;
+    type?: string;
 }
