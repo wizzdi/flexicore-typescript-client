@@ -2402,13 +2402,10 @@ export class BaseclassesService {
         return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
     }
 
-    public genericSoftDelete(body?: BasicDelete, authenticationKey?: string): Observable<BasicDeleteResponse> {
-        let preparedBody = {
-            entries: [body]
-        };
+    public genericSoftDelete(body?: BasicDelete, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<BasicDeleteResponse> {
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers.set('authenticationKey', String(authenticationKey));
+            headers = headers.set('authenticationKey', String(authenticationKey));
         }
 
         // to determine the Accept header
@@ -2417,28 +2414,29 @@ export class BaseclassesService {
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
-            headers.set('Accept', httpHeaderAcceptSelected);
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
         // to determine the Content-Type header
         const consumes: string[] = [
             'application/json'
         ];
-
-        let requestOptions = new HttpRequest(
-            'PUT',
-            `${this.basePath}/generic/softDelete`,
-            {
-                headers: headers,
-                body: body == null ? '' : JSON.stringify(preparedBody), // https://github.com/angular/angular/issues/10612
-                withCredentials: this.configuration.withCredentials
-            });
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected != undefined) {
-            headers.set('Content-Type', httpContentTypeSelected);
+            headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
+        const requestOptions = {
+            headers,
+            body,
+            withCredentials: this.configuration.withCredentials,
+            observe: observe,
+            reportProgress: reportProgress
+        }
+
+        return this.httpClient.delete(`${this.basePath}/generic/softDelete`,
+        requestOptions
+        ).map(o=>FlexiCoreDecycle.retrocycle(o));
     }
 
 }
