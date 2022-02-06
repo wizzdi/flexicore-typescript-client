@@ -16,7 +16,9 @@ import {
   HttpClient, HttpHeaders, HttpResponse, HttpEvent
 } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 import { PaginationResponse } from '../model/paginationResponse';
 
@@ -92,7 +94,7 @@ export class DynamicExecutionControllerService {
         observe: observe,
         reportProgress: reportProgress
       }
-    ).map(o => FlexiCoreDecycle.retrocycle(o));
+    ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
   }
 
   /**
@@ -138,7 +140,7 @@ export class DynamicExecutionControllerService {
         observe: observe,
         reportProgress: reportProgress
       }
-    ).map(o => FlexiCoreDecycle.retrocycle(o));
+    ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
   }
 
   public getAllDynamicExecutions(authenticationKey?: string, body?: DynamicExecutionFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<DynamicExecution>>;
@@ -176,7 +178,7 @@ export class DynamicExecutionControllerService {
         observe: observe,
         reportProgress: reportProgress
       }
-    ).map(o => FlexiCoreDecycle.retrocycle(o));
+    ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
   }
 
   public getDynamicExecutionReturnExample(authenticationKey?: string, body?: DynamicExecutionExampleRequest, observe?: 'body', reportProgress?: boolean): Observable<any>;
@@ -214,7 +216,7 @@ export class DynamicExecutionControllerService {
         observe: observe,
         reportProgress: reportProgress
       }
-    ).map(o => FlexiCoreDecycle.retrocycle(o));
+    ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
   }
 
   public updateDynamicExecution(authenticationKey?: string, body?: UpdateDynamicExecution, observe?: 'body', reportProgress?: boolean): Observable<DynamicExecution>;
@@ -252,7 +254,7 @@ export class DynamicExecutionControllerService {
         observe: observe,
         reportProgress: reportProgress
       }
-    ).map(o => FlexiCoreDecycle.retrocycle(o));
+    ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
   }
 
 }

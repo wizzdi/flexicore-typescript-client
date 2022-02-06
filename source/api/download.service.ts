@@ -15,7 +15,9 @@ import { Inject, Injectable, Optional }                      from '@angular/core
 import { HttpClient, HttpHeaders, HttpParams,
          HttpResponse, HttpEvent }                           from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+import { Observable }                                      from 'rxjs';
+
 
 
 
@@ -24,7 +26,6 @@ import { Configuration }                                     from '../configurat
 
 import { FlexiCoreDecycle } from './api';
 import { ZipAndDownloadRequest } from '../model/zipAndDownloadRequest';
-import { Body } from '@angular/http/src/body';
 
 
 @Injectable()

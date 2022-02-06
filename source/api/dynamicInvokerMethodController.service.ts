@@ -16,7 +16,8 @@ import {
   HttpClient, HttpHeaders, HttpResponse, HttpEvent
 } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { PaginationResponse } from '../model/paginationResponse';
 
@@ -93,7 +94,7 @@ export class DynamicInvokerMethodControllerService {
         observe: observe,
         reportProgress: reportProgress
       }
-    ).map(o => FlexiCoreDecycle.retrocycle(o));
+    ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
   }
 
 }

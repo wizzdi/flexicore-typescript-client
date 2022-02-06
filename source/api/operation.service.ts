@@ -15,7 +15,9 @@ import { Inject, Injectable, Optional }                      from '@angular/core
 import { HttpClient, HttpHeaders, HttpParams,
          HttpResponse, HttpEvent }                           from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+import { Observable }                                      from 'rxjs';
+
 
 import { PaginationResponse } from '../model/paginationResponse';
 
@@ -103,7 +105,7 @@ export class OperationService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -152,6 +154,6 @@ export class OperationService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 }

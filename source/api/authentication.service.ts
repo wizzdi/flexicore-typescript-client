@@ -14,8 +14,8 @@
 
 import {Inject, Injectable, Optional} from '@angular/core';
 import {FlexiCoreDecycle} from './flexiCoreDecycle';
-import {Observable} from 'rxjs/Observable';
-import "rxjs/add/operator/map";
+import {Observable} from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import {AuthenticationBundle} from '../model/authenticationBundle';
 import {AuthenticationRequestHolder} from '../model/authenticationRequestHolder';
@@ -81,13 +81,13 @@ export class AuthenticationService {
      */
     public login(authenticationkey?: string, body?: AuthenticationRequestHolder, extraHttpRequestParams?: any): Observable<AuthenticationBundle> {
         return this.loginWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return  FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -97,13 +97,13 @@ export class AuthenticationService {
      */
     public logout(authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.logoutWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return  FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -115,13 +115,13 @@ export class AuthenticationService {
      */
     public signin(authenticationkey?: string, loginuponsuccess?: boolean, body?: NewUserUserClass, extraHttpRequestParams?: any): Observable<{}> {
         return this.signinWithHttpInfo(authenticationkey, loginuponsuccess, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return  FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -162,7 +162,7 @@ export class AuthenticationService {
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -199,7 +199,7 @@ export class AuthenticationService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -244,7 +244,7 @@ export class AuthenticationService {
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
 }

@@ -15,7 +15,9 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { FlexiCoreDecycle } from './flexiCoreDecycle';
 import { HttpClient, HttpHeaders, HttpResponse, HttpEvent } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 import { UIComponent } from '../model/uIComponent';
 import { UIComponentsRegistrationContainer } from '../model/uIComponentsRegistrationContainer';
@@ -112,6 +114,6 @@ export class UIComponentService {
 				observe: observe,
 				reportProgress: reportProgress
 			}
-		).map(o => FlexiCoreDecycle.retrocycle(o));
+		).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
 	}
 }

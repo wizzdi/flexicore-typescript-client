@@ -16,7 +16,8 @@ import {
   HttpClient, HttpHeaders, HttpResponse, HttpEvent
 } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { PaginationResponse } from '../model/paginationResponse';
 
@@ -94,7 +95,7 @@ export class DynamicInvokersControllerService {
         observe: observe,
         reportProgress: reportProgress
       }
-    ).map(o => FlexiCoreDecycle.retrocycle(o));
+    ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
   }
 
   /**
@@ -140,7 +141,7 @@ export class DynamicInvokersControllerService {
         observe: observe,
         reportProgress: reportProgress
       }
-    ).map(o => FlexiCoreDecycle.retrocycle(o));
+    ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
   }
 
   public getAllInvokerHolders(authenticationKey?: string, body?: DynamicInvokerFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<InvokerInfo>>;
@@ -178,7 +179,7 @@ export class DynamicInvokersControllerService {
         observe: observe,
         reportProgress: reportProgress
       }
-    ).map(o => FlexiCoreDecycle.retrocycle(o));
+    ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
   }
 
 }

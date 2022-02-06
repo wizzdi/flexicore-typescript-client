@@ -14,7 +14,8 @@
 
 import { Inject, Injectable, Optional } from '@angular/core';
 import { FlexiCoreDecycle } from './flexiCoreDecycle';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { BASE_PATH } from '../variables';
 import { Configuration } from '../configuration';
@@ -86,7 +87,7 @@ export class PasswordSecurityPolicyService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o => FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -131,7 +132,7 @@ export class PasswordSecurityPolicyService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o => FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -176,6 +177,6 @@ export class PasswordSecurityPolicyService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o => FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 }

@@ -13,7 +13,9 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional }                      from '@angular/core';
-import { Observable }                                        from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+import { Observable }                                      from 'rxjs';
+
 
 import { Clazz } from '../model/clazz';
 import { ClazzLinkContainer } from '../model/clazzLinkContainer';
@@ -79,13 +81,13 @@ export class ClazzService {
      */
     public getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<any> {
         return this.getAllOperationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return response.json() || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -96,13 +98,13 @@ export class ClazzService {
      */
     public getAssociations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<any> {
         return this.getAssociationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return response.json() || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -113,13 +115,13 @@ export class ClazzService {
      */
     public getClazz(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Clazz> {
         return this.getClazzWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return response.json() || {};
                 }
-            });
+            }));
     }
 
 
@@ -166,7 +168,7 @@ export class ClazzService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -210,7 +212,7 @@ export class ClazzService {
         if (extraHttpRequestParams) {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -255,7 +257,7 @@ export class ClazzService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -299,7 +301,7 @@ export class ClazzService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o=>FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
 }

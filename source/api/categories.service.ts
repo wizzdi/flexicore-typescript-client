@@ -15,7 +15,9 @@
 import { Inject, Injectable, Optional }                      from '@angular/core';
 import { FlexiCoreDecycle }                      from './flexiCoreDecycle';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+import { Observable }                                      from 'rxjs';
+
 
 import { Baseclass } from '../model/baseclass';
 import { Category } from '../model/category';
@@ -80,13 +82,13 @@ export class CategoriesService {
      */
     public connectCategory(baseId: string, authenticationkey?: string, catId?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.connectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return  FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -97,13 +99,13 @@ export class CategoriesService {
      */
     public createCategory(categoryName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Category> {
         return this.createCategoryWithHttpInfo(categoryName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return  FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -115,13 +117,13 @@ export class CategoriesService {
      */
     public disableCategory(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.disableCategoryWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return  FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -133,13 +135,13 @@ export class CategoriesService {
      */
     public disconnectCategory(baseId: string, authenticationkey?: string, catId?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.disconnectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return  FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -151,13 +153,13 @@ export class CategoriesService {
      */
     public enableCategory(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.enableCategoryWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return  FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -169,13 +171,13 @@ export class CategoriesService {
      */
     public getAllCategories(authenticationkey?: string, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Category>> {
         return this.getAllCategoriesWithHttpInfo(authenticationkey, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return  FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -186,13 +188,13 @@ export class CategoriesService {
      */
     public getAllCategoriesConnected(baseId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
         return this.getAllCategoriesConnectedWithHttpInfo(baseId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return  FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -203,13 +205,13 @@ export class CategoriesService {
      */
     public getCategory(className: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Category>> {
         return this.getCategoryWithHttpInfo(className, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return  FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -220,13 +222,13 @@ export class CategoriesService {
      */
     public getCategoryByName(name: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Category>> {
         return this.getCategoryByNameWithHttpInfo(name, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return  FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -266,7 +268,7 @@ export class CategoriesService {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
             search: queryParameters,
-        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        }).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
         // return this.http.request(path, requestOptions);
     }
 
@@ -304,7 +306,7 @@ export class CategoriesService {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
             search: queryParameters,
-        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        }).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
         
         // return this.http.request(path, requestOptions);
     }
@@ -344,7 +346,7 @@ export class CategoriesService {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
             search: queryParameters,
-        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        }).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
         // return this.http.request(path, requestOptions);
     }
 
@@ -384,7 +386,7 @@ export class CategoriesService {
         return this.httpClient.delete(path, {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
-        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        }).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
         // return this.http.request(path, requestOptions);
     }
 
@@ -422,7 +424,7 @@ export class CategoriesService {
         return this.httpClient.put(path, {}, {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
-        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        }).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
 
         // return this.http.request(path, requestOptions);
     }
@@ -462,7 +464,7 @@ export class CategoriesService {
         return this.httpClient.get(path, {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
-        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        }).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
 
         // return this.http.request(path, requestOptions);
     }
@@ -498,7 +500,7 @@ export class CategoriesService {
         return this.httpClient.get(path, {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
-        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        }).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
         // return this.http.request(path, requestOptions);
     }
 
@@ -533,7 +535,7 @@ export class CategoriesService {
         return this.httpClient.get(path, {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
-        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        }).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
         // return this.http.request(path, requestOptions);
     }
 
@@ -568,7 +570,7 @@ export class CategoriesService {
         return this.httpClient.get(path, {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
-        }).map(o=>FlexiCoreDecycle.retrocycle(o));
+        }).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
         // return this.http.request(path, requestOptions);
     }
 

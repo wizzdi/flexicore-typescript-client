@@ -5,7 +5,7 @@ import { Upload } from '../model/upload';
 import { UploadService } from './upload.service';
 import { FileResource } from '../model/fileResource';
 import { Observable } from 'rxjs';
-import { defer } from 'rxjs/observable/defer';
+import { defer } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
