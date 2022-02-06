@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FlexiCoreDecycle = void 0;
-class FlexiCoreDecycle {
+export class FlexiCoreDecycle {
     static findReferences(obj, catalog) {
         // The catalogObject function walks recursively through an object graph
         // looking for $id properties. When it finds an object with that property, then
@@ -172,5 +169,4 @@ class FlexiCoreDecycle {
         return FlexiCoreDecycle.resolveReferences(obj, catalog);
     }
 }
-exports.FlexiCoreDecycle = FlexiCoreDecycle;
 //# sourceMappingURL=flexiCoreDecycle.js.map

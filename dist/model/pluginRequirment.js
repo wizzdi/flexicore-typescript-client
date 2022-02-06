@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -10,9 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PluginRequirment = void 0;
-var PluginRequirment;
+export var PluginRequirment;
 (function (PluginRequirment) {
     let RestrictionEnum;
     (function (RestrictionEnum) {
@@ -20,5 +17,5 @@ var PluginRequirment;
         RestrictionEnum[RestrictionEnum["LessThanOrEqual"] = 'LessThanOrEqual'] = "LessThanOrEqual";
         RestrictionEnum[RestrictionEnum["GreaterThanOrEqual"] = 'GreaterThanOrEqual'] = "GreaterThanOrEqual";
     })(RestrictionEnum = PluginRequirment.RestrictionEnum || (PluginRequirment.RestrictionEnum = {}));
-})(PluginRequirment = exports.PluginRequirment || (exports.PluginRequirment = {}));
+})(PluginRequirment || (PluginRequirment = {}));
 //# sourceMappingURL=pluginRequirment.js.map

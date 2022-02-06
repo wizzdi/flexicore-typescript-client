@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -19,21 +18,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CoreService = void 0;
 /* tslint:disable:no-unused-variable member-ordering */
-const core_1 = require("@angular/core");
-const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
-const operators_1 = require("rxjs/operators");
-const variables_1 = require("../variables");
-const configuration_1 = require("../configuration");
-const http_1 = require("@angular/common/http");
+import { Inject, Injectable, Optional } from '@angular/core';
+import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { map } from 'rxjs/operators';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
+import { HttpHeaders, HttpRequest } from '@angular/common/http';
 let CoreService = class CoreService {
     constructor(httpClient, basePath, configuration) {
         this.httpClient = httpClient;
         this.basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-        this.defaultHeaders = new http_1.HttpHeaders();
-        this.configuration = new configuration_1.Configuration();
+        this.defaultHeaders = new HttpHeaders();
+        this.configuration = new Configuration();
         if (basePath) {
             this.basePath = basePath;
         }
@@ -77,12 +74,12 @@ let CoreService = class CoreService {
      */
     addUserToRole(roleId, userId, authenticationkey, extraHttpRequestParams) {
         return this.addUserToRoleWithHttpInfo(roleId, userId, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -94,12 +91,12 @@ let CoreService = class CoreService {
      */
     attachCertificate(id, crtId, authenticationkey, extraHttpRequestParams) {
         return this.attachCertificateWithHttpInfo(id, crtId, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -110,12 +107,12 @@ let CoreService = class CoreService {
      */
     attachTenant(authenticationkey, body, extraHttpRequestParams) {
         return this.attachTenantWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -124,12 +121,12 @@ let CoreService = class CoreService {
      */
     checkDBAvailable(extraHttpRequestParams) {
         return this.checkDBAvailableWithHttpInfo(extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -142,12 +139,12 @@ let CoreService = class CoreService {
      */
     connectCategory(baseId, authenticationkey, catId, extraHttpRequestParams) {
         return this.connectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -158,12 +155,12 @@ let CoreService = class CoreService {
      */
     connectToTenant(authenticationkey, body, extraHttpRequestParams) {
         return this.connectToTenantWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -175,12 +172,12 @@ let CoreService = class CoreService {
      */
     count(type, authenticationkey, body, extraHttpRequestParams) {
         return this.countWithHttpInfo(type, authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -193,12 +190,12 @@ let CoreService = class CoreService {
      */
     countAllofType(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.countAllofTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -214,12 +211,12 @@ let CoreService = class CoreService {
      */
     countConnected(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams) {
         return this.countConnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -235,12 +232,12 @@ let CoreService = class CoreService {
      */
     countDisconnected(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams) {
         return this.countDisconnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -257,12 +254,12 @@ let CoreService = class CoreService {
      */
     createBaselink(leftId, rightId, linkClazzName, authenticationkey, value, simpleValue, check, extraHttpRequestParams) {
         return this.createBaselinkWithHttpInfo(leftId, rightId, linkClazzName, authenticationkey, value, simpleValue, check, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -274,12 +271,12 @@ let CoreService = class CoreService {
      */
     createCategory(categoryName, authenticationkey, extraHttpRequestParams) {
         return this.createCategoryWithHttpInfo(categoryName, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -290,12 +287,12 @@ let CoreService = class CoreService {
      */
     createRole(authenticationkey, body, extraHttpRequestParams) {
         return this.createRoleWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -308,12 +305,12 @@ let CoreService = class CoreService {
      */
     createTenant(tenantName, apiKey, authenticationkey, body, extraHttpRequestParams) {
         return this.createTenantWithHttpInfo(tenantName, apiKey, authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -325,12 +322,12 @@ let CoreService = class CoreService {
      */
     createTenantNoUser(tenantName, apiKey, authenticationkey, extraHttpRequestParams) {
         return this.createTenantNoUserWithHttpInfo(tenantName, apiKey, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -342,12 +339,12 @@ let CoreService = class CoreService {
      */
     createUser(authenticationkey, loginuponsuccess, body, extraHttpRequestParams) {
         return this.createUserWithHttpInfo(authenticationkey, loginuponsuccess, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -359,12 +356,12 @@ let CoreService = class CoreService {
      */
     deleteById(id, authenticationkey, extraHttpRequestParams) {
         return this.deleteByIdWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -377,12 +374,12 @@ let CoreService = class CoreService {
      */
     deleteById_2(id, className, authenticationkey, extraHttpRequestParams) {
         return this.deleteById_2WithHttpInfo(id, className, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -393,12 +390,12 @@ let CoreService = class CoreService {
      */
     deleteFileResource(md5, authenticationkey, extraHttpRequestParams) {
         return this.deleteFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -410,12 +407,12 @@ let CoreService = class CoreService {
      */
     deleteHeapDump(id, authenticationkey, extraHttpRequestParams) {
         return this.deleteHeapDumpWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -426,12 +423,12 @@ let CoreService = class CoreService {
      */
     deleteMedia(id, authenticationkey, extraHttpRequestParams) {
         return this.deleteMediaWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -445,12 +442,12 @@ let CoreService = class CoreService {
      */
     detachEntities(leftId, rightId, linkClazzName, authenticationkey, extraHttpRequestParams) {
         return this.detachEntitiesWithHttpInfo(leftId, rightId, linkClazzName, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -463,12 +460,12 @@ let CoreService = class CoreService {
      */
     disableCategory(className, authenticationkey, body, extraHttpRequestParams) {
         return this.disableCategoryWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -481,12 +478,12 @@ let CoreService = class CoreService {
      */
     disconnectCategory(baseId, authenticationkey, catId, extraHttpRequestParams) {
         return this.disconnectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -497,12 +494,12 @@ let CoreService = class CoreService {
      */
     download(authenticationkey, id, extraHttpRequestParams) {
         return this.downloadWithHttpInfo(authenticationkey, id, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -514,12 +511,12 @@ let CoreService = class CoreService {
      */
     duplicate(id, authenticationkey, extraHttpRequestParams) {
         return this.duplicateWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -532,12 +529,12 @@ let CoreService = class CoreService {
      */
     enableCategory(className, authenticationkey, body, extraHttpRequestParams) {
         return this.enableCategoryWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -549,12 +546,12 @@ let CoreService = class CoreService {
      */
     exportBaseclass(id, authenticationkey, extraHttpRequestParams) {
         return this.exportBaseclassWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -567,12 +564,12 @@ let CoreService = class CoreService {
      */
     fileResourcesOfType(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.fileResourcesOfTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -587,12 +584,12 @@ let CoreService = class CoreService {
      */
     finalizeUpload(md5, authenticationkey, hint, fileType, dontProcess, extraHttpRequestParams) {
         return this.finalizeUploadWithHttpInfo(md5, authenticationkey, hint, fileType, dontProcess, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -605,12 +602,12 @@ let CoreService = class CoreService {
      */
     findById(id, classname, authenticationkey, extraHttpRequestParams) {
         return this.findByIdWithHttpInfo(id, classname, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -622,12 +619,12 @@ let CoreService = class CoreService {
      */
     findById_3(ID, authenticationkey, extraHttpRequestParams) {
         return this.findById_3WithHttpInfo(ID, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -638,12 +635,12 @@ let CoreService = class CoreService {
      */
     findById_4(id, authenticationkey, extraHttpRequestParams) {
         return this.findById_4WithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -656,12 +653,12 @@ let CoreService = class CoreService {
      */
     findByName(name, classname, authenticationkey, extraHttpRequestParams) {
         return this.findByNameWithHttpInfo(name, classname, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -676,12 +673,12 @@ let CoreService = class CoreService {
      */
     findBySidesId(left, right, classname, authenticationkey, value, simpleValue, extraHttpRequestParams) {
         return this.findBySidesIdWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -699,12 +696,12 @@ let CoreService = class CoreService {
      */
     findLinks(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.findLinksWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -722,12 +719,12 @@ let CoreService = class CoreService {
      */
     findLinksContainers(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.findLinksContainersWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -745,12 +742,12 @@ let CoreService = class CoreService {
      */
     findLinksValues(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.findLinksValuesWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -762,12 +759,12 @@ let CoreService = class CoreService {
      */
     generateClient(clientType, authenticationkey, view, extraHttpRequestParams) {
         return this.generateClientWithHttpInfo(clientType, authenticationkey, view, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -780,12 +777,12 @@ let CoreService = class CoreService {
      */
     getAllCategories(authenticationkey, pagesize, currentpage, extraHttpRequestParams) {
         return this.getAllCategoriesWithHttpInfo(authenticationkey, pagesize, currentpage, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -797,12 +794,12 @@ let CoreService = class CoreService {
      */
     getAllCategoriesConnected(baseId, authenticationkey, extraHttpRequestParams) {
         return this.getAllCategoriesConnectedWithHttpInfo(baseId, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -812,12 +809,12 @@ let CoreService = class CoreService {
      */
     getAllFileTypes(authenticationkey, extraHttpRequestParams) {
         return this.getAllFileTypesWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -829,12 +826,12 @@ let CoreService = class CoreService {
      */
     getAllOperations(clazzName, authenticationkey, extraHttpRequestParams) {
         return this.getAllOperationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -846,12 +843,12 @@ let CoreService = class CoreService {
      */
     getAssociations(clazzName, authenticationkey, extraHttpRequestParams) {
         return this.getAssociationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -863,12 +860,12 @@ let CoreService = class CoreService {
      */
     getCategory(className, authenticationkey, extraHttpRequestParams) {
         return this.getCategoryWithHttpInfo(className, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -880,12 +877,12 @@ let CoreService = class CoreService {
      */
     getCategoryByName(name, authenticationkey, extraHttpRequestParams) {
         return this.getCategoryByNameWithHttpInfo(name, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -897,12 +894,12 @@ let CoreService = class CoreService {
      */
     getClazz(clazzName, authenticationkey, extraHttpRequestParams) {
         return this.getClazzWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -912,12 +909,12 @@ let CoreService = class CoreService {
      */
     getClients(authenticationkey, extraHttpRequestParams) {
         return this.getClientsWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -933,12 +930,12 @@ let CoreService = class CoreService {
      */
     getConnected(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams) {
         return this.getConnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -954,12 +951,12 @@ let CoreService = class CoreService {
      */
     getDisconnected(id, wantedClazzName, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams) {
         return this.getDisconnectedWithHttpInfo(id, wantedClazzName, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -972,12 +969,12 @@ let CoreService = class CoreService {
      */
     getFeatures(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.getFeaturesWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -988,12 +985,12 @@ let CoreService = class CoreService {
      */
     getFileResource(md5, authenticationkey, extraHttpRequestParams) {
         return this.getFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1004,12 +1001,12 @@ let CoreService = class CoreService {
      */
     getJob(jobID, authenticationkey, extraHttpRequestParams) {
         return this.getJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1020,12 +1017,12 @@ let CoreService = class CoreService {
      */
     getSwaggerJSON(authenticationkey, view, extraHttpRequestParams) {
         return this.getSwaggerJSONWithHttpInfo(authenticationkey, view, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1036,12 +1033,12 @@ let CoreService = class CoreService {
      */
     getTenant(apiKey, authenticationkey, extraHttpRequestParams) {
         return this.getTenantWithHttpInfo(apiKey, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1054,12 +1051,12 @@ let CoreService = class CoreService {
      */
     getTenants(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.getTenantsWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1072,12 +1069,12 @@ let CoreService = class CoreService {
      */
     importBaseclass(className, authenticationkey, body, extraHttpRequestParams) {
         return this.importBaseclassWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1087,12 +1084,12 @@ let CoreService = class CoreService {
      */
     invalidateCache(authenticationkey, extraHttpRequestParams) {
         return this.invalidateCacheWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1105,12 +1102,12 @@ let CoreService = class CoreService {
      */
     linkBaseclassTouser(leftId, rightId, operationId, authenticationkey, extraHttpRequestParams) {
         return this.linkBaseclassTouserWithHttpInfo(leftId, rightId, operationId, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1122,12 +1119,12 @@ let CoreService = class CoreService {
      */
     linkroleuser(authenticationkey, body, extraHttpRequestParams) {
         return this.linkroleuserWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1137,12 +1134,12 @@ let CoreService = class CoreService {
      */
     listAllLoadedPlugins(authenticationkey, extraHttpRequestParams) {
         return this.listAllLoadedPluginsWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1155,12 +1152,12 @@ let CoreService = class CoreService {
      */
     listAllRoles(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.listAllRolesWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1171,12 +1168,12 @@ let CoreService = class CoreService {
      */
     listAllUserRoles(id, authenticationkey, extraHttpRequestParams) {
         return this.listAllUserRolesWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1189,12 +1186,12 @@ let CoreService = class CoreService {
      */
     listAllUsers(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.listAllUsersWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1208,12 +1205,12 @@ let CoreService = class CoreService {
      */
     listLicenseRequest(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams) {
         return this.listLicenseRequestWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1224,12 +1221,12 @@ let CoreService = class CoreService {
      */
     lookupUserByEmail(email, authenticationkey, extraHttpRequestParams) {
         return this.lookupUserByEmailWithHttpInfo(email, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1240,12 +1237,12 @@ let CoreService = class CoreService {
      */
     lookupUserById(id, authenticationkey, extraHttpRequestParams) {
         return this.lookupUserByIdWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1256,12 +1253,12 @@ let CoreService = class CoreService {
      */
     multipleCreate(authenticationkey, number, extraHttpRequestParams) {
         return this.multipleCreateWithHttpInfo(authenticationkey, number, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1276,12 +1273,12 @@ let CoreService = class CoreService {
      */
     nameLike(classname, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.nameLikeWithHttpInfo(classname, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1290,12 +1287,12 @@ let CoreService = class CoreService {
      */
     ping(extraHttpRequestParams) {
         return this.pingWithHttpInfo(extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1307,12 +1304,12 @@ let CoreService = class CoreService {
      */
     registerAndGetAllowedUIComponents(authenticationkey, body, extraHttpRequestParams) {
         return this.registerAndGetAllowedUIComponentsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1324,12 +1321,12 @@ let CoreService = class CoreService {
      */
     registerFile(authenticationkey, path, calcMd5, extraHttpRequestParams) {
         return this.registerFileWithHttpInfo(authenticationkey, path, calcMd5, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1344,12 +1341,12 @@ let CoreService = class CoreService {
      */
     registerFileAndFinlize(authenticationkey, path, hint, fileType, dontProcess, calcMd5, extraHttpRequestParams) {
         return this.registerFileAndFinlizeWithHttpInfo(authenticationkey, path, hint, fileType, dontProcess, calcMd5, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1359,12 +1356,12 @@ let CoreService = class CoreService {
      */
     restart(authenticationkey, extraHttpRequestParams) {
         return this.restartWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1376,12 +1373,12 @@ let CoreService = class CoreService {
      */
     softDelete(id, authenticationkey, extraHttpRequestParams) {
         return this.softDeleteWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1392,12 +1389,12 @@ let CoreService = class CoreService {
      */
     stopJob(jobID, authenticationkey, extraHttpRequestParams) {
         return this.stopJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1407,12 +1404,12 @@ let CoreService = class CoreService {
      */
     testUpdate(authenticationkey, extraHttpRequestParams) {
         return this.testUpdateWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1424,12 +1421,12 @@ let CoreService = class CoreService {
      */
     updateBasicDetails(authenticationkey, body, extraHttpRequestParams) {
         return this.updateBasicDetailsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1441,12 +1438,12 @@ let CoreService = class CoreService {
      */
     updateJobPhase(jobID, phaseName, authenticationkey, extraHttpRequestParams) {
         return this.updateJobPhaseWithHttpInfo(jobID, phaseName, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1459,12 +1456,12 @@ let CoreService = class CoreService {
      */
     updateJobProperty(jobID, key, value, authenticationkey, extraHttpRequestParams) {
         return this.updateJobPropertyWithHttpInfo(jobID, key, value, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1474,12 +1471,12 @@ let CoreService = class CoreService {
      */
     validate(authenticationkey, extraHttpRequestParams) {
         return this.validateWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1511,7 +1508,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1520,7 +1517,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1550,7 +1547,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1559,7 +1556,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * attach file resource
@@ -1593,7 +1590,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1602,7 +1599,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1622,7 +1619,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1632,7 +1629,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1662,7 +1659,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1671,7 +1668,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1685,7 +1682,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1694,7 +1691,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Connect to Category
@@ -1722,7 +1719,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1731,7 +1728,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * connectDeviceToBaseclass
@@ -1765,7 +1762,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1774,7 +1771,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * connect Property
@@ -1810,7 +1807,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1819,7 +1816,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * connect Property
@@ -1853,7 +1850,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1862,7 +1859,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1882,7 +1879,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1892,7 +1889,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1918,7 +1915,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1928,7 +1925,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1956,7 +1953,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1966,7 +1963,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -2018,7 +2015,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -2028,7 +2025,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -2080,7 +2077,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -2090,7 +2087,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Create a link
@@ -2138,7 +2135,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2147,7 +2144,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Create a Category
@@ -2173,7 +2170,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2182,7 +2179,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * createDevice
@@ -2224,7 +2221,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2233,7 +2230,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * createHeapDump
@@ -2255,7 +2252,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2264,7 +2261,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * creates Property
@@ -2290,7 +2287,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2299,7 +2296,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * creates Property Type
@@ -2321,7 +2318,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2330,7 +2327,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -2350,7 +2347,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -2360,7 +2357,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -2392,7 +2389,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -2402,7 +2399,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -2432,7 +2429,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2441,7 +2438,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * createUIInterface
@@ -2465,7 +2462,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2474,7 +2471,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -2498,7 +2495,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -2508,7 +2505,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * deactivateAllLinks
@@ -2538,7 +2535,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2547,7 +2544,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * deactivateLink
@@ -2571,7 +2568,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2580,7 +2577,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * delete
@@ -2602,7 +2599,7 @@ let CoreService = class CoreService {
         }
         // to determine the Accept header
         let produces = [];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2611,7 +2608,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * delete
@@ -2639,7 +2636,7 @@ let CoreService = class CoreService {
         }
         // to determine the Accept header
         let produces = [];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2648,7 +2645,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -2670,7 +2667,7 @@ let CoreService = class CoreService {
         }
         // to determine the Accept header
         let produces = [];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2679,7 +2676,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * deleteHeapDump
@@ -2703,7 +2700,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2712,7 +2709,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -2736,7 +2733,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2745,7 +2742,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Remove a link
@@ -2781,7 +2778,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2790,7 +2787,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * device get settings
@@ -2814,7 +2811,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2823,7 +2820,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Disable Category on Class
@@ -2849,7 +2846,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -2859,7 +2856,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Disconnect from Category
@@ -2887,7 +2884,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2896,7 +2893,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -2920,7 +2917,7 @@ let CoreService = class CoreService {
         }
         // to determine the Accept header
         let produces = [];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2929,7 +2926,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * duplicate an entity, shallow by id
@@ -2953,7 +2950,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -2962,7 +2959,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Enable Category on Class
@@ -2988,7 +2985,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -2998,7 +2995,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * export baseclass
@@ -3022,7 +3019,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3031,7 +3028,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * export settings
@@ -3055,7 +3052,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3064,7 +3061,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -3092,7 +3089,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -3102,7 +3099,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * finalize
@@ -3138,7 +3135,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3147,7 +3144,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * find entity by id and class
@@ -3177,7 +3174,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3186,7 +3183,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Find an instance by ID
@@ -3210,7 +3207,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3219,7 +3216,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -3243,7 +3240,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3252,7 +3249,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Find an instance by its name
@@ -3282,7 +3279,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3291,7 +3288,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -3335,7 +3332,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3344,7 +3341,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -3398,7 +3395,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -3408,7 +3405,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -3462,7 +3459,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -3472,7 +3469,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -3526,7 +3523,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -3536,7 +3533,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -3564,7 +3561,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3573,7 +3570,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -3601,7 +3598,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3610,7 +3607,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Get a list of Categories  by name
@@ -3636,7 +3633,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3645,7 +3642,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * List Categories  by Instance
@@ -3669,7 +3666,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3678,7 +3675,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -3696,7 +3693,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3705,7 +3702,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Get all Operations
@@ -3729,7 +3726,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3738,7 +3735,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -3756,7 +3753,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3765,7 +3762,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Get a list of all associations
@@ -3789,7 +3786,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3798,7 +3795,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * List Categories  by Class
@@ -3822,7 +3819,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3831,7 +3828,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Get a list of Categories  by name
@@ -3855,7 +3852,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3864,7 +3861,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Get a Clazz instance from a canonical name
@@ -3888,7 +3885,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3897,7 +3894,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -3915,7 +3912,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -3924,7 +3921,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -3976,7 +3973,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -3986,7 +3983,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * getDeviceUsedProperties
@@ -4020,7 +4017,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -4030,7 +4027,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4082,7 +4079,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -4092,7 +4089,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4116,7 +4113,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4125,7 +4122,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * get Connected Properties
@@ -4157,7 +4154,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4166,7 +4163,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * get Connected Properties With Categories
@@ -4198,7 +4195,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4207,7 +4204,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4235,7 +4232,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -4245,7 +4242,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Get Field Containers per class
@@ -4269,7 +4266,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4278,7 +4275,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4302,7 +4299,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4311,7 +4308,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4335,7 +4332,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4344,7 +4341,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4368,7 +4365,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4377,7 +4374,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4401,7 +4398,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4410,7 +4407,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4434,7 +4431,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4443,7 +4440,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4471,7 +4468,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -4481,7 +4478,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4505,7 +4502,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4514,7 +4511,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * import baseclass
@@ -4538,7 +4535,7 @@ let CoreService = class CoreService {
         // to determine the Accept header
         let produces = [];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -4548,7 +4545,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4566,7 +4563,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4575,7 +4572,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4611,7 +4608,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4620,7 +4617,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Link Role and User
@@ -4640,7 +4637,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -4650,7 +4647,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4680,7 +4677,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4689,7 +4686,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * fileResourcesInMediaByGroup
@@ -4727,7 +4724,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -4737,7 +4734,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * get file resources
@@ -4771,7 +4768,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -4781,7 +4778,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4799,7 +4796,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4808,7 +4805,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4836,7 +4833,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -4846,7 +4843,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * lists all Settings
@@ -4874,7 +4871,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -4884,7 +4881,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * lists all Settings Metadata
@@ -4912,7 +4909,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -4922,7 +4919,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4946,7 +4943,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -4955,7 +4952,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -4983,7 +4980,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -4993,7 +4990,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -5021,7 +5018,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -5031,7 +5028,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * listDeviceSettingss
@@ -5055,7 +5052,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5064,7 +5061,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * listDeviceSettingsContainers
@@ -5088,7 +5085,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5097,7 +5094,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -5125,7 +5122,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -5135,7 +5132,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * listHeapDumps
@@ -5167,7 +5164,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -5177,7 +5174,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -5205,7 +5202,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -5215,7 +5212,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * listProperties
@@ -5243,7 +5240,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -5253,7 +5250,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * listPropertyTypes
@@ -5281,7 +5278,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -5291,7 +5288,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * lists Settings
@@ -5325,7 +5322,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -5335,7 +5332,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * listUIInterfaces
@@ -5363,7 +5360,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -5373,7 +5370,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * listUIPluginsByInterface
@@ -5405,7 +5402,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -5415,7 +5412,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -5439,7 +5436,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5448,7 +5445,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -5472,7 +5469,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5481,7 +5478,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -5503,7 +5500,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5512,7 +5509,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Find an instance by its name with wildcard
@@ -5546,7 +5543,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -5556,7 +5553,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -5570,7 +5567,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5579,7 +5576,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * registerAndGetAllowedUIComponents
@@ -5599,7 +5596,7 @@ let CoreService = class CoreService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -5609,7 +5606,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -5635,7 +5632,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5644,7 +5641,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -5682,7 +5679,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5691,7 +5688,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -5707,7 +5704,7 @@ let CoreService = class CoreService {
         }
         // to determine the Accept header
         let produces = [];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5716,7 +5713,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * setsActiveSettings
@@ -5746,7 +5743,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5755,7 +5752,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * setActiveSettingsAsDefault
@@ -5779,7 +5776,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5788,7 +5785,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * softDelete
@@ -5812,7 +5809,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5821,7 +5818,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -5845,7 +5842,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5854,7 +5851,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -5870,7 +5867,7 @@ let CoreService = class CoreService {
         }
         // to determine the Accept header
         let produces = [];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5879,7 +5876,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Update basic data
@@ -5897,7 +5894,7 @@ let CoreService = class CoreService {
         // to determine the Accept header
         let produces = [];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -5907,7 +5904,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -5937,7 +5934,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5946,7 +5943,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -5982,7 +5979,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -5991,7 +5988,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * update metadata property
@@ -6019,7 +6016,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -6028,7 +6025,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * updateSimple
@@ -6056,7 +6053,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -6065,7 +6062,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -6095,7 +6092,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -6104,7 +6101,7 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -6122,7 +6119,7 @@ let CoreService = class CoreService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -6131,14 +6128,14 @@ let CoreService = class CoreService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 };
 CoreService = __decorate([
-    (0, core_1.Injectable)(),
-    __param(1, (0, core_1.Optional)()),
-    __param(1, (0, core_1.Inject)(variables_1.BASE_PATH)),
-    __param(2, (0, core_1.Optional)())
+    Injectable(),
+    __param(1, Optional()),
+    __param(1, Inject(BASE_PATH)),
+    __param(2, Optional())
 ], CoreService);
-exports.CoreService = CoreService;
+export { CoreService };
 //# sourceMappingURL=core.service.js.map

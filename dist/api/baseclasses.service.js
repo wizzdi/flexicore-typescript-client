@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -19,21 +18,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseclassesService = void 0;
 /* tslint:disable:no-unused-variable member-ordering */
-const core_1 = require("@angular/core");
-const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
-const operators_1 = require("rxjs/operators");
-const variables_1 = require("../variables");
-const configuration_1 = require("../configuration");
-const http_1 = require("@angular/common/http");
+import { Inject, Injectable, Optional } from '@angular/core';
+import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { map } from 'rxjs/operators';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
+import { HttpHeaders, HttpRequest } from '@angular/common/http';
 let BaseclassesService = class BaseclassesService {
     constructor(httpClient, basePath, configuration) {
         this.httpClient = httpClient;
         this.basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-        this.defaultHeaders = new http_1.HttpHeaders();
-        this.configuration = new configuration_1.Configuration();
+        this.defaultHeaders = new HttpHeaders();
+        this.configuration = new Configuration();
         if (basePath) {
             this.basePath = basePath;
         }
@@ -77,12 +74,12 @@ let BaseclassesService = class BaseclassesService {
      */
     count(type, authenticationkey, body, extraHttpRequestParams) {
         return this.countWithHttpInfo(type, authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -98,12 +95,12 @@ let BaseclassesService = class BaseclassesService {
      */
     countConnected(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams) {
         return this.countConnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -119,12 +116,12 @@ let BaseclassesService = class BaseclassesService {
      */
     countDisconnected(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams) {
         return this.countDisconnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -141,12 +138,12 @@ let BaseclassesService = class BaseclassesService {
      */
     createBaselink(leftId, rightId, linkClazzName, authenticationkey, value, simpleValue, check, extraHttpRequestParams) {
         return this.createBaselinkWithHttpInfo(leftId, rightId, linkClazzName, authenticationkey, value, simpleValue, check, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -158,12 +155,12 @@ let BaseclassesService = class BaseclassesService {
      */
     deleteById(id, authenticationkey, extraHttpRequestParams) {
         return this.deleteByIdWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -176,12 +173,12 @@ let BaseclassesService = class BaseclassesService {
      */
     deleteById_1(id, className, authenticationkey, extraHttpRequestParams) {
         return this.deleteById_1WithHttpInfo(id, className, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -195,12 +192,12 @@ let BaseclassesService = class BaseclassesService {
      */
     detachEntities(leftId, rightId, linkClazzName, authenticationkey, extraHttpRequestParams) {
         return this.detachEntitiesWithHttpInfo(leftId, rightId, linkClazzName, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -212,12 +209,12 @@ let BaseclassesService = class BaseclassesService {
      */
     duplicate(id, authenticationkey, extraHttpRequestParams) {
         return this.duplicateWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -229,12 +226,12 @@ let BaseclassesService = class BaseclassesService {
      */
     exportBaseclass(id, authenticationkey, extraHttpRequestParams) {
         return this.exportBaseclassWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -247,12 +244,12 @@ let BaseclassesService = class BaseclassesService {
      */
     findById(id, classname, authenticationkey, extraHttpRequestParams) {
         return this.findByIdWithHttpInfo(id, classname, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -264,12 +261,12 @@ let BaseclassesService = class BaseclassesService {
      */
     findById_2(ID, authenticationkey, extraHttpRequestParams) {
         return this.findById_2WithHttpInfo(ID, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -282,12 +279,12 @@ let BaseclassesService = class BaseclassesService {
      */
     findByName(name, classname, authenticationkey, extraHttpRequestParams) {
         return this.findByNameWithHttpInfo(name, classname, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -302,12 +299,12 @@ let BaseclassesService = class BaseclassesService {
      */
     findBySidesId(left, right, classname, authenticationkey, value, simpleValue, extraHttpRequestParams) {
         return this.findBySidesIdWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -325,12 +322,12 @@ let BaseclassesService = class BaseclassesService {
      */
     findLinks(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.findLinksWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -348,12 +345,12 @@ let BaseclassesService = class BaseclassesService {
      */
     findLinksContainers(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.findLinksContainersWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -371,12 +368,12 @@ let BaseclassesService = class BaseclassesService {
      */
     findLinksValues(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.findLinksValuesWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -392,12 +389,12 @@ let BaseclassesService = class BaseclassesService {
      */
     getConnected(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams) {
         return this.getConnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -413,12 +410,12 @@ let BaseclassesService = class BaseclassesService {
   */
     getConnectedClasses(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams) {
         return this.getConnectedClassesWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -434,12 +431,12 @@ let BaseclassesService = class BaseclassesService {
      */
     getDisconnected(id, wantedClazzName, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams) {
         return this.getDisconnectedWithHttpInfo(id, wantedClazzName, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -452,12 +449,12 @@ let BaseclassesService = class BaseclassesService {
      */
     importBaseclass(className, authenticationkey, body, extraHttpRequestParams) {
         return this.importBaseclassWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -470,12 +467,12 @@ let BaseclassesService = class BaseclassesService {
      */
     linkBaseclassTouser(leftId, rightId, operationId, authenticationkey, extraHttpRequestParams) {
         return this.linkBaseclassTouserWithHttpInfo(leftId, rightId, operationId, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -487,12 +484,12 @@ let BaseclassesService = class BaseclassesService {
      */
     linkroleuser(authenticationkey, body, extraHttpRequestParams) {
         return this.linkroleuserWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -507,12 +504,12 @@ let BaseclassesService = class BaseclassesService {
      */
     nameLike(classname, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
         return this.nameLikeWithHttpInfo(classname, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -524,12 +521,12 @@ let BaseclassesService = class BaseclassesService {
      */
     softDelete(id, authenticationkey, extraHttpRequestParams) {
         return this.softDeleteWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -541,12 +538,12 @@ let BaseclassesService = class BaseclassesService {
      */
     updateBasicDetails(authenticationkey, body, extraHttpRequestParams) {
         return this.updateBasicDetailsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -574,7 +571,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -584,7 +581,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
        *
@@ -636,7 +633,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -646,7 +643,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -698,7 +695,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -708,7 +705,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Create a link
@@ -756,7 +753,7 @@ let BaseclassesService = class BaseclassesService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -765,7 +762,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * delete
@@ -787,7 +784,7 @@ let BaseclassesService = class BaseclassesService {
         }
         // to determine the Accept header
         let produces = [];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -796,7 +793,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * delete
@@ -824,7 +821,7 @@ let BaseclassesService = class BaseclassesService {
         }
         // to determine the Accept header
         let produces = [];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -833,7 +830,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Remove a link
@@ -869,7 +866,7 @@ let BaseclassesService = class BaseclassesService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -878,7 +875,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * duplicate an entity, shallow by id
@@ -902,7 +899,7 @@ let BaseclassesService = class BaseclassesService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -911,7 +908,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * export baseclass
@@ -935,7 +932,7 @@ let BaseclassesService = class BaseclassesService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -944,7 +941,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * export baseclass
@@ -964,7 +961,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -973,7 +970,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * find entity by id and class
@@ -1003,7 +1000,7 @@ let BaseclassesService = class BaseclassesService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1012,7 +1009,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Find an instance by ID
@@ -1036,7 +1033,7 @@ let BaseclassesService = class BaseclassesService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1045,7 +1042,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Find an instance by its name
@@ -1075,7 +1072,7 @@ let BaseclassesService = class BaseclassesService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1084,7 +1081,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1128,7 +1125,7 @@ let BaseclassesService = class BaseclassesService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1137,7 +1134,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1191,7 +1188,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             path,
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
@@ -1202,7 +1199,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1256,7 +1253,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1266,7 +1263,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1320,7 +1317,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1330,16 +1327,16 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     getFilterClassInfo(authenticationkey, body, extraHttpRequestParams) {
         return this.getFilterClassInfoWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1355,7 +1352,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1365,28 +1362,28 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     getClassInfo(authenticationkey, body, extraHttpRequestParams) {
         return this.getClassInfoWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
     getExample(authenticationkey, body, extraHttpRequestParams) {
         return this.getExampleWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 ``;
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1402,7 +1399,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1412,7 +1409,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     getExampleWithHttpInfo(authenticationkey, body, extraHttpRequestParams) {
         const path = this.basePath + '/baseclass/getExample';
@@ -1426,7 +1423,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1436,16 +1433,16 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     listInheritingClasses(authenticationkey, body, extraHttpRequestParams) {
         return this.listInheritingClassesWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1461,7 +1458,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1471,16 +1468,16 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     listAllBaseclassGeneric(authenticationkey, body, extraHttpRequestParams) {
         return this.listAllBaseclassGenericWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1496,7 +1493,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1506,16 +1503,16 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     exportBaseclassGeneric(authenticationkey, body, extraHttpRequestParams) {
         return this.exportBaseclassGenericWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -1531,7 +1528,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1541,7 +1538,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1593,7 +1590,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1603,7 +1600,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1655,7 +1652,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1665,7 +1662,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1717,7 +1714,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1727,7 +1724,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * import baseclass
@@ -1751,7 +1748,7 @@ let BaseclassesService = class BaseclassesService {
         // to determine the Accept header
         let produces = [];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1761,7 +1758,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -1797,7 +1794,7 @@ let BaseclassesService = class BaseclassesService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1806,7 +1803,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Link Role and User
@@ -1826,7 +1823,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1836,7 +1833,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Find an instance by its name with wildcard
@@ -1870,7 +1867,7 @@ let BaseclassesService = class BaseclassesService {
             'application/json'
         ];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1880,7 +1877,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * softDelete
@@ -1904,7 +1901,7 @@ let BaseclassesService = class BaseclassesService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1913,7 +1910,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Update basic data
@@ -1931,7 +1928,7 @@ let BaseclassesService = class BaseclassesService {
         // to determine the Accept header
         let produces = [];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -1941,7 +1938,7 @@ let BaseclassesService = class BaseclassesService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     genericSoftDelete(body, authenticationKey, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -1971,14 +1968,14 @@ let BaseclassesService = class BaseclassesService {
             observe: observe,
             reportProgress: reportProgress
         };
-        return this.httpClient.delete(`${this.basePath}/generic/softDelete`, requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.delete(`${this.basePath}/generic/softDelete`, requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 };
 BaseclassesService = __decorate([
-    (0, core_1.Injectable)(),
-    __param(1, (0, core_1.Optional)()),
-    __param(1, (0, core_1.Inject)(variables_1.BASE_PATH)),
-    __param(2, (0, core_1.Optional)())
+    Injectable(),
+    __param(1, Optional()),
+    __param(1, Inject(BASE_PATH)),
+    __param(2, Optional())
 ], BaseclassesService);
-exports.BaseclassesService = BaseclassesService;
+export { BaseclassesService };
 //# sourceMappingURL=baseclasses.service.js.map

@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -10,9 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PluginUpdate = void 0;
-var PluginUpdate;
+export var PluginUpdate;
 (function (PluginUpdate) {
     let TypeEnum;
     (function (TypeEnum) {
@@ -20,5 +17,5 @@ var PluginUpdate;
         TypeEnum[TypeEnum["Model"] = 'Model'] = "Model";
         TypeEnum[TypeEnum["Core"] = 'Core'] = "Core";
     })(TypeEnum = PluginUpdate.TypeEnum || (PluginUpdate.TypeEnum = {}));
-})(PluginUpdate = exports.PluginUpdate || (exports.PluginUpdate = {}));
+})(PluginUpdate || (PluginUpdate = {}));
 //# sourceMappingURL=pluginUpdate.js.map

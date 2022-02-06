@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -14,22 +13,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UploadUtilsService = void 0;
-const core_1 = require("@angular/core");
-const SparkMD5 = require("spark-md5");
-const configuration_1 = require("../configuration");
-const rxjs_1 = require("rxjs");
-const http_1 = require("@angular/common/http");
+import { Injectable } from '@angular/core';
+import * as SparkMD5 from 'spark-md5';
+import { Configuration } from '../configuration';
+import { defer } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
 let UploadUtilsService = class UploadUtilsService {
     constructor(uploadService) {
         this.uploadService = uploadService;
         this.basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-        this.defaultHeaders = new http_1.HttpHeaders();
-        this.configuration = new configuration_1.Configuration();
+        this.defaultHeaders = new HttpHeaders();
+        this.configuration = new Configuration();
     }
     upload(authenticationKey, body, onProgress, extraHttpRequestParams) {
-        return (0, rxjs_1.defer)(() => __awaiter(this, void 0, void 0, function* () {
+        return defer(() => __awaiter(this, void 0, void 0, function* () {
             let { file, name, chunkSize, chunkMd5 } = body;
             let chunkMD5String;
             let lastChunk = false;
@@ -103,7 +100,7 @@ let UploadUtilsService = class UploadUtilsService {
     }
 };
 UploadUtilsService = __decorate([
-    (0, core_1.Injectable)()
+    Injectable()
 ], UploadUtilsService);
-exports.UploadUtilsService = UploadUtilsService;
+export { UploadUtilsService };
 //# sourceMappingURL=uploadUtils.service.js.map

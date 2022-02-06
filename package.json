@@ -1,11 +1,11 @@
 {
   "name": "@flexicore/flexicore-client",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "This is a typescript client for Flexicore",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "cd source && tsc --forceConsistentCasingInFileNames",
+    "build": "cd source && tsc",
     "test": "echo \"Error: no test specified\""
   },
   "repository": {

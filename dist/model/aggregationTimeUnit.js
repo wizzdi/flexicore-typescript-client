@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -10,13 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AggregationTimeUnit = void 0;
-var AggregationTimeUnit;
+export var AggregationTimeUnit;
 (function (AggregationTimeUnit) {
     AggregationTimeUnit["DAYS"] = "DAYS";
     AggregationTimeUnit["WEEKS"] = "WEEKS";
     AggregationTimeUnit["MONTHS"] = "MONTHS";
     AggregationTimeUnit["YEARS"] = "YEARS";
-})(AggregationTimeUnit = exports.AggregationTimeUnit || (exports.AggregationTimeUnit = {}));
+})(AggregationTimeUnit || (AggregationTimeUnit = {}));
 //# sourceMappingURL=aggregationTimeUnit.js.map

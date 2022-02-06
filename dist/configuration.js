@@ -1,10 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Configuration = exports.ConfigurationParameters = void 0;
-class ConfigurationParameters {
+export class ConfigurationParameters {
 }
-exports.ConfigurationParameters = ConfigurationParameters;
-class Configuration {
+export class Configuration {
     constructor(configurationParameters = {}) {
         this.apiKeys = configurationParameters.apiKeys;
         this.username = configurationParameters.username;
@@ -61,5 +57,4 @@ class Configuration {
         return mime != null && (jsonMime.test(mime) || mime.toLowerCase() === 'application/json-patch+json');
     }
 }
-exports.Configuration = Configuration;
 //# sourceMappingURL=configuration.js.map

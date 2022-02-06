@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.COLLECTION_FORMATS = exports.BASE_PATH = void 0;
-const core_1 = require("@angular/core");
-exports.BASE_PATH = new core_1.InjectionToken('basePath');
-exports.COLLECTION_FORMATS = {
+import { InjectionToken } from '@angular/core';
+export const BASE_PATH = new InjectionToken('basePath');
+export const COLLECTION_FORMATS = {
     'csv': ',',
     'tsv': '   ',
     'ssv': ' ',

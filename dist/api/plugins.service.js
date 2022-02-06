@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -19,21 +18,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PluginsService = void 0;
 /* tslint:disable:no-unused-variable member-ordering */
-const core_1 = require("@angular/core");
-const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
-const operators_1 = require("rxjs/operators");
-const variables_1 = require("../variables");
-const configuration_1 = require("../configuration");
-const http_1 = require("@angular/common/http");
+import { Inject, Injectable, Optional } from '@angular/core';
+import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { map } from 'rxjs/operators';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
+import { HttpHeaders, HttpRequest } from '@angular/common/http';
 let PluginsService = class PluginsService {
     constructor(httpClient, basePath, configuration) {
         this.httpClient = httpClient;
         this.basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-        this.defaultHeaders = new http_1.HttpHeaders();
-        this.configuration = new configuration_1.Configuration();
+        this.defaultHeaders = new HttpHeaders();
+        this.configuration = new Configuration();
         if (basePath) {
             this.basePath = basePath;
         }
@@ -93,7 +90,7 @@ let PluginsService = class PluginsService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
     *
@@ -101,12 +98,12 @@ let PluginsService = class PluginsService {
     */
     listAllModules(authenticationkey, extraHttpRequestParams) {
         return this.listAllModulesWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -116,12 +113,12 @@ let PluginsService = class PluginsService {
      */
     restart(authenticationkey, extraHttpRequestParams) {
         return this.restartWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -131,12 +128,12 @@ let PluginsService = class PluginsService {
      */
     testUpdate(authenticationkey, extraHttpRequestParams) {
         return this.testUpdateWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -156,7 +153,7 @@ let PluginsService = class PluginsService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -165,7 +162,7 @@ let PluginsService = class PluginsService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -181,7 +178,7 @@ let PluginsService = class PluginsService {
         }
         // to determine the Accept header
         let produces = [];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -190,7 +187,7 @@ let PluginsService = class PluginsService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -206,7 +203,7 @@ let PluginsService = class PluginsService {
         }
         // to determine the Accept header
         let produces = [];
-        let requestOptions = new http_1.HttpRequest('PUT', path, {
+        let requestOptions = new HttpRequest('PUT', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -215,14 +212,14 @@ let PluginsService = class PluginsService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 };
 PluginsService = __decorate([
-    (0, core_1.Injectable)(),
-    __param(1, (0, core_1.Optional)()),
-    __param(1, (0, core_1.Inject)(variables_1.BASE_PATH)),
-    __param(2, (0, core_1.Optional)())
+    Injectable(),
+    __param(1, Optional()),
+    __param(1, Inject(BASE_PATH)),
+    __param(2, Optional())
 ], PluginsService);
-exports.PluginsService = PluginsService;
+export { PluginsService };
 //# sourceMappingURL=plugins.service.js.map

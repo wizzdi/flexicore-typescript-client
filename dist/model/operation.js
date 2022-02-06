@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -10,14 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Operation = void 0;
-var Operation;
+export var Operation;
 (function (Operation) {
     let DefaultaccessEnum;
     (function (DefaultaccessEnum) {
         DefaultaccessEnum[DefaultaccessEnum["Deny"] = 'deny'] = "Deny";
         DefaultaccessEnum[DefaultaccessEnum["Allow"] = 'allow'] = "Allow";
     })(DefaultaccessEnum = Operation.DefaultaccessEnum || (Operation.DefaultaccessEnum = {}));
-})(Operation = exports.Operation || (exports.Operation = {}));
+})(Operation || (Operation = {}));
 //# sourceMappingURL=operation.js.map

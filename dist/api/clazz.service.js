@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -19,21 +18,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ClazzService = void 0;
 /* tslint:disable:no-unused-variable member-ordering */
-const core_1 = require("@angular/core");
-const operators_1 = require("rxjs/operators");
-const variables_1 = require("../variables");
-const configuration_1 = require("../configuration");
-const http_1 = require("@angular/common/http");
-const __1 = require("..");
+import { Inject, Injectable, Optional } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
+import { HttpHeaders, HttpRequest } from '@angular/common/http';
+import { FlexiCoreDecycle } from '..';
 let ClazzService = class ClazzService {
     constructor(httpClient, basePath, configuration) {
         this.httpClient = httpClient;
         this.basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-        this.defaultHeaders = new http_1.HttpHeaders();
-        this.configuration = new configuration_1.Configuration();
+        this.defaultHeaders = new HttpHeaders();
+        this.configuration = new Configuration();
         if (basePath) {
             this.basePath = basePath;
         }
@@ -77,7 +74,7 @@ let ClazzService = class ClazzService {
      */
     getAllOperations(clazzName, authenticationkey, extraHttpRequestParams) {
         return this.getAllOperationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
@@ -94,7 +91,7 @@ let ClazzService = class ClazzService {
      */
     getAssociations(clazzName, authenticationkey, extraHttpRequestParams) {
         return this.getAssociationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
@@ -111,7 +108,7 @@ let ClazzService = class ClazzService {
      */
     getClazz(clazzName, authenticationkey, extraHttpRequestParams) {
         return this.getClazzWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
@@ -142,7 +139,7 @@ let ClazzService = class ClazzService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -151,7 +148,7 @@ let ClazzService = class ClazzService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => __1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Get a list of all associations
@@ -175,7 +172,7 @@ let ClazzService = class ClazzService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -184,7 +181,7 @@ let ClazzService = class ClazzService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => __1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Get a Clazz instance from a canonical name
@@ -208,7 +205,7 @@ let ClazzService = class ClazzService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -217,7 +214,7 @@ let ClazzService = class ClazzService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => __1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Get Field Containers per class
@@ -241,7 +238,7 @@ let ClazzService = class ClazzService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -250,14 +247,14 @@ let ClazzService = class ClazzService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => __1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 };
 ClazzService = __decorate([
-    (0, core_1.Injectable)(),
-    __param(1, (0, core_1.Optional)()),
-    __param(1, (0, core_1.Inject)(variables_1.BASE_PATH)),
-    __param(2, (0, core_1.Optional)())
+    Injectable(),
+    __param(1, Optional()),
+    __param(1, Inject(BASE_PATH)),
+    __param(2, Optional())
 ], ClazzService);
-exports.ClazzService = ClazzService;
+export { ClazzService };
 //# sourceMappingURL=clazz.service.js.map

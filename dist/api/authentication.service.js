@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -19,21 +18,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthenticationService = void 0;
 /* tslint:disable:no-unused-variable member-ordering */
-const core_1 = require("@angular/core");
-const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
-const operators_1 = require("rxjs/operators");
-const variables_1 = require("../variables");
-const configuration_1 = require("../configuration");
-const http_1 = require("@angular/common/http");
+import { Inject, Injectable, Optional } from '@angular/core';
+import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { map } from 'rxjs/operators';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
+import { HttpHeaders, HttpRequest } from '@angular/common/http';
 let AuthenticationService = class AuthenticationService {
     constructor(httpClient, basePath, configuration) {
         this.httpClient = httpClient;
         this.basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-        this.defaultHeaders = new http_1.HttpHeaders();
-        this.configuration = new configuration_1.Configuration();
+        this.defaultHeaders = new HttpHeaders();
+        this.configuration = new Configuration();
         if (basePath) {
             this.basePath = basePath;
         }
@@ -77,12 +74,12 @@ let AuthenticationService = class AuthenticationService {
      */
     login(authenticationkey, body, extraHttpRequestParams) {
         return this.loginWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -93,12 +90,12 @@ let AuthenticationService = class AuthenticationService {
      */
     logout(authenticationkey, extraHttpRequestParams) {
         return this.logoutWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -111,12 +108,12 @@ let AuthenticationService = class AuthenticationService {
      */
     signin(authenticationkey, loginuponsuccess, body, extraHttpRequestParams) {
         return this.signinWithHttpInfo(authenticationkey, loginuponsuccess, body, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.json()) || {};
+                return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
     }
@@ -136,7 +133,7 @@ let AuthenticationService = class AuthenticationService {
         // to determine the Accept header
         let produces = [];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -146,7 +143,7 @@ let AuthenticationService = class AuthenticationService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Sign-out(logout)
@@ -162,7 +159,7 @@ let AuthenticationService = class AuthenticationService {
         }
         // to determine the Accept header
         let produces = [];
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -171,7 +168,7 @@ let AuthenticationService = class AuthenticationService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Sign-up(register)
@@ -193,7 +190,7 @@ let AuthenticationService = class AuthenticationService {
         // to determine the Accept header
         let produces = [];
         headers.set('Content-Type', 'application/json');
-        let requestOptions = new http_1.HttpRequest('POST', path, {
+        let requestOptions = new HttpRequest('POST', path, {
             headers: headers,
             body: body == null ? '' : JSON.stringify(body),
             search: queryParameters,
@@ -203,14 +200,14 @@ let AuthenticationService = class AuthenticationService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 };
 AuthenticationService = __decorate([
-    (0, core_1.Injectable)(),
-    __param(1, (0, core_1.Optional)()),
-    __param(1, (0, core_1.Inject)(variables_1.BASE_PATH)),
-    __param(2, (0, core_1.Optional)())
+    Injectable(),
+    __param(1, Optional()),
+    __param(1, Inject(BASE_PATH)),
+    __param(2, Optional())
 ], AuthenticationService);
-exports.AuthenticationService = AuthenticationService;
+export { AuthenticationService };
 //# sourceMappingURL=authentication.service.js.map

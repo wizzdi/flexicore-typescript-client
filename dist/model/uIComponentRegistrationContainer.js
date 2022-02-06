@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -10,12 +9,9 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UIComponentRegistrationContainer = void 0;
-class UIComponentRegistrationContainer {
+export class UIComponentRegistrationContainer {
     constructor() {
         this.type = 'com.flexicore.data.jsoncontainers.UIComponentRegistrationContainer';
     }
 }
-exports.UIComponentRegistrationContainer = UIComponentRegistrationContainer;
 //# sourceMappingURL=uIComponentRegistrationContainer.js.map

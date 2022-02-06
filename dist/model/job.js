@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -10,9 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Job = void 0;
-var Job;
+export var Job;
 (function (Job) {
     let BatchStatusEnum;
     (function (BatchStatusEnum) {
@@ -24,5 +21,5 @@ var Job;
         BatchStatusEnum[BatchStatusEnum["COMPLETED"] = 'COMPLETED'] = "COMPLETED";
         BatchStatusEnum[BatchStatusEnum["ABANDONED"] = 'ABANDONED'] = "ABANDONED";
     })(BatchStatusEnum = Job.BatchStatusEnum || (Job.BatchStatusEnum = {}));
-})(Job = exports.Job || (exports.Job = {}));
+})(Job || (Job = {}));
 //# sourceMappingURL=job.js.map

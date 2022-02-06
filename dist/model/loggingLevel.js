@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -10,9 +9,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoggingLevel = void 0;
-var LoggingLevel;
+export var LoggingLevel;
 (function (LoggingLevel) {
     LoggingLevel["FINEST"] = "FINEST";
     LoggingLevel["FINER"] = "FINER";
@@ -20,5 +17,5 @@ var LoggingLevel;
     LoggingLevel["INFO"] = "INFO";
     LoggingLevel["WARNING"] = "WARNING";
     LoggingLevel["SEVERE"] = "SEVERE";
-})(LoggingLevel = exports.LoggingLevel || (exports.LoggingLevel = {}));
+})(LoggingLevel || (LoggingLevel = {}));
 //# sourceMappingURL=loggingLevel.js.map

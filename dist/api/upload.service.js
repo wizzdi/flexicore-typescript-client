@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -19,21 +18,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UploadService = void 0;
 /* tslint:disable:no-unused-variable member-ordering */
-const core_1 = require("@angular/core");
-const flexiCoreDecycle_1 = require("./flexiCoreDecycle");
-const operators_1 = require("rxjs/operators");
-const variables_1 = require("../variables");
-const configuration_1 = require("../configuration");
-const http_1 = require("@angular/common/http");
+import { Inject, Injectable, Optional } from '@angular/core';
+import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { map } from 'rxjs/operators';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
+import { HttpHeaders, HttpRequest } from '@angular/common/http';
 let UploadService = class UploadService {
     constructor(httpClient, basePath, configuration) {
         this.httpClient = httpClient;
         this.basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
-        this.defaultHeaders = new http_1.HttpHeaders();
-        this.configuration = new configuration_1.Configuration();
+        this.defaultHeaders = new HttpHeaders();
+        this.configuration = new Configuration();
         if (basePath) {
             this.basePath = basePath;
         }
@@ -76,12 +73,12 @@ let UploadService = class UploadService {
      */
     deleteFileResource(md5, authenticationkey, extraHttpRequestParams) {
         return this.deleteFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response) || {};
+                return FlexiCoreDecycle.retrocycle(response) || {};
             }
         }));
     }
@@ -96,12 +93,12 @@ let UploadService = class UploadService {
      */
     finalizeUpload(md5, authenticationkey, hint, fileType, dontProcess, extraHeaders, extraHttpRequestParams) {
         return this.finalizeUploadWithHttpInfo(md5, authenticationkey, hint, fileType, dontProcess, extraHeaders, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response) || {};
+                return FlexiCoreDecycle.retrocycle(response) || {};
             }
         }));
     }
@@ -112,12 +109,12 @@ let UploadService = class UploadService {
      */
     getFileResource(md5, authenticationkey, extraHttpRequestParams) {
         return this.getFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response) || {};
+                return FlexiCoreDecycle.retrocycle(response) || {};
             }
         }));
     }
@@ -128,12 +125,12 @@ let UploadService = class UploadService {
      */
     getJob(jobID, authenticationkey, extraHttpRequestParams) {
         return this.getJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response) || {};
+                return FlexiCoreDecycle.retrocycle(response) || {};
             }
         }));
     }
@@ -145,12 +142,12 @@ let UploadService = class UploadService {
      */
     registerFile(authenticationkey, path, calcMd5, extraHttpRequestParams) {
         return this.registerFileWithHttpInfo(authenticationkey, path, calcMd5, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response) || {};
+                return FlexiCoreDecycle.retrocycle(response) || {};
             }
         }));
     }
@@ -165,12 +162,12 @@ let UploadService = class UploadService {
      */
     registerFileAndFinlize(authenticationkey, path, hint, fileType, dontProcess, calcMd5, extraHttpRequestParams) {
         return this.registerFileAndFinlizeWithHttpInfo(authenticationkey, path, hint, fileType, dontProcess, calcMd5, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response) || {};
+                return FlexiCoreDecycle.retrocycle(response) || {};
             }
         }));
     }
@@ -181,12 +178,12 @@ let UploadService = class UploadService {
      */
     stopJob(jobID, authenticationkey, extraHttpRequestParams) {
         return this.stopJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response) || {};
+                return FlexiCoreDecycle.retrocycle(response) || {};
             }
         }));
     }
@@ -198,12 +195,12 @@ let UploadService = class UploadService {
      */
     updateJobPhase(jobID, phaseName, authenticationkey, extraHttpRequestParams) {
         return this.updateJobPhaseWithHttpInfo(jobID, phaseName, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response) || {};
+                return FlexiCoreDecycle.retrocycle(response) || {};
             }
         }));
     }
@@ -216,34 +213,34 @@ let UploadService = class UploadService {
      */
     updateJobProperty(jobID, key, value, authenticationkey, extraHttpRequestParams) {
         return this.updateJobPropertyWithHttpInfo(jobID, key, value, authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response) || {};
+                return FlexiCoreDecycle.retrocycle(response) || {};
             }
         }));
     }
     uploadFile(authenticationkey, md5, name, blob, extraHttpRequestParams) {
         return this.uploadFileWithHttpInfo(authenticationkey, md5, name, null, false, blob, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response) || {};
+                return FlexiCoreDecycle.retrocycle(response) || {};
             }
         }));
     }
     uploadFileWithChunkMd5(authenticationkey, md5, name, chunkMd5, lastChunk, blob, extraHttpRequestParams) {
         return this.uploadFileWithHttpInfo(authenticationkey, md5, name, chunkMd5, lastChunk, blob, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response.body) || {};
+                return FlexiCoreDecycle.retrocycle(response.body) || {};
             }
         }));
     }
@@ -253,12 +250,12 @@ let UploadService = class UploadService {
      */
     validate(authenticationkey, extraHttpRequestParams) {
         return this.validateWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .pipe((0, operators_1.map)((response) => {
+            .pipe(map((response) => {
             if (response.status === 204) {
                 return undefined;
             }
             else {
-                return flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(response) || {};
+                return FlexiCoreDecycle.retrocycle(response) || {};
             }
         }));
     }
@@ -282,7 +279,7 @@ let UploadService = class UploadService {
         }
         // to determine the Accept header
         let produces = [];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -291,7 +288,7 @@ let UploadService = class UploadService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * finalize
@@ -332,7 +329,7 @@ let UploadService = class UploadService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -341,7 +338,7 @@ let UploadService = class UploadService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -365,7 +362,7 @@ let UploadService = class UploadService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -398,7 +395,7 @@ let UploadService = class UploadService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -407,7 +404,7 @@ let UploadService = class UploadService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -433,7 +430,7 @@ let UploadService = class UploadService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('POST', path, null, {
+        let requestOptions = new HttpRequest('POST', path, null, {
             headers: headers,
             withCredentials: this.configuration.withCredentials
         });
@@ -441,7 +438,7 @@ let UploadService = class UploadService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -479,7 +476,7 @@ let UploadService = class UploadService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('POST', path, {}, {
+        let requestOptions = new HttpRequest('POST', path, {}, {
             headers: headers,
             withCredentials: this.configuration.withCredentials
         });
@@ -487,7 +484,7 @@ let UploadService = class UploadService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -511,7 +508,7 @@ let UploadService = class UploadService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('DELETE', path, {
+        let requestOptions = new HttpRequest('DELETE', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -520,7 +517,7 @@ let UploadService = class UploadService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -550,7 +547,7 @@ let UploadService = class UploadService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, null, {
+        let requestOptions = new HttpRequest('PUT', path, null, {
             headers: headers,
             withCredentials: this.configuration.withCredentials
         });
@@ -558,7 +555,7 @@ let UploadService = class UploadService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -594,7 +591,7 @@ let UploadService = class UploadService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('PUT', path, null, {
+        let requestOptions = new HttpRequest('PUT', path, null, {
             headers: headers,
             withCredentials: this.configuration.withCredentials
         });
@@ -602,7 +599,7 @@ let UploadService = class UploadService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
         *
@@ -642,7 +639,7 @@ let UploadService = class UploadService {
         // }
         headers = headers.set('Accept', ' application/json');
         headers = headers.set('Content-Type', 'application/octet-stream');
-        let requestOptions = new http_1.HttpRequest('POST', path, blob, {
+        let requestOptions = new HttpRequest('POST', path, blob, {
             headers,
             withCredentials: this.configuration.withCredentials
         });
@@ -668,7 +665,7 @@ let UploadService = class UploadService {
         let produces = [
             'application/json'
         ];
-        let requestOptions = new http_1.HttpRequest('GET', path, {
+        let requestOptions = new HttpRequest('GET', path, {
             headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -677,14 +674,14 @@ let UploadService = class UploadService {
         if (extraHttpRequestParams) {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
-        return this.httpClient.request(requestOptions).pipe((0, operators_1.map)(o => flexiCoreDecycle_1.FlexiCoreDecycle.retrocycle(o)));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 };
 UploadService = __decorate([
-    (0, core_1.Injectable)(),
-    __param(1, (0, core_1.Optional)()),
-    __param(1, (0, core_1.Inject)(variables_1.BASE_PATH)),
-    __param(2, (0, core_1.Optional)())
+    Injectable(),
+    __param(1, Optional()),
+    __param(1, Inject(BASE_PATH)),
+    __param(2, Optional())
 ], UploadService);
-exports.UploadService = UploadService;
+export { UploadService };
 //# sourceMappingURL=upload.service.js.map

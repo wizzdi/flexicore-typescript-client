@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "outDir": "../dist",
-    "module": "commonjs",
     "target": "es2015",
     "sourceMap": true,
     "noImplicitAny": false,
@@ -12,6 +11,5 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames":true
-
   }
 }

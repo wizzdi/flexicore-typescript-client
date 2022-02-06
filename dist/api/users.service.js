@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -20,20 +19,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersService = void 0;
-const core_1 = require("@angular/core");
-const http_1 = require("@angular/common/http");
-const operators_1 = require("rxjs/operators");
-const variables_1 = require("../variables");
-const configuration_1 = require("../configuration");
-const api_1 = require("./api");
+import { Inject, Injectable, Optional } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { BASE_PATH } from '../variables';
+import { Configuration } from '../configuration';
+import { FlexiCoreDecycle } from './api';
 let UsersService = class UsersService {
     constructor(httpClient, basePath, configuration) {
         this.httpClient = httpClient;
         this.basePath = 'https://192.168.14.71:8180/FlexiCore/rest';
-        this.defaultHeaders = new http_1.HttpHeaders();
-        this.configuration = new configuration_1.Configuration();
+        this.defaultHeaders = new HttpHeaders();
+        this.configuration = new Configuration();
         if (basePath) {
             this.basePath = basePath;
         }
@@ -164,7 +161,7 @@ let UsersService = class UsersService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).pipe((0, operators_1.map)(o => api_1.FlexiCoreDecycle.retrocycle(o)));
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     getUserProfile(authenticationkey, body, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -192,7 +189,7 @@ let UsersService = class UsersService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).pipe((0, operators_1.map)(o => api_1.FlexiCoreDecycle.retrocycle(o)));
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     impersonate(authenticationkey, body, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -220,7 +217,7 @@ let UsersService = class UsersService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).pipe((0, operators_1.map)(o => api_1.FlexiCoreDecycle.retrocycle(o)));
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     listAllUsers(authenticationkey, pagesize, currentpage, body, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -254,7 +251,7 @@ let UsersService = class UsersService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).pipe((0, operators_1.map)(o => api_1.FlexiCoreDecycle.retrocycle(o)));
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     getAllUsers(authenticationkey, body, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -282,7 +279,7 @@ let UsersService = class UsersService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).pipe((0, operators_1.map)(o => api_1.FlexiCoreDecycle.retrocycle(o)));
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     updateUser(authenticationkey, body, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -310,7 +307,7 @@ let UsersService = class UsersService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).pipe((0, operators_1.map)(o => api_1.FlexiCoreDecycle.retrocycle(o)));
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     createUserNew(authenticationkey, body, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -338,7 +335,7 @@ let UsersService = class UsersService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).pipe((0, operators_1.map)(o => api_1.FlexiCoreDecycle.retrocycle(o)));
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     lookupUserByEmail(email, authenticationkey, observe = 'body', reportProgress = false) {
         if (email === null || email === undefined) {
@@ -363,7 +360,7 @@ let UsersService = class UsersService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).pipe((0, operators_1.map)(o => api_1.FlexiCoreDecycle.retrocycle(o)));
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     lookupUserById(id, authenticationkey, observe = 'body', reportProgress = false) {
         if (id === null || id === undefined) {
@@ -388,7 +385,7 @@ let UsersService = class UsersService {
             headers: headers,
             observe: observe,
             reportProgress: reportProgress
-        }).pipe((0, operators_1.map)(o => api_1.FlexiCoreDecycle.retrocycle(o)));
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     multipleCreate(authenticationkey, number, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
@@ -445,10 +442,10 @@ let UsersService = class UsersService {
     }
 };
 UsersService = __decorate([
-    (0, core_1.Injectable)(),
-    __param(1, (0, core_1.Optional)()),
-    __param(1, (0, core_1.Inject)(variables_1.BASE_PATH)),
-    __param(2, (0, core_1.Optional)())
+    Injectable(),
+    __param(1, Optional()),
+    __param(1, Inject(BASE_PATH)),
+    __param(2, Optional())
 ], UsersService);
-exports.UsersService = UsersService;
+export { UsersService };
 //# sourceMappingURL=users.service.js.map

@@ -1,4 +1,3 @@
-"use strict";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -10,11 +9,9 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.HealthStatus = void 0;
-var HealthStatus;
+export var HealthStatus;
 (function (HealthStatus) {
     HealthStatus["UP"] = "UP";
     HealthStatus["DOWN"] = "DOWN";
-})(HealthStatus = exports.HealthStatus || (exports.HealthStatus = {}));
+})(HealthStatus || (HealthStatus = {}));
 //# sourceMappingURL=healthStatus.js.map
