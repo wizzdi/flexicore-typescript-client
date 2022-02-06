@@ -12,9 +12,11 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { Inject, Injectable, Optional } from '@angular/core';
+ import { FlexiCoreDecycle } from './flexiCoreDecycle';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { FilteringInformationHolder } from '../model/filteringInformationHolder';
 import { NewUser } from '../model/newUser';
@@ -84,13 +86,13 @@ export class TenantsService {
      */
     public createTenant(tenantName: string, apiKey: string, authenticationkey?: string, body?: NewUser, extraHttpRequestParams?: any): Observable<Tenant> {
         return this.createTenantWithHttpInfo(tenantName, apiKey, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -102,13 +104,13 @@ export class TenantsService {
  */
     public createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any): Observable<Tenant> {
         return this.createTenantNewWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -120,13 +122,13 @@ export class TenantsService {
 */
     public updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any): Observable<Tenant> {
         return this.updateTenantNewWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -137,13 +139,13 @@ export class TenantsService {
      */
     public createTenantNoUser(tenantName: string, apiKey: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Tenant> {
         return this.createTenantNoUserWithHttpInfo(tenantName, apiKey, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -153,13 +155,13 @@ export class TenantsService {
      */
     public getTenant(apiKey: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Tenant> {
         return this.getTenantWithHttpInfo(apiKey, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -169,13 +171,13 @@ export class TenantsService {
        */
     public getAllTenants(authenticationkey?: string, body?: TenantFiltering, extraHttpRequestParams?: any): Observable<PaginationResponse<Tenant>> {
         return this.getAllTenantsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -188,13 +190,13 @@ export class TenantsService {
      */
     public getTenants(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Tenant>> {
         return this.getTenantsWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -249,7 +251,7 @@ export class TenantsService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -293,7 +295,7 @@ export class TenantsService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -337,7 +339,7 @@ export class TenantsService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -387,7 +389,7 @@ export class TenantsService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -433,7 +435,7 @@ export class TenantsService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -478,7 +480,7 @@ export class TenantsService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -529,7 +531,7 @@ export class TenantsService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
 }

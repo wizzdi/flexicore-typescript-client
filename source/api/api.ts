@@ -10,8 +10,6 @@ export * from './clazz.service';
 import { ClazzService } from './clazz.service';
 export * from './core.service';
 import { CoreService } from './core.service';
-export * from './documnetation.service';
-import { DocumnetationService } from './documnetation.service';
 export * from './download.service';
 import { DownloadService } from './download.service';
 
@@ -90,7 +88,7 @@ export * from './securityTenants.service';
 
 export {
     AuthenticationService, AuthenticationNewService, BaseclassesService, CategoriesService, ClazzService, CoreService, UIComponentService,
-      DocumnetationService, DownloadService, LicenseRequestService, LicenseRequestToFeatureService, LicenseRequestToProductService, LicensingFeatureService, LicensingProductService,
+    DownloadService, LicenseRequestService, LicenseRequestToFeatureService, LicenseRequestToProductService, LicensingFeatureService, LicensingProductService,
      PluginsService, RolesService,  TenantsService,  PermissionGroupService, ResetPasswordService,
     UploadService, UploadUtilsService, UsersService,  FlexiCoreDecycle, TokenBasedService, HealthService, FlexiCoreServerService, HealthReportService, BaseLinkService, SecurityService, LicenseRequestToQuantityFeatureService, LogService, AuditService, OperationService, TenantToUsersService, TotpService,
     PasswordSecurityPolicyService, TotpSecurityPolicyService, DynamicExecutionControllerService, DynamicInvokerMethodControllerService, DynamicInvokersControllerService, SecurityTenantsService

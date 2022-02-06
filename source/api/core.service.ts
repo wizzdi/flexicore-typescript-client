@@ -12,9 +12,12 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { Inject, Injectable, Optional } from '@angular/core';
+ import { FlexiCoreDecycle } from './flexiCoreDecycle';
 
-import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+
+import { Observable } from 'rxjs';
 
 import { Baseclass } from '../model/baseclass';
 import { Baselink } from '../model/baselink';
@@ -103,13 +106,13 @@ export class CoreService {
      */
     public addUserToRole(roleId: string, userId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.addUserToRoleWithHttpInfo(roleId, userId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -120,13 +123,13 @@ export class CoreService {
      */
     public attachCertificate(id: string, crtId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.attachCertificateWithHttpInfo(id, crtId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -136,13 +139,13 @@ export class CoreService {
      */
     public attachTenant(authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.attachTenantWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -151,13 +154,13 @@ export class CoreService {
      */
     public checkDBAvailable(extraHttpRequestParams?: any): Observable<boolean> {
         return this.checkDBAvailableWithHttpInfo(extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -169,13 +172,13 @@ export class CoreService {
      */
     public connectCategory(baseId: string, authenticationkey?: string, catId?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.connectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -185,13 +188,13 @@ export class CoreService {
      */
     public connectToTenant(authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.connectToTenantWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -202,13 +205,13 @@ export class CoreService {
      */
     public count(type: string, authenticationkey?: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<number> {
         return this.countWithHttpInfo(type, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -220,13 +223,13 @@ export class CoreService {
      */
     public countAllofType(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<number> {
         return this.countAllofTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -241,13 +244,13 @@ export class CoreService {
      */
     public countConnected(wantedClazzName: string, id: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, valueId?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<number> {
         return this.countConnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -262,13 +265,13 @@ export class CoreService {
      */
     public countDisconnected(wantedClazzName: string, id: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, valueId?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<number> {
         return this.countDisconnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -285,13 +288,13 @@ export class CoreService {
      */
     public createBaselink(leftId: string, rightId: string, linkClazzName: string, authenticationkey?: string, value?: string, simpleValue?: string, check?: boolean, extraHttpRequestParams?: any): Observable<Baselink> {
         return this.createBaselinkWithHttpInfo(leftId, rightId, linkClazzName, authenticationkey, value, simpleValue, check, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -302,13 +305,13 @@ export class CoreService {
      */
     public createCategory(categoryName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Category> {
         return this.createCategoryWithHttpInfo(categoryName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -319,13 +322,13 @@ export class CoreService {
      */
     public createRole(authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<Role> {
         return this.createRoleWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -338,13 +341,13 @@ export class CoreService {
      */
     public createTenant(tenantName: string, apiKey: string, authenticationkey?: string, body?: NewUser, extraHttpRequestParams?: any): Observable<Tenant> {
         return this.createTenantWithHttpInfo(tenantName, apiKey, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -355,13 +358,13 @@ export class CoreService {
      */
     public createTenantNoUser(tenantName: string, apiKey: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Tenant> {
         return this.createTenantNoUserWithHttpInfo(tenantName, apiKey, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -373,13 +376,13 @@ export class CoreService {
      */
     public createUser(authenticationkey?: string, loginuponsuccess?: boolean, body?: NewUserUserClass, extraHttpRequestParams?: any): Observable<RunningUser> {
         return this.createUserWithHttpInfo(authenticationkey, loginuponsuccess, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -392,13 +395,13 @@ export class CoreService {
      */
     public deleteById(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.deleteByIdWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -410,13 +413,13 @@ export class CoreService {
      */
     public deleteById_2(id: string, className: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.deleteById_2WithHttpInfo(id, className, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -426,13 +429,13 @@ export class CoreService {
      */
     public deleteFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.deleteFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -443,13 +446,13 @@ export class CoreService {
      */
     public deleteHeapDump(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.deleteHeapDumpWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -459,13 +462,13 @@ export class CoreService {
      */
     public deleteMedia(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.deleteMediaWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -478,13 +481,13 @@ export class CoreService {
      */
     public detachEntities(leftId: string, rightId: string, linkClazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.detachEntitiesWithHttpInfo(leftId, rightId, linkClazzName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -497,13 +500,13 @@ export class CoreService {
      */
     public disableCategory(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.disableCategoryWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -515,13 +518,13 @@ export class CoreService {
      */
     public disconnectCategory(baseId: string, authenticationkey?: string, catId?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.disconnectCategoryWithHttpInfo(baseId, authenticationkey, catId, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -531,13 +534,13 @@ export class CoreService {
      */
     public download(authenticationkey: string, id: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.downloadWithHttpInfo(authenticationkey, id, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -548,13 +551,13 @@ export class CoreService {
      */
     public duplicate(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Baseclass> {
         return this.duplicateWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -567,13 +570,13 @@ export class CoreService {
      */
     public enableCategory(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.enableCategoryWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -584,13 +587,13 @@ export class CoreService {
      */
     public exportBaseclass(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.exportBaseclassWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -602,13 +605,13 @@ export class CoreService {
      */
     public fileResourcesOfType(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<FileResource>> {
         return this.fileResourcesOfTypeWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -622,13 +625,13 @@ export class CoreService {
      */
     public finalizeUpload(md5: string, authenticationkey?: string, hint?: string, fileType?: string, dontProcess?: boolean, extraHttpRequestParams?: any): Observable<Job> {
         return this.finalizeUploadWithHttpInfo(md5, authenticationkey, hint, fileType, dontProcess, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -640,13 +643,13 @@ export class CoreService {
      */
     public findById(id: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Baseclass> {
         return this.findByIdWithHttpInfo(id, classname, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -657,13 +660,13 @@ export class CoreService {
      */
     public findById_3(ID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Baseclass> {
         return this.findById_3WithHttpInfo(ID, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -673,13 +676,13 @@ export class CoreService {
      */
     public findById_4(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Role> {
         return this.findById_4WithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -691,13 +694,13 @@ export class CoreService {
      */
     public findByName(name: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
         return this.findByNameWithHttpInfo(name, classname, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -711,13 +714,13 @@ export class CoreService {
      */
     public findBySidesId(left: string, right: string, classname: string, authenticationkey?: string, value?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.findBySidesIdWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -734,13 +737,13 @@ export class CoreService {
      */
     public findLinks(left: string, right: string, classname: string, authenticationkey?: string, value?: string, simpleValue?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Baselink>> {
         return this.findLinksWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -757,13 +760,13 @@ export class CoreService {
      */
     public findLinksContainers(left: string, right: string, classname: string, authenticationkey?: string, value?: string, simpleValue?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<LinkContainer>> {
         return this.findLinksContainersWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -780,13 +783,13 @@ export class CoreService {
      */
     public findLinksValues(left: string, right: string, classname: string, authenticationkey?: string, value?: string, simpleValue?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
         return this.findLinksValuesWithHttpInfo(left, right, classname, authenticationkey, value, simpleValue, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -797,13 +800,13 @@ export class CoreService {
      */
     public generateClient(clientType: string, authenticationkey?: string, view?: string, extraHttpRequestParams?: any): Observable<Job> {
         return this.generateClientWithHttpInfo(clientType, authenticationkey, view, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -817,13 +820,13 @@ export class CoreService {
      */
     public getAllCategories(authenticationkey?: string, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Category>> {
         return this.getAllCategoriesWithHttpInfo(authenticationkey, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -834,13 +837,13 @@ export class CoreService {
      */
     public getAllCategoriesConnected(baseId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
         return this.getAllCategoriesConnectedWithHttpInfo(baseId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -849,13 +852,13 @@ export class CoreService {
      */
     public getAllFileTypes(authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<FileType>> {
         return this.getAllFileTypesWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -866,13 +869,13 @@ export class CoreService {
      */
     public getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Operation>> {
         return this.getAllOperationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -884,13 +887,13 @@ export class CoreService {
      */
     public getAssociations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<ClazzLinkContainer>> {
         return this.getAssociationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -901,13 +904,13 @@ export class CoreService {
      */
     public getCategory(className: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Category>> {
         return this.getCategoryWithHttpInfo(className, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -918,13 +921,13 @@ export class CoreService {
      */
     public getCategoryByName(name: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Category>> {
         return this.getCategoryByNameWithHttpInfo(name, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -935,13 +938,13 @@ export class CoreService {
      */
     public getClazz(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Clazz> {
         return this.getClazzWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -950,13 +953,13 @@ export class CoreService {
      */
     public getClients(authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<string>> {
         return this.getClientsWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -971,13 +974,13 @@ export class CoreService {
      */
     public getConnected(wantedClazzName: string, id: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, valueId?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
         return this.getConnectedWithHttpInfo(wantedClazzName, id, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -992,13 +995,13 @@ export class CoreService {
      */
     public getDisconnected(id: string, wantedClazzName: string, linkClazzName: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, valueId?: string, simpleValue?: string, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
         return this.getDisconnectedWithHttpInfo(id, wantedClazzName, linkClazzName, authenticationkey, body, pagesize, currentpage, valueId, simpleValue, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -1012,13 +1015,13 @@ export class CoreService {
      */
     public getFeatures(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<LicensingFeature>> {
         return this.getFeaturesWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -1029,13 +1032,13 @@ export class CoreService {
      */
     public getFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.getFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1045,13 +1048,13 @@ export class CoreService {
      */
     public getJob(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Job> {
         return this.getJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -1065,13 +1068,13 @@ export class CoreService {
      */
     public getSwaggerJSON(authenticationkey: string, view?: string, extraHttpRequestParams?: any): Observable<string> {
         return this.getSwaggerJSONWithHttpInfo(authenticationkey, view, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1081,13 +1084,13 @@ export class CoreService {
      */
     public getTenant(apiKey: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Tenant> {
         return this.getTenantWithHttpInfo(apiKey, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1099,13 +1102,13 @@ export class CoreService {
      */
     public getTenants(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Tenant>> {
         return this.getTenantsWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -1118,13 +1121,13 @@ export class CoreService {
      */
     public importBaseclass(className: string, authenticationkey?: string, body?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.importBaseclassWithHttpInfo(className, authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -1135,13 +1138,13 @@ export class CoreService {
      */
     public invalidateCache(authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.invalidateCacheWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1153,13 +1156,13 @@ export class CoreService {
      */
     public linkBaseclassTouser(leftId: string, rightId: string, operationId: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.linkBaseclassTouserWithHttpInfo(leftId, rightId, operationId, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1170,13 +1173,13 @@ export class CoreService {
      */
     public linkroleuser(authenticationkey?: string, body?: RoleUserContainer, extraHttpRequestParams?: any): Observable<RoleToUser> {
         return this.linkroleuserWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -1187,13 +1190,13 @@ export class CoreService {
      */
     public listAllLoadedPlugins(authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<PluginInformationHolder>> {
         return this.listAllLoadedPluginsWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1205,13 +1208,13 @@ export class CoreService {
      */
     public listAllRoles(authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Role>> {
         return this.listAllRolesWithHttpInfo(authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -1222,13 +1225,13 @@ export class CoreService {
      */
     public listAllUserRoles(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<Role>> {
         return this.listAllUserRolesWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1240,13 +1243,13 @@ export class CoreService {
      */
     public listAllUsers(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<UserClass>> {
         return this.listAllUsersWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -1262,13 +1265,13 @@ export class CoreService {
      */
     public listLicenseRequest(authenticationkey?: string, pagesize?: number, currentpage?: number, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Array<LicenseRequest>> {
         return this.listLicenseRequestWithHttpInfo(authenticationkey, pagesize, currentpage, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -1279,13 +1282,13 @@ export class CoreService {
      */
     public lookupUserByEmail(email: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<UserClass> {
         return this.lookupUserByEmailWithHttpInfo(email, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1295,13 +1298,13 @@ export class CoreService {
      */
     public lookupUserById(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<UserClass> {
         return this.lookupUserByIdWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1311,13 +1314,13 @@ export class CoreService {
      */
     public multipleCreate(authenticationkey?: string, number?: number, extraHttpRequestParams?: any): Observable<number> {
         return this.multipleCreateWithHttpInfo(authenticationkey, number, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1331,13 +1334,13 @@ export class CoreService {
      */
     public nameLike(classname: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
         return this.nameLikeWithHttpInfo(classname, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1345,13 +1348,13 @@ export class CoreService {
      */
     public ping(extraHttpRequestParams?: any): Observable<boolean> {
         return this.pingWithHttpInfo(extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1362,13 +1365,13 @@ export class CoreService {
      */
     public registerAndGetAllowedUIComponents(authenticationkey?: string, body?: UIComponentsRegistrationContainer, extraHttpRequestParams?: any): Observable<Array<UIComponent>> {
         return this.registerAndGetAllowedUIComponentsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1379,13 +1382,13 @@ export class CoreService {
      */
     public registerFile(authenticationkey?: string, path?: string, calcMd5?: boolean, extraHttpRequestParams?: any): Observable<FileResource> {
         return this.registerFileWithHttpInfo(authenticationkey, path, calcMd5, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1399,13 +1402,13 @@ export class CoreService {
      */
     public registerFileAndFinlize(authenticationkey?: string, path?: string, hint?: string, fileType?: string, dontProcess?: boolean, calcMd5?: boolean, extraHttpRequestParams?: any): Observable<Job> {
         return this.registerFileAndFinlizeWithHttpInfo(authenticationkey, path, hint, fileType, dontProcess, calcMd5, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -1416,13 +1419,13 @@ export class CoreService {
      */
     public restart(authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.restartWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -1434,13 +1437,13 @@ export class CoreService {
      */
     public softDelete(id: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.softDeleteWithHttpInfo(id, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1450,13 +1453,13 @@ export class CoreService {
      */
     public stopJob(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.stopJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1465,13 +1468,13 @@ export class CoreService {
      */
     public testUpdate(authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.testUpdateWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -1484,13 +1487,13 @@ export class CoreService {
      */
     public updateBasicDetails(authenticationkey?: string, body?: BasicContainer, extraHttpRequestParams?: any): Observable<boolean> {
         return this.updateBasicDetailsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1501,13 +1504,13 @@ export class CoreService {
      */
     public updateJobPhase(jobID: string, phaseName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateJobPhaseWithHttpInfo(jobID, phaseName, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -1519,13 +1522,13 @@ export class CoreService {
      */
     public updateJobProperty(jobID: string, key: string, value: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.updateJobPropertyWithHttpInfo(jobID, key, value, authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -1536,13 +1539,13 @@ export class CoreService {
      */
     public validate(authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
         return this.validateWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
 
@@ -1594,7 +1597,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -1644,7 +1647,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -1699,7 +1702,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -1743,7 +1746,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -1793,7 +1796,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -1826,7 +1829,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -1875,7 +1878,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -1930,7 +1933,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -1986,7 +1989,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2041,7 +2044,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2083,7 +2086,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2131,7 +2134,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2183,7 +2186,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2259,7 +2262,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2336,7 +2339,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -2408,7 +2411,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2455,7 +2458,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2521,7 +2524,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2564,7 +2567,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -2614,7 +2617,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2657,7 +2660,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2699,7 +2702,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -2756,7 +2759,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2806,7 +2809,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2850,7 +2853,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2897,7 +2900,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -2949,7 +2952,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -2993,7 +2996,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3036,7 +3039,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3085,7 +3088,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3128,7 +3131,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3172,7 +3175,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3216,7 +3219,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3272,7 +3275,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3316,7 +3319,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3364,7 +3367,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3413,7 +3416,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3457,7 +3460,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3501,7 +3504,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -3551,7 +3554,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3595,7 +3598,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3639,7 +3642,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3691,7 +3694,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3750,7 +3753,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3800,7 +3803,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3844,7 +3847,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3888,7 +3891,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -3938,7 +3941,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4004,7 +4007,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4084,7 +4087,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4164,7 +4167,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4244,7 +4247,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4293,7 +4296,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4342,7 +4345,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4390,7 +4393,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4434,7 +4437,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4472,7 +4475,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4516,7 +4519,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4554,7 +4557,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4598,7 +4601,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4642,7 +4645,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4686,7 +4689,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4730,7 +4733,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4768,7 +4771,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4844,7 +4847,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4902,7 +4905,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -4978,7 +4981,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5022,7 +5025,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5076,7 +5079,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5130,7 +5133,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5182,7 +5185,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5226,7 +5229,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5270,7 +5273,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5314,7 +5317,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5358,7 +5361,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -5404,7 +5407,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5448,7 +5451,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5500,7 +5503,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5544,7 +5547,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5591,7 +5594,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -5631,7 +5634,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5687,7 +5690,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5729,7 +5732,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5782,7 +5785,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5845,7 +5848,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5903,7 +5906,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5941,7 +5944,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -5993,7 +5996,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6045,7 +6048,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6097,7 +6100,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6141,7 +6144,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6193,7 +6196,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6245,7 +6248,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6289,7 +6292,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6333,7 +6336,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6385,7 +6388,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6442,7 +6445,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6494,7 +6497,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6546,7 +6549,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6598,7 +6601,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6656,7 +6659,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6708,7 +6711,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6765,7 +6768,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6809,7 +6812,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6853,7 +6856,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6896,7 +6899,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6954,7 +6957,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -6987,7 +6990,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -7029,7 +7032,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -7077,7 +7080,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -7140,7 +7143,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -7178,7 +7181,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -7228,7 +7231,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -7272,7 +7275,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -7319,7 +7322,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -7363,7 +7366,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -7400,7 +7403,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -7443,7 +7446,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -7493,7 +7496,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -7549,7 +7552,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -7598,7 +7601,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -7647,7 +7650,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -7697,7 +7700,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 
@@ -7738,7 +7741,7 @@ export class CoreService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
 }

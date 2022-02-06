@@ -12,10 +12,12 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { HttpClient, HttpHeaders, HttpRequest,HttpEvent,HttpResponse } from '@angular/common/http';
+
+import { map } from 'rxjs/operators';
+import { Observable }                                      from 'rxjs';
+
 
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -102,7 +104,7 @@ export class AuditService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
 }

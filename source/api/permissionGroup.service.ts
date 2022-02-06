@@ -14,8 +14,10 @@
 import { Inject, Injectable, Optional }                      from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams,
          HttpResponse, HttpEvent }                           from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
-import { Observable }                                        from 'rxjs/Observable';
+import { Observable }                                      from 'rxjs';
+
 
 import { CreatePermissionGroupLinkRequest } from '../model/createPermissionGroupLinkRequest';
 import { CreatePermissionGroupRequest } from '../model/createPermissionGroupRequest';
@@ -106,7 +108,7 @@ export class PermissionGroupService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -153,7 +155,7 @@ export class PermissionGroupService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
      /**
@@ -200,7 +202,7 @@ export class PermissionGroupService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
       /**
@@ -247,7 +249,7 @@ export class PermissionGroupService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -294,7 +296,7 @@ export class PermissionGroupService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).map(o=>FlexiCoreDecycle.retrocycle(o));
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 }
 

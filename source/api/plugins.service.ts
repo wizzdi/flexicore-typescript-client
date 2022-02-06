@@ -12,9 +12,11 @@
 
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional } from '@angular/core'; import { FlexiCoreDecycle } from './flexiCoreDecycle';
+import { Inject, Injectable, Optional } from '@angular/core';
+ import { FlexiCoreDecycle } from './flexiCoreDecycle';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { PluginInformationHolder } from '../model/pluginInformationHolder';
 
@@ -108,7 +110,7 @@ export class PluginsService {
         observe: observe,
         reportProgress: reportProgress
       }
-    ).map(o => FlexiCoreDecycle.retrocycle(o));
+    ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
   }
 
     /**
@@ -117,13 +119,13 @@ export class PluginsService {
     */
     public listAllModules(authenticationkey?: string, extraHttpRequestParams?: any): Observable<Array<ModuleManifest>> {
         return this.listAllModulesWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -132,13 +134,13 @@ export class PluginsService {
      */
     public restart(authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.restartWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -147,13 +149,13 @@ export class PluginsService {
      */
     public testUpdate(authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
         return this.testUpdateWithHttpInfo(authenticationkey, extraHttpRequestParams)
-            .map((response: Response) => {
+            .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
                 } else {
                     return FlexiCoreDecycle.retrocycle(response.json()) || {};
                 }
-            });
+            }));
     }
 
     /**
@@ -190,7 +192,7 @@ export class PluginsService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -227,7 +229,7 @@ export class PluginsService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -264,7 +266,7 @@ export class PluginsService {
             requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
         }
 
-        return this.httpClient.request(requestOptions).map(o => FlexiCoreDecycle.retrocycle(o));
+        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
 }
