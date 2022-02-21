@@ -9,13 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Tenant } from './tenant';
-export interface Baseclass {
-    id?: string;
-    creationDate?: Date;
-    updateDate?: Date;
-    softDelete?: boolean;
-    name?: string;
-    description?: string;
-    tenant?: Tenant;
+import { Basic, SecurityTenant } from '..';
+export interface Baseclass extends Basic {
+    tenant?: SecurityTenant;
+    noSQL?: boolean;
+    systemObject?: boolean;
+    dtype?: string;
 }

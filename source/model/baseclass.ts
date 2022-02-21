@@ -10,22 +10,14 @@
  * Do not edit the class manually.
  */
 
-import { Tenant } from './tenant';
+import { Basic, SecurityTenant } from '..';
 
 
-export interface Baseclass {
-    id?: string;
-
-    creationDate?: Date;
-
-    updateDate?: Date;
-
-    softDelete?: boolean;
-
-    name?: string;
-
-    description?: string;
-
-    tenant?: Tenant;
+export interface Baseclass extends Basic{
+  
+    tenant?: SecurityTenant;
+    noSQL?: boolean;
+    systemObject?: boolean;
+    dtype?: string;
 
 }

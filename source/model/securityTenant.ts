@@ -1,11 +1,7 @@
-import { Baseclass } from "./baseclass";
-import { FileResource } from "./fileResource";
 
-export interface SecurityTenants extends Baseclass {
-    javaType?: string;
-    noSQL?: boolean;
-    icon?: FileResource;
+import { SecurityEntity } from "./securityEntity";
+
+export interface SecurityTenant extends SecurityEntity {
     externalId?: string;
-    systemObject?: boolean;
-    dtype?: string;
+ 
 }

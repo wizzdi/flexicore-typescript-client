@@ -1,9 +1,11 @@
 export class Basic {
-  creationDate?: Date;
-  description?: string;
   id?: string;
   name?: string;
+  description?: string;
   softdelete?: boolean;
+
+  creationDate?: Date;
+ 
   updateDate?: Date;
   javaType?: string;
 }

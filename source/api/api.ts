@@ -83,13 +83,17 @@ import { DynamicExecutionControllerService } from './dynamicExecutionController.
 export * from './dynamicExecutionController.service';
 import { DynamicInvokerMethodControllerService } from './dynamicInvokerMethodController.service';
 export * from './dynamicInvokerMethodController.service';
-import { SecurityTenantsService } from './securityTenants.service';
-export * from './securityTenants.service';
+import { SecurityTenantService } from './securityTenant.service';
+export * from './securityTenant.service';
+import { SecurityUserService } from './securityUser.service';
+export * from './securityUser.service';
 
+import { RoleService } from './role.service';
+export * from './role.service';
 export {
     AuthenticationService, AuthenticationNewService, BaseclassesService, CategoriesService, ClazzService, CoreService, UIComponentService,
     DownloadService, LicenseRequestService, LicenseRequestToFeatureService, LicenseRequestToProductService, LicensingFeatureService, LicensingProductService,
      PluginsService, RolesService,  TenantsService,  PermissionGroupService, ResetPasswordService,
     UploadService, UploadUtilsService, UsersService,  FlexiCoreDecycle, TokenBasedService, HealthService, FlexiCoreServerService, HealthReportService, BaseLinkService, SecurityService, LicenseRequestToQuantityFeatureService, LogService, AuditService, OperationService, TenantToUsersService, TotpService,
-    PasswordSecurityPolicyService, TotpSecurityPolicyService, DynamicExecutionControllerService, DynamicInvokerMethodControllerService, DynamicInvokersControllerService, SecurityTenantsService
+    PasswordSecurityPolicyService, TotpSecurityPolicyService, DynamicExecutionControllerService, DynamicInvokerMethodControllerService, DynamicInvokersControllerService, SecurityTenantService,SecurityUserService,RoleService
 };

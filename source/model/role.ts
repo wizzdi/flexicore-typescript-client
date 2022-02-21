@@ -10,12 +10,11 @@
  * Do not edit the class manually.
  */
 
-import { Baseclass } from './baseclass';
 import { RoleToUser } from './roleToUser';
-import { Tenant } from './tenant';
+import { SecurityEntity } from './securityEntity';
 
 
-export interface Role extends Baseclass{
+export interface Role extends SecurityEntity{
   
 
     roleToUser?: Array<RoleToUser>;

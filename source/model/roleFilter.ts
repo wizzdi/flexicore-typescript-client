@@ -1,4 +1,6 @@
+import { BaseclassFilter } from "./baseclassFilter";
 import { FilteringInformationHolder } from "./filteringInformationHolder";
+import { SecurityEntityFilter } from "./securityEntityFilter";
 
 /**
  * REST API for Flexicore filtered by your access rights
@@ -14,7 +16,7 @@ import { FilteringInformationHolder } from "./filteringInformationHolder";
 
 
 
-export interface RoleFilter extends FilteringInformationHolder { 
+export interface RoleFilter extends SecurityEntityFilter { 
 
 
 }

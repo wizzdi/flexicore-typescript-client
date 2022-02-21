@@ -1,4 +1,5 @@
 import { BaseclassCreate } from "./baseclassCreate";
+import { SecurityEntityCreate } from "./securityEntityCreate";
 
 /**
  * REST API for Flexicore filtered by your access rights
@@ -14,6 +15,6 @@ import { BaseclassCreate } from "./baseclassCreate";
 
 
 
-export interface RoleCreate extends BaseclassCreate { 
+export interface RoleCreate extends SecurityEntityCreate { 
 
 }

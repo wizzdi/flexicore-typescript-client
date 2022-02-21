@@ -1,4 +1,4 @@
-import { FilteringInformationHolder } from "./filteringInformationHolder";
+import { SecurityEntityFilter } from "./securityEntityFilter";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -10,5 +10,5 @@ import { FilteringInformationHolder } from "./filteringInformationHolder";
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-export interface RoleFilter extends FilteringInformationHolder {
+export interface RoleFilter extends SecurityEntityFilter {
 }

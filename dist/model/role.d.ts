@@ -9,8 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Baseclass } from './baseclass';
 import { RoleToUser } from './roleToUser';
-export interface Role extends Baseclass {
+import { SecurityEntity } from './securityEntity';
+export interface Role extends SecurityEntity {
     roleToUser?: Array<RoleToUser>;
 }

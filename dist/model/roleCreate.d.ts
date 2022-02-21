@@ -1,4 +1,4 @@
-import { BaseclassCreate } from "./baseclassCreate";
+import { SecurityEntityCreate } from "./securityEntityCreate";
 /**
  * REST API for Flexicore filtered by your access rights
  * Flexicore REST API
@@ -10,5 +10,5 @@ import { BaseclassCreate } from "./baseclassCreate";
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-export interface RoleCreate extends BaseclassCreate {
+export interface RoleCreate extends SecurityEntityCreate {
 }
