@@ -16,6 +16,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { Injectable } from '@angular/core';
 import * as SparkMD5 from 'spark-md5';
 import { Configuration } from '../configuration';
+import { lastValueFrom } from 'rxjs';
 import { defer } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 let UploadUtilsService = class UploadUtilsService {
@@ -36,7 +37,7 @@ let UploadUtilsService = class UploadUtilsService {
             // calculating the MD5 hash of the complete file
             const md5 = yield this.computeChecksumMd5(file);
             // checking if the file was already uploaded using the calculated MD5 hash
-            const offsetFileResource = yield this.uploadService.getFileResource(md5, authenticationKey).toPromise();
+            const offsetFileResource = yield lastValueFrom(this.uploadService.getFileResource(md5, authenticationKey));
             // getting the size of already uploaded file
             const offset = offsetFileResource ? offsetFileResource.offset : 0;
             if (offset >= file.size) { // file is already completely uploaded
@@ -59,7 +60,7 @@ let UploadUtilsService = class UploadUtilsService {
                     lastChunk = true;
                 }
                 // uploading chunk
-                const response = yield this.uploadService.uploadFileWithChunkMd5(authenticationKey, md5, name, chunkMD5String, lastChunk, chunk, extraHttpRequestParams).toPromise();
+                const response = yield lastValueFrom(this.uploadService.uploadFileWithChunkMd5(authenticationKey, md5, name, chunkMD5String, lastChunk, chunk));
                 // sending progress via callback
                 const progress = Math.round((response.offset / file.size) * 100);
                 if (onProgress) {

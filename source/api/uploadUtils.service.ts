@@ -4,7 +4,7 @@ import { Configuration } from '../configuration';
 import { Upload } from '../model/upload';
 import { UploadService } from './upload.service';
 import { FileResource } from '../model/fileResource';
-import { Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import { defer } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { IUploadService } from './iUploadService.service';
@@ -31,7 +31,7 @@ export class UploadUtilsService {
             // calculating the MD5 hash of the complete file
             const md5 = await this.computeChecksumMd5(file);
             // checking if the file was already uploaded using the calculated MD5 hash
-            const offsetFileResource = await this.uploadService.getFileResource(md5, authenticationKey).toPromise();
+            const offsetFileResource = await lastValueFrom( this.uploadService.getFileResource(md5, authenticationKey))
             // getting the size of already uploaded file
             const offset = offsetFileResource ? offsetFileResource.offset : 0;
 
@@ -60,15 +60,13 @@ export class UploadUtilsService {
                 }
 
                 // uploading chunk
-                const response = await this.uploadService.uploadFileWithChunkMd5(
+                const response = await lastValueFrom(this.uploadService.uploadFileWithChunkMd5(
                     authenticationKey,
                     md5,
                     name,
                     chunkMD5String,
                     lastChunk,
-                    chunk,
-                    extraHttpRequestParams
-                ).toPromise();
+                    chunk));
 
                 // sending progress via callback
 

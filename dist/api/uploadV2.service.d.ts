@@ -12,7 +12,7 @@
 import { Observable } from 'rxjs';
 import { FileResource } from '../model/fileResource';
 import { Configuration } from '../configuration';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { IUploadService } from './iUploadService.service';
 export declare class UploadV2Service implements IUploadService {
     protected httpClient: HttpClient;
@@ -33,24 +33,23 @@ export declare class UploadV2Service implements IUploadService {
      */
     private canConsumeForm;
     /**
-     *
-     * @param md5
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    getFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource>;
-    uploadFileWithChunkMd5(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<FileResource>;
+    *
+    *
+    * @param body
+    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+    * @param reportProgress flag to report request and response progress.
+    */
+    getFileResource(md5?: string, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<FileResource>;
+    getFileResource(md5?: string, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileResource>>;
+    getFileResource(md5?: string, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileResource>>;
     /**
-     *
-     *
-     * @param md5
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    getFileResourceWithHttpInfo(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<any>;
-    /**
-        *
-        *
-        * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-        * @param body
-        */
-    uploadFileWithHttpInfo(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<any>;
+  *
+  *
+  * @param body
+  * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+  * @param reportProgress flag to report request and response progress.
+  */
+    uploadFileWithChunkMd5(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, observe?: 'body', reportProgress?: boolean): Observable<FileResource>;
+    uploadFileWithChunkMd5(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileResource>>;
+    uploadFileWithChunkMd5(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileResource>>;
 }

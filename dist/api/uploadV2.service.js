@@ -20,11 +20,9 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 /* tslint:disable:no-unused-variable member-ordering */
 import { Inject, Injectable, Optional } from '@angular/core';
-import { FlexiCoreDecycle } from './flexiCoreDecycle';
-import { map } from 'rxjs/operators';
 import { BASE_PATH } from '../variables';
 import { Configuration } from '../configuration';
-import { HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 let UploadV2Service = class UploadV2Service {
     constructor(httpClient, basePath, configuration) {
         this.httpClient = httpClient;
@@ -66,79 +64,29 @@ let UploadV2Service = class UploadV2Service {
         }
         return false;
     }
-    /**
-     *
-     * @param md5
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    getFileResource(md5, authenticationkey, extraHttpRequestParams) {
-        return this.getFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .pipe(map((response) => {
-            if (response.status === 204) {
-                return undefined;
-            }
-            else {
-                return FlexiCoreDecycle.retrocycle(response) || {};
-            }
-        }));
-    }
-    uploadFileWithChunkMd5(authenticationkey, md5, name, chunkMd5, lastChunk, blob, extraHttpRequestParams) {
-        return this.uploadFileWithHttpInfo(authenticationkey, md5, name, chunkMd5, lastChunk, blob, extraHttpRequestParams)
-            .pipe(map((response) => {
-            if (response.status === 204) {
-                return undefined;
-            }
-            else {
-                return FlexiCoreDecycle.retrocycle(response.body) || {};
-            }
-        }));
-    }
-    /**
-     *
-     *
-     * @param md5
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    getFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams) {
-        const path = this.basePath + '/fileResource/${md5}'
-            .replace('${' + 'md5' + '}', String(md5));
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
-        // verify required parameter 'md5' is not null or undefined
-        if (md5 === null || md5 === undefined) {
-            throw new Error('Required parameter md5 was null or undefined when calling getFileResource.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
+    getFileResource(md5, authenticationkey, observe = 'body', reportProgress = false) {
+        let headers = this.defaultHeaders;
         // to determine the Accept header
-        let produces = [
-            'application/json'
-        ];
-        let requestOptions = new HttpRequest('GET', path, {
+        let httpHeaderAccepts = [];
+        const httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+        // to determine the Content-Type header
+        const consumes = [];
+        const httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+        return this.httpClient.get(`${this.basePath}/fileResource/${md5}`, {
+            withCredentials: this.configuration.withCredentials,
             headers: headers,
-            search: queryParameters,
-            withCredentials: this.configuration.withCredentials
+            observe: observe,
+            reportProgress: reportProgress
         });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
-        }
-        return this.httpClient.request(requestOptions);
     }
-    /**
-        *
-        *
-        * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-        * @param body
-        */
-    uploadFileWithHttpInfo(authenticationkey, md5, name, chunkMd5, lastChunk, blob, extraHttpRequestParams) {
-        const path = this.basePath + '/upload';
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
+    uploadFileWithChunkMd5(authenticationkey, md5, name, chunkMd5, lastChunk, blob, observe = 'body', reportProgress = false) {
+        let headers = this.defaultHeaders;
         if (md5 !== undefined && md5 !== null) {
             headers = headers.set('md5', String(md5));
         }
@@ -151,28 +99,14 @@ let UploadV2Service = class UploadV2Service {
         if (lastChunk !== undefined && lastChunk !== null) {
             headers = headers.set('lastChunk', String(lastChunk));
         }
-        // to determine the Accept header
-        let produces = [
-            'application/json'
-        ];
-        let httpHeaderAccepts = [
-            'application/octet-stream'
-        ];
-        // const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        // if (httpHeaderAcceptSelected != undefined) {
-        //     headers = headers.set('Accept', httpHeaderAcceptSelected);
-        // }
         headers = headers.set('Accept', ' application/json');
         headers = headers.set('Content-Type', 'application/octet-stream');
-        let requestOptions = new HttpRequest('POST', path, blob, {
-            headers,
-            withCredentials: this.configuration.withCredentials
+        return this.httpClient.post(`${this.basePath}/upload/`, blob, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
         });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
-        }
-        return this.httpClient.request(requestOptions);
     }
 };
 UploadV2Service = __decorate([
