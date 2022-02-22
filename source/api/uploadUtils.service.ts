@@ -7,6 +7,7 @@ import { FileResource } from '../model/fileResource';
 import { Observable } from 'rxjs';
 import { defer } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
+import { IUploadService } from './iUploadService.service';
 
 @Injectable()
 export class UploadUtilsService {
@@ -14,7 +15,7 @@ export class UploadUtilsService {
     public defaultHeaders = new HttpHeaders();
     public configuration: Configuration = new Configuration();
 
-    constructor(private uploadService: UploadService) {
+    constructor(private uploadService: IUploadService) {
     }
 
     public upload(authenticationKey: string, body: Upload, onProgress?: (progress: any) => void, extraHttpRequestParams?: any): Observable<FileResource> {

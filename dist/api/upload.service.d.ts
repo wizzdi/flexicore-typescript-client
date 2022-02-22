@@ -14,7 +14,8 @@ import { FileResource } from '../model/fileResource';
 import { Job } from '../model/job';
 import { Configuration } from '../configuration';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-export declare class UploadService {
+import { IUploadService } from './iUploadService.service';
+export declare class UploadService implements IUploadService {
     protected httpClient: HttpClient;
     protected basePath: string;
     defaultHeaders: HttpHeaders;

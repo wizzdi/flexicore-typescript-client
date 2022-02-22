@@ -24,10 +24,11 @@ import { Job } from '../model/job';
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { IUploadService } from './iUploadService.service';
 
 
 @Injectable()
-export class UploadService {
+export class UploadService implements IUploadService{
 
     protected basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
     public defaultHeaders = new HttpHeaders();

@@ -12,22 +12,22 @@
 
 import { Baseclass } from './baseclass';
 import { FileType } from './fileType';
+import { SecuredBasic } from './securedBasic';
 import { Tenant } from './tenant';
 
 
-export interface FileResource extends Baseclass{
+export interface FileResource extends SecuredBasic{
   
-
+    md5?:string;
     offset?: number;
-
+    actualFilename?:string;
     originalFilename?: string;
-
     done?: boolean;
-
+    path?:string;
     dateTaken?: Date;
-
     nonDownloadable?: boolean;
-
     type?: FileType;
+    keepUntil?:Date;
+    onlyFrom?:string;
 
 }

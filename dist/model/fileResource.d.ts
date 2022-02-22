@@ -9,13 +9,18 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Baseclass } from './baseclass';
 import { FileType } from './fileType';
-export interface FileResource extends Baseclass {
+import { SecuredBasic } from './securedBasic';
+export interface FileResource extends SecuredBasic {
+    md5?: string;
     offset?: number;
+    actualFilename?: string;
     originalFilename?: string;
     done?: boolean;
+    path?: string;
     dateTaken?: Date;
     nonDownloadable?: boolean;
     type?: FileType;
+    keepUntil?: Date;
+    onlyFrom?: string;
 }
