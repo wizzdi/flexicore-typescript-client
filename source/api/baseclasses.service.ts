@@ -1575,56 +1575,40 @@ export class BaseclassesService {
         return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
+    public getFilterClassInfo(body?: GetClassInfo, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
-    public getFilterClassInfo( authenticationkey?: string,  body?: GetClassInfo, extraHttpRequestParams?: any): Observable<ParameterInfo> {
-        return this.getFilterClassInfoWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe(map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            }));
-    }
-
-  
-    public getFilterClassInfoWithHttpInfo( authenticationkey?: string,  body?: GetClassInfo, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/baseclass/getFilterClassInfo';
-
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
-
-     
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+        let headers = this.defaultHeaders;
+        if (authenticationKey !== undefined && authenticationKey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationKey));
         }
-
-       
-
 
         // to determine the Accept header
-        let produces: string[] = [
+        let httpHeaderAccepts: string[] = [
             'application/json'
         ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-       let requestOptions = new HttpRequest(
-            'POST',
-            path,
-            {
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-            search: queryParameters,
-            withCredentials:this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
-        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<ParameterInfo>(`${this.basePath}/baseclass/getFilterClassInfo`,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
 
