@@ -516,26 +516,6 @@ export class BaseclassesService {
     }
 
     /**
-     * returns a list of instances of the type requested
-     * @summary Find an instance by its name with wildcard
-     * @param classname The canonical classname of the required entity list
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body filtering information
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     */
-    public nameLike(classname: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Baseclass>> {
-        return this.nameLikeWithHttpInfo(classname, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .pipe(map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            }));
-    }
-
-    /**
      * soft delete baseclass
      * @summary softDelete
      * @param id 
@@ -2244,28 +2224,18 @@ export class BaseclassesService {
         return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    /**
-     * Find an instance by its name with wildcard
-     * returns a list of instances of the type requested
-     * @param classname The canonical classname of the required entity list
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body filtering information
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     */
-    public nameLikeWithHttpInfo(classname: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Response> {
+    public nameLike(classname: string, body?: FilteringInformationHolder, authenticationKey?: string, pagesize?: number, currentpage?: number, 
+        observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         const path = this.basePath + '/baseclass/like/name/${classname}'
-                    .replace('${' + 'classname' + '}', String(classname));
+        .replace('${' + 'classname' + '}', String(classname));
 
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders;
+        if (authenticationKey !== undefined && authenticationKey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationKey));
+        }
 
-        // verify required parameter 'classname' is not null or undefined
         if (classname === null || classname === undefined) {
             throw new Error('Required parameter classname was null or undefined when calling nameLike.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
         }
 
         if (pagesize !== undefined && pagesize !== null) {
@@ -2276,30 +2246,33 @@ export class BaseclassesService {
             headers.set('currentpage', String(currentpage));
         }
 
-
         // to determine the Accept header
-        let produces: string[] = [
+        let httpHeaderAccepts: string[] = [
             'application/json'
         ];
-
-            
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions = new HttpRequest(
-            'POST',
-            path,
-            {
-                headers: headers,
-                body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-                search: queryParameters,
-                withCredentials: this.configuration.withCredentials
-            });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
-        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post(path,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
