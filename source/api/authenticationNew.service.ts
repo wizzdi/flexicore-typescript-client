@@ -50,9 +50,6 @@ export class AuthenticationNewService {
      * @param reportProgress flag to report request and response progress.
      */
 
-    public login(authenticationkey?: string, body?: AuthenticationNewRequestHolder, observe?: 'body', reportProgress?: boolean): Observable<AuthenticationNewResponse>;
-    public login(authenticationkey?: string, body?: AuthenticationNewRequestHolder, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AuthenticationNewResponse>>;
-    public login(authenticationkey?: string, body?: AuthenticationNewRequestHolder, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AuthenticationNewResponse>>;
     public login(authenticationkey?: string, body?: AuthenticationNewRequestHolder, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
