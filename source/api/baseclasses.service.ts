@@ -1555,7 +1555,7 @@ export class BaseclassesService {
         return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    public getFilterClassInfo(body?: GetClassInfo, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public getFilterClassInfo(body?: GetClassInfo, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<ParameterInfo> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
