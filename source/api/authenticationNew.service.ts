@@ -49,7 +49,9 @@ export class AuthenticationNewService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-
+    public login(authenticationkey?: string, body?: AuthenticationNewRequestHolder, observe?: 'body', reportProgress?: boolean): Observable<AuthenticationNewResponse>;
+    public login(authenticationkey?: string, body?: AuthenticationNewRequestHolder, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AuthenticationNewResponse>>;
+    public login(authenticationkey?: string, body?: AuthenticationNewRequestHolder, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AuthenticationNewResponse>>;
     public login(authenticationkey?: string, body?: AuthenticationNewRequestHolder, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -84,6 +86,6 @@ export class AuthenticationNewService {
                 observe: observe,
                 reportProgress: reportProgress
             }
-        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 }
