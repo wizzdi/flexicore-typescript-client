@@ -36,7 +36,7 @@ import { ClassInfo } from '../model/classInfo';
 import { ExportBaseclassGeneric } from '../model/exportBaseclassGeneric';
 import { BasicDelete } from '../model/basicDelete';
 import { BasicDeleteResponse } from '../model/basicDeleteResponse';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 
 
 @Injectable()
@@ -1555,7 +1555,10 @@ export class BaseclassesService {
         return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    public getFilterClassInfo(body?: GetClassInfo, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<ParameterInfo> {
+    public getFilterClassInfo(body?: GetClassInfo, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<ParameterInfo>;
+    public getFilterClassInfo(body?: GetClassInfo, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ParameterInfo>>;
+    public getFilterClassInfo(body?: GetClassInfo, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ParameterInfo>>;
+    public getFilterClassInfo(body?: GetClassInfo, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
@@ -2223,7 +2226,12 @@ export class BaseclassesService {
 
         return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
-
+    public nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, 
+        observe?: 'body', reportProgress?: boolean): Observable<Response>;
+    public nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, 
+        observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+    public nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, 
+        observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
     public nameLike(classname: string, body?: FilteringInformationHolder, authenticationKey?: string, pagesize?: number, currentpage?: number, 
         observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         const path = this.basePath + '/baseclass/like/name/${classname}'
