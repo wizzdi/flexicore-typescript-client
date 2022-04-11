@@ -84,7 +84,7 @@ let SecurityTenantService = class SecurityTenantService {
         if (httpContentTypeSelected != undefined) {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
-        return this.httpClient.post(`${this.basePath}/securitytenant/create`, body, {
+        return this.httpClient.post(`${this.basePath}/securityTenant/create`, body, {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
             observe: observe,
@@ -110,7 +110,7 @@ let SecurityTenantService = class SecurityTenantService {
         if (httpContentTypeSelected != undefined) {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
-        return this.httpClient.put(`${this.basePath}/securitytenant/update`, body, {
+        return this.httpClient.put(`${this.basePath}/securityTenant/update`, body, {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
             observe: observe,

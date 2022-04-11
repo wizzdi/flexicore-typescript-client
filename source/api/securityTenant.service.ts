@@ -125,7 +125,7 @@ export class SecurityTenantService {
                 headers = headers.set('Content-Type', httpContentTypeSelected);
             }
     
-            return this.httpClient.post<SecurityTenant>(`${this.basePath}/securitytenant/create`,
+            return this.httpClient.post<SecurityTenant>(`${this.basePath}/securityTenant/create`,
                 body,
                 {
                     withCredentials: this.configuration.withCredentials,
@@ -171,7 +171,7 @@ export class SecurityTenantService {
                    headers = headers.set('Content-Type', httpContentTypeSelected);
                }
        
-               return this.httpClient.put<SecurityTenant>(`${this.basePath}/securitytenant/update`,
+               return this.httpClient.put<SecurityTenant>(`${this.basePath}/securityTenant/update`,
                    body,
                    {
                        withCredentials: this.configuration.withCredentials,

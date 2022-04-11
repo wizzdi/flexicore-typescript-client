@@ -214,4 +214,7 @@ export * from './securityUser';
 export * from './securityUserCreate';
 export * from './securityUserUpdate';
 export * from './securityUserFilter';
+export * from './deleteObjectRequest';
+export * from './deleteObjectRequests';
+export * from './deleteResponse';
 //# sourceMappingURL=models.js.map

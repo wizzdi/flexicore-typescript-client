@@ -25,7 +25,7 @@ import { ClassInfo } from '../model/classInfo';
 import { ExportBaseclassGeneric } from '../model/exportBaseclassGeneric';
 import { BasicDelete } from '../model/basicDelete';
 import { BasicDeleteResponse } from '../model/basicDeleteResponse';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpResponse } from '@angular/common/http';
 export declare class BaseclassesService {
     protected httpClient: HttpClient;
     protected basePath: string;
@@ -252,16 +252,6 @@ export declare class BaseclassesService {
      */
     linkroleuser(authenticationkey?: string, body?: RoleUserContainer, extraHttpRequestParams?: any): Observable<RoleToUser>;
     /**
-     * returns a list of instances of the type requested
-     * @summary Find an instance by its name with wildcard
-     * @param classname The canonical classname of the required entity list
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body filtering information
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     */
-    nameLike(classname: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Array<Baseclass>>;
-    /**
      * soft delete baseclass
      * @summary softDelete
      * @param id
@@ -440,8 +430,9 @@ export declare class BaseclassesService {
      * @param currentpage The current page or -1 for full list
      */
     findLinksValuesWithHttpInfo(left: string, right: string, classname: string, authenticationkey?: string, value?: string, simpleValue?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Response>;
-    getFilterClassInfo(authenticationkey?: string, body?: GetClassInfo, extraHttpRequestParams?: any): Observable<ParameterInfo>;
-    getFilterClassInfoWithHttpInfo(authenticationkey?: string, body?: GetClassInfo, extraHttpRequestParams?: any): Observable<Response>;
+    getFilterClassInfo(body?: GetClassInfo, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<ParameterInfo>;
+    getFilterClassInfo(body?: GetClassInfo, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ParameterInfo>>;
+    getFilterClassInfo(body?: GetClassInfo, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ParameterInfo>>;
     getClassInfo(authenticationkey?: string, body?: GetClassInfo, extraHttpRequestParams?: any): Observable<ParameterInfo>;
     getExample(authenticationkey?: string, body?: GetClassInfo, extraHttpRequestParams?: any): Observable<any>;
     getClassInfoWithHttpInfo(authenticationkey?: string, body?: GetClassInfo, extraHttpRequestParams?: any): Observable<Response>;
@@ -512,16 +503,9 @@ export declare class BaseclassesService {
      * @param body
      */
     linkroleuserWithHttpInfo(authenticationkey?: string, body?: RoleUserContainer, extraHttpRequestParams?: any): Observable<Response>;
-    /**
-     * Find an instance by its name with wildcard
-     * returns a list of instances of the type requested
-     * @param classname The canonical classname of the required entity list
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body filtering information
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     */
-    nameLikeWithHttpInfo(classname: string, authenticationkey?: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, extraHttpRequestParams?: any): Observable<Response>;
+    nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, observe?: 'body', reportProgress?: boolean): Observable<Response>;
+    nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+    nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
     /**
      * softDelete
      * soft delete baseclass

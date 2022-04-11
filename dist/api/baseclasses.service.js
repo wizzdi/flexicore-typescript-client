@@ -494,26 +494,6 @@ let BaseclassesService = class BaseclassesService {
         }));
     }
     /**
-     * returns a list of instances of the type requested
-     * @summary Find an instance by its name with wildcard
-     * @param classname The canonical classname of the required entity list
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body filtering information
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     */
-    nameLike(classname, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
-        return this.nameLikeWithHttpInfo(classname, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams)
-            .pipe(map((response) => {
-            if (response.status === 204) {
-                return undefined;
-            }
-            else {
-                return FlexiCoreDecycle.retrocycle(response.json()) || {};
-            }
-        }));
-    }
-    /**
      * soft delete baseclass
      * @summary softDelete
      * @param id
@@ -1329,40 +1309,33 @@ let BaseclassesService = class BaseclassesService {
         }
         return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
-    getFilterClassInfo(authenticationkey, body, extraHttpRequestParams) {
-        return this.getFilterClassInfoWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe(map((response) => {
-            if (response.status === 204) {
-                return undefined;
-            }
-            else {
-                return FlexiCoreDecycle.retrocycle(response.json()) || {};
-            }
-        }));
-    }
-    getFilterClassInfoWithHttpInfo(authenticationkey, body, extraHttpRequestParams) {
-        const path = this.basePath + '/baseclass/getFilterClassInfo';
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+    getFilterClassInfo(body, authenticationKey, observe = 'body', reportProgress = false) {
+        let headers = this.defaultHeaders;
+        if (authenticationKey !== undefined && authenticationKey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationKey));
         }
         // to determine the Accept header
-        let produces = [
+        let httpHeaderAccepts = [
             'application/json'
         ];
-        headers.set('Content-Type', 'application/json');
-        let requestOptions = new HttpRequest('POST', path, {
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body),
-            search: queryParameters,
-            withCredentials: this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
+        const httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
-        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
+        // to determine the Content-Type header
+        const consumes = [
+            'application/json'
+        ];
+        const httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+        return this.httpClient.post(`${this.basePath}/baseclass/getFilterClassInfo`, body, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     getClassInfo(authenticationkey, body, extraHttpRequestParams) {
         return this.getClassInfoWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
@@ -1835,26 +1808,15 @@ let BaseclassesService = class BaseclassesService {
         }
         return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
-    /**
-     * Find an instance by its name with wildcard
-     * returns a list of instances of the type requested
-     * @param classname The canonical classname of the required entity list
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body filtering information
-     * @param pagesize Number of entries to be retrieved per page or -1 for full list
-     * @param currentpage The current page or -1 for full list
-     */
-    nameLikeWithHttpInfo(classname, authenticationkey, body, pagesize, currentpage, extraHttpRequestParams) {
+    nameLike(classname, body, authenticationKey, pagesize, currentpage, observe = 'body', reportProgress = false) {
         const path = this.basePath + '/baseclass/like/name/${classname}'
             .replace('${' + 'classname' + '}', String(classname));
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
-        // verify required parameter 'classname' is not null or undefined
+        let headers = this.defaultHeaders;
+        if (authenticationKey !== undefined && authenticationKey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationKey));
+        }
         if (classname === null || classname === undefined) {
             throw new Error('Required parameter classname was null or undefined when calling nameLike.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
         }
         if (pagesize !== undefined && pagesize !== null) {
             headers.set('pagesize', String(pagesize));
@@ -1863,21 +1825,27 @@ let BaseclassesService = class BaseclassesService {
             headers.set('currentpage', String(currentpage));
         }
         // to determine the Accept header
-        let produces = [
+        let httpHeaderAccepts = [
             'application/json'
         ];
-        headers.set('Content-Type', 'application/json');
-        let requestOptions = new HttpRequest('POST', path, {
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body),
-            search: queryParameters,
-            withCredentials: this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
+        const httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
-        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
+        // to determine the Content-Type header
+        const consumes = [
+            'application/json'
+        ];
+        const httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+        return this.httpClient.post(path, body, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * softDelete

@@ -84,7 +84,7 @@ let SecurityUserService = class SecurityUserService {
         if (httpContentTypeSelected != undefined) {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
-        return this.httpClient.post(`${this.basePath}/securityuser/create`, body, {
+        return this.httpClient.post(`${this.basePath}/securityUser/create`, body, {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
             observe: observe,
@@ -110,7 +110,7 @@ let SecurityUserService = class SecurityUserService {
         if (httpContentTypeSelected != undefined) {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
-        return this.httpClient.put(`${this.basePath}/securityuser/update`, body, {
+        return this.httpClient.put(`${this.basePath}/securityUser/update`, body, {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
             observe: observe,

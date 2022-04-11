@@ -125,7 +125,7 @@ export class SecurityUserService {
                 headers = headers.set('Content-Type', httpContentTypeSelected);
             }
     
-            return this.httpClient.post<SecurityUser>(`${this.basePath}/securityuser/create`,
+            return this.httpClient.post<SecurityUser>(`${this.basePath}/securityUser/create`,
                 body,
                 {
                     withCredentials: this.configuration.withCredentials,
@@ -171,7 +171,7 @@ export class SecurityUserService {
                    headers = headers.set('Content-Type', httpContentTypeSelected);
                }
        
-               return this.httpClient.put<SecurityUser>(`${this.basePath}/securityuser/update`,
+               return this.httpClient.put<SecurityUser>(`${this.basePath}/securityUser/update`,
                    body,
                    {
                        withCredentials: this.configuration.withCredentials,
