@@ -10,13 +10,10 @@
  * Do not edit the class manually.
  */
 
-import { RoleToUser } from './roleToUser';
 import { SecurityEntity } from './securityEntity';
 
 
 export interface Role extends SecurityEntity{
   
-
-    roleToUser?: Array<RoleToUser>;
 
 }

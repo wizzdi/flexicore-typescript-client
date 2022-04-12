@@ -11,4 +11,5 @@ import { SecurityEntityFilter } from "./securityEntityFilter";
  * Do not edit the class manually.
  */
 export interface RoleFilter extends SecurityEntityFilter {
+    securityTenantsIds?: string[];
 }
