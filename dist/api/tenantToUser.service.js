@@ -73,7 +73,7 @@ let TenantToUsersService = class TenantToUsersService {
         if (httpContentTypeSelected != undefined) {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
-        return this.httpClient.post(`${this.basePath}/tenantToUser/getAllTenantToUsers`, body, {
+        return this.httpClient.post(`${this.basePath}/tenantToUser/getAll`, body, {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
             observe: observe,
@@ -101,7 +101,7 @@ let TenantToUsersService = class TenantToUsersService {
         if (httpContentTypeSelected != undefined) {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
-        return this.httpClient.put(`${this.basePath}/tenantToUser/updateTenantToUser`, body, {
+        return this.httpClient.put(`${this.basePath}/tenantToUser/update`, body, {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
             observe: observe,
@@ -129,7 +129,7 @@ let TenantToUsersService = class TenantToUsersService {
         if (httpContentTypeSelected != undefined) {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
-        return this.httpClient.post(`${this.basePath}/tenantToUser/createTenantToUser`, body, {
+        return this.httpClient.post(`${this.basePath}/tenantToUser/create`, body, {
             withCredentials: this.configuration.withCredentials,
             headers: headers,
             observe: observe,

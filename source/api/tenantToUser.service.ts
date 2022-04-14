@@ -101,7 +101,7 @@ export class TenantToUsersService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<PaginationResponse<TenantToUser>>(`${this.basePath}/tenantToUser/getAllTenantToUsers`,
+        return this.httpClient.post<PaginationResponse<TenantToUser>>(`${this.basePath}/tenantToUser/getAll`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -149,7 +149,7 @@ export class TenantToUsersService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<TenantToUser>(`${this.basePath}/tenantToUser/updateTenantToUser`,
+        return this.httpClient.put<TenantToUser>(`${this.basePath}/tenantToUser/update`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -198,7 +198,7 @@ export class TenantToUsersService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<TenantToUser>(`${this.basePath}/tenantToUser/createTenantToUser`,
+        return this.httpClient.post<TenantToUser>(`${this.basePath}/tenantToUser/create`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,
