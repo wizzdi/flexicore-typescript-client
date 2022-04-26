@@ -10,9 +10,11 @@
  * Do not edit the class manually.
  */
 import { Basic, SecurityTenant } from '..';
+import { SecurityUser } from './securityUser';
 export interface Baseclass extends Basic {
     tenant?: SecurityTenant;
     noSQL?: boolean;
     systemObject?: boolean;
     dtype?: string;
+    creator?: SecurityUser;
 }

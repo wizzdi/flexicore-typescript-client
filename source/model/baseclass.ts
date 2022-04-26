@@ -11,6 +11,7 @@
  */
 
 import { Basic, SecurityTenant } from '..';
+import { SecurityUser } from './securityUser';
 
 
 export interface Baseclass extends Basic{
@@ -19,5 +20,6 @@ export interface Baseclass extends Basic{
     noSQL?: boolean;
     systemObject?: boolean;
     dtype?: string;
+    creator?:SecurityUser;
 
 }
