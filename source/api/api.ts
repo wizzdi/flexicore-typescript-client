@@ -97,11 +97,14 @@ export * from './iUploadService.service';
 
 import {GenericDeleteService} from './genericDelete.service';
 export * from './genericDelete.service';
+import {TenantStarterService } from './tenantStarter.service';
+export * from './tenantStarter.service';
 
 export {
     AuthenticationService, AuthenticationNewService, BaseclassesService, CategoriesService, ClazzService, CoreService, UIComponentService,
     DownloadService, LicenseRequestService, LicenseRequestToFeatureService, LicenseRequestToProductService, LicensingFeatureService, LicensingProductService,
      PluginsService, RolesService,  TenantsService,  PermissionGroupService, ResetPasswordService,
     UploadService, UploadUtilsService, UsersService,  FlexiCoreDecycle, TokenBasedService, HealthService, FlexiCoreServerService, HealthReportService, BaseLinkService, SecurityService, LicenseRequestToQuantityFeatureService, LogService, AuditService, OperationService, TenantToUsersService, TotpService,
-    PasswordSecurityPolicyService, TotpSecurityPolicyService, DynamicExecutionControllerService, DynamicInvokerMethodControllerService, DynamicInvokersControllerService, SecurityTenantService,SecurityUserService,RoleService,UploadV2Service,IUploadService, GenericDeleteService
+    PasswordSecurityPolicyService, TotpSecurityPolicyService, DynamicExecutionControllerService, DynamicInvokerMethodControllerService, DynamicInvokersControllerService, SecurityTenantService,SecurityUserService,RoleService,UploadV2Service,IUploadService, GenericDeleteService,
+    TenantStarterService
 };
