@@ -72,6 +72,9 @@ let UploadV2Service = class UploadV2Service {
         if (httpHeaderAcceptSelected != undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
+        if (authenticationkey !== undefined && authenticationkey !== null) {
+            headers = headers.set('authenticationkey', String(authenticationkey));
+        }
         // to determine the Content-Type header
         const consumes = [];
         const httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
@@ -87,6 +90,9 @@ let UploadV2Service = class UploadV2Service {
     }
     uploadFileWithChunkMd5(authenticationkey, md5, name, chunkMd5, lastChunk, blob, observe = 'body', reportProgress = false) {
         let headers = this.defaultHeaders;
+        if (authenticationkey !== undefined && authenticationkey !== null) {
+            headers = headers.set('authenticationkey', String(authenticationkey));
+        }
         if (md5 !== undefined && md5 !== null) {
             headers = headers.set('md5', String(md5));
         }

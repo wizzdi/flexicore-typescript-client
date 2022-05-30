@@ -13,6 +13,7 @@ export var PluginTypeEnum;
 (function (PluginTypeEnum) {
     PluginTypeEnum["Service"] = "Service";
     PluginTypeEnum["Model"] = "Model";
-    PluginTypeEnum["Core"] = "Core";
+    PluginTypeEnum["RUNTIME"] = "RUNTIME";
+    PluginTypeEnum["MODULE"] = "MODULE";
 })(PluginTypeEnum || (PluginTypeEnum = {}));
 //# sourceMappingURL=pluginTypes.js.map

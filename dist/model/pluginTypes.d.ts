@@ -12,5 +12,6 @@
 export declare enum PluginTypeEnum {
     Service = "Service",
     Model = "Model",
-    Core = "Core"
+    RUNTIME = "RUNTIME",
+    MODULE = "MODULE"
 }

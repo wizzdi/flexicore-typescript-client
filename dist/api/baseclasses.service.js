@@ -1408,40 +1408,34 @@ let BaseclassesService = class BaseclassesService {
         }
         return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
-    listInheritingClasses(authenticationkey, body, extraHttpRequestParams) {
-        return this.listInheritingClassesWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe(map((response) => {
-            if (response.status === 204) {
-                return undefined;
-            }
-            else {
-                return FlexiCoreDecycle.retrocycle(response.json()) || {};
-            }
-        }));
-    }
-    listInheritingClassesWithHttpInfo(authenticationkey, body, extraHttpRequestParams) {
+    listInheritingClasses(authenticationKey, body, extraHttpRequestParams, observe = 'body', reportProgress = false) {
         const path = this.basePath + '/baseclass/listInheritingClasses';
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+        let headers = this.defaultHeaders;
+        if (authenticationKey !== undefined && authenticationKey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationKey));
         }
         // to determine the Accept header
-        let produces = [
+        let httpHeaderAccepts = [
             'application/json'
         ];
-        headers.set('Content-Type', 'application/json');
-        let requestOptions = new HttpRequest('POST', path, {
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body),
-            search: queryParameters,
-            withCredentials: this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
+        const httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
-        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
+        // to determine the Content-Type header
+        const consumes = [
+            'application/json'
+        ];
+        const httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+        return this.httpClient.post(path, body, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     listAllBaseclassGeneric(authenticationkey, body, extraHttpRequestParams) {
         return this.listAllBaseclassGenericWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
