@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import * as SparkMD5 from 'spark-md5';
 import { Configuration } from '../configuration';
 import { Upload } from '../model/upload';
-import { UploadService } from './upload.service';
 import { FileResource } from '../model/fileResource';
 import { lastValueFrom, Observable } from 'rxjs';
 import { defer } from 'rxjs';
@@ -33,7 +32,7 @@ export class UploadUtilsService {
             // checking if the file was already uploaded using the calculated MD5 hash
             const offsetFileResource = await lastValueFrom( this.uploadService.getFileResource(md5, authenticationKey))
             // getting the size of already uploaded file
-            const offset = offsetFileResource ? offsetFileResource.offset : 0;
+            const offset = offsetFileResource && offsetFileResource.offset ? offsetFileResource.offset : 0;
 
             if (offset >= file.size) { // file is already completely uploaded
                 return offsetFileResource;

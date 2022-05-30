@@ -23,12 +23,12 @@ import { Job } from '../model/job';
 
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
 import { Configuration } from '../configuration';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import { IUploadService } from './iUploadService.service';
 
 
 @Injectable()
-export class UploadService implements IUploadService{
+export class UploadService implements IUploadService {
 
     protected basePath = 'https://192.168.0.41:8080/FlexiCore/rest';
     public defaultHeaders = new HttpHeaders();
@@ -109,20 +109,26 @@ export class UploadService implements IUploadService{
             }));
     }
 
-    /**
-     * 
-     * @param md5 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public getFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource> {
-        return this.getFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-           .pipe(map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return FlexiCoreDecycle.retrocycle(response) || {};
-                }
-            }));
+    public getFileResource(md5: string, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<FileResource>;
+    public getFileResource(md5: string, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileResource>>;
+    public getFileResource(md5: string, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileResource>>;
+    public getFileResource(md5: string, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+        let headers = {};
+
+        if (md5 === null || md5 === undefined) {
+            throw new Error('Required parameter md5 was null or undefined when calling getFileResource.');
+        }
+        if (authenticationkey !== undefined && authenticationkey !== null) {
+            Object.assign(headers, {'authenticationkey': String(authenticationkey)});
+        }
+        return this.httpClient.get<FileResource>(`${this.basePath}/resources/${md5}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -240,18 +246,6 @@ export class UploadService implements IUploadService{
                 }
             }));
     }
-
-    public uploadFileWithChunkMd5(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<FileResource> {
-        return this.uploadFileWithHttpInfo(authenticationkey, md5, name, chunkMd5, lastChunk, blob, extraHttpRequestParams)
-            .pipe(map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return FlexiCoreDecycle.retrocycle(response.body) || {};
-                }
-            }));
-    }
-
 
     /**
      * 
@@ -375,50 +369,6 @@ export class UploadService implements IUploadService{
         }
 
         return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
-    }
-
-    /**
-     * 
-     * 
-     * @param md5 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public getFileResourceWithHttpInfo(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<any> {
-        const path = this.basePath + '/resources/${md5}'
-            .replace('${' + 'md5' + '}', String(md5));
-
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
-
-        // verify required parameter 'md5' is not null or undefined
-        if (md5 === null || md5 === undefined) {
-            throw new Error('Required parameter md5 was null or undefined when calling getFileResource.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-
-        let requestOptions = new HttpRequest(
-            'GET',
-            path,
-            {
-                headers: headers,
-                search: queryParameters,
-                withCredentials: this.configuration.withCredentials
-            });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.httpClient.request(requestOptions);
     }
 
     /**
@@ -726,6 +676,46 @@ export class UploadService implements IUploadService{
         return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
+    public uploadFileWithChunkMd5(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any,
+        observe?: 'body', reportProgress?: boolean): Observable<FileResource>;
+    public uploadFileWithChunkMd5(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any,
+        observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileResource>>;
+    public uploadFileWithChunkMd5(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any,
+        observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileResource>>;
+    public uploadFileWithChunkMd5(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any,
+        observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+        let headers = {};
+
+        if (authenticationkey !== undefined && authenticationkey !== null) {
+            Object.assign(headers, {'authenticationkey': String(authenticationkey)});
+        }
+
+        if (md5 !== undefined && md5 !== null) {
+            Object.assign(headers, {'md5': String(md5)});
+        }
+
+        if (name !== undefined && name !== null) {
+            Object.assign(headers, {'name': String(name)});
+        }
+        if (chunkMd5 !== undefined && chunkMd5 !== null) {
+            Object.assign(headers, {'chunkMd5': String(chunkMd5)});
+        }
+        if (lastChunk !== undefined && lastChunk !== null) {
+            Object.assign(headers, {'lastChunk': String(lastChunk)});
+        }
+
+        Object.assign(headers, {'Accept': 'application/json'});
+        Object.assign(headers, {'Content-Type': 'application/octet-stream'});
+        return this.httpClient.post<FileResource>(`${this.basePath}/resources/upload`,
+            blob,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
+    }
 
 
     /**
