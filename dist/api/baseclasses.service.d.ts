@@ -503,9 +503,9 @@ export declare class BaseclassesService {
      * @param body
      */
     linkroleuserWithHttpInfo(authenticationkey?: string, body?: RoleUserContainer, extraHttpRequestParams?: any): Observable<Response>;
-    nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, observe?: 'body', reportProgress?: boolean): Observable<Response>;
-    nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
-    nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, observe?: 'body', reportProgress?: boolean): Observable<Baseclass[]>;
+    nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Baseclass[]>>;
+    nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Baseclass[]>>;
     /**
      * softDelete
      * soft delete baseclass

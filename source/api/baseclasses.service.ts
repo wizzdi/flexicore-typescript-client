@@ -2219,11 +2219,11 @@ export class BaseclassesService {
         return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
     public nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, 
-        observe?: 'body', reportProgress?: boolean): Observable<Response>;
+        observe?: 'body', reportProgress?: boolean): Observable<Baseclass[]>;
     public nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, 
-        observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+        observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Baseclass[]>>;
     public nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, 
-        observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+        observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Baseclass[]>>;
     public nameLike(classname: string, body?: FilteringInformationHolder, authenticationKey?: string, pagesize?: number, currentpage?: number, 
         observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         const path = this.basePath + '/baseclass/like/name/${classname}'
