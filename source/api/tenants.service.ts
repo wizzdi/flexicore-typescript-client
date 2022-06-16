@@ -28,7 +28,7 @@ import { TenantCreate } from '../model/tenantCreate';
 import { TenantUpdate } from '../model/tenantUpdate';
 import { TenantFiltering } from '../model/tenantFiltering';
 import { PaginationResponse } from '../model/models';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 
 
 @Injectable()
@@ -96,40 +96,6 @@ export class TenantsService {
     }
 
     /**
- * 
- * @param tenantName 
- * @param apiKey 
- * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
- * @param body 
- */
-    public createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any): Observable<Tenant> {
-        return this.createTenantNewWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe(map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            }));
-    }
-
-    /**
-* 
-* @param tenantName 
-* @param apiKey 
-* @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-* @param body 
-*/
-    public updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any): Observable<Tenant> {
-        return this.updateTenantNewWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe(map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            }));
-    }
 
     /**
      * 
@@ -254,92 +220,85 @@ export class TenantsService {
         return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    /**
-     * 
-     * 
-     * @param tenantName 
-     * @param apiKey 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public updateTenantNewWithHttpInfo(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/tenant/updateTenant';
 
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
+    public updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<Tenant>;
+    public updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Tenant>>;
+    public updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Tenant>>;
+    public updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+
+        let headers = this.defaultHeaders;
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers.set('authenticationKey', String(authenticationkey));
         }
-
 
         // to determine the Accept header
-        let produces: string[] = [
+        let httpHeaderAccepts: string[] = [
             'application/json'
         ];
-
-
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions = new HttpRequest(
-            'POST',
-            path,
-            {
-                headers: headers,
-                body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-                search: queryParameters,
-                withCredentials: this.configuration.withCredentials
-            });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
-        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<Tenant>(`${this.basePath}/tenant/updateTenant`,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    /**
-     * 
-     * 
-     * @param tenantName 
-     * @param apiKey 
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body 
-     */
-    public createTenantNewWithHttpInfo(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/tenant/createTenant';
+    public createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<Tenant>;
+    public createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Tenant>>;
+    public createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Tenant>>;
+    public createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
+        let headers = this.defaultHeaders;
 
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers.set('authenticationKey', String(authenticationkey));
         }
-
 
         // to determine the Accept header
-        let produces: string[] = [
+        let httpHeaderAccepts: string[] = [
             'application/json'
         ];
-
-
-        headers.set('Content-Type', 'application/json');
-
-        let requestOptions = new HttpRequest(
-            'POST',
-            path,
-            {
-                headers: headers,
-                body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
-                search: queryParameters,
-                withCredentials: this.configuration.withCredentials
-            });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
-        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<Tenant>(`${this.basePath}/tenant/createTenant`,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
