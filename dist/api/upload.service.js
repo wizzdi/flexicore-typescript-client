@@ -102,21 +102,22 @@ let UploadService = class UploadService {
             }
         }));
     }
-    /**
-     *
-     * @param md5
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    getFileResource(md5, authenticationkey, extraHttpRequestParams) {
-        return this.getFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
-            .pipe(map((response) => {
-            if (response.status === 204) {
-                return undefined;
-            }
-            else {
-                return FlexiCoreDecycle.retrocycle(response) || {};
-            }
-        }));
+    getFileResource(md5, authenticationkey, extraHttpRequestParams, observe = 'body', reportProgress = false) {
+        const path = this.basePath + '/resources/${md5}'
+            .replace('${' + 'md5' + '}', String(md5));
+        let headers = this.defaultHeaders;
+        if (md5 === null || md5 === undefined) {
+            throw new Error('Required parameter md5 was null or undefined when calling getFileResource.');
+        }
+        if (authenticationkey !== undefined && authenticationkey !== null) {
+            headers = headers.set('authenticationkey', String(authenticationkey));
+        }
+        return this.httpClient.get(path, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -339,39 +340,6 @@ let UploadService = class UploadService {
             requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
         }
         return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
-    }
-    /**
-     *
-     *
-     * @param md5
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    getFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams) {
-        const path = this.basePath + '/resources/${md5}'
-            .replace('${' + 'md5' + '}', String(md5));
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
-        // verify required parameter 'md5' is not null or undefined
-        if (md5 === null || md5 === undefined) {
-            throw new Error('Required parameter md5 was null or undefined when calling getFileResource.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
-        // to determine the Accept header
-        let produces = [
-            'application/json'
-        ];
-        let requestOptions = new HttpRequest('GET', path, {
-            headers: headers,
-            search: queryParameters,
-            withCredentials: this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
-        }
-        return this.httpClient.request(requestOptions);
     }
     /**
      *

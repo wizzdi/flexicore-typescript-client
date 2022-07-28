@@ -85,41 +85,7 @@ let TenantsService = class TenantsService {
         }));
     }
     /**
- *
- * @param tenantName
- * @param apiKey
- * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
- * @param body
- */
-    createTenantNew(authenticationkey, body, extraHttpRequestParams) {
-        return this.createTenantNewWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe(map((response) => {
-            if (response.status === 204) {
-                return undefined;
-            }
-            else {
-                return FlexiCoreDecycle.retrocycle(response.json()) || {};
-            }
-        }));
-    }
-    /**
-*
-* @param tenantName
-* @param apiKey
-* @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-* @param body
-*/
-    updateTenantNew(authenticationkey, body, extraHttpRequestParams) {
-        return this.updateTenantNewWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe(map((response) => {
-            if (response.status === 204) {
-                return undefined;
-            }
-            else {
-                return FlexiCoreDecycle.retrocycle(response.json()) || {};
-            }
-        }));
-    }
+
     /**
      *
      * @param tenantName
@@ -229,69 +195,61 @@ let TenantsService = class TenantsService {
         }
         return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
-    /**
-     *
-     *
-     * @param tenantName
-     * @param apiKey
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body
-     */
-    updateTenantNewWithHttpInfo(authenticationkey, body, extraHttpRequestParams) {
-        const path = this.basePath + '/tenant/updateTenant';
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
+    updateTenantNew(authenticationkey, body, extraHttpRequestParams, observe = 'body', reportProgress = false) {
+        let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers.set('authenticationKey', String(authenticationkey));
         }
         // to determine the Accept header
-        let produces = [
+        let httpHeaderAccepts = [
             'application/json'
         ];
-        headers.set('Content-Type', 'application/json');
-        let requestOptions = new HttpRequest('POST', path, {
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body),
-            search: queryParameters,
-            withCredentials: this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
+        const httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
-        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
+        // to determine the Content-Type header
+        const consumes = [
+            'application/json'
+        ];
+        const httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+        return this.httpClient.post(`${this.basePath}/tenant/updateTenant`, body, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
-    /**
-     *
-     *
-     * @param tenantName
-     * @param apiKey
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body
-     */
-    createTenantNewWithHttpInfo(authenticationkey, body, extraHttpRequestParams) {
-        const path = this.basePath + '/tenant/createTenant';
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
+    createTenantNew(authenticationkey, body, extraHttpRequestParams, observe = 'body', reportProgress = false) {
+        let headers = this.defaultHeaders;
         if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
+            headers = headers.set('authenticationKey', String(authenticationkey));
         }
         // to determine the Accept header
-        let produces = [
+        let httpHeaderAccepts = [
             'application/json'
         ];
-        headers.set('Content-Type', 'application/json');
-        let requestOptions = new HttpRequest('POST', path, {
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body),
-            search: queryParameters,
-            withCredentials: this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
+        const httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
-        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
+        // to determine the Content-Type header
+        const consumes = [
+            'application/json'
+        ];
+        const httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+        return this.httpClient.post(`${this.basePath}/tenant/createTenant`, body, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *

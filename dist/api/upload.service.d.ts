@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 import { FileResource } from '../model/fileResource';
 import { Job } from '../model/job';
 import { Configuration } from '../configuration';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { IUploadService } from './iUploadService.service';
 export declare class UploadService implements IUploadService {
     protected httpClient: HttpClient;
@@ -54,7 +54,9 @@ export declare class UploadService implements IUploadService {
      * @param md5
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    getFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<FileResource>;
+    getFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<FileResource>;
+    getFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileResource>>;
+    getFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileResource>>;
     /**
      *
      * @param jobID
@@ -123,13 +125,6 @@ export declare class UploadService implements IUploadService {
      * @param dontProcess
      */
     finalizeUploadWithHttpInfo(md5: string, authenticationkey?: string, hint?: string, fileType?: string, dontProcess?: boolean, extraHeaders?: Map<String, String>, extraHttpRequestParams?: any): Observable<Response>;
-    /**
-     *
-     *
-     * @param md5
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    getFileResourceWithHttpInfo(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<any>;
     /**
      *
      *

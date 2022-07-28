@@ -43,13 +43,9 @@ export declare class BaseclassesService {
      * @return true: consumes contains 'multipart/form-data', false: otherwise
      */
     private canConsumeForm;
-    /**
-     *
-     * @param type
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body
-     */
-    count(type: string, authenticationkey?: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<number>;
+    count(type: string, authenticationkey?: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    count(type: string, authenticationkey?: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    count(type: string, authenticationkey?: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
     /**
      *
      * @param wantedClazzName
@@ -264,14 +260,6 @@ export declare class BaseclassesService {
      * @param body
      */
     updateBasicDetails(authenticationkey?: string, body?: BasicContainer, extraHttpRequestParams?: any): Observable<boolean>;
-    /**
-     *
-     *
-     * @param type
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body
-     */
-    countWithHttpInfo(type: string, authenticationkey?: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any): Observable<Response>;
     /**
        *
        *

@@ -18,7 +18,7 @@ import { TenantCreate } from '../model/tenantCreate';
 import { TenantUpdate } from '../model/tenantUpdate';
 import { TenantFiltering } from '../model/tenantFiltering';
 import { PaginationResponse } from '../model/models';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpResponse } from '@angular/common/http';
 export declare class TenantsService {
     protected httpClient: HttpClient;
     protected basePath: string;
@@ -46,21 +46,7 @@ export declare class TenantsService {
      */
     createTenant(tenantName: string, apiKey: string, authenticationkey?: string, body?: NewUser, extraHttpRequestParams?: any): Observable<Tenant>;
     /**
- *
- * @param tenantName
- * @param apiKey
- * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
- * @param body
- */
-    createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any): Observable<Tenant>;
-    /**
-*
-* @param tenantName
-* @param apiKey
-* @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-* @param body
-*/
-    updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any): Observable<Tenant>;
+
     /**
      *
      * @param tenantName
@@ -97,24 +83,12 @@ export declare class TenantsService {
      * @param body
      */
     createTenantWithHttpInfo(tenantName: string, apiKey: string, authenticationkey?: string, body?: NewUser, extraHttpRequestParams?: any): Observable<Response>;
-    /**
-     *
-     *
-     * @param tenantName
-     * @param apiKey
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body
-     */
-    updateTenantNewWithHttpInfo(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any): Observable<Response>;
-    /**
-     *
-     *
-     * @param tenantName
-     * @param apiKey
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body
-     */
-    createTenantNewWithHttpInfo(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any): Observable<Response>;
+    updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<Tenant>;
+    updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Tenant>>;
+    updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Tenant>>;
+    createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<Tenant>;
+    createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Tenant>>;
+    createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Tenant>>;
     /**
      *
      *

@@ -66,22 +66,39 @@ let BaseclassesService = class BaseclassesService {
         }
         return false;
     }
-    /**
-     *
-     * @param type
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body
-     */
-    count(type, authenticationkey, body, extraHttpRequestParams) {
-        return this.countWithHttpInfo(type, authenticationkey, body, extraHttpRequestParams)
-            .pipe(map((response) => {
-            if (response.status === 204) {
-                return undefined;
-            }
-            else {
-                return FlexiCoreDecycle.retrocycle(response.json()) || {};
-            }
-        }));
+    count(type, authenticationkey, body, extraHttpRequestParams, observe = 'body', reportProgress = false) {
+        const path = this.basePath + '/baseclass/count/${type}'
+            .replace('${' + 'type' + '}', String(type));
+        let headers = this.defaultHeaders;
+        // verify required parameter 'type' is not null or undefined
+        if (type === null || type === undefined) {
+            throw new Error('Required parameter type was null or undefined when calling count.');
+        }
+        if (authenticationkey !== undefined && authenticationkey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationkey));
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+        // to determine the Content-Type header
+        const consumes = [
+            'application/json'
+        ];
+        const httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+        return this.httpClient.post(path, body, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *
@@ -526,42 +543,6 @@ let BaseclassesService = class BaseclassesService {
                 return FlexiCoreDecycle.retrocycle(response.json()) || {};
             }
         }));
-    }
-    /**
-     *
-     *
-     * @param type
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     * @param body
-     */
-    countWithHttpInfo(type, authenticationkey, body, extraHttpRequestParams) {
-        const path = this.basePath + '/baseclass/count/${type}'
-            .replace('${' + 'type' + '}', String(type));
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
-        // verify required parameter 'type' is not null or undefined
-        if (type === null || type === undefined) {
-            throw new Error('Required parameter type was null or undefined when calling count.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-        // to determine the Accept header
-        let produces = [
-            'application/json'
-        ];
-        headers.set('Content-Type', 'application/json');
-        let requestOptions = new HttpRequest('POST', path, {
-            headers: headers,
-            body: body == null ? '' : JSON.stringify(body),
-            search: queryParameters,
-            withCredentials: this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
-        }
-        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
        *
