@@ -87,11 +87,13 @@ import { DynamicInvokerMethodControllerService } from './dynamicInvokerMethodCon
 export * from './dynamicInvokerMethodController.service';
 import { SecurityTenantsService } from './securityTenants.service';
 export * from './securityTenants.service';
+import { UIComponentV2Service } from './uiComponentV2.service';
+export * from './uiComponentV2.service';
 
 export {
     AuthenticationService, AuthenticationNewService, BaseclassesService, CategoriesService, ClazzService, CoreService, UIComponentService,
       DocumnetationService, DownloadService, LicenseRequestService, LicenseRequestToFeatureService, LicenseRequestToProductService, LicensingFeatureService, LicensingProductService,
      PluginsService, RolesService,  TenantsService,  PermissionGroupService, ResetPasswordService,
     UploadService, UploadUtilsService, UsersService,  FlexiCoreDecycle, TokenBasedService, HealthService, FlexiCoreServerService, HealthReportService, BaseLinkService, SecurityService, LicenseRequestToQuantityFeatureService, LogService, AuditService, OperationService, TenantToUsersService, TotpService,
-    PasswordSecurityPolicyService, TotpSecurityPolicyService, DynamicExecutionControllerService, DynamicInvokerMethodControllerService, DynamicInvokersControllerService, SecurityTenantsService
+    PasswordSecurityPolicyService, TotpSecurityPolicyService, DynamicExecutionControllerService, DynamicInvokerMethodControllerService, DynamicInvokersControllerService, SecurityTenantsService,UIComponentV2Service
 };
