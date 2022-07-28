@@ -133,7 +133,7 @@ export class UploadService {
              observe: observe,
              reportProgress: reportProgress
          }
-     ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
+     ).map(o=>FlexiCoreDecycle.retrocycle(o));
  }
 
     /**
