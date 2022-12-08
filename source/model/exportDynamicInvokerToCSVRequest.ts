@@ -1,7 +1,6 @@
-export interface ExportDynamicInvokerToCSVRequest { 
-    executionParametersHolder?: any;
-    invokerNames?: string[];
-    invokerMethodName?: string;
+import { ExecuteInvokerRequest } from "./executeInvokerRequest";
+
+export interface ExportDynamicInvokerToCSVRequest extends ExecuteInvokerRequest { 
     lastExecuted?: Date;
     csvFormat?: any;
     fieldProperties?: any;
