@@ -230,6 +230,7 @@ export * from './deleteObjectRequests';
 export * from './deleteResponse';
 export * from './/exportDynamicInvokerToCSVRequest';
 export * from './exportDynamicInvokerToCSVResponse';
+export * from './fieldProperties';
 
 
 
