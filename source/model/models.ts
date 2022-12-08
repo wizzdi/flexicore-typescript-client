@@ -228,6 +228,9 @@ export * from './securityUserFilter';
 export * from './deleteObjectRequest';
 export * from './deleteObjectRequests';
 export * from './deleteResponse';
+export * from './/exportDynamicInvokerToCSVRequest';
+export * from './exportDynamicInvokerToCSVResponse';
+export * from './fieldProperties';
 
 
 
