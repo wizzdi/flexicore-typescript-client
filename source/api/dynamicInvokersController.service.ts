@@ -27,8 +27,6 @@ import { InvokerInfo } from '../model/invokerInfo';
 import { FlexiCoreDecycle } from './api';
 import { DynamicInvokerFilter } from '../model/dynamicInvokerFilter';
 import { ExecuteInvokerRequest, ExecuteInvokersResponse } from '..';
-import { ExportDynamicInvokerToCSVResponse } from '../model/exportDynamicInvokerToCSVResponse';
-import { ExportDynamicInvokerToCSVRequest } from '../model/exportDynamicInvokerToCSVRequest';
 
 
 @Injectable()
@@ -174,44 +172,6 @@ export class DynamicInvokersControllerService {
     }
 
     return this.httpClient.post<PaginationResponse<InvokerInfo>>(`${this.basePath}/dynamicInvoker/getAllInvokerHolders`,
-      body,
-      {
-        withCredentials: this.configuration.withCredentials,
-        headers: headers,
-        observe: observe,
-        reportProgress: reportProgress
-      }
-    ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
-  }
-
-  public exportDynamicInvokerToCSV(authenticationKey?: string, body?: ExportDynamicInvokerToCSVRequest, observe?: 'body', reportProgress?: boolean): Observable<ExportDynamicInvokerToCSVResponse>;
-  public exportDynamicInvokerToCSV(authenticationKey?: string, body?: ExportDynamicInvokerToCSVRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ExportDynamicInvokerToCSVResponse>>;
-  public exportDynamicInvokerToCSV(authenticationKey?: string, body?: ExportDynamicInvokerToCSVRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ExportDynamicInvokerToCSVResponse>>;
-  public exportDynamicInvokerToCSV(authenticationKey?: string, body?: ExportDynamicInvokerToCSVRequest, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-    let headers = this.defaultHeaders;
-    if (authenticationKey !== undefined && authenticationKey !== null) {
-      headers = headers.set('authenticationKey', String(authenticationKey));
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      'application/json'
-    ];
-    const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set('Accept', httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = [
-    ];
-    const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected != undefined) {
-      headers = headers.set('Content-Type', httpContentTypeSelected);
-    }
-
-    return this.httpClient.post<ExportDynamicInvokerToCSVResponse>(`${this.basePath}/dynamicInvokers/exportDynamicInvokerToCSV`,
       body,
       {
         withCredentials: this.configuration.withCredentials,
