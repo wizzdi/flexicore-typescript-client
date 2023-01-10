@@ -231,6 +231,8 @@ export * from './deleteResponse';
 export * from './/exportDynamicInvokerToCSVRequest';
 export * from './exportDynamicInvokerToCSVResponse';
 export * from './fieldProperties';
+export * from './dynamicInvokerEmailRequest';
+export * from './dynamicInvokerEmailResponse';
 
 
 
