@@ -14,7 +14,7 @@ import { DynamicInvokerEmailResponse } from '../model/dynamicInvokerEmailRespons
 
 
 @Injectable()
-export class DynamicInvokerCSVEmailService {
+export class DynamicInvokerEmailService {
 
   protected basePath = 'https://169.254.121.191:8080/FlexiCore/rest';
   public defaultHeaders = new HttpHeaders();

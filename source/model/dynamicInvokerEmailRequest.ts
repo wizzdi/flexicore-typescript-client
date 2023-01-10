@@ -1,6 +1,6 @@
 import { ExportDynamicInvokerToCSVRequest } from "./exportDynamicInvokerToCSVRequest";
 
-export interface DynamicInvokerCSVEmailRequest { 
+export interface DynamicInvokerEmailRequest { 
     exportDynamicInvoker?: ExportDynamicInvokerToCSVRequest;
     emails?: string[];
     zoneOffset?: string;
