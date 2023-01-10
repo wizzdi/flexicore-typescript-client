@@ -71,7 +71,7 @@ export class DynamicInvokerEmailService {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    return this.httpClient.post<DynamicInvokerEmailResponse>(`${this.basePath}/DynamicInvokerCSVEmail/sendEmail`,
+    return this.httpClient.post<DynamicInvokerEmailResponse>(`${this.basePath}/DynamicInvokerEmail/sendEmail`,
       body,
       {
         withCredentials: this.configuration.withCredentials,
