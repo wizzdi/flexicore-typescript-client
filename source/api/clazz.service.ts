@@ -23,7 +23,7 @@ import { Operation } from '../model/operation';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import { FlexiCoreDecycle } from '..';
 
 
@@ -79,15 +79,46 @@ export class ClazzService {
      * @param clazzName The canonical classname of the link required
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<any> {
-        return this.getAllOperationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .pipe(map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return response.json() || {};
-                }
-            }));
+    public getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+        const path = this.basePath + '/clazz/operations/${clazzName}'
+                    .replace('${' + 'clazzName' + '}', String(clazzName));
+
+        let headers = this.defaultHeaders;
+
+        // verify required parameter 'type' is not null or undefined
+        if (clazzName === null || clazzName === undefined) {
+            throw new Error('Required parameter clazzName was null or undefined when calling get operations.');
+        }
+
+        if (authenticationkey !== undefined && authenticationkey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationkey));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.get(path, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+        }).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**

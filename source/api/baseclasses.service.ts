@@ -292,15 +292,47 @@ export class BaseclassesService {
      * @param classname The canonical classname of the required entity
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public findById(id: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Baseclass> {
-        return this.findByIdWithHttpInfo(id, classname, authenticationkey, extraHttpRequestParams)
-            .pipe(map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return  FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            }));
+    public findById(id: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<Baseclass>;
+    public findById(id: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Baseclass>>;
+    public findById(id: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Baseclass>>;
+    public findById(id: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+        const path = this.basePath + '/baseclass/getbyid/${id}/${classname}'
+                    .replace('${' + 'id' + '}', String(id))
+                    .replace('${' + 'classname' + '}', String(classname));
+
+        let headers = this.defaultHeaders;
+
+        // verify required parameter 'type' is not null or undefined
+        if (classname === null || classname === undefined) {
+            throw new Error('Required parameter classname was null or undefined when calling find by id.');
+        }
+
+        if (authenticationkey !== undefined && authenticationkey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationkey));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.get(path, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+        }).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
     /**
@@ -1071,56 +1103,6 @@ export class BaseclassesService {
             
         let requestOptions = new HttpRequest(
             'PUT',
-            path,
-            {
-                headers: headers,
-                search: queryParameters,
-                withCredentials: this.configuration.withCredentials
-            });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
-        }
-
-        return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
-    }
-
-    /**
-     * find entity by id and class
-     * Find an entity by Id and type, returns null if not found
-     * @param id The ID of the entity required
-     * @param classname The canonical classname of the required entity
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    public findByIdWithHttpInfo(id: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/baseclass/getbyid/${id}/${classname}'
-                    .replace('${' + 'id' + '}', String(id))
-                    .replace('${' + 'classname' + '}', String(classname));
-
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
-
-        // verify required parameter 'id' is not null or undefined
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling findById.');
-        }
-        // verify required parameter 'classname' is not null or undefined
-        if (classname === null || classname === undefined) {
-            throw new Error('Required parameter classname was null or undefined when calling findById.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-
-
-        // to determine the Accept header
-        let produces: string[] = [
-            'application/json'
-        ];
-
-            
-        let requestOptions = new HttpRequest(
-            'GET',
             path,
             {
                 headers: headers,
