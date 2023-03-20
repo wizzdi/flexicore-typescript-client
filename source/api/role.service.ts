@@ -80,7 +80,7 @@ export class RoleService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<PaginationResponse<Role>>(`${this.basePath}/role/getAll`,
+        return this.httpClient.post<PaginationResponse<Role>>(`${this.basePath}/roles/getAll`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -125,7 +125,7 @@ export class RoleService {
               headers = headers.set('Content-Type', httpContentTypeSelected);
           }
   
-          return this.httpClient.post<Role>(`${this.basePath}/role/create`,
+          return this.httpClient.post<Role>(`${this.basePath}/roles/create`,
               body,
               {
                   withCredentials: this.configuration.withCredentials,
@@ -171,7 +171,7 @@ export class RoleService {
                  headers = headers.set('Content-Type', httpContentTypeSelected);
              }
      
-             return this.httpClient.put<Role>(`${this.basePath}/role/update`,
+             return this.httpClient.put<Role>(`${this.basePath}/roles/update`,
                  body,
                  {
                      withCredentials: this.configuration.withCredentials,
