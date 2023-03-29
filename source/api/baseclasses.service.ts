@@ -2361,4 +2361,48 @@ export class BaseclassesService {
         ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
+    public recover(id: string, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<Baseclass[]>;
+    public recover(id: string, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Baseclass[]>>;
+    public recover(id: string, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Baseclass[]>>;
+    public recover(id: string, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+        const path = this.basePath + '/baseclass/recover/${id}'.replace('${' + 'id' + '}', String(id));
+        let body = {};
+        let headers = this.defaultHeaders;
+        if (authenticationKey !== undefined && authenticationKey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationKey));
+        }
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling recover.');
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.put(path,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
+    }
+
 }
