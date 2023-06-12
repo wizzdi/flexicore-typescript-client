@@ -130,21 +130,45 @@ export class TenantsService {
             }));
     }
 
-    /**
-       * 
-       * @param apiKey 
-       * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-       */
-    public getAllTenants(authenticationkey?: string, body?: TenantFiltering, extraHttpRequestParams?: any): Observable<PaginationResponse<Tenant>> {
-        return this.getAllTenantsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe(map((response: Response) => {
-                if (response.status === 204) {
-                    return undefined;
-                } else {
-                    return FlexiCoreDecycle.retrocycle(response.json()) || {};
-                }
-            }));
+    public getAllTenants(body?: TenantFiltering, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Tenant>>;
+    public getAllTenants(body?: TenantFiltering, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Tenant>>>;
+    public getAllTenants(body?: TenantFiltering, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Tenant>>>
+    public getAllTenants(body?: TenantFiltering, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+
+        let headers = this.defaultHeaders;
+        if (authenticationKey !== undefined && authenticationKey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationKey));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<PaginationResponse<Tenant>>(`${this.basePath}/tenant/getAllTenants`,
+            body,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
+
 
 
     /**
