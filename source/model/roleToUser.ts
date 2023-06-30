@@ -11,10 +11,13 @@
  */
 
 import { Baselink } from './baselink';
+import { Role } from './role';
 import { Tenant } from './tenant';
+import { UserClass } from './userClass';
 
 
-export interface RoleToUser extends Baselink{
-  
-
+export interface RoleToUser extends Baselink {
+    tenant?: Tenant;
+    role?: Role;
+    user?: UserClass;
 }
