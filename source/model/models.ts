@@ -238,5 +238,12 @@ export * from './roleToUserCreate';
 export * from './roleToUserUpdate';
 export * from './roleToUserFiltering';
 
+// Report models
+export * from './report';
+export * from './reportCreate';
+export * from './reportUpdate';
+export * from './reportFiltering';
+export * from './reportGenerateRequest';
+
 
 

@@ -103,6 +103,7 @@ import { DynamicInvokersService } from './dynamicInvokers.service';
 import { DynamicInvokerCSVEmailService } from './dynamicInvokerCSVEmail.service';
 import { DynamicInvokerEmailService } from './dynamicInvokerEmail.service';
 import { RoleToUserService } from './roleToUser.service';
+import { ReportService } from './report.service';
 export * from './uiComponentV2.service';
 
 export {
@@ -111,5 +112,5 @@ export {
      PluginsService, RolesService,  TenantsService,  PermissionGroupService, ResetPasswordService,
     UploadService, UploadUtilsService, UsersService,  FlexiCoreDecycle, TokenBasedService, HealthService, FlexiCoreServerService, HealthReportService, BaseLinkService, SecurityService, LicenseRequestToQuantityFeatureService, LogService, AuditService, OperationService, TenantToUsersService, TotpService,
     PasswordSecurityPolicyService, TotpSecurityPolicyService, DynamicExecutionControllerService, DynamicInvokerMethodControllerService, DynamicInvokersControllerService, SecurityTenantService,SecurityUserService,RoleService,UploadV2Service,IUploadService, GenericDeleteService,UIComponentV2Service,
-    DynamicInvokersService, DynamicInvokerCSVEmailService, DynamicInvokerEmailService, RoleToUserService
+    DynamicInvokersService, DynamicInvokerCSVEmailService, DynamicInvokerEmailService, RoleToUserService, ReportService
 };
