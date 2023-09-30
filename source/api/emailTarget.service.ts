@@ -2,17 +2,16 @@ import { Injectable, Optional, Inject } from "@angular/core";
 import { HttpHeaders, HttpClient, HttpResponse, HttpEvent } from "@angular/common/http";
 import { Configuration } from "../configuration";
 import { map, Observable } from "rxjs";
-import { ReportCreate } from "../model/reportCreate";
-import { Report } from "../model/report";
-import { ReportFilter } from "../model/reportFilter";
-import { ReportUpdate } from "../model/reportUpdate";
-import { ReportGenerateRequest } from "../model/reportGenerateRequest";
 import { BASE_PATH } from "../variables";
 import { FlexiCoreDecycle } from "./flexiCoreDecycle";
 import { PaginationResponse } from "../model/paginationResponse";
+import { EmailTargetCreate } from "../model/emailTargetCreate";
+import { EmailTarget } from "../model/emailTarget";
+import { EmailTargetFilter } from "../model/emailTargetFilter";
+import { EmailTargetUpdate } from "../model/emailTargetUpdate";
 
 @Injectable()
-export class ReportService {
+export class EmailTargetService {
 
     protected basePath = '/FlexiCore';
     public defaultHeaders = new HttpHeaders();
@@ -28,10 +27,10 @@ export class ReportService {
         }
     }
 
-    public createReport(body?: ReportCreate, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<Report>;
-    public createReport(body?: ReportCreate, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Report>>;
-    public createReport(body?: ReportCreate, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Report>>;
-    public createReport(body?: ReportCreate, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public createEmailTarget(body?: EmailTargetCreate, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<EmailTarget>;
+    public createEmailTarget(body?: EmailTargetCreate, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<EmailTarget>>;
+    public createEmailTarget(body?: EmailTargetCreate, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<EmailTarget>>;
+    public createEmailTarget(body?: EmailTargetCreate, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
@@ -56,7 +55,7 @@ export class ReportService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<Report>(`${this.basePath}/Report/createReport`,
+        return this.httpClient.post<EmailTarget>(`${this.basePath}/EmailTarget/createEmailTarget`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -67,10 +66,10 @@ export class ReportService {
         ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    public getAllReports(body?: ReportFilter, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Report>>;
-    public getAllReports(body?: ReportFilter, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Report>>>;
-    public getAllReports(body?: ReportFilter, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Report>>>;
-    public getAllReports(body?: ReportFilter, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public getAllEmailTargets(body?: EmailTargetFilter, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<EmailTarget>>;
+    public getAllEmailTargets(body?: EmailTargetFilter, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<EmailTarget>>>;
+    public getAllEmailTargets(body?: EmailTargetFilter, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<EmailTarget>>>;
+    public getAllEmailTargets(body?: EmailTargetFilter, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
@@ -95,7 +94,7 @@ export class ReportService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<PaginationResponse<Report>>(`${this.basePath}/Report/getAllReports`,
+        return this.httpClient.post<PaginationResponse<EmailTarget>>(`${this.basePath}/EmailTarget/getAllEmailTargets`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -106,10 +105,10 @@ export class ReportService {
         ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    public updateReport(body?: ReportUpdate, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<Report>;
-    public updateReport(body?: ReportUpdate, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Report>>;
-    public updateReport(body?: ReportUpdate, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Report>>;
-    public updateReport(body?: ReportUpdate, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public updateEmailTarget(body?: EmailTargetUpdate, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<EmailTarget>;
+    public updateEmailTarget(body?: EmailTargetUpdate, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<EmailTarget>>;
+    public updateEmailTarget(body?: EmailTargetUpdate, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<EmailTarget>>;
+    public updateEmailTarget(body?: EmailTargetUpdate, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
         if (authenticationKey !== undefined && authenticationKey !== null) {
@@ -134,49 +133,9 @@ export class ReportService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<Report>(`${this.basePath}/Report/updateReport`,
+        return this.httpClient.put<EmailTarget>(`${this.basePath}/EmailTarget/updateEmailTarget`,
             body,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
-    }
-
-    public generateReport(body?: ReportGenerateRequest, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<Blob>;
-    public generateReport(body?: ReportGenerateRequest, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Blob>>;
-    public generateReport(body?: ReportGenerateRequest, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Blob>>;
-    public generateReport(body?: ReportGenerateRequest, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-
-        let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<Blob>(`${this.basePath}/Report/generateReport`,
-            body,
-            {
-                responseType: 'blob' as 'json',
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

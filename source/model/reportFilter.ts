@@ -1,6 +1,6 @@
-import { BasicPropertiesFilter } from "@flexicore/flexicore-client";
+import { BasicPropertiesFilter } from "./basicPropertiesFilter";
 
-export interface ReportFiltering { 
+export interface ReportFilter { 
         pageSize?: number;
         currentPage?: number;
         autoPeriod?: string;

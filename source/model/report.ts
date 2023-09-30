@@ -1,5 +1,6 @@
-import { Baseclass, FileResource } from "@flexicore/flexicore-client";
+import { Baseclass } from "./baseclass";
 import { ReportLanguage } from "./enums";
+import { FileResource } from "./fileResource";
 
 export interface Report extends Baseclass { 
         fileResource?: FileResource;

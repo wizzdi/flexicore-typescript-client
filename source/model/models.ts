@@ -242,8 +242,17 @@ export * from './roleToUserFiltering';
 export * from './report';
 export * from './reportCreate';
 export * from './reportUpdate';
-export * from './reportFiltering';
+export * from './reportFilter';
 export * from './reportGenerateRequest';
 
+// EmailTarget models
+export * from './emailTarget';
+export * from './emailTargetCreate';
+export * from './emailTargetUpdate';
+export * from './emailTargetFilter';
 
-
+// ReportToEmail models
+export * from './reportToEmail';
+export * from './reportToEmailCreate';
+export * from './reportToEmailUpdate';
+export * from './reportToEmailFilter';
