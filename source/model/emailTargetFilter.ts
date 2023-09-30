@@ -1,10 +1,10 @@
 import { BasicPropertiesFilter } from "./basicPropertiesFilter";
-import { ScheduledPeriod } from "./enums";
+import { AutoPeriod } from "./enums";
 
 export interface EmailTargetFilter {
         pageSize?: number;
         currentPage?: number;
-        autoPeriod?: ScheduledPeriod[];
+        autoPeriod?: AutoPeriod[];
         basicPropertiesFilter?: BasicPropertiesFilter;
         emailReportToEmailsIds?: string[];
         mail?: string[];

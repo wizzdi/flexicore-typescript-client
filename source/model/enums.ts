@@ -3,7 +3,7 @@ export enum ReportLanguage {
     Hebrew = 'he'
 }
 
-export enum ScheduledPeriod {
+export enum AutoPeriod {
     NONE = 'none',
     DAY = 'day',
     WEEK = 'week',
