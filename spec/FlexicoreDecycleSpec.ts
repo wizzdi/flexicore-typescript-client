@@ -1,4 +1,4 @@
-import { FlexiCoreDecycle } from '../source/api/FlexiCoreDecycle';
+import { FlexiCoreDecycle } from '../source/api/flexiCoreDecycle';
 
 describe("FlexiCoreDecycle", () => {
 
