@@ -233,6 +233,10 @@ export * from './exportDynamicInvokerToCSVResponse';
 export * from './fieldProperties';
 export * from './dynamicInvokerEmailRequest';
 export * from './dynamicInvokerEmailResponse';
+export * from './roleToUser';
+export * from './roleToUserCreate';
+export * from './roleToUserUpdate';
+export * from './roleToUserFiltering';
 
 
 
