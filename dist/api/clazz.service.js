@@ -66,22 +66,37 @@ let ClazzService = class ClazzService {
         }
         return false;
     }
-    /**
-     * Get a list of all Operations defined for the this Class, Some Operations have meaning with some Classes only
-     * @summary Get all Operations
-     * @param clazzName The canonical classname of the link required
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    getAllOperations(clazzName, authenticationkey, extraHttpRequestParams) {
-        return this.getAllOperationsWithHttpInfo(clazzName, authenticationkey, extraHttpRequestParams)
-            .pipe(map((response) => {
-            if (response.status === 204) {
-                return undefined;
-            }
-            else {
-                return response.json() || {};
-            }
-        }));
+    getAllOperations(clazzName, authenticationkey, extraHttpRequestParams, observe = 'body', reportProgress = false) {
+        const path = this.basePath + '/clazz/operations/${clazzName}'
+            .replace('${' + 'clazzName' + '}', String(clazzName));
+        let headers = this.defaultHeaders;
+        // verify required parameter 'type' is not null or undefined
+        if (clazzName === null || clazzName === undefined) {
+            throw new Error('Required parameter clazzName was null or undefined when calling get operations.');
+        }
+        if (authenticationkey !== undefined && authenticationkey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationkey));
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+        // to determine the Content-Type header
+        const consumes = [
+            'application/json'
+        ];
+        const httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+        return this.httpClient.get(path, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Returns a list of ClazzLinkContainer instances of the given link(!) canonical name

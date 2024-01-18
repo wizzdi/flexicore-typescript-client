@@ -119,21 +119,33 @@ let TenantsService = class TenantsService {
             }
         }));
     }
-    /**
-       *
-       * @param apiKey
-       * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-       */
-    getAllTenants(authenticationkey, body, extraHttpRequestParams) {
-        return this.getAllTenantsWithHttpInfo(authenticationkey, body, extraHttpRequestParams)
-            .pipe(map((response) => {
-            if (response.status === 204) {
-                return undefined;
-            }
-            else {
-                return FlexiCoreDecycle.retrocycle(response.json()) || {};
-            }
-        }));
+    getAllTenants(body, authenticationKey, observe = 'body', reportProgress = false) {
+        let headers = this.defaultHeaders;
+        if (authenticationKey !== undefined && authenticationKey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationKey));
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+        // to determine the Content-Type header
+        const consumes = [
+            'application/json'
+        ];
+        const httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+        return this.httpClient.post(`${this.basePath}/tenant/getAllTenants`, body, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      *

@@ -125,7 +125,9 @@ export declare class BaseclassesService {
      * @param classname The canonical classname of the required entity
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    findById(id: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Baseclass>;
+    findById(id: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<Baseclass>;
+    findById(id: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Baseclass>>;
+    findById(id: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Baseclass>>;
     /**
      * Find an instance of a Baseclass extender by its id, returns an instance of a Baseclass
      * @summary Find an instance by ID
@@ -342,14 +344,6 @@ export declare class BaseclassesService {
      */
     setBaseclassTenant(authenticationkey?: string, body?: SetBaseclassTenantRequest, extraHttpRequestParams?: any): Observable<Response>;
     /**
-     * find entity by id and class
-     * Find an entity by Id and type, returns null if not found
-     * @param id The ID of the entity required
-     * @param classname The canonical classname of the required entity
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    findByIdWithHttpInfo(id: string, classname: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response>;
-    /**
      * Find an instance by ID
      * Find an instance of a Baseclass extender by its id, returns an instance of a Baseclass
      * @param ID The id of instance to be found
@@ -509,4 +503,7 @@ export declare class BaseclassesService {
      */
     updateBasicDetailsWithHttpInfo(authenticationkey?: string, body?: BasicContainer, extraHttpRequestParams?: any): Observable<Response>;
     genericSoftDelete(body?: BasicDelete, authenticationKey?: string, observe?: any, reportProgress?: boolean): Observable<BasicDeleteResponse>;
+    recover(id: string, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<Baseclass[]>;
+    recover(id: string, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Baseclass[]>>;
+    recover(id: string, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Baseclass[]>>;
 }

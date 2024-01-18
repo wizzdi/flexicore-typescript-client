@@ -12,7 +12,7 @@
 import { Observable } from 'rxjs';
 import { Clazz } from '../model/clazz';
 import { Configuration } from '../configuration';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpResponse } from '@angular/common/http';
 export declare class ClazzService {
     protected httpClient: HttpClient;
     protected basePath: string;
@@ -37,7 +37,9 @@ export declare class ClazzService {
      * @param clazzName The canonical classname of the link required
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<any>;
+    getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     /**
      * Returns a list of ClazzLinkContainer instances of the given link(!) canonical name
      * @summary Get a list of all associations

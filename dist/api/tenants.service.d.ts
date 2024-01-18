@@ -60,12 +60,9 @@ export declare class TenantsService {
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
     getTenant(apiKey: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Tenant>;
-    /**
-       *
-       * @param apiKey
-       * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-       */
-    getAllTenants(authenticationkey?: string, body?: TenantFiltering, extraHttpRequestParams?: any): Observable<PaginationResponse<Tenant>>;
+    getAllTenants(body?: TenantFiltering, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Tenant>>;
+    getAllTenants(body?: TenantFiltering, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Tenant>>>;
+    getAllTenants(body?: TenantFiltering, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Tenant>>>;
     /**
      *
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system

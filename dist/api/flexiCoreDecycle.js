@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 export class FlexiCoreDecycle {
     static findReferences(obj, catalog) {
         // The catalogObject function walks recursively through an object graph
@@ -86,7 +87,7 @@ export class FlexiCoreDecycle {
         }
         return obj;
     }
-    getDecycledCopy(obj, catalog) {
+    static getDecycledCopy(obj, catalog) {
         // The createReferences function recurses through the object, producing the deep copy.
         var i; // The loop counter
         var name; // Property name
@@ -109,11 +110,11 @@ export class FlexiCoreDecycle {
                 // JavaScript really should have a decent dictionary or map class.
                 for (i = 0; i < catalog.length; i += 1) {
                     if (catalog[i] === obj) {
-                        return { $ref: i.toString() };
+                        return catalog[i]['json-id'];
                     }
                 }
                 // Otherwise, accumulate the unique value and its id.
-                obj.$id = catalog.length.toString();
+                obj['json-id'] = uuidv4();
                 catalog.push(obj);
                 // If it is an array, replicate the array.
                 if (Object.prototype.toString.apply(obj) === "[object Array]") {
@@ -148,7 +149,7 @@ export class FlexiCoreDecycle {
      Modified from Douglas Crockford's cycle.js (https://github.com/douglascrockford/JSON-js/blob/master/cycle.js)
      Ported over to TypeScript, and modified to handle the reference schema that Json.NET uses.
      */
-    decycle(obj) {
+    static decycle(obj) {
         var catalog = []; // Keep a reference to each unique object or array
         var newObj = this.getDecycledCopy(obj, catalog);
         return newObj;

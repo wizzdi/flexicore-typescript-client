@@ -252,23 +252,38 @@ let BaseclassesService = class BaseclassesService {
             }
         }));
     }
-    /**
-     * Find an entity by Id and type, returns null if not found
-     * @summary find entity by id and class
-     * @param id The ID of the entity required
-     * @param classname The canonical classname of the required entity
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    findById(id, classname, authenticationkey, extraHttpRequestParams) {
-        return this.findByIdWithHttpInfo(id, classname, authenticationkey, extraHttpRequestParams)
-            .pipe(map((response) => {
-            if (response.status === 204) {
-                return undefined;
-            }
-            else {
-                return FlexiCoreDecycle.retrocycle(response.json()) || {};
-            }
-        }));
+    findById(id, classname, authenticationkey, extraHttpRequestParams, observe = 'body', reportProgress = false) {
+        const path = this.basePath + '/baseclass/getbyid/${id}/${classname}'
+            .replace('${' + 'id' + '}', String(id))
+            .replace('${' + 'classname' + '}', String(classname));
+        let headers = this.defaultHeaders;
+        // verify required parameter 'type' is not null or undefined
+        if (classname === null || classname === undefined) {
+            throw new Error('Required parameter classname was null or undefined when calling find by id.');
+        }
+        if (authenticationkey !== undefined && authenticationkey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationkey));
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+        // to determine the Content-Type header
+        const consumes = [
+            'application/json'
+        ];
+        const httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+        return this.httpClient.get(path, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
     /**
      * Find an instance of a Baseclass extender by its id, returns an instance of a Baseclass
@@ -923,45 +938,6 @@ let BaseclassesService = class BaseclassesService {
         ];
         headers.set('Content-Type', 'application/json');
         let requestOptions = new HttpRequest('PUT', path, {
-            headers: headers,
-            search: queryParameters,
-            withCredentials: this.configuration.withCredentials
-        });
-        // https://github.com/swagger-api/swagger-codegen/issues/4037
-        if (extraHttpRequestParams) {
-            requestOptions = Object.assign(requestOptions, extraHttpRequestParams);
-        }
-        return this.httpClient.request(requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
-    }
-    /**
-     * find entity by id and class
-     * Find an entity by Id and type, returns null if not found
-     * @param id The ID of the entity required
-     * @param classname The canonical classname of the required entity
-     * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
-     */
-    findByIdWithHttpInfo(id, classname, authenticationkey, extraHttpRequestParams) {
-        const path = this.basePath + '/baseclass/getbyid/${id}/${classname}'
-            .replace('${' + 'id' + '}', String(id))
-            .replace('${' + 'classname' + '}', String(classname));
-        let queryParameters = new URLSearchParams();
-        let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
-        // verify required parameter 'id' is not null or undefined
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling findById.');
-        }
-        // verify required parameter 'classname' is not null or undefined
-        if (classname === null || classname === undefined) {
-            throw new Error('Required parameter classname was null or undefined when calling findById.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers.set('authenticationkey', String(authenticationkey));
-        }
-        // to determine the Accept header
-        let produces = [
-            'application/json'
-        ];
-        let requestOptions = new HttpRequest('GET', path, {
             headers: headers,
             search: queryParameters,
             withCredentials: this.configuration.withCredentials
@@ -1912,6 +1888,39 @@ let BaseclassesService = class BaseclassesService {
             reportProgress: reportProgress
         };
         return this.httpClient.delete(`${this.basePath}/generic/softDelete`, requestOptions).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
+    }
+    recover(id, authenticationKey, observe = 'body', reportProgress = false) {
+        const path = this.basePath + '/baseclass/recover/${id}'.replace('${' + 'id' + '}', String(id));
+        let body = {};
+        let headers = this.defaultHeaders;
+        if (authenticationKey !== undefined && authenticationKey !== null) {
+            headers = headers.set('authenticationKey', String(authenticationKey));
+        }
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling recover.');
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+        // to determine the Content-Type header
+        const consumes = [
+            'application/json'
+        ];
+        const httpContentTypeSelected = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+        return this.httpClient.put(path, body, {
+            withCredentials: this.configuration.withCredentials,
+            headers: headers,
+            observe: observe,
+            reportProgress: reportProgress
+        }).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));
     }
 };
 BaseclassesService = __decorate([

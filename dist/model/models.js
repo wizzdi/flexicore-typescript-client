@@ -217,4 +217,13 @@ export * from './securityUserFilter';
 export * from './deleteObjectRequest';
 export * from './deleteObjectRequests';
 export * from './deleteResponse';
+export * from './/exportDynamicInvokerToCSVRequest';
+export * from './exportDynamicInvokerToCSVResponse';
+export * from './fieldProperties';
+export * from './dynamicInvokerEmailRequest';
+export * from './dynamicInvokerEmailResponse';
+export * from './roleToUser';
+export * from './roleToUserCreate';
+export * from './roleToUserUpdate';
+export * from './roleToUserFiltering';
 //# sourceMappingURL=models.js.map
