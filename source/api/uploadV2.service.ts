@@ -152,7 +152,7 @@ export class UploadV2Service implements IUploadService{
             headers = headers.set('Content-Type', 'application/octet-stream');
     
     
-            return this.httpClient.post<FileResource>(`${this.basePath}/upload/`,
+            return this.httpClient.post<FileResource>(`${this.basePath}/upload`,
                 blob,
                 {
                     withCredentials: this.configuration.withCredentials,

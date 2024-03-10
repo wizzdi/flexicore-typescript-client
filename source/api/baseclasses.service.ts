@@ -1082,7 +1082,7 @@ export class BaseclassesService {
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
     public setBaseclassTenant( authenticationkey?: string, body?: SetBaseclassTenantRequest,extraHttpRequestParams?: any): Observable<Response> {
-        const path = this.basePath + '/baseclass/setBaseclassTenant/';
+        const path = this.basePath + '/baseclass/setBaseclassTenant';
 
         let queryParameters = new URLSearchParams();
         let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
