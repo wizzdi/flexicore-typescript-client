@@ -78,7 +78,7 @@ export class AuthenticationNewService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<AuthenticationNewResponse>(`${this.basePath}/authenticationNew/login`,
+        return this.httpClient.post<AuthenticationNewResponse>(`${this.basePath}/login`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,
