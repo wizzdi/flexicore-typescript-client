@@ -113,15 +113,12 @@ export class DownloadService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public zipAndDownload(authenticationKey?: string, body?: ZipAndDownloadRequest, observe?: 'body', reportProgress?: boolean): Observable<Blob>;
-    public zipAndDownload(authenticationKey?: string, body?: ZipAndDownloadRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Blob>>;
-    public zipAndDownload(authenticationKey?: string, body?: ZipAndDownloadRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Blob>>;
-    public zipAndDownload(authenticationKey?: string, body?: ZipAndDownloadRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public zipAndDownload(body?: ZipAndDownloadRequest, observe?: 'body', reportProgress?: boolean): Observable<Blob>;
+    public zipAndDownload(body?: ZipAndDownloadRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Blob>>;
+    public zipAndDownload(body?: ZipAndDownloadRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Blob>>;
+    public zipAndDownload(body?: ZipAndDownloadRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
        
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

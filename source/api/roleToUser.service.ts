@@ -31,15 +31,12 @@ export class RoleToUserService {
         }
     }
 
-    public createRoleToUser(authenticationkey?: string, body?: RoleToUserCreate, observe?: 'body', reportProgress?: boolean): Observable<RoleToUser>;
-    public createRoleToUser(authenticationkey?: string, body?: RoleToUserCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RoleToUser>>;
-    public createRoleToUser(authenticationkey?: string, body?: RoleToUserCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RoleToUser>>;
-    public createRoleToUser(authenticationkey?: string, body?: RoleToUserCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createRoleToUser(body?: RoleToUserCreate, observe?: 'body', reportProgress?: boolean): Observable<RoleToUser>;
+    public createRoleToUser(body?: RoleToUserCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RoleToUser>>;
+    public createRoleToUser(body?: RoleToUserCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RoleToUser>>;
+    public createRoleToUser(body?: RoleToUserCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
       
 
         // to determine the Accept header
@@ -71,15 +68,12 @@ export class RoleToUserService {
         ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    public getAllRoleToUser(authenticationkey?: string, body?: RoleToUserFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<RoleToUser>>;
-    public getAllRoleToUser(authenticationkey?: string, body?: RoleToUserFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<RoleToUser>>>;
-    public getAllRoleToUser(authenticationkey?: string, body?: RoleToUserFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<RoleToUser>>>;
-    public getAllRoleToUser(authenticationkey?: string, body?: RoleToUserFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllRoleToUser(body?: RoleToUserFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<RoleToUser>>;
+    public getAllRoleToUser(body?: RoleToUserFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<RoleToUser>>>;
+    public getAllRoleToUser(body?: RoleToUserFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<RoleToUser>>>;
+    public getAllRoleToUser(body?: RoleToUserFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
       
 
         // to determine the Accept header
@@ -111,15 +105,12 @@ export class RoleToUserService {
         ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    public updateRoleToUser(authenticationkey?: string, body?: RoleToUserUpdate, observe?: 'body', reportProgress?: boolean): Observable<RoleToUser>;
-    public updateRoleToUser(authenticationkey?: string, body?: RoleToUserUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RoleToUser>>;
-    public updateRoleToUser(authenticationkey?: string, body?: RoleToUserUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RoleToUser>>;
-    public updateRoleToUser(authenticationkey?: string, body?: RoleToUserUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateRoleToUser(body?: RoleToUserUpdate, observe?: 'body', reportProgress?: boolean): Observable<RoleToUser>;
+    public updateRoleToUser(body?: RoleToUserUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<RoleToUser>>;
+    public updateRoleToUser(body?: RoleToUserUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<RoleToUser>>;
+    public updateRoleToUser(body?: RoleToUserUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
       
 
         // to determine the Accept header

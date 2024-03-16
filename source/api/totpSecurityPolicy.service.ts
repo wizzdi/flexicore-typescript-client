@@ -51,16 +51,13 @@ export class TotpSecurityPolicyService {
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      * @param body 
      */
-    public createPolicy(authenticationkey?: string, body?: TotpSecurityPolicyCreate, observe?: 'body', reportProgress?: boolean): Observable<TotpSecurityPolicy>;
-    public createPolicy(authenticationkey?: string, body?: TotpSecurityPolicyCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TotpSecurityPolicy>>;
-    public createPolicy(authenticationkey?: string, body?: TotpSecurityPolicyCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TotpSecurityPolicy>>;
-    public createPolicy(authenticationkey?: string, body?: TotpSecurityPolicyCreate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public createPolicy(body?: TotpSecurityPolicyCreate, observe?: 'body', reportProgress?: boolean): Observable<TotpSecurityPolicy>;
+    public createPolicy(body?: TotpSecurityPolicyCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TotpSecurityPolicy>>;
+    public createPolicy(body?: TotpSecurityPolicyCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TotpSecurityPolicy>>;
+    public createPolicy(body?: TotpSecurityPolicyCreate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -96,16 +93,13 @@ export class TotpSecurityPolicyService {
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      * @param body 
      */
-    public updatePolicy(authenticationkey?: string, body?: TotpSecurityPolicyUpdate, observe?: 'body', reportProgress?: boolean): Observable<TotpSecurityPolicy>;
-    public updatePolicy(authenticationkey?: string, body?: TotpSecurityPolicyUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TotpSecurityPolicy>>;
-    public updatePolicy(authenticationkey?: string, body?: TotpSecurityPolicyUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TotpSecurityPolicy>>;
-    public updatePolicy(authenticationkey?: string, body?: TotpSecurityPolicyUpdate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public updatePolicy(body?: TotpSecurityPolicyUpdate, observe?: 'body', reportProgress?: boolean): Observable<TotpSecurityPolicy>;
+    public updatePolicy(body?: TotpSecurityPolicyUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TotpSecurityPolicy>>;
+    public updatePolicy(body?: TotpSecurityPolicyUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TotpSecurityPolicy>>;
+    public updatePolicy(body?: TotpSecurityPolicyUpdate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -141,16 +135,13 @@ export class TotpSecurityPolicyService {
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      * @param body 
      */
-    public getAllPolicy(authenticationkey?: string, body?: TotpSecurityPolicyFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<TotpSecurityPolicy>>;
-    public getAllPolicy(authenticationkey?: string, body?: TotpSecurityPolicyFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<TotpSecurityPolicy>>>;
-    public getAllPolicy(authenticationkey?: string, body?: TotpSecurityPolicyFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<TotpSecurityPolicy>>>;
-    public getAllPolicy(authenticationkey?: string, body?: TotpSecurityPolicyFilter, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public getAllPolicy(body?: TotpSecurityPolicyFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<TotpSecurityPolicy>>;
+    public getAllPolicy(body?: TotpSecurityPolicyFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<TotpSecurityPolicy>>>;
+    public getAllPolicy(body?: TotpSecurityPolicyFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<TotpSecurityPolicy>>>;
+    public getAllPolicy(body?: TotpSecurityPolicyFilter, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

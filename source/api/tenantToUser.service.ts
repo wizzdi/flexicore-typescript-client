@@ -73,15 +73,12 @@ export class TenantToUsersService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllTenantToUsers(authenticationkey?: string, body?: TenantToUserFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<TenantToUser>>;
-    public getAllTenantToUsers(authenticationkey?: string, body?: TenantToUserFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<TenantToUser>>>;
-    public getAllTenantToUsers(authenticationkey?: string, body?: TenantToUserFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<TenantToUser>>>;
-    public getAllTenantToUsers(authenticationkey?: string, body?: TenantToUserFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllTenantToUsers(body?: TenantToUserFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<TenantToUser>>;
+    public getAllTenantToUsers(body?: TenantToUserFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<TenantToUser>>>;
+    public getAllTenantToUsers(body?: TenantToUserFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<TenantToUser>>>;
+    public getAllTenantToUsers(body?: TenantToUserFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
        
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -120,15 +117,12 @@ export class TenantToUsersService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateTenantToUser(authenticationkey?: string,body?: TenantToUserUpdate, observe?: 'body', reportProgress?: boolean): Observable<TenantToUser>;
-    public updateTenantToUser(authenticationkey?: string,body?: TenantToUserUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TenantToUser>>;
-    public updateTenantToUser(authenticationkey?: string,body?: TenantToUserUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TenantToUser>>;
-    public updateTenantToUser(authenticationkey?: string,body?: TenantToUserUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateTenantToUser(body?: TenantToUserUpdate, observe?: 'body', reportProgress?: boolean): Observable<TenantToUser>;
+    public updateTenantToUser(body?: TenantToUserUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TenantToUser>>;
+    public updateTenantToUser(body?: TenantToUserUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TenantToUser>>;
+    public updateTenantToUser(body?: TenantToUserUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
       
 
         // to determine the Accept header
@@ -169,15 +163,12 @@ export class TenantToUsersService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createTenantToUser(authenticationkey?: string,body?: TenantToUserCreate, observe?: 'body', reportProgress?: boolean): Observable<TenantToUser>;
-    public createTenantToUser(authenticationkey?: string,body?: TenantToUserCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TenantToUser>>;
-    public createTenantToUser(authenticationkey?: string,body?: TenantToUserCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TenantToUser>>;
-    public createTenantToUser(authenticationkey?: string,body?: TenantToUserCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createTenantToUser(body?: TenantToUserCreate, observe?: 'body', reportProgress?: boolean): Observable<TenantToUser>;
+    public createTenantToUser(body?: TenantToUserCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TenantToUser>>;
+    public createTenantToUser(body?: TenantToUserCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TenantToUser>>;
+    public createTenantToUser(body?: TenantToUserCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
       
 
         // to determine the Accept header

@@ -74,15 +74,12 @@ export class LogService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public log(body?: LogCreate, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<void>;
-    public log(body?: LogCreate, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<void>>;
-    public log(body?: LogCreate, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<void>>;
-    public log(body?: LogCreate, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public log(body?: LogCreate, observe?: 'body', reportProgress?: boolean): Observable<void>;
+    public log(body?: LogCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<void>>;
+    public log(body?: LogCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<void>>;
+    public log(body?: LogCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

@@ -79,10 +79,10 @@ export class ClazzService {
      * @param clazzName The canonical classname of the link required
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public getAllOperations(clazzName: string, authenticationkey?: string, extraHttpRequestParams?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public getAllOperations(clazzName: string, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public getAllOperations(clazzName: string, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public getAllOperations(clazzName: string, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public getAllOperations(clazzName: string, extraHttpRequestParams?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         const path = this.basePath + '/clazz/operations/${clazzName}'
                     .replace('${' + 'clazzName' + '}', String(clazzName));
 
@@ -91,10 +91,6 @@ export class ClazzService {
         // verify required parameter 'type' is not null or undefined
         if (clazzName === null || clazzName === undefined) {
             throw new Error('Required parameter clazzName was null or undefined when calling get operations.');
-        }
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationkey));
         }
 
         // to determine the Accept header

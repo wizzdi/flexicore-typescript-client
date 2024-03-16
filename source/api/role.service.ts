@@ -53,15 +53,12 @@ export class RoleService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllRole(authenticationKey?: string, body?: RoleFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Role>>;
-    public getAllRole(authenticationKey?: string, body?: RoleFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Role>>>;
-    public getAllRole(authenticationKey?: string, body?: RoleFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Role>>>;
-    public getAllRole(authenticationKey?: string, body?: RoleFilter, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public getAllRole(body?: RoleFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Role>>;
+    public getAllRole(body?: RoleFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Role>>>;
+    public getAllRole(body?: RoleFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Role>>>;
+    public getAllRole(body?: RoleFilter, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -98,15 +95,12 @@ export class RoleService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-      public createRole(authenticationKey?: string, body?: RoleCreate, observe?: 'body', reportProgress?: boolean): Observable<Role>;
-      public createRole(authenticationKey?: string, body?: RoleCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Role>>;
-      public createRole(authenticationKey?: string, body?: RoleCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Role>>;
-      public createRole(authenticationKey?: string, body?: RoleCreate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+      public createRole(body?: RoleCreate, observe?: 'body', reportProgress?: boolean): Observable<Role>;
+      public createRole(body?: RoleCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Role>>;
+      public createRole(body?: RoleCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Role>>;
+      public createRole(body?: RoleCreate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
   
           let headers = this.defaultHeaders;
-          if (authenticationKey !== undefined && authenticationKey !== null) {
-              headers = headers.set('authenticationKey', String(authenticationKey));
-          }
   
           // to determine the Accept header
           let httpHeaderAccepts: string[] = [
@@ -144,15 +138,12 @@ export class RoleService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-         public updateRole(authenticationKey?: string, body?: RoleUpdate, observe?: 'body', reportProgress?: boolean): Observable<Role>;
-         public updateRole(authenticationKey?: string, body?: RoleUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Role>>;
-         public updateRole(authenticationKey?: string, body?: RoleUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Role>>;
-         public updateRole(authenticationKey?: string, body?: RoleUpdate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+         public updateRole(body?: RoleUpdate, observe?: 'body', reportProgress?: boolean): Observable<Role>;
+         public updateRole(body?: RoleUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Role>>;
+         public updateRole(body?: RoleUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Role>>;
+         public updateRole(body?: RoleUpdate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
      
              let headers = this.defaultHeaders;
-             if (authenticationKey !== undefined && authenticationKey !== null) {
-                 headers = headers.set('authenticationKey', String(authenticationKey));
-             }
      
              // to determine the Accept header
              let httpHeaderAccepts: string[] = [

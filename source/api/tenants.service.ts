@@ -130,15 +130,12 @@ export class TenantsService {
             }));
     }
 
-    public getAllTenants(body?: TenantFiltering, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Tenant>>;
-    public getAllTenants(body?: TenantFiltering, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Tenant>>>;
-    public getAllTenants(body?: TenantFiltering, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Tenant>>>
-    public getAllTenants(body?: TenantFiltering, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public getAllTenants(body?: TenantFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Tenant>>;
+    public getAllTenants(body?: TenantFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Tenant>>>;
+    public getAllTenants(body?: TenantFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Tenant>>>
+    public getAllTenants(body?: TenantFiltering, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -245,16 +242,13 @@ export class TenantsService {
     }
 
 
-    public updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<Tenant>;
-    public updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Tenant>>;
-    public updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Tenant>>;
-    public updateTenantNew(authenticationkey?: string, body?: TenantUpdate, extraHttpRequestParams?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public updateTenantNew(body?: TenantUpdate, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<Tenant>;
+    public updateTenantNew(body?: TenantUpdate, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Tenant>>;
+    public updateTenantNew(body?: TenantUpdate, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Tenant>>;
+    public updateTenantNew(body?: TenantUpdate, extraHttpRequestParams?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -285,16 +279,13 @@ export class TenantsService {
         ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    public createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<Tenant>;
-    public createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Tenant>>;
-    public createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Tenant>>;
-    public createTenantNew(authenticationkey?: string, body?: TenantCreate, extraHttpRequestParams?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public createTenantNew(body?: TenantCreate, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<Tenant>;
+    public createTenantNew(body?: TenantCreate, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Tenant>>;
+    public createTenantNew(body?: TenantCreate, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Tenant>>;
+    public createTenantNew(body?: TenantCreate, extraHttpRequestParams?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

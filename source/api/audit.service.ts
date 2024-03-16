@@ -68,15 +68,12 @@ export class AuditService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllAuditingEvents(body?: AuditingFilter, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<AuditingEvent>>;
-    public getAllAuditingEvents(body?: AuditingFilter, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<AuditingEvent>>>;
-    public getAllAuditingEvents(body?: AuditingFilter, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<AuditingEvent>>>;
-    public getAllAuditingEvents(body?: AuditingFilter, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllAuditingEvents(body?: AuditingFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<AuditingEvent>>;
+    public getAllAuditingEvents(body?: AuditingFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<AuditingEvent>>>;
+    public getAllAuditingEvents(body?: AuditingFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<AuditingEvent>>>;
+    public getAllAuditingEvents(body?: AuditingFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

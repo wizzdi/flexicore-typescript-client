@@ -70,15 +70,12 @@ export class OperationService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllOperations(authenticationKey?: string, body?: OperationFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Operation>>;
-    public getAllOperations(authenticationKey?: string, body?: OperationFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Operation>>>;
-    public getAllOperations(authenticationKey?: string, body?: OperationFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Operation>>>;
-    public getAllOperations(authenticationKey?: string, body?: OperationFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllOperations(body?: OperationFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Operation>>;
+    public getAllOperations(body?: OperationFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Operation>>>;
+    public getAllOperations(body?: OperationFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Operation>>>;
+    public getAllOperations(body?: OperationFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -116,15 +113,12 @@ export class OperationService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public setOperationAuditable(authenticationKey?: string, id?: string,auditable?:boolean, observe?: 'body', reportProgress?: boolean): Observable<Operation>;
-    public setOperationAuditable(authenticationKey?: string, id?: string,auditable?:boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Operation>>;
-    public setOperationAuditable(authenticationKey?: string, id?: string,auditable?:boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Operation>>;
-    public setOperationAuditable(authenticationKey?: string, id?: string,auditable?:boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public setOperationAuditable(id?: string,auditable?:boolean, observe?: 'body', reportProgress?: boolean): Observable<Operation>;
+    public setOperationAuditable(id?: string,auditable?:boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Operation>>;
+    public setOperationAuditable(id?: string,auditable?:boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Operation>>;
+    public setOperationAuditable(id?: string,auditable?:boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
         if (auditable !== undefined && auditable !== null) {
             headers = headers.set('auditable', String(auditable));
         }

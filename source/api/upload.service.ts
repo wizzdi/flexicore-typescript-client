@@ -114,10 +114,10 @@ export class UploadService implements IUploadService{
      * @param md5 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-     public getFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<FileResource>;
-     public getFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileResource>>;
-     public getFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileResource>>;
-     public getFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+     public getFileResource(md5: string, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<FileResource>;
+     public getFileResource(md5: string, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileResource>>;
+     public getFileResource(md5: string, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileResource>>;
+     public getFileResource(md5: string, extraHttpRequestParams?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         const path = this.basePath + '/resources/${md5}'
             .replace('${' + 'md5' + '}', String(md5));
 
@@ -125,9 +125,6 @@ export class UploadService implements IUploadService{
 
         if (md5 === null || md5 === undefined) {
             throw new Error('Required parameter md5 was null or undefined when calling getFileResource.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
         return this.httpClient.get<FileResource>(path,
@@ -290,7 +287,7 @@ export class UploadService implements IUploadService{
      * @param md5 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public deleteFileResourceWithHttpInfo(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
+    public deleteFileResourceWithHttpInfo(md5: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/resources/${md5}'
             .replace('${' + 'md5' + '}', String(md5));
 
@@ -300,9 +297,6 @@ export class UploadService implements IUploadService{
         // verify required parameter 'md5' is not null or undefined
         if (md5 === null || md5 === undefined) {
             throw new Error('Required parameter md5 was null or undefined when calling deleteFileResource.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
 
@@ -336,7 +330,7 @@ export class UploadService implements IUploadService{
      * @param fileType 
      * @param dontProcess 
      */
-    public finalizeUploadWithHttpInfo(md5: string, authenticationkey?: string, hint?: string, fileType?: string, dontProcess?: boolean, extraHeaders?: Map<String, String>, extraHttpRequestParams?: any): Observable<Response> {
+    public finalizeUploadWithHttpInfo(md5: string, hint?: string, fileType?: string, dontProcess?: boolean, extraHeaders?: Map<String, String>, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/resources/finalize/${md5}'
             .replace('${' + 'md5' + '}', String(md5));
 
@@ -346,9 +340,6 @@ export class UploadService implements IUploadService{
         // verify required parameter 'md5' is not null or undefined
         if (md5 === null || md5 === undefined) {
             throw new Error('Required parameter md5 was null or undefined when calling finalizeUpload.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
         if (hint !== undefined && hint !== null) {
@@ -398,7 +389,7 @@ export class UploadService implements IUploadService{
      * @param jobID 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public getJobWithHttpInfo(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
+    public getJobWithHttpInfo(jobID: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/${jobID}'
             .replace('${' + 'jobID' + '}', String(jobID));
 
@@ -408,9 +399,6 @@ export class UploadService implements IUploadService{
         // verify required parameter 'jobID' is not null or undefined
         if (jobID === null || jobID === undefined) {
             throw new Error('Required parameter jobID was null or undefined when calling getJob.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
 
@@ -553,7 +541,7 @@ export class UploadService implements IUploadService{
      * @param jobID 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public stopJobWithHttpInfo(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
+    public stopJobWithHttpInfo(jobID: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/${jobID}'
             .replace('${' + 'jobID' + '}', String(jobID));
 
@@ -563,9 +551,6 @@ export class UploadService implements IUploadService{
         // verify required parameter 'jobID' is not null or undefined
         if (jobID === null || jobID === undefined) {
             throw new Error('Required parameter jobID was null or undefined when calling stopJob.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
 
@@ -598,7 +583,7 @@ export class UploadService implements IUploadService{
      * @param phaseName 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public updateJobPhaseWithHttpInfo(jobID: string, phaseName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
+    public updateJobPhaseWithHttpInfo(jobID: string, phaseName: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/updateJobPhase/${jobID}/${phaseName}'
             .replace('${' + 'jobID' + '}', String(jobID))
             .replace('${' + 'phaseName' + '}', String(phaseName));
@@ -613,9 +598,6 @@ export class UploadService implements IUploadService{
         // verify required parameter 'phaseName' is not null or undefined
         if (phaseName === null || phaseName === undefined) {
             throw new Error('Required parameter phaseName was null or undefined when calling updateJobPhase.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
 
@@ -649,7 +631,7 @@ export class UploadService implements IUploadService{
      * @param value 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public updateJobPropertyWithHttpInfo(jobID: string, key: string, value: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
+    public updateJobPropertyWithHttpInfo(jobID: string, key: string, value: string, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/jobProcess/updateJobProperty/${jobID}/${key}/${value}'
             .replace('${' + 'jobID' + '}', String(jobID))
             .replace('${' + 'key' + '}', String(key))
@@ -669,9 +651,6 @@ export class UploadService implements IUploadService{
         // verify required parameter 'value' is not null or undefined
         if (value === null || value === undefined) {
             throw new Error('Required parameter value was null or undefined when calling updateJobProperty.');
-        }
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
         }
 
 
@@ -705,15 +684,12 @@ export class UploadService implements IUploadService{
         * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
         * @param body 
         */
-    public uploadFileWithHttpInfo(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<any> {
+    public uploadFileWithHttpInfo(md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<any> {
         const path = this.basePath + '/resources/upload';
 
         let queryParameters = new URLSearchParams();
         let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         if (md5 !== undefined && md5 !== null) {
             headers = headers.set('md5', String(md5));
@@ -767,15 +743,12 @@ export class UploadService implements IUploadService{
      * 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public validateWithHttpInfo(authenticationkey?: string, extraHttpRequestParams?: any): Observable<Response> {
+    public validateWithHttpInfo(extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/resources/validate';
 
         let queryParameters = new URLSearchParams();
         let headers = this.defaultHeaders; // https://github.com/angular/angular/issues/6845
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
 
         // to determine the Accept header

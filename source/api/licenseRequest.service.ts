@@ -71,15 +71,12 @@ export class LicenseRequestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllLicenseRequests(authenticationkey?: string, body?: LicenseRequestFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<LicenseRequest>>;
-    public getAllLicenseRequests(authenticationkey?: string, body?: LicenseRequestFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<LicenseRequest>>>;
-    public getAllLicenseRequests(authenticationkey?: string, body?: LicenseRequestFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<LicenseRequest>>>;
-    public getAllLicenseRequests(authenticationkey?: string, body?: LicenseRequestFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllLicenseRequests(body?: LicenseRequestFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<LicenseRequest>>;
+    public getAllLicenseRequests(body?: LicenseRequestFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<LicenseRequest>>>;
+    public getAllLicenseRequests(body?: LicenseRequestFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<LicenseRequest>>>;
+    public getAllLicenseRequests(body?: LicenseRequestFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
        
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -118,15 +115,12 @@ export class LicenseRequestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateLicenseRequest(authenticationkey?: string,body?: LicenseRequestUpdate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequest>;
-    public updateLicenseRequest(authenticationkey?: string,body?: LicenseRequestUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequest>>;
-    public updateLicenseRequest(authenticationkey?: string,body?: LicenseRequestUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequest>>;
-    public updateLicenseRequest(authenticationkey?: string,body?: LicenseRequestUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateLicenseRequest(body?: LicenseRequestUpdate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequest>;
+    public updateLicenseRequest(body?: LicenseRequestUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequest>>;
+    public updateLicenseRequest(body?: LicenseRequestUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequest>>;
+    public updateLicenseRequest(body?: LicenseRequestUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
       
 
         // to determine the Accept header
@@ -167,15 +161,12 @@ export class LicenseRequestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createLicenseRequest(authenticationkey?: string,body?: LicenseRequestCreate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequest>;
-    public createLicenseRequest(authenticationkey?: string,body?: LicenseRequestCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequest>>;
-    public createLicenseRequest(authenticationkey?: string,body?: LicenseRequestCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequest>>;
-    public createLicenseRequest(authenticationkey?: string,body?: LicenseRequestCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createLicenseRequest(body?: LicenseRequestCreate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequest>;
+    public createLicenseRequest(body?: LicenseRequestCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequest>>;
+    public createLicenseRequest(body?: LicenseRequestCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequest>>;
+    public createLicenseRequest(body?: LicenseRequestCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
       
 
         // to determine the Accept header
