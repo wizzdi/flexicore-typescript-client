@@ -71,15 +71,12 @@ export class LicenseRequestToProductService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllLicenseRequestToProducts(authenticationkey?: string, body?: LicenseRequestToProductFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<LicenseRequestToProduct>>;
-    public getAllLicenseRequestToProducts(authenticationkey?: string, body?: LicenseRequestToProductFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<LicenseRequestToProduct>>>;
-    public getAllLicenseRequestToProducts(authenticationkey?: string, body?: LicenseRequestToProductFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<LicenseRequestToProduct>>>;
-    public getAllLicenseRequestToProducts(authenticationkey?: string, body?: LicenseRequestToProductFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllLicenseRequestToProducts(body?: LicenseRequestToProductFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<LicenseRequestToProduct>>;
+    public getAllLicenseRequestToProducts(body?: LicenseRequestToProductFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<LicenseRequestToProduct>>>;
+    public getAllLicenseRequestToProducts(body?: LicenseRequestToProductFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<LicenseRequestToProduct>>>;
+    public getAllLicenseRequestToProducts(body?: LicenseRequestToProductFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
        
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -118,15 +115,12 @@ export class LicenseRequestToProductService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateLicenseRequestToProduct(authenticationkey?: string,body?: LicenseRequestToProductUpdate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequestToProduct>;
-    public updateLicenseRequestToProduct(authenticationkey?: string,body?: LicenseRequestToProductUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequestToProduct>>;
-    public updateLicenseRequestToProduct(authenticationkey?: string,body?: LicenseRequestToProductUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequestToProduct>>;
-    public updateLicenseRequestToProduct(authenticationkey?: string,body?: LicenseRequestToProductUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateLicenseRequestToProduct(body?: LicenseRequestToProductUpdate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequestToProduct>;
+    public updateLicenseRequestToProduct(body?: LicenseRequestToProductUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequestToProduct>>;
+    public updateLicenseRequestToProduct(body?: LicenseRequestToProductUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequestToProduct>>;
+    public updateLicenseRequestToProduct(body?: LicenseRequestToProductUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
       
 
         // to determine the Accept header
@@ -167,15 +161,12 @@ export class LicenseRequestToProductService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createLicenseRequestToProduct(authenticationkey?: string,body?: LicenseRequestToProductCreate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequestToProduct>;
-    public createLicenseRequestToProduct(authenticationkey?: string,body?: LicenseRequestToProductCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequestToProduct>>;
-    public createLicenseRequestToProduct(authenticationkey?: string,body?: LicenseRequestToProductCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequestToProduct>>;
-    public createLicenseRequestToProduct(authenticationkey?: string,body?: LicenseRequestToProductCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createLicenseRequestToProduct(body?: LicenseRequestToProductCreate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequestToProduct>;
+    public createLicenseRequestToProduct(body?: LicenseRequestToProductCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequestToProduct>>;
+    public createLicenseRequestToProduct(body?: LicenseRequestToProductCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequestToProduct>>;
+    public createLicenseRequestToProduct(body?: LicenseRequestToProductCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
       
 
         // to determine the Accept header

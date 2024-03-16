@@ -53,15 +53,12 @@ export class SecurityUserService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllSecurityUser(authenticationKey?: string, body?: SecurityUserFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<SecurityUser>>;
-    public getAllSecurityUser(authenticationKey?: string, body?: SecurityUserFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<SecurityUser>>>;
-    public getAllSecurityUser(authenticationKey?: string, body?: SecurityUserFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<SecurityUser>>>;
-    public getAllSecurityUser(authenticationKey?: string, body?: SecurityUserFilter, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public getAllSecurityUser(body?: SecurityUserFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<SecurityUser>>;
+    public getAllSecurityUser(body?: SecurityUserFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<SecurityUser>>>;
+    public getAllSecurityUser(body?: SecurityUserFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<SecurityUser>>>;
+    public getAllSecurityUser(body?: SecurityUserFilter, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -98,15 +95,12 @@ export class SecurityUserService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-        public createSecurityUser(authenticationKey?: string, body?: SecurityUserCreate, observe?: 'body', reportProgress?: boolean): Observable<SecurityUser>;
-        public createSecurityUser(authenticationKey?: string, body?: SecurityUserCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SecurityUser>>;
-        public createSecurityUser(authenticationKey?: string, body?: SecurityUserCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SecurityUser>>;
-        public createSecurityUser(authenticationKey?: string, body?: SecurityUserCreate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+        public createSecurityUser(body?: SecurityUserCreate, observe?: 'body', reportProgress?: boolean): Observable<SecurityUser>;
+        public createSecurityUser(body?: SecurityUserCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SecurityUser>>;
+        public createSecurityUser(body?: SecurityUserCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SecurityUser>>;
+        public createSecurityUser(body?: SecurityUserCreate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
     
             let headers = this.defaultHeaders;
-            if (authenticationKey !== undefined && authenticationKey !== null) {
-                headers = headers.set('authenticationKey', String(authenticationKey));
-            }
     
             // to determine the Accept header
             let httpHeaderAccepts: string[] = [
@@ -144,15 +138,12 @@ export class SecurityUserService {
        * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
        * @param reportProgress flag to report request and response progress.
        */
-           public updateSecurityUser(authenticationKey?: string, body?: SecurityUserUpdate, observe?: 'body', reportProgress?: boolean): Observable<SecurityUser>;
-           public updateSecurityUser(authenticationKey?: string, body?: SecurityUserUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SecurityUser>>;
-           public updateSecurityUser(authenticationKey?: string, body?: SecurityUserUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SecurityUser>>;
-           public updateSecurityUser(authenticationKey?: string, body?: SecurityUserUpdate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+           public updateSecurityUser(body?: SecurityUserUpdate, observe?: 'body', reportProgress?: boolean): Observable<SecurityUser>;
+           public updateSecurityUser(body?: SecurityUserUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SecurityUser>>;
+           public updateSecurityUser(body?: SecurityUserUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SecurityUser>>;
+           public updateSecurityUser(body?: SecurityUserUpdate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
        
                let headers = this.defaultHeaders;
-               if (authenticationKey !== undefined && authenticationKey !== null) {
-                   headers = headers.set('authenticationKey', String(authenticationKey));
-               }
        
                // to determine the Accept header
                let httpHeaderAccepts: string[] = [

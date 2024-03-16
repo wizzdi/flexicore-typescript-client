@@ -72,15 +72,12 @@ export class PermissionGroupService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public connectPermissionGroupToBaseclass(body?: CreatePermissionGroupLinkRequest, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<PermissionGroupToBaseclass>>;
-    public connectPermissionGroupToBaseclass(body?: CreatePermissionGroupLinkRequest, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PermissionGroupToBaseclass>>>;
-    public connectPermissionGroupToBaseclass(body?: CreatePermissionGroupLinkRequest, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PermissionGroupToBaseclass>>>;
-    public connectPermissionGroupToBaseclass(body?: CreatePermissionGroupLinkRequest, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public connectPermissionGroupToBaseclass(body?: CreatePermissionGroupLinkRequest, observe?: 'body', reportProgress?: boolean): Observable<Array<PermissionGroupToBaseclass>>;
+    public connectPermissionGroupToBaseclass(body?: CreatePermissionGroupLinkRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PermissionGroupToBaseclass>>>;
+    public connectPermissionGroupToBaseclass(body?: CreatePermissionGroupLinkRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PermissionGroupToBaseclass>>>;
+    public connectPermissionGroupToBaseclass(body?: CreatePermissionGroupLinkRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -119,15 +116,12 @@ export class PermissionGroupService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createPermissionGroup(body?: CreatePermissionGroupRequest, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<PermissionGroup>;
-    public createPermissionGroup(body?: CreatePermissionGroupRequest, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PermissionGroup>>;
-    public createPermissionGroup(body?: CreatePermissionGroupRequest, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PermissionGroup>>;
-    public createPermissionGroup(body?: CreatePermissionGroupRequest, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createPermissionGroup(body?: CreatePermissionGroupRequest, observe?: 'body', reportProgress?: boolean): Observable<PermissionGroup>;
+    public createPermissionGroup(body?: CreatePermissionGroupRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PermissionGroup>>;
+    public createPermissionGroup(body?: CreatePermissionGroupRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PermissionGroup>>;
+    public createPermissionGroup(body?: CreatePermissionGroupRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -166,15 +160,12 @@ export class PermissionGroupService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public copyPermissionGroup(body?: PermissionGroupCopy, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<PermissionGroup>;
-    public copyPermissionGroup(body?: PermissionGroupCopy, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PermissionGroup>>;
-    public copyPermissionGroup(body?: PermissionGroupCopy, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PermissionGroup>>;
-    public copyPermissionGroup(body?: PermissionGroupCopy, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public copyPermissionGroup(body?: PermissionGroupCopy, observe?: 'body', reportProgress?: boolean): Observable<PermissionGroup>;
+    public copyPermissionGroup(body?: PermissionGroupCopy, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PermissionGroup>>;
+    public copyPermissionGroup(body?: PermissionGroupCopy, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PermissionGroup>>;
+    public copyPermissionGroup(body?: PermissionGroupCopy, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -213,15 +204,12 @@ export class PermissionGroupService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updatePermissionGroup(body?: UpdatePermissionGroup, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<PermissionGroup>;
-    public updatePermissionGroup(body?: UpdatePermissionGroup, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PermissionGroup>>;
-    public updatePermissionGroup(body?: UpdatePermissionGroup, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PermissionGroup>>;
-    public updatePermissionGroup(body?: UpdatePermissionGroup, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updatePermissionGroup(body?: UpdatePermissionGroup, observe?: 'body', reportProgress?: boolean): Observable<PermissionGroup>;
+    public updatePermissionGroup(body?: UpdatePermissionGroup, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PermissionGroup>>;
+    public updatePermissionGroup(body?: UpdatePermissionGroup, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PermissionGroup>>;
+    public updatePermissionGroup(body?: UpdatePermissionGroup, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -260,15 +248,12 @@ export class PermissionGroupService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<PermissionGroup>>;
-    public listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PermissionGroup>>>;
-    public listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PermissionGroup>>>;
-    public listPermissionGroups(body?: FilteringInformationHolder, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public listPermissionGroups(body?: FilteringInformationHolder, observe?: 'body', reportProgress?: boolean): Observable<Array<PermissionGroup>>;
+    public listPermissionGroups(body?: FilteringInformationHolder, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PermissionGroup>>>;
+    public listPermissionGroups(body?: FilteringInformationHolder, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PermissionGroup>>>;
+    public listPermissionGroups(body?: FilteringInformationHolder, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

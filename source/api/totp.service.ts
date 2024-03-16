@@ -19,7 +19,7 @@ import { map } from 'rxjs/operators';
 
 import { BASE_PATH } from '../variables';
 import { Configuration } from '../configuration';
-import { TotpAuthenticationRequest, TotpAuthenticationResponse, TotpFinishSetupRequest, TotpFinishSetupResponse, TotpRecoverRequest, TotpRecoverResponse, TotpSetupRequest, TotpSetupResponse , AuthenticationNewResponse } from '../model/models';
+import { TotpAuthenticationRequest, TotpAuthenticationResponse, TotpFinishSetupRequest, TotpFinishSetupResponse, TotpRecoverRequest, TotpRecoverResponse, TotpSetupRequest, TotpSetupResponse } from '../model/models';
 import { HttpHeaders, HttpClient, HttpResponse, HttpEvent } from '@angular/common/http';
 
 
@@ -45,16 +45,13 @@ export class TotpService {
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      * @param body 
      */
-    public authenticateTotp( authenticationkey?: string, body?: TotpAuthenticationRequest, observe?: 'body', reportProgress?: boolean): Observable<TotpAuthenticationResponse>;
-    public authenticateTotp( authenticationkey?: string, body?: TotpAuthenticationRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TotpAuthenticationResponse>>;
-    public authenticateTotp( authenticationkey?: string, body?: TotpAuthenticationRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TotpAuthenticationResponse>>;
-    public authenticateTotp( authenticationkey?: string, body?: TotpAuthenticationRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public authenticateTotp(body?: TotpAuthenticationRequest, observe?: 'body', reportProgress?: boolean): Observable<TotpAuthenticationResponse>;
+    public authenticateTotp(body?: TotpAuthenticationRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TotpAuthenticationResponse>>;
+    public authenticateTotp(body?: TotpAuthenticationRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TotpAuthenticationResponse>>;
+    public authenticateTotp(body?: TotpAuthenticationRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -90,16 +87,13 @@ export class TotpService {
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      * @param body 
      */
-    public finishSetupTotp( authenticationkey?: string, body?: TotpFinishSetupRequest, observe?: 'body', reportProgress?: boolean): Observable<TotpFinishSetupResponse>;
-    public finishSetupTotp( authenticationkey?: string, body?: TotpFinishSetupRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TotpFinishSetupResponse>>;
-    public finishSetupTotp( authenticationkey?: string, body?: TotpFinishSetupRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TotpFinishSetupResponse>>;
-    public finishSetupTotp( authenticationkey?: string, body?: TotpFinishSetupRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public finishSetupTotp(body?: TotpFinishSetupRequest, observe?: 'body', reportProgress?: boolean): Observable<TotpFinishSetupResponse>;
+    public finishSetupTotp(body?: TotpFinishSetupRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TotpFinishSetupResponse>>;
+    public finishSetupTotp(body?: TotpFinishSetupRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TotpFinishSetupResponse>>;
+    public finishSetupTotp(body?: TotpFinishSetupRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -136,16 +130,13 @@ export class TotpService {
      * @param body 
      */
 
-    public recoverTotp( authenticationkey?: string, body?: TotpRecoverRequest, observe?: 'body', reportProgress?: boolean): Observable<TotpRecoverResponse>;
-    public recoverTotp( authenticationkey?: string, body?: TotpRecoverRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TotpRecoverResponse>>;
-    public recoverTotp( authenticationkey?: string, body?: TotpRecoverRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TotpRecoverResponse>>;
-    public recoverTotp( authenticationkey?: string, body?: TotpRecoverRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public recoverTotp(body?: TotpRecoverRequest, observe?: 'body', reportProgress?: boolean): Observable<TotpRecoverResponse>;
+    public recoverTotp(body?: TotpRecoverRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TotpRecoverResponse>>;
+    public recoverTotp(body?: TotpRecoverRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TotpRecoverResponse>>;
+    public recoverTotp(body?: TotpRecoverRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -182,16 +173,13 @@ export class TotpService {
      * @param body 
      */
 
-    public setupTotp( authenticationkey?: string, body?: TotpSetupRequest, observe?: 'body', reportProgress?: boolean): Observable<TotpSetupResponse>;
-    public setupTotp( authenticationkey?: string, body?: TotpSetupRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TotpSetupResponse>>;
-    public setupTotp( authenticationkey?: string, body?: TotpSetupRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TotpSetupResponse>>;
-    public setupTotp( authenticationkey?: string, body?: TotpSetupRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public setupTotp(body?: TotpSetupRequest, observe?: 'body', reportProgress?: boolean): Observable<TotpSetupResponse>;
+    public setupTotp(body?: TotpSetupRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TotpSetupResponse>>;
+    public setupTotp(body?: TotpSetupRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TotpSetupResponse>>;
+    public setupTotp(body?: TotpSetupRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

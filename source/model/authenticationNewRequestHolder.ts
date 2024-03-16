@@ -13,8 +13,6 @@
 
 
 export interface AuthenticationNewRequestHolder {
-    email?: string;
+    username?: string;
     password?: string;
-    phoneNumber?: string;
-    secondsValid?: number;
 }

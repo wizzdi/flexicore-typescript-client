@@ -81,10 +81,10 @@ export class UploadV2Service implements IUploadService{
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-      public getFileResource(md5?: string,authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<FileResource>;
-      public getFileResource(md5?: string,authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileResource>>;
-      public getFileResource(md5?: string,authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileResource>>;
-      public getFileResource(md5?: string,authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+      public getFileResource(md5?: string, observe?: 'body', reportProgress?: boolean): Observable<FileResource>;
+      public getFileResource(md5?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileResource>>;
+      public getFileResource(md5?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileResource>>;
+      public getFileResource(md5?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
   
           let headers = this.defaultHeaders;
   
@@ -95,9 +95,6 @@ export class UploadV2Service implements IUploadService{
           if (httpHeaderAcceptSelected != undefined) {
               headers = headers.set('Accept', httpHeaderAcceptSelected);
           }
-          if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
   
           // to determine the Content-Type header
           const consumes: string[] = [

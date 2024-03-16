@@ -71,15 +71,12 @@ export class LicensingProductService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllLicensingProducts(authenticationkey?: string, body?: LicensingProductFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<LicensingProduct>>;
-    public getAllLicensingProducts(authenticationkey?: string, body?: LicensingProductFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<LicensingProduct>>>;
-    public getAllLicensingProducts(authenticationkey?: string, body?: LicensingProductFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<LicensingProduct>>>;
-    public getAllLicensingProducts(authenticationkey?: string, body?: LicensingProductFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllLicensingProducts(body?: LicensingProductFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<LicensingProduct>>;
+    public getAllLicensingProducts(body?: LicensingProductFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<LicensingProduct>>>;
+    public getAllLicensingProducts(body?: LicensingProductFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<LicensingProduct>>>;
+    public getAllLicensingProducts(body?: LicensingProductFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
        
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

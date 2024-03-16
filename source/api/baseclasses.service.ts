@@ -85,10 +85,10 @@ export class BaseclassesService {
         return false;
     }
 
-    public count(type: string, authenticationkey?: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<number>;
-    public count(type: string, authenticationkey?: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
-    public count(type: string, authenticationkey?: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
-    public count(type: string, authenticationkey?: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public count(type: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public count(type: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public count(type: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public count(type: string, body?: FilteringInformationHolder, extraHttpRequestParams?: any, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         const path = this.basePath + '/baseclass/count/${type}'
                     .replace('${' + 'type' + '}', String(type));
 
@@ -99,9 +99,7 @@ export class BaseclassesService {
             throw new Error('Required parameter type was null or undefined when calling count.');
         }
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationkey));
-        }
+        
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -307,9 +305,6 @@ export class BaseclassesService {
             throw new Error('Required parameter classname was null or undefined when calling find by id.');
         }
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -1518,15 +1513,12 @@ export class BaseclassesService {
         return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    public getFilterClassInfo(body?: GetClassInfo, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<ParameterInfo>;
-    public getFilterClassInfo(body?: GetClassInfo, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ParameterInfo>>;
-    public getFilterClassInfo(body?: GetClassInfo, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ParameterInfo>>;
-    public getFilterClassInfo(body?: GetClassInfo, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public getFilterClassInfo(body?: GetClassInfo, observe?: 'body', reportProgress?: boolean): Observable<ParameterInfo>;
+    public getFilterClassInfo(body?: GetClassInfo, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ParameterInfo>>;
+    public getFilterClassInfo(body?: GetClassInfo, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ParameterInfo>>;
+    public getFilterClassInfo(body?: GetClassInfo, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -1662,20 +1654,17 @@ export class BaseclassesService {
         return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    public listInheritingClasses(authenticationKey?: string,  body?: GetClassInfo, extraHttpRequestParams?: any, 
+    public listInheritingClasses(body?: GetClassInfo, extraHttpRequestParams?: any, 
         observe?: 'body', reportProgress?: boolean): Observable<Response>;
-    public listInheritingClasses(authenticationKey?: string,  body?: GetClassInfo, extraHttpRequestParams?: any,
+    public listInheritingClasses(body?: GetClassInfo, extraHttpRequestParams?: any,
         observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
-    public listInheritingClasses(authenticationKey?: string,  body?: GetClassInfo, extraHttpRequestParams?: any,
+    public listInheritingClasses(body?: GetClassInfo, extraHttpRequestParams?: any,
         observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
-    public listInheritingClasses(authenticationKey?: string,  body?: GetClassInfo, extraHttpRequestParams?: any,
+    public listInheritingClasses(body?: GetClassInfo, extraHttpRequestParams?: any,
         observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         const path = this.basePath + '/baseclass/listInheritingClasses';
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -2181,21 +2170,18 @@ export class BaseclassesService {
 
         return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
-    public nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, 
+    public nameLike(classname: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, 
         observe?: 'body', reportProgress?: boolean): Observable<Baseclass[]>;
-    public nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, 
+    public nameLike(classname: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, 
         observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Baseclass[]>>;
-    public nameLike(classname: string, body?: FilteringInformationHolder, authenticationkey?: string, pagesize?: number, currentpage?: number, 
+    public nameLike(classname: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, 
         observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Baseclass[]>>;
-    public nameLike(classname: string, body?: FilteringInformationHolder, authenticationKey?: string, pagesize?: number, currentpage?: number, 
+    public nameLike(classname: string, body?: FilteringInformationHolder, pagesize?: number, currentpage?: number, 
         observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         const path = this.basePath + '/baseclass/like/name/${classname}'
         .replace('${' + 'classname' + '}', String(classname));
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         if (classname === null || classname === undefined) {
             throw new Error('Required parameter classname was null or undefined when calling nameLike.');
@@ -2324,11 +2310,8 @@ export class BaseclassesService {
         return this.httpClient.request(requestOptions).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    public genericSoftDelete(body?: BasicDelete, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<BasicDeleteResponse> {
+    public genericSoftDelete(body?: BasicDelete, observe: any = 'body', reportProgress: boolean = false): Observable<BasicDeleteResponse> {
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -2361,16 +2344,13 @@ export class BaseclassesService {
         ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    public recover(id: string, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<Baseclass[]>;
-    public recover(id: string, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Baseclass[]>>;
-    public recover(id: string, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Baseclass[]>>;
-    public recover(id: string, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public recover(id: string, observe?: 'body', reportProgress?: boolean): Observable<Baseclass[]>;
+    public recover(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Baseclass[]>>;
+    public recover(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Baseclass[]>>;
+    public recover(id: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         const path = this.basePath + '/baseclass/recover/${id}'.replace('${' + 'id' + '}', String(id));
         let body = {};
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling recover.');

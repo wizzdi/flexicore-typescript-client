@@ -71,15 +71,12 @@ export class SecurityService {
     }
 
 
-    public getPermissionsSummary(authenticationkey?: string, body?: PermissionSummaryRequest, observe?: 'body', reportProgress?: boolean): Observable<PermissionSummaryResponse>;
-    public getPermissionsSummary(authenticationkey?: string, body?: PermissionSummaryRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PermissionSummaryResponse>>;
-    public getPermissionsSummary(authenticationkey?: string, body?: PermissionSummaryRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PermissionSummaryResponse>>;
-    public getPermissionsSummary(authenticationkey?: string, body?: PermissionSummaryRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getPermissionsSummary(body?: PermissionSummaryRequest, observe?: 'body', reportProgress?: boolean): Observable<PermissionSummaryResponse>;
+    public getPermissionsSummary(body?: PermissionSummaryRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PermissionSummaryResponse>>;
+    public getPermissionsSummary(body?: PermissionSummaryRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PermissionSummaryResponse>>;
+    public getPermissionsSummary(body?: PermissionSummaryRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
        
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

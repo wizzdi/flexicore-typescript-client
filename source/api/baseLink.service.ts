@@ -69,15 +69,12 @@ export class BaseLinkService {
     }
 
 
-    public getAllBaselinks(authenticationkey?: string, body?: BaselinkFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Baselink>>;
-    public getAllBaselinks(authenticationkey?: string, body?: BaselinkFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Baselink>>>;
-    public getAllBaselinks(authenticationkey?: string, body?: BaselinkFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Baselink>>>;
-    public getAllBaselinks(authenticationkey?: string, body?: BaselinkFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllBaselinks(body?: BaselinkFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Baselink>>;
+    public getAllBaselinks(body?: BaselinkFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Baselink>>>;
+    public getAllBaselinks(body?: BaselinkFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Baselink>>>;
+    public getAllBaselinks(body?: BaselinkFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
        
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -109,15 +106,12 @@ export class BaseLinkService {
     }
 
 
-    public getDisconnected(authenticationkey?: string, body?: GetDisconnected, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Baseclass>>;
-    public getDisconnected(authenticationkey?: string, body?: GetDisconnected, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Baseclass>>>;
-    public getDisconnected(authenticationkey?: string, body?: GetDisconnected, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Baseclass>>>;
-    public getDisconnected(authenticationkey?: string, body?: GetDisconnected, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getDisconnected(body?: GetDisconnected, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Baseclass>>;
+    public getDisconnected(body?: GetDisconnected, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Baseclass>>>;
+    public getDisconnected(body?: GetDisconnected, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Baseclass>>>;
+    public getDisconnected(body?: GetDisconnected, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
        
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -149,15 +143,12 @@ export class BaseLinkService {
     }
 
 
-    public getConnected(authenticationkey?: string, body?: GetConnected, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Baseclass>>;
-    public getConnected(authenticationkey?: string, body?: GetConnected, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Baseclass>>>;
-    public getConnected(authenticationkey?: string, body?: GetConnected, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Baseclass>>>;
-    public getConnected(authenticationkey?: string, body?: GetConnected, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getConnected(body?: GetConnected, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<Baseclass>>;
+    public getConnected(body?: GetConnected, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<Baseclass>>>;
+    public getConnected(body?: GetConnected, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<Baseclass>>>;
+    public getConnected(body?: GetConnected, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
        
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -188,15 +179,12 @@ export class BaseLinkService {
         ).pipe(map(o=>FlexiCoreDecycle.retrocycle(o)));
     }
 
-    public massCreateBaselink(authenticationkey?: string, body?: BaselinkMassCreate, observe?: 'body', reportProgress?: boolean): Observable<Array<Baselink>>;
-    public massCreateBaselink(authenticationkey?: string, body?: BaselinkMassCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Baselink>>>;
-    public massCreateBaselink(authenticationkey?: string, body?: BaselinkMassCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Baselink>>>;
-    public massCreateBaselink(authenticationkey?: string, body?: BaselinkMassCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public massCreateBaselink(body?: BaselinkMassCreate, observe?: 'body', reportProgress?: boolean): Observable<Array<Baselink>>;
+    public massCreateBaselink(body?: BaselinkMassCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Baselink>>>;
+    public massCreateBaselink(body?: BaselinkMassCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Baselink>>>;
+    public massCreateBaselink(body?: BaselinkMassCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
        
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -228,15 +216,12 @@ export class BaseLinkService {
     }
 
 
-    public createBaselink(authenticationkey?: string, body?: BaselinkCreate, observe?: 'body', reportProgress?: boolean): Observable<Baselink>;
-    public createBaselink(authenticationkey?: string, body?: BaselinkCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Baselink>>;
-    public createBaselink(authenticationkey?: string, body?: BaselinkCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Baselink>>;
-    public createBaselink(authenticationkey?: string, body?: BaselinkCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createBaselink(body?: BaselinkCreate, observe?: 'body', reportProgress?: boolean): Observable<Baselink>;
+    public createBaselink(body?: BaselinkCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Baselink>>;
+    public createBaselink(body?: BaselinkCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Baselink>>;
+    public createBaselink(body?: BaselinkCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
        
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -268,15 +253,12 @@ export class BaseLinkService {
     }
 
 
-    public updateBaselink(authenticationkey?: string, body?: BaselinkUpdate, observe?: 'body', reportProgress?: boolean): Observable<Baselink>;
-    public updateBaselink(authenticationkey?: string, body?: BaselinkUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Baselink>>;
-    public updateBaselink(authenticationkey?: string, body?: BaselinkUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Baselink>>;
-    public updateBaselink(authenticationkey?: string, body?: BaselinkUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateBaselink(body?: BaselinkUpdate, observe?: 'body', reportProgress?: boolean): Observable<Baselink>;
+    public updateBaselink(body?: BaselinkUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Baselink>>;
+    public updateBaselink(body?: BaselinkUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Baselink>>;
+    public updateBaselink(body?: BaselinkUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
        
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

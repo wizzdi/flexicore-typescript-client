@@ -49,16 +49,9 @@ export class AuthenticationNewService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public login(authenticationkey?: string, body?: AuthenticationNewRequestHolder, observe?: 'body', reportProgress?: boolean): Observable<AuthenticationNewResponse>;
-    public login(authenticationkey?: string, body?: AuthenticationNewRequestHolder, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AuthenticationNewResponse>>;
-    public login(authenticationkey?: string, body?: AuthenticationNewRequestHolder, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AuthenticationNewResponse>>;
-    public login(authenticationkey?: string, body?: AuthenticationNewRequestHolder, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public login(body?: AuthenticationNewRequestHolder, reportProgress?: boolean): Observable<HttpResponse<AuthenticationNewResponse>> {
 
         let headers = this.defaultHeaders;
-
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -78,12 +71,12 @@ export class AuthenticationNewService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<AuthenticationNewResponse>(`${this.basePath}/authenticationNew/login`,
+        return this.httpClient.post<AuthenticationNewResponse>(`${this.basePath}/login`,
             body,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
-                observe: observe,
+                observe: 'response',
                 reportProgress: reportProgress
             }
         ).pipe(map(o => FlexiCoreDecycle.retrocycle(o)));

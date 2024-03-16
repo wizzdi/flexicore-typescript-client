@@ -76,17 +76,14 @@ export class FlexiCoreServerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createFlexiCoreServer(body?: FlexiCoreServerCreate, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<FlexiCoreServer>;
-    public createFlexiCoreServer(body?: FlexiCoreServerCreate, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FlexiCoreServer>>;
-    public createFlexiCoreServer(body?: FlexiCoreServerCreate, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FlexiCoreServer>>;
-    public createFlexiCoreServer(body?: FlexiCoreServerCreate, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createFlexiCoreServer(body?: FlexiCoreServerCreate, observe?: 'body', reportProgress?: boolean): Observable<FlexiCoreServer>;
+    public createFlexiCoreServer(body?: FlexiCoreServerCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FlexiCoreServer>>;
+    public createFlexiCoreServer(body?: FlexiCoreServerCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FlexiCoreServer>>;
+    public createFlexiCoreServer(body?: FlexiCoreServerCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -125,17 +122,14 @@ export class FlexiCoreServerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createFlexiCoreServerToBaseclass(body?: FlexiCoreServerToBaseclassCreate, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<FlexiCoreServerToBaseclass>;
-    public createFlexiCoreServerToBaseclass(body?: FlexiCoreServerToBaseclassCreate, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FlexiCoreServerToBaseclass>>;
-    public createFlexiCoreServerToBaseclass(body?: FlexiCoreServerToBaseclassCreate, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FlexiCoreServerToBaseclass>>;
-    public createFlexiCoreServerToBaseclass(body?: FlexiCoreServerToBaseclassCreate, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createFlexiCoreServerToBaseclass(body?: FlexiCoreServerToBaseclassCreate, observe?: 'body', reportProgress?: boolean): Observable<FlexiCoreServerToBaseclass>;
+    public createFlexiCoreServerToBaseclass(body?: FlexiCoreServerToBaseclassCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FlexiCoreServerToBaseclass>>;
+    public createFlexiCoreServerToBaseclass(body?: FlexiCoreServerToBaseclassCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FlexiCoreServerToBaseclass>>;
+    public createFlexiCoreServerToBaseclass(body?: FlexiCoreServerToBaseclassCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -174,17 +168,14 @@ export class FlexiCoreServerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFlexiCoreServerToBaseclassLinks(body?: FlexiCoreServerToBaseclassFilter, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<FlexiCoreServerToBaseclass>>;
-    public getFlexiCoreServerToBaseclassLinks(body?: FlexiCoreServerToBaseclassFilter, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<FlexiCoreServerToBaseclass>>>;
-    public getFlexiCoreServerToBaseclassLinks(body?: FlexiCoreServerToBaseclassFilter, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<FlexiCoreServerToBaseclass>>>;
-    public getFlexiCoreServerToBaseclassLinks(body?: FlexiCoreServerToBaseclassFilter, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getFlexiCoreServerToBaseclassLinks(body?: FlexiCoreServerToBaseclassFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<FlexiCoreServerToBaseclass>>;
+    public getFlexiCoreServerToBaseclassLinks(body?: FlexiCoreServerToBaseclassFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<FlexiCoreServerToBaseclass>>>;
+    public getFlexiCoreServerToBaseclassLinks(body?: FlexiCoreServerToBaseclassFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<FlexiCoreServerToBaseclass>>>;
+    public getFlexiCoreServerToBaseclassLinks(body?: FlexiCoreServerToBaseclassFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -223,17 +214,14 @@ export class FlexiCoreServerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFlexiCoreServers(body?: FlexiCoreServerFilter, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<FlexiCoreServer>>;
-    public getFlexiCoreServers(body?: FlexiCoreServerFilter, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<FlexiCoreServer>>>;
-    public getFlexiCoreServers(body?: FlexiCoreServerFilter, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<FlexiCoreServer>>>;
-    public getFlexiCoreServers(body?: FlexiCoreServerFilter, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getFlexiCoreServers(body?: FlexiCoreServerFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<FlexiCoreServer>>;
+    public getFlexiCoreServers(body?: FlexiCoreServerFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<FlexiCoreServer>>>;
+    public getFlexiCoreServers(body?: FlexiCoreServerFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<FlexiCoreServer>>>;
+    public getFlexiCoreServers(body?: FlexiCoreServerFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -272,17 +260,14 @@ export class FlexiCoreServerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getSyncStatus(body?: FlexiCoreServerToBaseclassFilter, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<SyncStatusElement>>;
-    public getSyncStatus(body?: FlexiCoreServerToBaseclassFilter, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SyncStatusElement>>>;
-    public getSyncStatus(body?: FlexiCoreServerToBaseclassFilter, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SyncStatusElement>>>;
-    public getSyncStatus(body?: FlexiCoreServerToBaseclassFilter, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getSyncStatus(body?: FlexiCoreServerToBaseclassFilter, observe?: 'body', reportProgress?: boolean): Observable<Array<SyncStatusElement>>;
+    public getSyncStatus(body?: FlexiCoreServerToBaseclassFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SyncStatusElement>>>;
+    public getSyncStatus(body?: FlexiCoreServerToBaseclassFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SyncStatusElement>>>;
+    public getSyncStatus(body?: FlexiCoreServerToBaseclassFilter, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -321,17 +306,14 @@ export class FlexiCoreServerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public openConnectionFlexiCoreServer(body?: OpenFlexiCoreServer, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public openConnectionFlexiCoreServer(body?: OpenFlexiCoreServer, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public openConnectionFlexiCoreServer(body?: OpenFlexiCoreServer, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public openConnectionFlexiCoreServer(body?: OpenFlexiCoreServer, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public openConnectionFlexiCoreServer(body?: OpenFlexiCoreServer, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public openConnectionFlexiCoreServer(body?: OpenFlexiCoreServer, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public openConnectionFlexiCoreServer(body?: OpenFlexiCoreServer, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public openConnectionFlexiCoreServer(body?: OpenFlexiCoreServer, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -370,17 +352,14 @@ export class FlexiCoreServerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public syncBaseclass(body?: UserInitiatedSyncJob, authenticationkey?: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public syncBaseclass(body?: UserInitiatedSyncJob, authenticationkey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public syncBaseclass(body?: UserInitiatedSyncJob, authenticationkey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public syncBaseclass(body?: UserInitiatedSyncJob, authenticationkey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public syncBaseclass(body?: UserInitiatedSyncJob, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public syncBaseclass(body?: UserInitiatedSyncJob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public syncBaseclass(body?: UserInitiatedSyncJob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public syncBaseclass(body?: UserInitiatedSyncJob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -419,17 +398,14 @@ export class FlexiCoreServerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateFlexiCoreServer(body?: FlexiCoreServerUpdate, authenticationKey?: string, observe?: 'body', reportProgress?: boolean): Observable<FlexiCoreServer>;
-    public updateFlexiCoreServer(body?: FlexiCoreServerUpdate, authenticationKey?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FlexiCoreServer>>;
-    public updateFlexiCoreServer(body?: FlexiCoreServerUpdate, authenticationKey?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FlexiCoreServer>>;
-    public updateFlexiCoreServer(body?: FlexiCoreServerUpdate, authenticationKey?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateFlexiCoreServer(body?: FlexiCoreServerUpdate, observe?: 'body', reportProgress?: boolean): Observable<FlexiCoreServer>;
+    public updateFlexiCoreServer(body?: FlexiCoreServerUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FlexiCoreServer>>;
+    public updateFlexiCoreServer(body?: FlexiCoreServerUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FlexiCoreServer>>;
+    public updateFlexiCoreServer(body?: FlexiCoreServerUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
         let headers = this.defaultHeaders;
-        if (authenticationKey !== undefined && authenticationKey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationKey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

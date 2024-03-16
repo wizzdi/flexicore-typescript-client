@@ -77,15 +77,12 @@ export class HealthReportService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllHealthReport(authenticationkey?: string, body?: HealthReportFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<HealthReport>>;
-    public getAllHealthReport(authenticationkey?: string, body?: HealthReportFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<HealthReport>>>;
-    public getAllHealthReport(authenticationkey?: string, body?: HealthReportFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<HealthReport>>>;
-    public getAllHealthReport(authenticationkey?: string, body?: HealthReportFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllHealthReport(body?: HealthReportFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<HealthReport>>;
+    public getAllHealthReport(body?: HealthReportFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<HealthReport>>>;
+    public getAllHealthReport(body?: HealthReportFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<HealthReport>>>;
+    public getAllHealthReport(body?: HealthReportFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationkey));
-        }
       
 
         // to determine the Accept header
@@ -127,15 +124,12 @@ export class HealthReportService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAggregatedHealthReport(authenticationkey?: string, body?: HealthReportAggregationRequest, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<HealthAggregationResponse>>;
-    public getAggregatedHealthReport(authenticationkey?: string, body?: HealthReportAggregationRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<HealthAggregationResponse>>>;
-    public getAggregatedHealthReport(authenticationkey?: string, body?: HealthReportAggregationRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<HealthAggregationResponse>>>;
-    public getAggregatedHealthReport(authenticationkey?: string, body?: HealthReportAggregationRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAggregatedHealthReport(body?: HealthReportAggregationRequest, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<HealthAggregationResponse>>;
+    public getAggregatedHealthReport(body?: HealthReportAggregationRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<HealthAggregationResponse>>>;
+    public getAggregatedHealthReport(body?: HealthReportAggregationRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<HealthAggregationResponse>>>;
+    public getAggregatedHealthReport(body?: HealthReportAggregationRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationKey', String(authenticationkey));
-        }
       
 
         // to determine the Accept header

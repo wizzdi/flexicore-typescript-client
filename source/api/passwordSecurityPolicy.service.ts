@@ -50,16 +50,13 @@ export class PasswordSecurityPolicyService {
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      * @param body 
      */
-    public createPolicy(authenticationkey?: string, body?: PasswordSecurityPolicyCreate, observe?: 'body', reportProgress?: boolean): Observable<PasswordSecurityPolicy>;
-    public createPolicy(authenticationkey?: string, body?: PasswordSecurityPolicyCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PasswordSecurityPolicy>>;
-    public createPolicy(authenticationkey?: string, body?: PasswordSecurityPolicyCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PasswordSecurityPolicy>>;
-    public createPolicy(authenticationkey?: string, body?: PasswordSecurityPolicyCreate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public createPolicy(body?: PasswordSecurityPolicyCreate, observe?: 'body', reportProgress?: boolean): Observable<PasswordSecurityPolicy>;
+    public createPolicy(body?: PasswordSecurityPolicyCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PasswordSecurityPolicy>>;
+    public createPolicy(body?: PasswordSecurityPolicyCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PasswordSecurityPolicy>>;
+    public createPolicy(body?: PasswordSecurityPolicyCreate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -95,16 +92,13 @@ export class PasswordSecurityPolicyService {
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      * @param body 
      */
-    public updatePolicy(authenticationkey?: string, body?: PasswordSecurityPolicyUpdate, observe?: 'body', reportProgress?: boolean): Observable<PasswordSecurityPolicy>;
-    public updatePolicy(authenticationkey?: string, body?: PasswordSecurityPolicyUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PasswordSecurityPolicy>>;
-    public updatePolicy(authenticationkey?: string, body?: PasswordSecurityPolicyUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PasswordSecurityPolicy>>;
-    public updatePolicy(authenticationkey?: string, body?: PasswordSecurityPolicyUpdate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public updatePolicy(body?: PasswordSecurityPolicyUpdate, observe?: 'body', reportProgress?: boolean): Observable<PasswordSecurityPolicy>;
+    public updatePolicy(body?: PasswordSecurityPolicyUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PasswordSecurityPolicy>>;
+    public updatePolicy(body?: PasswordSecurityPolicyUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PasswordSecurityPolicy>>;
+    public updatePolicy(body?: PasswordSecurityPolicyUpdate, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -140,16 +134,13 @@ export class PasswordSecurityPolicyService {
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      * @param body 
      */
-    public getAllPolicy(authenticationkey?: string, body?: PasswordSecurityPolicyFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<PasswordSecurityPolicy>>;
-    public getAllPolicy(authenticationkey?: string, body?: PasswordSecurityPolicyFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<PasswordSecurityPolicy>>>;
-    public getAllPolicy(authenticationkey?: string, body?: PasswordSecurityPolicyFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<PasswordSecurityPolicy>>>;
-    public getAllPolicy(authenticationkey?: string, body?: PasswordSecurityPolicyFilter, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public getAllPolicy(body?: PasswordSecurityPolicyFilter, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<PasswordSecurityPolicy>>;
+    public getAllPolicy(body?: PasswordSecurityPolicyFilter, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<PasswordSecurityPolicy>>>;
+    public getAllPolicy(body?: PasswordSecurityPolicyFilter, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<PasswordSecurityPolicy>>>;
+    public getAllPolicy(body?: PasswordSecurityPolicyFilter, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [

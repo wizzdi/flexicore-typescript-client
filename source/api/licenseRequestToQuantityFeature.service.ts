@@ -71,15 +71,12 @@ export class LicenseRequestToQuantityFeatureService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllLicenseRequestToFeatures(authenticationkey?: string, body?: LicenseRequestToFeatureFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<LicenseRequestToQuantityFeature>>;
-    public getAllLicenseRequestToFeatures(authenticationkey?: string, body?: LicenseRequestToFeatureFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<LicenseRequestToQuantityFeature>>>;
-    public getAllLicenseRequestToFeatures(authenticationkey?: string, body?: LicenseRequestToFeatureFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<LicenseRequestToQuantityFeature>>>;
-    public getAllLicenseRequestToFeatures(authenticationkey?: string, body?: LicenseRequestToFeatureFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllLicenseRequestToFeatures(body?: LicenseRequestToFeatureFiltering, observe?: 'body', reportProgress?: boolean): Observable<PaginationResponse<LicenseRequestToQuantityFeature>>;
+    public getAllLicenseRequestToFeatures(body?: LicenseRequestToFeatureFiltering, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PaginationResponse<LicenseRequestToQuantityFeature>>>;
+    public getAllLicenseRequestToFeatures(body?: LicenseRequestToFeatureFiltering, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PaginationResponse<LicenseRequestToQuantityFeature>>>;
+    public getAllLicenseRequestToFeatures(body?: LicenseRequestToFeatureFiltering, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
        
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -118,15 +115,12 @@ export class LicenseRequestToQuantityFeatureService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateLicenseRequestToFeature(authenticationkey?: string,body?: LicenseRequestToFeatureUpdate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequestToQuantityFeature>;
-    public updateLicenseRequestToFeature(authenticationkey?: string,body?: LicenseRequestToFeatureUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequestToQuantityFeature>>;
-    public updateLicenseRequestToFeature(authenticationkey?: string,body?: LicenseRequestToFeatureUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequestToQuantityFeature>>;
-    public updateLicenseRequestToFeature(authenticationkey?: string,body?: LicenseRequestToFeatureUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateLicenseRequestToFeature(body?: LicenseRequestToFeatureUpdate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequestToQuantityFeature>;
+    public updateLicenseRequestToFeature(body?: LicenseRequestToFeatureUpdate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequestToQuantityFeature>>;
+    public updateLicenseRequestToFeature(body?: LicenseRequestToFeatureUpdate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequestToQuantityFeature>>;
+    public updateLicenseRequestToFeature(body?: LicenseRequestToFeatureUpdate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
       
 
         // to determine the Accept header
@@ -167,15 +161,12 @@ export class LicenseRequestToQuantityFeatureService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createLicenseRequestToFeature(authenticationkey?: string,body?: LicenseRequestToFeatureCreate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequestToQuantityFeature>;
-    public createLicenseRequestToFeature(authenticationkey?: string,body?: LicenseRequestToFeatureCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequestToQuantityFeature>>;
-    public createLicenseRequestToFeature(authenticationkey?: string,body?: LicenseRequestToFeatureCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequestToQuantityFeature>>;
-    public createLicenseRequestToFeature(authenticationkey?: string,body?: LicenseRequestToFeatureCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createLicenseRequestToFeature(body?: LicenseRequestToFeatureCreate, observe?: 'body', reportProgress?: boolean): Observable<LicenseRequestToQuantityFeature>;
+    public createLicenseRequestToFeature(body?: LicenseRequestToFeatureCreate, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<LicenseRequestToQuantityFeature>>;
+    public createLicenseRequestToFeature(body?: LicenseRequestToFeatureCreate, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<LicenseRequestToQuantityFeature>>;
+    public createLicenseRequestToFeature(body?: LicenseRequestToFeatureCreate, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
-        if (authenticationkey !== undefined && authenticationkey !== null) {
-            headers = headers.set('authenticationkey', String(authenticationkey));
-        }
       
 
         // to determine the Accept header
