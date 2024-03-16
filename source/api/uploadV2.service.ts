@@ -121,17 +121,13 @@ export class UploadV2Service implements IUploadService{
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-        public uploadFileWithChunkMd5(authenticationkey?: string,md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, observe?: 'body', reportProgress?: boolean): Observable<FileResource>;
-        public uploadFileWithChunkMd5(authenticationkey?: string,md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileResource>>;
-        public uploadFileWithChunkMd5(authenticationkey?: string,md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileResource>>;
-        public uploadFileWithChunkMd5(authenticationkey?: string,md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        public uploadFileWithChunkMd5(md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, observe?: 'body', reportProgress?: boolean): Observable<FileResource>;
+        public uploadFileWithChunkMd5(md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<FileResource>>;
+        public uploadFileWithChunkMd5(md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<FileResource>>;
+        public uploadFileWithChunkMd5(md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
     
             let headers = this.defaultHeaders;
     
-      
-            if (authenticationkey !== undefined && authenticationkey !== null) {
-                headers = headers.set('authenticationkey', String(authenticationkey));
-            }
             if (md5 !== undefined && md5 !== null) {
                 headers = headers.set('md5', String(md5));
             }
