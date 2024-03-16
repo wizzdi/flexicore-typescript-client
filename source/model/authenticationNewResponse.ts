@@ -11,8 +11,12 @@
  */
 
 export interface AuthenticationNewResponse {
-    authenticationKey?: string;
-    tokenExpirationDate?: string;
-    userId?: string;
-    totp?: boolean;
+    id?: string;
+    username?: string;
+    password?: string;
+    enabled?: boolean;
+    accountNonExpired?: boolean;
+    credentialsNonExpired?: boolean;
+    authorities?: any[];
+    accountNonLocked?: boolean;
 }

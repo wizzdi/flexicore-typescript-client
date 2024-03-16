@@ -19,7 +19,7 @@ import { map } from 'rxjs/operators';
 
 import { BASE_PATH } from '../variables';
 import { Configuration } from '../configuration';
-import { TotpAuthenticationRequest, TotpAuthenticationResponse, TotpFinishSetupRequest, TotpFinishSetupResponse, TotpRecoverRequest, TotpRecoverResponse, TotpSetupRequest, TotpSetupResponse , AuthenticationNewResponse } from '../model/models';
+import { TotpAuthenticationRequest, TotpAuthenticationResponse, TotpFinishSetupRequest, TotpFinishSetupResponse, TotpRecoverRequest, TotpRecoverResponse, TotpSetupRequest, TotpSetupResponse } from '../model/models';
 import { HttpHeaders, HttpClient, HttpResponse, HttpEvent } from '@angular/common/http';
 
 
