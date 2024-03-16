@@ -78,8 +78,8 @@ export class UploadService implements IUploadService{
      * @param md5 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public deleteFileResource(md5: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
-        return this.deleteFileResourceWithHttpInfo(md5, authenticationkey, extraHttpRequestParams)
+    public deleteFileResource(md5: string, extraHttpRequestParams?: any): Observable<{}> {
+        return this.deleteFileResourceWithHttpInfo(md5, extraHttpRequestParams)
             .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
@@ -98,8 +98,8 @@ export class UploadService implements IUploadService{
      * @param fileType 
      * @param dontProcess 
      */
-    public finalizeUpload(md5: string, authenticationkey?: string, hint?: string, fileType?: string, dontProcess?: boolean, extraHeaders?: Map<String, String>, extraHttpRequestParams?: any): Observable<Job> {
-        return this.finalizeUploadWithHttpInfo(md5, authenticationkey, hint, fileType, dontProcess, extraHeaders, extraHttpRequestParams)
+    public finalizeUpload(md5: string, hint?: string, fileType?: string, dontProcess?: boolean, extraHeaders?: Map<String, String>, extraHttpRequestParams?: any): Observable<Job> {
+        return this.finalizeUploadWithHttpInfo(md5, hint, fileType, dontProcess, extraHeaders, extraHttpRequestParams)
             .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
@@ -142,8 +142,8 @@ export class UploadService implements IUploadService{
      * @param jobID 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public getJob(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<Job> {
-        return this.getJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
+    public getJob(jobID: string, extraHttpRequestParams?: any): Observable<Job> {
+        return this.getJobWithHttpInfo(jobID, extraHttpRequestParams)
             .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
@@ -195,8 +195,8 @@ export class UploadService implements IUploadService{
      * @param jobID 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public stopJob(jobID: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
-        return this.stopJobWithHttpInfo(jobID, authenticationkey, extraHttpRequestParams)
+    public stopJob(jobID: string, extraHttpRequestParams?: any): Observable<{}> {
+        return this.stopJobWithHttpInfo(jobID, extraHttpRequestParams)
             .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
@@ -212,8 +212,8 @@ export class UploadService implements IUploadService{
      * @param phaseName 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public updateJobPhase(jobID: string, phaseName: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
-        return this.updateJobPhaseWithHttpInfo(jobID, phaseName, authenticationkey, extraHttpRequestParams)
+    public updateJobPhase(jobID: string, phaseName: string, extraHttpRequestParams?: any): Observable<{}> {
+        return this.updateJobPhaseWithHttpInfo(jobID, phaseName, extraHttpRequestParams)
             .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
@@ -230,8 +230,8 @@ export class UploadService implements IUploadService{
      * @param value 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public updateJobProperty(jobID: string, key: string, value: string, authenticationkey?: string, extraHttpRequestParams?: any): Observable<{}> {
-        return this.updateJobPropertyWithHttpInfo(jobID, key, value, authenticationkey, extraHttpRequestParams)
+    public updateJobProperty(jobID: string, key: string, value: string, extraHttpRequestParams?: any): Observable<{}> {
+        return this.updateJobPropertyWithHttpInfo(jobID, key, value, extraHttpRequestParams)
             .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
@@ -242,8 +242,8 @@ export class UploadService implements IUploadService{
     }
 
 
-    public uploadFile(authenticationkey?: string, md5?: string, name?: string, blob?: Blob, extraHttpRequestParams?: any): Observable<FileResource> {
-        return this.uploadFileWithHttpInfo(authenticationkey, md5, name, null, false, blob, extraHttpRequestParams)
+    public uploadFile(md5?: string, name?: string, blob?: Blob, extraHttpRequestParams?: any): Observable<FileResource> {
+        return this.uploadFileWithHttpInfo(md5, name, null, false, blob, extraHttpRequestParams)
             .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
@@ -253,8 +253,8 @@ export class UploadService implements IUploadService{
             }));
     }
 
-    public uploadFileWithChunkMd5(authenticationkey?: string, md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<FileResource> {
-        return this.uploadFileWithHttpInfo(authenticationkey, md5, name, chunkMd5, lastChunk, blob, extraHttpRequestParams)
+    public uploadFileWithChunkMd5(md5?: string, name?: string, chunkMd5?: string, lastChunk?: boolean, blob?: Blob, extraHttpRequestParams?: any): Observable<FileResource> {
+        return this.uploadFileWithHttpInfo(md5, name, chunkMd5, lastChunk, blob, extraHttpRequestParams)
             .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
@@ -269,8 +269,8 @@ export class UploadService implements IUploadService{
      * 
      * @param authenticationkey The AuthenticationKey retrieved when sign-in into the system
      */
-    public validate(authenticationkey?: string, extraHttpRequestParams?: any): Observable<boolean> {
-        return this.validateWithHttpInfo(authenticationkey, extraHttpRequestParams)
+    public validate(extraHttpRequestParams?: any): Observable<boolean> {
+        return this.validateWithHttpInfo(extraHttpRequestParams)
             .pipe(map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;

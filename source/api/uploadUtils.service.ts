@@ -61,7 +61,6 @@ export class UploadUtilsService {
 
                 // uploading chunk
                 const response = await lastValueFrom(this.uploadService.uploadFileWithChunkMd5(
-                    authenticationKey,
                     md5,
                     name,
                     chunkMD5String,
