@@ -31,7 +31,7 @@ export class UploadUtilsService {
             // calculating the MD5 hash of the complete file
             const md5 = await this.computeChecksumMd5(file);
             // checking if the file was already uploaded using the calculated MD5 hash
-            const offsetFileResource = await lastValueFrom( this.uploadService.getFileResource(md5, authenticationKey))
+            const offsetFileResource = await lastValueFrom( this.uploadService.getFileResource(md5))
             // getting the size of already uploaded file
             const offset = offsetFileResource ? offsetFileResource.offset : 0;
 
