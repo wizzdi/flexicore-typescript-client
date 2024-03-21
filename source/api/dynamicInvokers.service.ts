@@ -71,7 +71,7 @@ export class DynamicInvokersService {
       headers = headers.set('Content-Type', httpContentTypeSelected);
     }
 
-    return this.httpClient.post<ExportDynamicInvokerToCSVResponse>(`${this.basePath}/dynamicInvokers/exportDynamicInvokerToCSV`,
+    return this.httpClient.post<ExportDynamicInvokerToCSVResponse>(`${this.basePath}/DynamicInvokerCSV`,
       body,
       {
         withCredentials: this.configuration.withCredentials,
