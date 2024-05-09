@@ -17,7 +17,7 @@ import { SecurityEntityFilter } from "./securityEntityFilter";
 
 
 export interface RoleFilter extends SecurityEntityFilter { 
-    securityTenantsIds?:string[];
-
-
+    clazzIds?:string[];
+    tenantIds?:string[];
+    userIds?:string[];
 }
