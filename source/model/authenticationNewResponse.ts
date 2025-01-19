@@ -13,10 +13,6 @@
 export interface AuthenticationNewResponse {
     id?: string;
     username?: string;
-    password?: string;
-    enabled?: boolean;
-    accountNonExpired?: boolean;
-    credentialsNonExpired?: boolean;
-    authorities?: any[];
-    accountNonLocked?: boolean;
+    name?: string;
+    lastName?: string;
 }
